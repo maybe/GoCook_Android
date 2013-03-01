@@ -7,20 +7,16 @@ public class TabHelper {
 	
 	public enum Tab {
 		
-		SEARCH("search"),
-		HOT("hot"),
-		SHOPPING("shopping"),
-		ACCOUNT("account");
+		SEARCH("search", "热门搜索"),
+		HOT("hot", "最近流行"),
+		SHOPPING("shopping", "购买清单"),
+		ACCOUNT("account", "我的账户");
 		
-		private String tag;
-		private String title;
-		private Tab(String tag) {
+		public String tag;
+		public String title;
+		private Tab(String tag, String title) {
 			this.tag = tag;
-		}
-		
-		@Override
-		public String toString() {
-			return this.tag;
+			this.title = title;
 		}
 		
 		public boolean equals(String object) {
@@ -36,15 +32,15 @@ public class TabHelper {
 	
 	public static String getActionBarTitle(String tabId) {
 		if(Tab.SEARCH.equals(tabId)) {
-			return Tab.SEARCH.toString();
+			return Tab.SEARCH.title;
 		} else if(Tab.HOT.equals(tabId)) {
-			return Tab.HOT.toString();
+			return Tab.HOT.title;
 		} else if(Tab.SHOPPING.equals(tabId)) {
-			return Tab.SHOPPING.toString();
+			return Tab.SHOPPING.title;
 		} else if(Tab.ACCOUNT.equals(tabId)) {
-			return Tab.ACCOUNT.toString();
+			return Tab.ACCOUNT.title;
 		} else {
-			return Tab.SEARCH.toString(); // 默认显示热门搜索
+			return Tab.SEARCH.title; // 默认显示热门搜索
 		}
 	}
 
