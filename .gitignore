@@ -1,5 +1,5 @@
-bin/
-gen/
-.classpath
-.settings/
-.project
+/GoCook/bin/
+/GoCook/gen/
+/GoCook/.classpath
+/GoCook/.settings/
+/GoCook/.project

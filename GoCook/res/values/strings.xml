@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">GoCook</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-
+	
+    <string name="biz_main_tab_search">热门搜索</string>
+    <string name="biz_main_tab_hot">最近流行</string>
+    <string name="biz_main_tab_shopping">购买清单</string>
+    <string name="biz_main_tab_account">我的账户</string>
 </resources>
