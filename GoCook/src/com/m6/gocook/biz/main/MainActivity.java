@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.main.TabHelper.Tab;
+import com.m6.gocook.biz.search.SearchFragment;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 	
@@ -26,7 +27,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		mTitle = (TextView) findViewById(R.id.actionBar_title);
 		mTabHost = (FragmentTabHost) findViewById(R.id.main_tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
-		mTabHost.addTab(mTabHost.newTabSpec(Tab.SEARCH.tag).setIndicator(getString(R.string.biz_main_tab_search)), Fragment.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec(Tab.SEARCH.tag).setIndicator(getString(R.string.biz_main_tab_search)), SearchFragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(Tab.HOT.tag).setIndicator(getString(R.string.biz_main_tab_hot)), Fragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(Tab.SHOPPING.tag).setIndicator(getString(R.string.biz_main_tab_shopping)), Fragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(Tab.ACCOUNT.tag).setIndicator(getString(R.string.biz_main_tab_account)), Fragment.class, null);
@@ -37,7 +38,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 
 	@Override
 	public void onTabChanged(String tabId) {
-		Log.i(TAG, tabId);
+//		Log.i(TAG, tabId);
 		mTitle.setText(TabHelper.getActionBarTitle(tabId));
 	}
 

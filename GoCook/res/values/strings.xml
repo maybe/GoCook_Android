@@ -8,4 +8,7 @@
     <string name="biz_main_tab_hot">最近流行</string>
     <string name="biz_main_tab_shopping">购买清单</string>
     <string name="biz_main_tab_account">我的账户</string>
+    
+    <!-- 搜索 -->
+    <string name="biz_search_box_hint">搜索菜谱</string>
 </resources>

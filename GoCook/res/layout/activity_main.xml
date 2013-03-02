@@ -24,10 +24,13 @@
     <FrameLayout
         android:id="@+id/tabContent"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/main_tabhost"
+        android:layout_below="@id/actionBar"
+        android:layout_centerInParent="true" />
 
     <android.support.v4.app.FragmentTabHost
-        android:id="@+id/main_tabhost"
+        android:id="@id/main_tabhost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
