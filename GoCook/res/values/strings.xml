@@ -11,4 +11,7 @@
     
     <!-- 搜索 -->
     <string name="biz_search_box_hint">搜索菜谱</string>
+    
+    <!-- cache -->
+    <string name="no_network_connection_toast">没有网络连接</string>
 </resources>
