@@ -30,6 +30,12 @@ public class TabHelper {
 		}
 	}
 	
+	/**
+	 * 获取主页actionbar title，当参数为null时，默认取第一个tab的名称
+	 * 
+	 * @param tabId
+	 * @return
+	 */
 	public static String getActionBarTitle(String tabId) {
 		if(Tab.SEARCH.equals(tabId)) {
 			return Tab.SEARCH.title;
