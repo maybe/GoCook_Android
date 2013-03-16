@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
-    <ListView
+    <com.m6.gocook.base.view.SearchListView
         android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"/>

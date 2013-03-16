@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.db.table.SearchList;
 import com.m6.gocook.util.log.Logger;
 
@@ -251,11 +252,13 @@ public class GoCookProvider extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(SearchList.CREATE_TABLE);
+			db.execSQL(SearchHistory.CREATE_TABLE);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 	        db.execSQL("DROP TABLE IF EXISTS " + SearchList.TABLE);
+	        db.execSQL("DROP TABLE IF EXISTS " + SearchHistory.TABLE);
 	        onCreate(db);
 		}
 		

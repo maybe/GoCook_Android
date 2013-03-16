@@ -10,10 +10,9 @@ public class SearchList {
 	public static final String CATEGORY = "category";
 	
 	public static final String CREATE_TABLE =
-	        "CREATE TABLE " + SearchList.TABLE + " ("
+	        "CREATE TABLE " + TABLE + " ("
 	        + _ID + " INTEGER PRIMARY KEY,"
 	        + NAME + " TEXT,"
-	        + TABLE + " TEXT,"
 	        + TREND + " TEXT,"
 	        + CATEGORY + " TEXT"
 	        + ");";
