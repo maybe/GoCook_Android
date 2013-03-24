@@ -19,6 +19,7 @@ public class SearchListView extends FrameLayout {
 	private ListView mSearchResultView;
 	private TextView mEmptyOrErrorText;
 	private ImageView mEmptyImage;
+	private TextView mCleanView;
 	
 	public SearchListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -38,9 +39,11 @@ public class SearchListView extends FrameLayout {
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-		Context context = getContext();
 		
-		mSearchHistoryView = (ListView) LayoutInflater.from(context).inflate(R.layout.base_history_listview, null);
+		Context context = getContext();
+		View historyView = LayoutInflater.from(context).inflate(R.layout.base_history_listview, null);
+		mSearchHistoryView = (ListView) historyView.findViewById(R.id.history);
+		mCleanView = (TextView) historyView.findViewById(R.id.clean);
 		mSearchResultView = (ListView) LayoutInflater.from(context).inflate(R.layout.base_search_listview, null);
 		mEmptyOrErrorText = new TextView(context);
 		
@@ -51,7 +54,7 @@ public class SearchListView extends FrameLayout {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 		
-		addView(mSearchHistoryView, params);
+		addView(historyView, params);
 		addView(mSearchResultView, params);
 		
 		FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(
@@ -73,15 +76,27 @@ public class SearchListView extends FrameLayout {
 		mEmptyImage.setVisibility(View.GONE);
 	}
 	
+	public void setResultListShown() {
+		mSearchResultView.setVisibility(VISIBLE);
+		mSearchHistoryView.setVisibility(GONE);
+		mEmptyOrErrorText.setVisibility(View.GONE);
+		mEmptyImage.setVisibility(View.GONE);
+		mCleanView.setVisibility(GONE);
+	}
+	
+	public void setHistoryListShown() {
+		mSearchResultView.setVisibility(View.GONE);
+		mSearchHistoryView.setVisibility(View.VISIBLE);
+		mEmptyOrErrorText.setVisibility(View.GONE);
+		mEmptyImage.setVisibility(View.GONE);
+		mCleanView.setVisibility(VISIBLE);
+	}
+	
 	/**
 	 * 搜索建议或者搜索历史
 	 * @param adapter
 	 */
 	public void setHistoryOrSuggestAdapter(BaseAdapter adapter){
-		mEmptyOrErrorText.setVisibility(View.GONE);
-		mEmptyImage.setVisibility(View.GONE);
-		mSearchResultView.setVisibility(View.GONE);
-		mSearchHistoryView.setVisibility(View.VISIBLE);
 		mSearchHistoryView.setAdapter(adapter);
 	}
 	
@@ -90,10 +105,6 @@ public class SearchListView extends FrameLayout {
 	 * @param adapter
 	 */
 	public void setSearchResultAdapter(BaseAdapter adapter){
-		mEmptyOrErrorText.setVisibility(View.GONE);
-		mEmptyImage.setVisibility(View.GONE);
-		mSearchHistoryView.setVisibility(View.GONE);
-		mSearchResultView.setVisibility(View.VISIBLE);
 		mSearchResultView.setAdapter(adapter);
 	}
 
@@ -104,7 +115,8 @@ public class SearchListView extends FrameLayout {
 	public void setNoResult4Search(String keyword) {
 		mSearchHistoryView.setVisibility(View.GONE);
 		mSearchResultView.setVisibility(View.GONE);
-		mEmptyOrErrorText.setVisibility(View.GONE);
+		mCleanView.setVisibility(GONE);
+		mEmptyOrErrorText.setVisibility(View.VISIBLE);
 		mEmptyImage.setVisibility(View.VISIBLE);
 	}
 
@@ -115,8 +127,16 @@ public class SearchListView extends FrameLayout {
 		mSearchHistoryView.setVisibility(View.GONE);
 		mSearchResultView.setVisibility(View.GONE);
 		mEmptyImage.setVisibility(View.GONE);
+		mCleanView.setVisibility(GONE);
 		mEmptyOrErrorText.setVisibility(View.VISIBLE);
 		mEmptyOrErrorText.setText(R.string.biz_search_error_tip);
+	}
+	
+	/**
+	 * 隐藏"清除"按钮
+	 */
+	public void setCleanInvisible() {
+		mCleanView.setVisibility(GONE);
 	}
 
 	/**
@@ -125,16 +145,6 @@ public class SearchListView extends FrameLayout {
 	 */
 	public boolean isSearchAdapterNULL() {
 		return null == mSearchResultView.getAdapter() || mSearchResultView.getAdapter().isEmpty();
-	}
-
-	/**
-	 * 显示搜索结果list
-	 */
-	public void showSearchResultView() {
-		mSearchHistoryView.setVisibility(View.GONE);
-		mSearchResultView.setVisibility(View.VISIBLE);
-		mEmptyOrErrorText.setVisibility(View.GONE);
-		mEmptyImage.setVisibility(View.GONE);
 	}
 
 	/**

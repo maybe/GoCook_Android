@@ -33,6 +33,7 @@
         android:id="@id/main_tabhost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/black"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

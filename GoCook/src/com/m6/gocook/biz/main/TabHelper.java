@@ -1,5 +1,8 @@
 package com.m6.gocook.biz.main;
 
+import com.m6.gocook.R;
+
+import android.content.Context;
 import android.text.TextUtils;
 
 
@@ -7,16 +10,14 @@ public class TabHelper {
 	
 	public enum Tab {
 		
-		SEARCH("search", "热门搜索"),
-		HOT("hot", "最近流行"),
-		SHOPPING("shopping", "购买清单"),
-		ACCOUNT("account", "我的账户");
+		SEARCH("search"),
+		HOT("hot"),
+		SHOPPING("shopping"),
+		ACCOUNT("account");
 		
 		public String tag;
-		public String title;
-		private Tab(String tag, String title) {
+		private Tab(String tag) {
 			this.tag = tag;
-			this.title = title;
 		}
 		
 		public boolean equals(String object) {
@@ -36,17 +37,17 @@ public class TabHelper {
 	 * @param tabId
 	 * @return
 	 */
-	public static String getActionBarTitle(String tabId) {
+	public static String getActionBarTitle(Context context, String tabId) {
 		if(Tab.SEARCH.equals(tabId)) {
-			return Tab.SEARCH.title;
+			return context.getString(R.string.biz_main_tab_search);
 		} else if(Tab.HOT.equals(tabId)) {
-			return Tab.HOT.title;
+			return context.getString(R.string.biz_main_tab_hot);
 		} else if(Tab.SHOPPING.equals(tabId)) {
-			return Tab.SHOPPING.title;
+			return context.getString(R.string.biz_main_tab_shopping);
 		} else if(Tab.ACCOUNT.equals(tabId)) {
-			return Tab.ACCOUNT.title;
+			return context.getString(R.string.biz_main_tab_account);
 		} else {
-			return Tab.SEARCH.title; // 默认显示热门搜索
+			return context.getString(R.string.biz_main_tab_search); // 默认显示热门搜索
 		}
 	}
 

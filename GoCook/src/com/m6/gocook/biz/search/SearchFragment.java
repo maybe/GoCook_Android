@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
@@ -32,11 +32,13 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 	
 	private SearchHistoryTask mHistoryTask;
 	
+	private SearchListView mListView;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_search_layout, container, false); 
-		
+		mListView = (SearchListView) view.findViewById(R.id.search_list);
 		return view;
 	}
 	
@@ -45,7 +47,6 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 		super.onActivityCreated(savedInstanceState);
 		
 		View view = getView();
-		SearchListView listView = (SearchListView) view.findViewById(R.id.search_list);
 		EditText searchBox = (EditText) view.findViewById(R.id.search_box);
 		
 		String[] from = {SearchList.NAME, SearchList.TREND};
@@ -56,6 +57,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 				from, 
 				to, 
 				CursorAdapter.FLAG_AUTO_REQUERY);
+		mListView.setSearchResultAdapter(mAdapter);
 		
 		String[] hFrom = {SearchHistory.CONTENT};
 		int[] hTo = {R.id.content};
@@ -65,8 +67,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 				hFrom, 
 				hTo,
 				CursorAdapter.FLAG_AUTO_REQUERY);
-		
-		listView.setSearchResultAdapter(mAdapter);
+		mListView.setHistoryOrSuggestAdapter(mHistoryAdapter);
 		
 		searchBox.addTextChangedListener(new TextWatcher() {
 			
@@ -93,7 +94,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 			}
 		});
 		
-		getLoaderManager().initLoader(0, null, this);
+		new SearchListTask(this).equals(null);
 	}
 	
 	@Override
@@ -105,11 +106,35 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		mAdapter.swapCursor(data);
+		if(mListView != null) {
+			mListView.setResultListShown();
+		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		mAdapter.swapCursor(null);
+	}
+	
+	private static class SearchListTask extends AsyncTask<Void, Void, Void> {
+		
+		private Fragment mFragment;
+		
+		public SearchListTask(Fragment fragment) {
+			mFragment = fragment;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			SearchModel.getSearchList(mFragment.getActivity());
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			mFragment.getLoaderManager().initLoader(0, null, (LoaderCallbacks) mFragment);
+		}
 	}
 	
 	private class SearchHistoryTask extends AsyncTask<Void, Void, Cursor> {
@@ -129,8 +154,16 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 		@Override
 		protected void onPostExecute(Cursor result) {
 			mHistoryAdapter.swapCursor(result);
+			if(mListView != null) {
+				mListView.setHistoryListShown();
+			}
 		}
 		
 	}
 	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mListView = null;
+	}
 }
