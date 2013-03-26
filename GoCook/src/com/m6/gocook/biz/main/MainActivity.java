@@ -3,7 +3,9 @@ package com.m6.gocook.biz.main;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +17,10 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.biz.account.AccountFragment;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.LoginOrRegisterFragment;
 import com.m6.gocook.biz.account.LoginFragment;
+import com.m6.gocook.biz.account.MyAccountFragment;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.search.SearchFragment;
 
@@ -41,7 +45,11 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		addTab(mTabHost, inflater, Tab.SEARCH.tag, R.string.biz_main_tab_search, R.drawable.tab_pop_alpha, SearchFragment.class, null);
 //		addTab(tabHost, inflater, Tab.HOT.tag, R.string.biz_main_tab_hot, R.drawable.tab_pop_alpha, Fragment.class, null);
 		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, Fragment.class, null);
-		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
+		if(AccountModel.isLogon(this)) {
+			addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, MyAccountFragment.class, null);
+		} else {
+			addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, LoginOrRegisterFragment.class, null);
+		}
 		
 		mTabHost.setOnTabChangedListener(this);
 		mTitle.setText(TabHelper.getActionBarTitle(this, Tab.SEARCH.tag));
@@ -62,6 +70,10 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		}
 		
 		mTitle.setText(TabHelper.getActionBarTitle(this, tabId));
+		onIndicatorChanged(tabId);
+	}
+	
+	private void onIndicatorChanged(String tabId) {
 		TabWidget tabWidget = mTabHost.getTabWidget();
 		int count = tabWidget.getChildCount();
 		ImageView icon;

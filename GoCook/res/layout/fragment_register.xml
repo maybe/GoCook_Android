@@ -70,7 +70,7 @@
             android:layout_height="80dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/register_photo" />
 
         <Button
             android:id="@+id/register"

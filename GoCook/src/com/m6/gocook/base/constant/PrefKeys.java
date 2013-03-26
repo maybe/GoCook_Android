@@ -8,4 +8,7 @@ package com.m6.gocook.base.constant;
  */
 public class PrefKeys {
 	
+	/************  个人中心   *******************/
+	
+	public static final String ACCOUNT_EMAIL = "account_email";
 }

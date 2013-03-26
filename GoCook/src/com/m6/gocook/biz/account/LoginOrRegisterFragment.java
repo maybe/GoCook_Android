@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 
-public class AccountFragment extends Fragment implements TabHost.OnTabChangeListener {
+public class LoginOrRegisterFragment extends Fragment implements TabHost.OnTabChangeListener {
 	
 	public static final String TAB_TAG_LOGIN = "login";
 	public static final String TAB_TAG_REGISTER = "register";
 	
 	private FragmentTabHost mTabHost;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

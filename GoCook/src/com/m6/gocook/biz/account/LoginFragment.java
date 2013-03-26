@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -99,6 +100,12 @@ public class LoginFragment extends Fragment {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptLogin() {
+		AccountModel.saveAccount(getActivity(), "xxx");
+		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		ft.replace(R.id.tabContent, new MyAccountFragment());
+		ft.commit();
+		
+		
 		if (mAuthTask != null) {
 			return;
 		}
@@ -199,7 +206,7 @@ public class LoginFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-			AccountModel.login(mEmail, mPassword);
+			AccountModel.login(getActivity(), mEmail, mPassword);
 			return true;
 		}
 

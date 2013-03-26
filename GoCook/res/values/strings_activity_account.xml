@@ -18,5 +18,12 @@
     <string name="error_password_required">请填写密码</string>
     <string name="error_repeat_password_required">请确认密码</string>
     <string name="error_username_required">请填写用户名</string>
+    
+    <!-- myaccount -->
+    <string name="myaccount_follow">我的关注</string>
+    <string name="myaccount_fans">我的粉丝</string>
+    <string name="myaccount_collection">我的收藏</string>
+    <string name="myaccount_recipe">我的菜谱</string>
+    <string name="myaccount_logout">登出</string>
 
 </resources>
