@@ -101,8 +101,8 @@ public class LoginFragment extends Fragment {
 	 */
 	public void attemptLogin() {
 		AccountModel.saveAccount(getActivity(), "xxx");
-		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.tabContent, new MyAccountFragment());
+		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		ft.replace(R.id.account_tabcontent, new MyAccountFragment());
 		ft.commit();
 		
 		
