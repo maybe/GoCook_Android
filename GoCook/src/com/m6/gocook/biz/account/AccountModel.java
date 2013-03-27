@@ -19,6 +19,34 @@ public class AccountModel {
 	public static final String PARAM_EMAIL = "email";
 	public static final String PARAM_PASSWORD = "password";
 	
+	private static ArrayList<OnAccountChangedListener> mAccountChangedListeners = new ArrayList<OnAccountChangedListener>();
+	
+	public static void registerOnAccountChangedListener(OnAccountChangedListener listener) {
+		if(listener == null || mAccountChangedListeners.contains(listener)) {
+			return;
+		}
+		mAccountChangedListeners.add(listener);
+	}
+	
+	public static void unRegisterOnAccountChangedListener(OnAccountChangedListener listener) {
+		if(listener == null || !mAccountChangedListeners.contains(listener)) {
+			return;
+		}
+		mAccountChangedListeners.remove(listener);
+	}
+	
+	public static void onLogin(String email) {
+		for(OnAccountChangedListener listener : mAccountChangedListeners) {
+			listener.onLogin(email);
+		}
+	}
+	
+	public static void onLogout() {
+		for(OnAccountChangedListener listener : mAccountChangedListeners) {
+			listener.onLogout();
+		}
+	}
+	
 	public static boolean login(Context context, String username, String password) {
 		boolean success = false;
 		String url = "http://192.168.1.100/user/login";
@@ -33,6 +61,7 @@ public class AccountModel {
 	
 	public static void logout(Context context) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
+		onLogout();
 	}
 	
 	public static boolean register(String username, String password, String email) {

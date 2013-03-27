@@ -32,4 +32,5 @@ public class MyAccountFragment extends Fragment {
 			}
 		});
 	}
+	
 }

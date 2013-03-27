@@ -3,18 +3,14 @@ package com.m6.gocook.biz.account;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -101,9 +97,7 @@ public class LoginFragment extends Fragment {
 	 */
 	public void attemptLogin() {
 		AccountModel.saveAccount(getActivity(), "xxx");
-		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		ft.replace(R.id.account_tabcontent, new MyAccountFragment());
-		ft.commit();
+		AccountModel.onLogin(mEmail);
 		
 		
 		if (mAuthTask != null) {
