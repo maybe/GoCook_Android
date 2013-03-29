@@ -97,7 +97,6 @@ public class LoginFragment extends Fragment {
 	 */
 	public void attemptLogin() {
 		AccountModel.saveAccount(getActivity(), "xxx");
-		AccountModel.onLogin(mEmail);
 		
 		
 		if (mAuthTask != null) {
@@ -211,6 +210,7 @@ public class LoginFragment extends Fragment {
 
 			if (success) {
 				Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_LONG).show();
+				AccountModel.onLogin(mEmail);
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));

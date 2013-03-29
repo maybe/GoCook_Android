@@ -1,17 +1,14 @@
 package com.m6.gocook.biz.account;
 
-import com.m6.gocook.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
+
+import com.m6.gocook.R;
 
 public class LoginOrRegisterFragment extends Fragment implements View.OnClickListener {
 	
@@ -29,15 +26,31 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
 		View view = getView();
 		view.findViewById(R.id.login).setOnClickListener(this);
 		view.findViewById(R.id.register).setOnClickListener(this);
 		
 		FragmentManager fm = getChildFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.add(R.id.loginorregister_tabcontent, new LoginFragment(), LoginFragment.class.getName());
-		ft.commit();
+		
+		Fragment f, ff = null;
+		
+		f = fm.findFragmentByTag(LoginFragment.class.getName());
+		if(f == null) {
+			FragmentTransaction ft = fm.beginTransaction();
+			f = LoginFragment.instantiate(getActivity(), LoginFragment.class.getName());
+			ft.add(R.id.loginorregister_tabcontent, f, LoginFragment.class.getName());
+			ft.show(f);
+			ft.commit();
+		}
+		
+		ff = fm.findFragmentByTag(RegisterFragment.class.getName());
+		if(ff == null) {
+			FragmentTransaction ft = fm.beginTransaction();
+			ff = RegisterFragment.instantiate(getActivity(), RegisterFragment.class.getName());
+			ft.add(R.id.loginorregister_tabcontent, ff, RegisterFragment.class.getName());
+			ft.hide(ff);
+			ft.commit();
+		}
 	}
 
 
@@ -45,19 +58,38 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 	public void onClick(View v) {
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
+		Fragment f, ff = null;
 		
 		switch (v.getId()) {
 		case R.id.login:
-			Fragment f = fm.findFragmentByTag(LoginFragment.class.getName());
+			f = fm.findFragmentByTag(LoginFragment.class.getName());
 			if(f == null) {
 				f = LoginFragment.instantiate(getActivity(), LoginFragment.class.getName());
+				ft.add(R.id.loginorregister_tabcontent, f, LoginFragment.class.getName());
 			}
-			ft.replace(R.id.loginorregister_tabcontent, new LoginFragment(), LoginFragment.class.getName());
 			ft.commit();
+			
+			ft = fm.beginTransaction();
+			ff = fm.findFragmentByTag(RegisterFragment.class.getName());
+			ft.show(f);
+			ft.hide(ff);
+			ft.commit();
+			fm.executePendingTransactions();
 			break;
 		case R.id.register:
-			ft.replace(R.id.loginorregister_tabcontent, new RegisterFragment(), RegisterFragment.class.getName());
+			f = fm.findFragmentByTag(RegisterFragment.class.getName());
+			if(f == null) {
+				f = RegisterFragment.instantiate(getActivity(), RegisterFragment.class.getName());
+				ft.add(R.id.loginorregister_tabcontent, f, RegisterFragment.class.getName());
+			}
 			ft.commit();
+			
+			ft = fm.beginTransaction();
+			ff = fm.findFragmentByTag(LoginFragment.class.getName());
+			ft.show(f);
+			ft.hide(ff);
+			ft.commit();
+			fm.executePendingTransactions();
 			break;
 		default:
 			break;
