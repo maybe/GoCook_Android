@@ -1,5 +1,12 @@
 package com.m6.gocook.biz.account;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.client.UserTokenHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -9,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,25 +203,43 @@ public class LoginFragment extends Fragment {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends AsyncTask<Void, Void, Map<String, Object>> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-			AccountModel.login(getActivity(), mEmail, mPassword);
-			return true;
+		protected Map<String, Object> doInBackground(Void... params) {
+			
+			String result = AccountModel.login(getActivity(), mEmail, mPassword);
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+					if (responseCode == AccountModel.SUCCESS) {
+						String icon = json.optString(AccountModel.RETURN_ICON);
+						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put(AccountModel.RETURN_ICON, icon);
+						map.put(AccountModel.RETURN_USERNAME, userName);
+						AccountModel.saveAccount(getActivity(), mEmail);
+						return map;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(final Map<String, Object> result) {
 			mAuthTask = null;
 			showProgress(false);
 
-			if (success) {
-				Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_LONG).show();
-				AccountModel.onLogin(mEmail);
+			if (result != null && !result.isEmpty()) {
+				Toast.makeText(getActivity(), R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+				AccountModel.onLogin(mEmail, 
+						(String) result.get(AccountModel.RETURN_ICON), 
+						(String) result.get(AccountModel.RETURN_USERNAME));
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}
@@ -224,4 +250,5 @@ public class LoginFragment extends Fragment {
 			showProgress(false);
 		}
 	}
+	
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.R.bool;
 import android.content.Context;
@@ -18,6 +20,14 @@ public class AccountModel {
 	public static final String PARAM_USERNAME = "username";
 	public static final String PARAM_EMAIL = "email";
 	public static final String PARAM_PASSWORD = "password";
+	
+	public static final String RETURN_RESULT = "result";	
+	public static final String RETURN_ERRORCODE = "errorcode";	
+	public static final String RETURN_USERNAME = "username";	
+	public static final String RETURN_ICON = "icon";
+	
+	public static final int SUCCESS = 0;
+	public static final int FAILURE = 1;
 	
 	private static ArrayList<OnAccountChangedListener> mAccountChangedListeners = new ArrayList<OnAccountChangedListener>();
 	
@@ -35,9 +45,9 @@ public class AccountModel {
 		mAccountChangedListeners.remove(listener);
 	}
 	
-	public static void onLogin(String email) {
+	public static void onLogin(String email, String avatarUrl, String userName) {
 		for(OnAccountChangedListener listener : mAccountChangedListeners) {
-			listener.onLogin(email);
+			listener.onLogin(email, avatarUrl, userName);
 		}
 	}
 	
@@ -47,16 +57,12 @@ public class AccountModel {
 		}
 	}
 	
-	public static boolean login(Context context, String username, String password) {
-		boolean success = false;
+	public static String login(Context context, String username, String password) {
 		String url = "http://192.168.1.100/user/login";
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("login", username));
 		params.add(new BasicNameValuePair("password", password));
-		NetUtils.httpPost(url, params);
-		
-		saveAccount(context, username);
-		return success;
+		return NetUtils.httpPost(url, params);
 	}
 	
 	public static void logout(Context context) {

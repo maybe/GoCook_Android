@@ -17,6 +17,7 @@
     <!-- account -->
     <string name="biz_account_tab_login">登录</string>
     <string name="biz_account_tab_register">注册</string>
+    <string name="biz_account_login_success">登录成功</string>
     
     <!-- profile -->
     <string name="biz_profile_edit_btn">编辑</string>

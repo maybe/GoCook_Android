@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/follow"
             android:layout_toRightOf="@id/avatar"
-            android:background="@drawable/profile_follow" />
+            android:background="@drawable/follow_selector" />
     </RelativeLayout>
 
     <TextView

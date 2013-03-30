@@ -8,5 +8,8 @@
     
     <!-- recipe -->
     <dimen name="biz_recipe_image_banner_height">160dp</dimen>
-    
+
+    <!-- profile -->
+    <dimen name="biz_profile_avatar">80dp</dimen>
+
 </resources>

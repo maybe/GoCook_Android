@@ -193,6 +193,7 @@ public class NetUtils {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
+			conn.setRequestProperty("x-client-identifier", "Mobile");
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
 			conn.setConnectTimeout(15000);

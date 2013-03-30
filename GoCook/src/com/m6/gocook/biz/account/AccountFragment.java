@@ -62,7 +62,7 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 	}
 	
 	@Override
-	public void onLogin(String email) {
+	public void onLogin(String email, String avatarUrl, String userName) {
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		
@@ -70,6 +70,10 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		if(f == null) {
 			f = MyAccountFragment.instantiate(getActivity(), MyAccountFragment.class.getName());
 		}
+		Bundle bundle = new Bundle();
+		bundle.putString(AccountModel.RETURN_ICON, avatarUrl);
+		bundle.putString(AccountModel.RETURN_USERNAME, userName);
+		f.setArguments(bundle);
 		ft.replace(R.id.account_tabcontent, f, MyAccountFragment.class.getName());
 		ft.commit();
 		fm.executePendingTransactions();
