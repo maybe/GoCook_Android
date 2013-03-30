@@ -24,6 +24,18 @@
     <string name="biz_profile_myrecipe_title">%s的菜谱</string>
     <string name="biz_profile_introduction">个人简介\n %s</string>
     
+    <!-- recipe -->
+    <string name="biz_recipe_material">用料</string>
+    <string name="biz_recipe_procedure">做法</string>
+    <string name="biz_recipe_comment_num">"%s条评论"</string>
+    <string name="biz_recipe_finished_dish">"大家参照这个菜谱做的%s"</string>
+    <string name="biz_recipe_related">喜欢这个菜谱的也喜欢</string>
+    <string name="biz_recipe_image_banner_content_description">样图</string>
+    <string name="biz_recipe_tabbar_menu_addcollecting">加入收藏</string>
+    <string name="biz_recipe_tabbar_menu_upload">上传你做的这道菜</string>
+    <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
+    
+    
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>
     

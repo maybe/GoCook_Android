@@ -5,4 +5,8 @@
     
     <!-- account -->
     <dimen name="biz_account_register_edittext_minWidth">180dp</dimen>
+    
+    <!-- recipe -->
+    <dimen name="biz_recipe_image_banner_height">160dp</dimen>
+    
 </resources>
