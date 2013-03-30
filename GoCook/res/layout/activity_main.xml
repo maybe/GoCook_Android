@@ -2,38 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
-        android:id="@+id/actionBar"
+    <include
+        android:id="@+id/actionbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/actionbar_bg" >
-
-        <TextView
-            android:id="@+id/actionBar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textIsSelectable="true" />
-    </RelativeLayout>
+        layout="@layout/base_actionbar" />
 
     <FrameLayout
         android:id="@+id/tabContent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/main_tabhost"
-        android:layout_below="@id/actionBar"
+        android:layout_below="@id/actionbar"
         android:layout_centerInParent="true" />
 
     <android.support.v4.app.FragmentTabHost
         android:id="@id/main_tabhost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black" />
 
 </RelativeLayout>

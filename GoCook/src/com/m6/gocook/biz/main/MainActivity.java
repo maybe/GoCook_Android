@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		setContentView(R.layout.activity_main);
 		LayoutInflater inflater = LayoutInflater.from(this);
 		
-		mTitle = (TextView) findViewById(R.id.actionBar_title);
+		mTitle = (TextView) findViewById(R.id.actionbar_title);
 		mTabHost = (FragmentTabHost) findViewById(R.id.main_tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 		

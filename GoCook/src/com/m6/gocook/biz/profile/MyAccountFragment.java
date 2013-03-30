@@ -1,7 +1,9 @@
-package com.m6.gocook.biz.account;
+package com.m6.gocook.biz.profile;
 
 import com.m6.gocook.R;
+import com.m6.gocook.biz.account.AccountModel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,6 +33,15 @@ public class MyAccountFragment extends Fragment {
 				AccountModel.logout(getActivity());
 			}
 		});
+		
+		view.findViewById(R.id.profile).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getActivity(), ProfileActivity.class));
+			}
+		});
+		
 	}
 	
 }

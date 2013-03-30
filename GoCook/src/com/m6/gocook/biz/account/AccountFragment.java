@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.m6.gocook.R;
+import com.m6.gocook.biz.profile.MyAccountFragment;
 
 public class AccountFragment extends Fragment implements OnAccountChangedListener {
 

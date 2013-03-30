@@ -18,6 +18,13 @@
     <string name="biz_account_tab_login">登录</string>
     <string name="biz_account_tab_register">注册</string>
     
+    <!-- profile -->
+    <string name="biz_profile_edit_btn">编辑</string>
+    <string name="biz_profile_more_btn">查看全部%d个菜谱</string>
+    <string name="biz_profile_myrecipe_title">%s的菜谱</string>
+    <string name="biz_profile_introduction">个人简介\n %s</string>
+    
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>
+    
 </resources>

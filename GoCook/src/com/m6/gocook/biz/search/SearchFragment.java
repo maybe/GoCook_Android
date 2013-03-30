@@ -52,7 +52,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 		String[] from = {SearchList.NAME, SearchList.TREND};
 		int[] to = {R.id.name, R.id.trend};
 		mAdapter = new SimpleCursorAdapter(getActivity(),
-				R.layout.fragment_search_list_item,
+				R.layout.adapter_search_list_item,
 				null, 
 				from, 
 				to, 
@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 		String[] hFrom = {SearchHistory.CONTENT};
 		int[] hTo = {R.id.content};
 		mHistoryAdapter = new SimpleCursorAdapter(getActivity(),
-				R.layout.fragment_search_history_item, 
+				R.layout.adapter_search_history_item, 
 				null,
 				hFrom, 
 				hTo,

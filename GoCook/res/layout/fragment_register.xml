@@ -25,7 +25,7 @@
             android:hint="@string/prompt_username"
             android:inputType="text"
             android:maxLines="1"
-            android:minWidth="160dp"
+            android:minWidth="@dimen/biz_account_register_edittext_minWidth"
             android:singleLine="true" />
 
         <EditText
@@ -37,7 +37,7 @@
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:minWidth="160dp"
+            android:minWidth="@dimen/biz_account_register_edittext_minWidth"
             android:singleLine="true" />
 
         <EditText
@@ -49,7 +49,7 @@
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:minWidth="160dp"
+            android:minWidth="@dimen/biz_account_register_edittext_minWidth"
             android:singleLine="true" />
 
         <EditText
@@ -61,7 +61,7 @@
             android:hint="@string/prompt_password_repeat"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:minWidth="160dp"
+            android:minWidth="@dimen/biz_account_register_edittext_minWidth"
             android:singleLine="true" />
 
         <ImageView

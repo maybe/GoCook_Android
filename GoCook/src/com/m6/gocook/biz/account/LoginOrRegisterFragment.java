@@ -97,43 +97,4 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	private FragmentTabHost mTabHost;
-	
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		mTabHost = (FragmentTabHost) inflater.inflate(R.layout.fragment_account_tabhost, container, false);
-//		mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.loginorregister_tabcontent);
-//		
-//		mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_LOGIN).setIndicator(getString(R.string.biz_account_tab_login)), 
-//				LoginFragment.class, null);
-//		mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_REGISTER).setIndicator(getString(R.string.biz_account_tab_register)), 
-//				RegisterFragment.class, null);
-//		
-//		mTabHost.setOnTabChangedListener(this);
-//		
-//		return mTabHost;
-//	}
-//	
-//	@Override
-//	public void onDestroyView() {
-//		super.onDestroyView();
-//		mTabHost = null;
-//	}
-//
-//	@Override
-//	public void onTabChanged(String tabId) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 }

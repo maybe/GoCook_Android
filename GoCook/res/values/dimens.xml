@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- search -->
     <dimen name="biz_search_box_padding_left">40dp</dimen>
+    
+    <!-- account -->
+    <dimen name="biz_account_register_edittext_minWidth">180dp</dimen>
 </resources>

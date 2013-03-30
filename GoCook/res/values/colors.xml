@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="main_bg">#ffffff</color>
+    <color name="main_bg">#f6ebe7</color>
+    <color name="profile_intro_bg">#f8f7f5</color>
+    <color name="profile_myrecipe_bg">#edf5f7</color>
+    <color name="profile_more_btn_bg">#79c7d1</color>
 </resources>
