@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Attrubites">
+        <attr name="layout_disbleScroll" format="boolean" />  
+    </declare-styleable>
+</resources>
