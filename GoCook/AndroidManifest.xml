@@ -38,6 +38,12 @@
             android:name="com.m6.gocook.biz.profile.ProfileActivity"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        
+        <activity
+            android:name="com.m6.gocook.biz.recipe.RecipeActivity"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        
     </application>
 
 </manifest>
