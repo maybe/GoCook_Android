@@ -18,6 +18,8 @@
     <string name="biz_account_tab_login">登录</string>
     <string name="biz_account_tab_register">注册</string>
     <string name="biz_account_login_success">登录成功</string>
+    <string name="biz_account_avatar_camera">通过拍照上传</string>
+    <string name="biz_account_avatar_photo">从本地图库选择</string>
     
     <!-- profile -->
     <string name="biz_profile_edit_btn">编辑</string>
@@ -35,7 +37,6 @@
     <string name="biz_recipe_tabbar_menu_addcollecting">加入收藏</string>
     <string name="biz_recipe_tabbar_menu_upload">上传你做的这道菜</string>
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
-    
     
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>

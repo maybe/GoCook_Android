@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.account.AccountFragment;
+import com.m6.gocook.biz.account.RegisterFragment;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.search.SearchFragment;
 
@@ -102,6 +104,13 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 	protected void onDestroy() {
 		super.onDestroy();
 		mTabHost = null;
+		MainActivityHelper.clearOnActivityActionListeners();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		MainActivityHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

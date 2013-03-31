@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="CommitTransaction">
+        <ignore path="src\com\m6\gocook\biz\account\RegisterFragment.java" />
+    </issue>
     <issue id="NewApi">
         <ignore path="src\com\m6\gocook\biz\search\SearchFragment.java" />
     </issue>

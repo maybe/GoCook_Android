@@ -3,6 +3,7 @@ package com.m6.gocook.util.net;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +19,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -184,6 +186,10 @@ public class NetUtils {
 		sbBuilder.deleteCharAt(sbBuilder.length() - 1);
 		out.write(sbBuilder.toString().getBytes());
 	}
+	
+	private static void writeBitmapStream(OutputStream out, Bitmap bitmap) {
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+	}
 
 	public static String httpPost(String urlString, List<BasicNameValuePair> params) {
 		String result = null;
@@ -202,6 +208,38 @@ public class NetUtils {
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
 			writeStream(out, params);
+			out.flush();
+			out.close();
+			InputStream in = new BufferedInputStream(
+					conn.getInputStream());
+			result = readStream(in);
+		} catch (IOException e) {
+			
+		} finally {
+			if(conn != null) {
+				conn.disconnect();
+			}
+		}
+		return result;
+	}
+	
+	public static String httpPostBitmap(String urlString, Bitmap bitmap) {
+		String result = null;
+		HttpURLConnection conn = null;
+		try {
+			URL url = new URL(urlString);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("x-client-identifier", "Mobile");
+			conn.setUseCaches(false);
+			conn.setChunkedStreamingMode(0);
+			conn.setConnectTimeout(15000);
+			conn.setReadTimeout(10000);
+			conn.connect();
+			OutputStream out = new BufferedOutputStream(
+					conn.getOutputStream());
+			writeBitmapStream(out, bitmap);
 			out.flush();
 			out.close();
 			InputStream in = new BufferedInputStream(

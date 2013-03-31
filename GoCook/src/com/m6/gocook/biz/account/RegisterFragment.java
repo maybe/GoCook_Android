@@ -1,16 +1,38 @@
 package com.m6.gocook.biz.account;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import com.m6.gocook.R;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.biz.account.LoginFragment.UserLoginTask;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.net.NetUtils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +40,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RegisterFragment extends Fragment {
@@ -38,6 +61,7 @@ public class RegisterFragment extends Fragment {
 	private EditText mPasswordRepeatView;
 	private EditText mUsernameView;
 	private TextView mStatusMessageView;
+	private ImageView mAvatarImageView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +74,7 @@ public class RegisterFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		View root = getView();
 		
+		mAvatarImageView = (ImageView) root.findViewById(R.id.avatar);
 		mUsernameView = (EditText) root.findViewById(R.id.username);
 		mEmailView = (EditText) root.findViewById(R.id.email);
 		mPasswordView = (EditText) root.findViewById(R.id.password);
@@ -62,6 +87,26 @@ public class RegisterFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				attemptRegister();
+			}
+		});
+		
+		mAvatarImageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// DialogFragment.show() will take care of adding the fragment
+		        // in a transaction.  We also want to remove any currently showing
+		        // dialog, so make our own transaction and take care of that here.
+		        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		        Fragment prev = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		        if (prev != null) {
+		            ft.remove(prev);
+		        }
+		        ft.addToBackStack(null);
+
+		        // Create and show the dialog.
+				AvatarFragment dialog = AvatarFragment.newInstance();
+				dialog.show(ft, AvatarFragment.class.getName());
 			}
 		});
 	}
@@ -213,13 +258,147 @@ public class RegisterFragment extends Fragment {
 		
 	}
 	
-	private class UploadAvatarTask extends AsyncTask<Void, Void, Boolean> {
+	// 上传照片
+	public static class AvatarFragment extends DialogFragment implements OnActivityAction {
 
+		private final static int REQ_CAMERA = 0;
+		private final static int REQ_PHOTO = 1;
+		
+		private UploadAvatarTask mUploadAvatarTask;
+		
+		public static AvatarFragment newInstance() {
+			return new AvatarFragment();
+		}
+		
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return null;
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			MainActivityHelper.registerOnActivityActionListener(this);
+		}
+		
+		@Override
+		public void onDestroy() {
+			super.onDestroy();
+			MainActivityHelper.unRegisterOnActivityActionListener(this);
+		}
+		
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_avatar, container, false);
+			
+			view.findViewById(R.id.camera).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// 照相
+	        		Intent innerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	        		Intent wrapperIntent = Intent.createChooser(innerIntent, null);
+	        		getActivity().startActivityForResult(wrapperIntent, REQ_CAMERA);
+				}
+			});
+			
+			view.findViewById(R.id.photo).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// 图片库
+	        		Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+	        		innerIntent.setType("image/*");
+	        		Intent wrapperIntent = Intent.createChooser(innerIntent, null);
+	        		getActivity().startActivityForResult(wrapperIntent, REQ_PHOTO);
+				}
+			});
+			return view;
+		}
+		
+		private void uploadAvatar(Uri uri, Bitmap bitmap) {
+			if(mUploadAvatarTask != null) {
+				return;
+			}
+			
+			mUploadAvatarTask = new UploadAvatarTask(uri, bitmap);
+			mUploadAvatarTask.execute((Void) null);
+		}
+		
+		@Override
+		public void onActivityResult(int requestCode, int resultCode,
+				Intent data) {
+			if(requestCode == REQ_CAMERA) {
+				if (resultCode != Activity.RESULT_OK) {
+					return;
+				}
+				Bundle bundle = data == null ? null : data.getExtras();
+				Object o = bundle == null ? null : bundle.get("data");
+				Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
+				uploadAvatar(null, bitmap);
+				return;
+			} else if (REQ_PHOTO == requestCode) {
+				if (resultCode != Activity.RESULT_OK) {
+					return;
+				}
+				uploadAvatar(data != null ? data.getData() : null, null);
+				return;
+			}
+		}
+		
+		private class UploadAvatarTask extends AsyncTask<Void, Void, String> {
+			
+			private Uri mUri;
+			private Bitmap mBitmap;
+
+			public UploadAvatarTask(Uri uri, Bitmap bitmap) {
+				mUri = uri;
+				mBitmap = bitmap;
+			}
+			
+			@Override
+			protected String doInBackground(Void... params) {
+				String result = null;
+				String headUrl = null;
+	        	Bitmap headImg = null;
+	        	FragmentActivity context = getActivity();
+	        	if (mUri == null) {
+	        		if (mBitmap == null) {
+	        			return null;
+	        		}
+	        		headImg = ImgUtils.resizeBitmap(getActivity(), mBitmap, 120, 120);      		
+	        	} else {
+	        		String imgPath = null;
+	        		Cursor cursor = context.getContentResolver().query(mUri, null,
+	                        null, null, null);
+	        		if (cursor != null && cursor.moveToFirst()) {
+	        			imgPath = cursor.getString(1); // 图片文件路径
+	        		}
+
+	        		if (cursor != null) {
+	        			cursor.close();
+	        		}
+	        		
+	        		if (!TextUtils.isEmpty(imgPath)) {
+	        			Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+	        			headImg = ImgUtils.resizeBitmap(context, bitmap, 120, 120); 
+	        		}
+	        	}
+	        	
+				if (headImg != null) {
+					result = NetUtils.httpPostBitmap("", headImg);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(String result) {
+				mUploadAvatarTask = null;
+				AvatarFragment.this.dismiss();
+			}
+			
+			@Override
+			protected void onCancelled() {
+				mUploadAvatarTask = null;
+			}
 		}
 		
 	}
+	
 }
