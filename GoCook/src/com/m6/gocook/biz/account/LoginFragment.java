@@ -104,8 +104,6 @@ public class LoginFragment extends Fragment {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptLogin() {
-		AccountModel.saveAccount(getActivity(), "xxx");
-		
 		
 		if (mAuthTask != null) {
 			return;
@@ -234,10 +232,10 @@ public class LoginFragment extends Fragment {
 			showProgress(false);
 
 			if (result != null && !result.isEmpty()) {
+				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
+				String userName = (String) result.get(AccountModel.RETURN_USERNAME);
+				AccountModel.onLogin(mEmail, avatarUrl, userName);
 				Toast.makeText(getActivity(), R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
-				AccountModel.onLogin(mEmail, 
-						(String) result.get(AccountModel.RETURN_ICON), 
-						(String) result.get(AccountModel.RETURN_USERNAME));
 			} else {
 				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();

@@ -92,5 +92,22 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		ft.commit();
 		fm.executePendingTransactions();
 	}
-	
+
+	@Override
+	public void onRegister(String email, String avatarUrl, String userName) {
+		FragmentManager fm = getChildFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		
+		Fragment f = fm.findFragmentByTag(MyAccountFragment.class.getName());
+		if(f == null) {
+			f = MyAccountFragment.instantiate(getActivity(), MyAccountFragment.class.getName());
+		}
+		Bundle bundle = new Bundle();
+		bundle.putString(AccountModel.RETURN_ICON, avatarUrl);
+		bundle.putString(AccountModel.RETURN_USERNAME, userName);
+		f.setArguments(bundle);
+		ft.replace(R.id.account_tabcontent, f, MyAccountFragment.class.getName());
+		ft.commit();
+		fm.executePendingTransactions();
+	}
 }

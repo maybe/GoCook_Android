@@ -2,16 +2,20 @@ package com.m6.gocook.biz.account;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.biz.account.LoginFragment.UserLoginTask;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.profile.ProfileActivity;
 import com.m6.gocook.util.File.ImgUtils;
 import com.m6.gocook.util.net.NetUtils;
 
@@ -42,6 +46,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterFragment extends Fragment {
 
@@ -53,7 +58,8 @@ public class RegisterFragment extends Fragment {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
-	private String mUsername;
+	private String mRePassword;
+	private String mNickname;
 
 	// UI references.
 	private EditText mEmailView;
@@ -124,19 +130,18 @@ public class RegisterFragment extends Fragment {
 		// Store values at the time of the login attempt.
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
-		mUsername = mUsernameView.getText().toString();
+		mRePassword = mPasswordRepeatView.getText().toString();
+		mNickname = mUsernameView.getText().toString();
 		
-		String passwordRepeat = mPasswordRepeatView.getText().toString();
-
 		boolean cancel = false;
 		View focusView = null;
 
 		// Check for a valid repeat password.
-		if (TextUtils.isEmpty(passwordRepeat)) {
+		if (TextUtils.isEmpty(mRePassword)) {
 			mPasswordRepeatView.setError(getString(R.string.error_repeat_password_required));
 			focusView = mPasswordRepeatView;
 			cancel = true;
-		} else if(!passwordRepeat.equals(mPassword)) {
+		} else if(!mRePassword.equals(mPassword)) {
 			mPasswordRepeatView.setError(getString(R.string.error_consistency_password));
 			focusView = mPasswordRepeatView;
 			cancel = true;
@@ -164,8 +169,8 @@ public class RegisterFragment extends Fragment {
 			cancel = true;
 		}
 		
-		// Check for a valid username.
-		if(TextUtils.isEmpty(mUsername)) {
+		// Check for a valid nickname.
+		if(TextUtils.isEmpty(mNickname)) {
 			mUsernameView.setError(getString(R.string.error_username_required));
 			focusView = mUsernameView;
 			cancel = true;
@@ -229,23 +234,70 @@ public class RegisterFragment extends Fragment {
 		}
 	}
 	
-	private class RegisterTask extends AsyncTask<Void, Void, Boolean> {
-
+	private class RegisterTask extends AsyncTask<Void, Void, Map<String, Object>> {
+		
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			
+		protected Map<String, Object> doInBackground(Void... params) {
+			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname);
+			if(!TextUtils.isEmpty(result)) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				Context context = getActivity();
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+					if (responseCode == AccountModel.SUCCESS) {
+						String icon = json.optString(AccountModel.RETURN_ICON);
+						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						map.put(AccountModel.RETURN_ICON, icon);
+						map.put(AccountModel.RETURN_USERNAME, userName);
+						AccountModel.saveAccount(context, mEmail);
+					} else {
+						map.put(AccountModel.RETURN_ERRORCODE, json.optInt(AccountModel.RETURN_ERRORCODE));
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				return map;
+			}
 			return null;
 		}
 		
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected void onPostExecute(Map<String, Object> result) {
 			mRegisterTask = null;
 			showProgress(false);
-			
-			if(result) {
+			Context context  = getActivity();
+			if (result != null && !result.isEmpty() && !result.containsKey(AccountModel.RETURN_ERRORCODE)) {
+				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
+				String userName = (String) result.get(AccountModel.RETURN_USERNAME);
+				AccountModel.onRegister(mEmail, avatarUrl, userName);
+				Toast.makeText(context, R.string.biz_account_register_success, Toast.LENGTH_LONG).show();
 				
+				Intent intent = new Intent(context, ProfileActivity.class);
+				Bundle args = new Bundle();
+				args.putString(AccountModel.RETURN_ICON, avatarUrl);
+				args.putString(AccountModel.RETURN_USERNAME, userName);
+				context.startActivity(intent.putExtras(args));
 			} else {
+				int errorCode = -1;
+				try {
+					errorCode = Integer.valueOf((String) result.get(AccountModel.RETURN_ERRORCODE));
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
 				
+				if(errorCode == AccountModel.ERRORCODE_FAILURE) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_failure, Toast.LENGTH_LONG).show();
+				} else if(errorCode == AccountModel.ERRORCODE_EMAIL) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_email, Toast.LENGTH_LONG).show();
+				} else if(errorCode == AccountModel.ERRORCODE_NICKNAME) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_nickname, Toast.LENGTH_LONG).show();
+				} else if(errorCode == AccountModel.ERRORCODE_PASSWORD) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_password, Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_others, Toast.LENGTH_LONG).show();
+				}
 			}
 			
 		}

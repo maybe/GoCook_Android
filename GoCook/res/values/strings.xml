@@ -17,9 +17,16 @@
     <!-- account -->
     <string name="biz_account_tab_login">登录</string>
     <string name="biz_account_tab_register">注册</string>
-    <string name="biz_account_login_success">登录成功</string>
+    <string name="biz_account_login_success">登录成功！</string>
+    <string name="biz_account_register_success">注册成功！</string>
     <string name="biz_account_avatar_camera">通过拍照上传</string>
     <string name="biz_account_avatar_photo">从本地图库选择</string>
+    
+    <string name="biz_account_register_errorcode_failure">注册失败</string>
+    <string name="biz_account_register_errorcode_email">email不可用</string>
+    <string name="biz_account_register_errorcode_nickname">昵称不可用</string>
+    <string name="biz_account_register_errorcode_password">密码格式不对</string>
+    <string name="biz_account_register_errorcode_others">其它</string>
     
     <!-- profile -->
     <string name="biz_profile_edit_btn">编辑</string>

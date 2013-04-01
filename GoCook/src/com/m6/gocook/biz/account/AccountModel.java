@@ -26,6 +26,17 @@ public class AccountModel {
 	public static final String RETURN_USERNAME = "username";	
 	public static final String RETURN_ICON = "icon";
 	
+	/** 注册失败 */
+	public static final int ERRORCODE_FAILURE = 1;
+	/** email不可用 */
+	public static final int ERRORCODE_EMAIL = 2;
+	/** nickname不可用 */
+	public static final int ERRORCODE_NICKNAME = 3;
+	/** 密码格式不对 */
+	public static final int ERRORCODE_PASSWORD = 4;
+	/** 其它 */
+	public static final int ERRORCODE_OTHERS = 5;
+			
 	public static final int SUCCESS = 0;
 	public static final int FAILURE = 1;
 	
@@ -57,6 +68,12 @@ public class AccountModel {
 		}
 	}
 	
+	public static void onRegister(String email, String avatarUrl, String userName) {
+		for(OnAccountChangedListener listener : mAccountChangedListeners) {
+			listener.onRegister(email, avatarUrl, userName);
+		}
+	}
+	
 	public static String login(Context context, String username, String password) {
 		String url = "http://192.168.1.100/user/login";
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
@@ -70,15 +87,15 @@ public class AccountModel {
 		onLogout();
 	}
 	
-	public static boolean register(String username, String password, String email) {
-		boolean success = false;
+	public static String register(String email, String password, String rePassword, String nickname) {
 		String url = "http://192.168.1.100/user/register";
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("login", username));
-		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("email", email));
-		NetUtils.httpPost(url, params);
-		return success;
+		params.add(new BasicNameValuePair("nickname", nickname));
+		params.add(new BasicNameValuePair("password", password));
+		params.add(new BasicNameValuePair("repassword", password));
+		params.add(new BasicNameValuePair("avatar", ""));
+		return NetUtils.httpPost(url, params);
 	}
 	
 	public static boolean isLogon(Context context) {

@@ -1,8 +1,10 @@
 package com.m6.gocook.biz.profile;
 
 import com.m6.gocook.R;
+import com.m6.gocook.biz.account.AccountModel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +17,14 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+		
+		Intent intent = getIntent();
+		if(intent != null) {
+			Bundle args = intent.getExtras();
+			if(args != null) {
+				setTitle(args.getString(AccountModel.RETURN_USERNAME));
+			}
+		}
 		
 		new RecipeTask(this).execute((Void) null);
 	}
