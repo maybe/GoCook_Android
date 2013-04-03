@@ -80,10 +80,48 @@
                 android:id="@+id/banner_image"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/biz_recipe_image_banner_height"
+                android:background="#ff0000"
                 android:contentDescription="@string/biz_recipe_image_banner_content_description" />
 
             <!-- Recipe Introduction -->
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/white"
+                android:padding="25dp" >
+
+                <TextView
+                    android:id="@+id/recipe_intruction_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="15dp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="#3B272D"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/recipe_author_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/recipe_intruction_textview"
+                    android:textColor="#ae1e12"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/recipe_about_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/recipe_intruction_textview"
+                    android:textColor="#d77d61"
+                    android:textSize="11sp" />
+            </RelativeLayout>
 
             <!-- Recipe Material -->
 
@@ -105,10 +143,10 @@
                 android:layout_marginTop="5dp"
                 app:layout_disbleScroll="true"
                 android:horizontalSpacing="1dp"
-                android:verticalSpacing="1dp"
-                android:numColumns="2" />
+                android:numColumns="2"
+                android:verticalSpacing="1dp" />
 
-            <!-- Recipe Produce -->
+            <!-- Recipe Procedure -->
 
             <TextView
                 android:layout_width="fill_parent"
@@ -118,7 +156,7 @@
                 android:text="@string/biz_recipe_procedure"
                 android:textColor="#999999"
                 android:textSize="14sp" />
-            
+
             <com.m6.gocook.base.view.ExpandedListView
                 android:id="@+id/procedure_listview"
                 android:layout_width="match_parent"
@@ -126,21 +164,130 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:verticalSpacing="1dp"
-                app:layout_disbleScroll="true" />
+                app:layout_disbleScroll="true"
+                android:verticalSpacing="1dp" />
 
-            <!-- Comments -->
-            <LinearLayout 
+            <!-- Tips -->
+
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                >
-                
-            </LinearLayout>
-            
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/biz_recipe_tips"
+                android:textColor="#999999"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/recipe_tips_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="25dp"
+                android:background="@android:color/white"
+                android:text="TextView"
+                android:textColor="#3B272D"
+                android:textSize="12sp"
+                android:lineSpacingMultiplier="1.5" />
+
+            <!-- Comments -->
+
+            <RelativeLayout
+                android:id="@+id/comments_link"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/recipe_comments_link_selector"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:paddingTop="25dp" >
+
+                <TextView
+                    android:id="@+id/comment_num"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/biz_recipe_comment_num"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/comment_item"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/comment_num"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    android:typeface="monospace" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/arrow_dark" />
+            </RelativeLayout>
+
+            <!-- Finished Link -->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:id="@+id/finished_dish_textview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/recipe_finished_selector"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="35dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/biz_recipe_finished_dish"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/recipe_finished_arrow" />
+            </FrameLayout>
+
             <!-- Related Recipe -->
 
-            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/biz_recipe_related"
+                android:textColor="#999999"
+                android:textSize="14sp" />
 
+            <com.m6.gocook.base.view.ExpandedGridView
+                android:id="@+id/related_recipe_gridview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                app:layout_disbleScroll="true"
+                android:horizontalSpacing="5dp"
+                android:numColumns="2"
+                android:verticalSpacing="5dp" />
         </LinearLayout>
     </ScrollView>
 

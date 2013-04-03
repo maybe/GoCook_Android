@@ -5,21 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
 
-public class RecipeProcedureAdapter extends BaseAdapter {
+public class RecipeRelatedRecipesAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	
-	public RecipeProcedureAdapter(Context context) {
+	public RecipeRelatedRecipesAdapter(Context context) {
 		mInflater = LayoutInflater.from(context);
 	}
 	
 	@Override
 	public int getCount() {
-		return 11;
+		return 6;
 	}
 
 	@Override
@@ -37,29 +39,21 @@ public class RecipeProcedureAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHold holder;
 		if(convertView == null) {
-			convertView = mInflater.inflate(R.layout.adapter_recipe_procedure_item, null);
+			convertView = mInflater.inflate(R.layout.adapter_recipe_related_recipes, null);
 			holder = new ViewHold();
-			holder.name = (TextView) convertView.findViewById(R.id.index);
-			holder.remark = (TextView) convertView.findViewById(R.id.item);
+			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-		
-		holder.name.setText(String.valueOf(position + 1));
-		if(position % 2 == 0) {
-			holder.remark.setText("切切块切块切块切块切块切块切块切块切块");
-			
-		} else {
-			holder.remark.setText("切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块切块");
-			
-		}
+		holder.name.setText("什么菜什么菜");
 		return convertView;
 	}
 	
 	private class ViewHold {
 		private TextView name;
-		private TextView remark;
+		private ImageView image;
 	}
 
 }
