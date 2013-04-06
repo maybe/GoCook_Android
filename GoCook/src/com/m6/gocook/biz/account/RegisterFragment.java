@@ -60,6 +60,8 @@ public class RegisterFragment extends Fragment {
 	private String mPassword;
 	private String mRePassword;
 	private String mNickname;
+	private static Uri mAvatartUri;
+	private static Bitmap mAvatarBitmap;
 
 	// UI references.
 	private EditText mEmailView;
@@ -67,7 +69,7 @@ public class RegisterFragment extends Fragment {
 	private EditText mPasswordRepeatView;
 	private EditText mUsernameView;
 	private TextView mStatusMessageView;
-	private ImageView mAvatarImageView;
+	private static ImageView mAvatarImageView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -238,10 +240,34 @@ public class RegisterFragment extends Fragment {
 		
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
-			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname);
+        	Bitmap avatarBitmap = null;
+        	FragmentActivity context = getActivity();
+        	if (mAvatartUri == null) {
+        		if (mAvatarBitmap != null) {
+        			avatarBitmap = ImgUtils.resizeBitmap(getActivity(), mAvatarBitmap, 100, 100);
+        		}
+        	} else {
+        		String imgPath = null;
+        		Cursor cursor = context.getContentResolver().query(mAvatartUri, null,
+                        null, null, null);
+        		if (cursor != null && cursor.moveToFirst()) {
+        			imgPath = cursor.getString(1); // 图片文件路径
+        		}
+
+        		if (cursor != null) {
+        			cursor.close();
+        		}
+        		
+        		if (!TextUtils.isEmpty(imgPath)) {
+        			Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+        			avatarBitmap = ImgUtils.resizeBitmap(context, bitmap, 100, 100);
+        		}
+        	}
+        	
+			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, ImgUtils.createBitmapFile("avatar", avatarBitmap));
+			
 			if(!TextUtils.isEmpty(result)) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				Context context = getActivity();
 				try {
 					JSONObject json = new JSONObject(result);
 					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
@@ -310,6 +336,12 @@ public class RegisterFragment extends Fragment {
 		
 	}
 	
+	private static void updateAvatar(Uri uri, Bitmap bitmap) {
+		mAvatarBitmap = bitmap;
+		mAvatartUri = uri;
+		mAvatarImageView.setImageBitmap(mAvatarBitmap);
+	}
+	
 	// 上传照片
 	public static class AvatarFragment extends DialogFragment implements OnActivityAction {
 
@@ -365,6 +397,7 @@ public class RegisterFragment extends Fragment {
 		}
 		
 		private void uploadAvatar(Uri uri, Bitmap bitmap) {
+			
 			if(mUploadAvatarTask != null) {
 				return;
 			}
@@ -383,14 +416,14 @@ public class RegisterFragment extends Fragment {
 				Bundle bundle = data == null ? null : data.getExtras();
 				Object o = bundle == null ? null : bundle.get("data");
 				Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
-				uploadAvatar(null, bitmap);
-				return;
+//				uploadAvatar(null, bitmap);
+				updateAvatar(null, bitmap);
 			} else if (REQ_PHOTO == requestCode) {
 				if (resultCode != Activity.RESULT_OK) {
 					return;
 				}
-				uploadAvatar(data != null ? data.getData() : null, null);
-				return;
+//				uploadAvatar(data != null ? data.getData() : null, null);
+				updateAvatar(data != null ? data.getData() : null, null);
 			}
 		}
 		

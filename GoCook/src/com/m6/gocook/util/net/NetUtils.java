@@ -192,6 +192,10 @@ public class NetUtils {
 	}
 
 	public static String httpPost(String urlString, List<BasicNameValuePair> params) {
+		return httpPost(urlString, params, null);
+	}
+	
+	public static String httpPost(String urlString, List<BasicNameValuePair> params, Bitmap bitmap) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
@@ -208,13 +212,16 @@ public class NetUtils {
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
 			writeStream(out, params);
+			if(bitmap != null) {
+				writeBitmapStream(out, bitmap);
+			}
 			out.flush();
 			out.close();
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
 			result = readStream(in);
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		} finally {
 			if(conn != null) {
 				conn.disconnect();

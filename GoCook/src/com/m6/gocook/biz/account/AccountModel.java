@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.account;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,11 @@ import org.json.JSONObject;
 
 import android.R.bool;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
+import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
@@ -75,11 +79,10 @@ public class AccountModel {
 	}
 	
 	public static String login(Context context, String username, String password) {
-		String url = "http://192.168.1.100/user/login";
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("login", username));
 		params.add(new BasicNameValuePair("password", password));
-		return NetUtils.httpPost(url, params);
+		return NetUtils.httpPost(Constants.URL_LOGIN, params);
 	}
 	
 	public static void logout(Context context) {
@@ -87,15 +90,15 @@ public class AccountModel {
 		onLogout();
 	}
 	
-	public static String register(String email, String password, String rePassword, String nickname) {
-		String url = "http://192.168.1.100/user/register";
+	public static String register(String email, String password, String rePassword, String nickname, File avatart) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("nickname", nickname));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("repassword", password));
-		params.add(new BasicNameValuePair("avatar", ""));
-		return NetUtils.httpPost(url, params);
+		params.add(new BasicNameValuePair("avatar", avatart == null ? "" : avatart.toString()));
+		
+		return NetUtils.httpPost(Constants.URL_REGISTER, params);
 	}
 	
 	public static boolean isLogon(Context context) {

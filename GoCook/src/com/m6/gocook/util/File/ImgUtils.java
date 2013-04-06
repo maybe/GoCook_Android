@@ -1,14 +1,55 @@
 package com.m6.gocook.util.File;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import com.m6.gocook.base.constant.Constants;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.os.Environment;
 
 /**
  * 图片加工处理类
  * 
  */
 public class ImgUtils {
+	
+	public static File createBitmapFile(String fileName, Bitmap bitmap) {
+		if(bitmap != null) {
+			File file = null;
+			FileOutputStream out = null;
+			try {
+				if(Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+					file = new File(Constants.FILE_IMAGE_PATH + fileName + ".png");
+					if(!file.exists()) {
+						file.createNewFile();
+					}
+					
+					out = new FileOutputStream(file);
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+					
+				}				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if(out != null) {
+					try {
+						out.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return file;
+
+		}
+		return null;
+	}
+	
 	/**
 	 * 按固定比例比例进行裁剪
 	 * 
