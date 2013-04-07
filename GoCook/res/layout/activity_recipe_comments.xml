@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.m6.gocook"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0E9E5"
+    android:orientation="vertical" >
+
+    <!-- ActionBar -->
+
+    <include
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        layout="@layout/base_actionbar" />
+
+    <LinearLayout
+        android:id="@+id/comments_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <EditText
+            android:id="@+id/input_edittext"
+            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/recipe_comments_commit_input_selector"
+            android:hint="@string/biz_recipe_comment_input_hint" />
+
+        <Button
+            android:id="@+id/commit_button"
+            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/recipe_comments_commit_button_selector"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:text="@string/biz_recipe_comment_button_commit" />
+    </LinearLayout>
+
+    
+    <com.m6.gocook.base.view.ExpandedListView
+        android:id="@+id/comments_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="#F0E9E5"
+        android:layout_below="@id/actionBar"
+        android:layout_above="@id/comments_input_layout"/>
+    
+    
+</RelativeLayout>
