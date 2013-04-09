@@ -1,12 +1,16 @@
 package com.m6.gocook.biz.profile;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.cache.util.ImageWorker;
+import com.m6.gocook.util.preference.PrefHelper;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,11 +76,20 @@ public class MyAccountFragment extends Fragment {
 		if(args != null) {
 			String url = args.getString(AccountModel.RETURN_ICON);
 			if(!TextUtils.isEmpty(url)) {
-				new AvatarTask().execute(url);
+				ImageView avatar = (ImageView) getActivity().findViewById(R.id.avatar);
+				// 从网络取数据
+//				mImageFetcher.loadImage(url, avatar);
+				// 取本地数据
+				String avatarPath = PrefHelper.getString(getActivity(), PrefKeys.ACCOUNT_AVATAR, "");
+				if(!TextUtils.isEmpty(avatarPath)) {
+					avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
+				}
 			}
 			String userName = args.getString(AccountModel.RETURN_USERNAME);
 			((TextView) getActivity().findViewById(R.id.actionbar_title)).setText(userName);
 		}
+		
+		
 	}
 	
 	@Override
@@ -98,29 +111,5 @@ public class MyAccountFragment extends Fragment {
         super.onDestroy();
         mImageFetcher.closeCache();
     }
-	
-	private class AvatarTask extends AsyncTask<String, Void, Void> {
-
-		private ImageView mAvatar;
-		@Override
-		protected Void doInBackground(String... params) {
-			if (params != null && params.length > 0) {
-				mAvatar = (ImageView) getActivity().findViewById(R.id.avatar);
-				String url = params[0];
-				mImageFetcher.loadImage(url, mAvatar);
-			}
-			return null;
-		}
-		
-		@Override
-		protected void onCancelled() {
-			super.onCancelled();
-			if(mAvatar != null) {
-				ImageWorker.cancelWork(mAvatar);
-				mAvatar.setImageDrawable(null);
-			}
-		}
-		
-	}
 	
 }

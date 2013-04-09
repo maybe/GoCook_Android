@@ -1,23 +1,10 @@
 package com.m6.gocook.biz.account;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.m6.gocook.R;
-import com.m6.gocook.base.fragment.OnActivityAction;
-import com.m6.gocook.biz.account.LoginFragment.UserLoginTask;
-import com.m6.gocook.biz.main.MainActivityHelper;
-import com.m6.gocook.biz.profile.ProfileActivity;
-import com.m6.gocook.util.File.ImgUtils;
-import com.m6.gocook.util.net.NetUtils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -42,11 +29,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.profile.ProfileActivity;
+import com.m6.gocook.util.File.ImgUtils;
 
 public class RegisterFragment extends Fragment {
 
@@ -264,7 +256,7 @@ public class RegisterFragment extends Fragment {
         		}
         	}
         	
-			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, ImgUtils.createBitmapFile("avatar", avatarBitmap));
+			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), avatarBitmap));
 			
 			if(!TextUtils.isEmpty(result)) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -291,6 +283,10 @@ public class RegisterFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Map<String, Object> result) {
 			mRegisterTask = null;
+			if(mAvatarBitmap != null) {
+				mAvatarBitmap.recycle();
+				mAvatarBitmap = null;
+			}
 			showProgress(false);
 			Context context  = getActivity();
 			if (result != null && !result.isEmpty() && !result.containsKey(AccountModel.RETURN_ERRORCODE)) {
@@ -331,6 +327,10 @@ public class RegisterFragment extends Fragment {
 		@Override
 		protected void onCancelled() {
 			mRegisterTask = null;
+			if(mAvatarBitmap != null) {
+				mAvatarBitmap.recycle();
+				mAvatarBitmap = null;
+			}
 			showProgress(false);
 		}
 		
@@ -347,8 +347,6 @@ public class RegisterFragment extends Fragment {
 
 		private final static int REQ_CAMERA = 0;
 		private final static int REQ_PHOTO = 1;
-		
-		private UploadAvatarTask mUploadAvatarTask;
 		
 		public static AvatarFragment newInstance() {
 			return new AvatarFragment();
@@ -396,16 +394,6 @@ public class RegisterFragment extends Fragment {
 			return view;
 		}
 		
-		private void uploadAvatar(Uri uri, Bitmap bitmap) {
-			
-			if(mUploadAvatarTask != null) {
-				return;
-			}
-			
-			mUploadAvatarTask = new UploadAvatarTask(uri, bitmap);
-			mUploadAvatarTask.execute((Void) null);
-		}
-		
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
@@ -416,71 +404,12 @@ public class RegisterFragment extends Fragment {
 				Bundle bundle = data == null ? null : data.getExtras();
 				Object o = bundle == null ? null : bundle.get("data");
 				Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
-//				uploadAvatar(null, bitmap);
 				updateAvatar(null, bitmap);
 			} else if (REQ_PHOTO == requestCode) {
 				if (resultCode != Activity.RESULT_OK) {
 					return;
 				}
-//				uploadAvatar(data != null ? data.getData() : null, null);
 				updateAvatar(data != null ? data.getData() : null, null);
-			}
-		}
-		
-		private class UploadAvatarTask extends AsyncTask<Void, Void, String> {
-			
-			private Uri mUri;
-			private Bitmap mBitmap;
-
-			public UploadAvatarTask(Uri uri, Bitmap bitmap) {
-				mUri = uri;
-				mBitmap = bitmap;
-			}
-			
-			@Override
-			protected String doInBackground(Void... params) {
-				String result = null;
-				String headUrl = null;
-	        	Bitmap headImg = null;
-	        	FragmentActivity context = getActivity();
-	        	if (mUri == null) {
-	        		if (mBitmap == null) {
-	        			return null;
-	        		}
-	        		headImg = ImgUtils.resizeBitmap(getActivity(), mBitmap, 120, 120);      		
-	        	} else {
-	        		String imgPath = null;
-	        		Cursor cursor = context.getContentResolver().query(mUri, null,
-	                        null, null, null);
-	        		if (cursor != null && cursor.moveToFirst()) {
-	        			imgPath = cursor.getString(1); // 图片文件路径
-	        		}
-
-	        		if (cursor != null) {
-	        			cursor.close();
-	        		}
-	        		
-	        		if (!TextUtils.isEmpty(imgPath)) {
-	        			Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
-	        			headImg = ImgUtils.resizeBitmap(context, bitmap, 120, 120); 
-	        		}
-	        	}
-	        	
-				if (headImg != null) {
-					result = NetUtils.httpPostBitmap("", headImg);
-				}
-				return result;
-			}
-			
-			@Override
-			protected void onPostExecute(String result) {
-				mUploadAvatarTask = null;
-				AvatarFragment.this.dismiss();
-			}
-			
-			@Override
-			protected void onCancelled() {
-				mUploadAvatarTask = null;
 			}
 		}
 		

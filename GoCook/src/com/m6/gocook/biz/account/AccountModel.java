@@ -96,9 +96,10 @@ public class AccountModel {
 		params.add(new BasicNameValuePair("nickname", nickname));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("repassword", password));
-		params.add(new BasicNameValuePair("avatar", avatart == null ? "" : avatart.toString()));
+//		params.add(new BasicNameValuePair("avatar", ""));
 		
-		return NetUtils.httpPost(Constants.URL_REGISTER, params);
+		return NetUtils.httpPost(Constants.URL_REGISTER, params, avatart, "avatar");
+//		return NetUtils.httpPost(Constants.URL_REGISTER, params);
 	}
 	
 	public static boolean isLogon(Context context) {

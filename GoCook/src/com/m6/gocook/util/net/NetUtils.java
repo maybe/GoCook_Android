@@ -3,7 +3,10 @@ package com.m6.gocook.util.net;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,12 +25,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 import com.m6.gocook.util.log.Logger;
 
 public class NetUtils {
 
 	public static final String TAG = "NetUtils";
+	
+	private static final String BOUNDARY = "HttpPostGoCook";
 
 	/**
 	 * Check network connection status
@@ -187,15 +193,51 @@ public class NetUtils {
 		out.write(sbBuilder.toString().getBytes());
 	}
 	
-	private static void writeBitmapStream(OutputStream out, Bitmap bitmap) {
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+	private static void writeStringStream(OutputStream out, List<BasicNameValuePair> params) throws IOException {
+		for(NameValuePair param : params) {
+			StringBuilder sbBuilder = new StringBuilder();
+			sbBuilder.append("--" + BOUNDARY + "\r\n");
+			sbBuilder.append(("Content-Disposition: form-data; name=\"" + param.getName() + "\"\r\n"));
+			sbBuilder.append("\r\n");
+			out.write(sbBuilder.toString().getBytes());
+			out.write(param.getValue().getBytes());
+			out.write("\r\n".getBytes());
+		}
+	}
+	
+	private static void writeFileStream(OutputStream out, File file, String paramName) throws IOException {
+		if(file == null || !file.exists() || TextUtils.isEmpty(paramName)) {
+			return;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("--" + BOUNDARY + "\r\n");
+		sb.append("Content-Disposition: form-data; name=\"" + paramName + "\"; filename=\"" + file.getPath() + "\"\r\n");
+		sb.append("Content-Type: application/octet-stream\r\n\r\n");
+		out.write(sb.toString().getBytes());
+		out.write(getBytes(file));
+		out.write("\r\n".getBytes());
+	}
+	
+	private static void writeEnd(OutputStream out) throws IOException {
+		String endData = "--" + BOUNDARY + "--\r\n";
+		out.write(endData.getBytes());
+		out.write("\r\n".getBytes());
+	}
+	
+	private static byte[] getBytes(File file) throws IOException {
+		FileInputStream in = new FileInputStream(file);  
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
+        int n;
+        while ((n = in.read(b)) != -1) {  
+            out.write(b, 0, n);  
+        }  
+        in.close();  
+        return out.toByteArray(); 
 	}
 
 	public static String httpPost(String urlString, List<BasicNameValuePair> params) {
-		return httpPost(urlString, params, null);
-	}
-	
-	public static String httpPost(String urlString, List<BasicNameValuePair> params, Bitmap bitmap) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
@@ -212,9 +254,6 @@ public class NetUtils {
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
 			writeStream(out, params);
-			if(bitmap != null) {
-				writeBitmapStream(out, bitmap);
-			}
 			out.flush();
 			out.close();
 			InputStream in = new BufferedInputStream(
@@ -230,7 +269,7 @@ public class NetUtils {
 		return result;
 	}
 	
-	public static String httpPostBitmap(String urlString, Bitmap bitmap) {
+	public static String httpPost(String urlString, List<BasicNameValuePair> params, File file, String fileParamName) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
@@ -239,6 +278,7 @@ public class NetUtils {
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("x-client-identifier", "Mobile");
+			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
 			conn.setConnectTimeout(15000);
@@ -246,14 +286,17 @@ public class NetUtils {
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
-			writeBitmapStream(out, bitmap);
+			writeFileStream(out, file, fileParamName);
+			writeStringStream(out, params);
+			writeEnd(out);
+			
 			out.flush();
 			out.close();
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
 			result = readStream(in);
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		} finally {
 			if(conn != null) {
 				conn.disconnect();

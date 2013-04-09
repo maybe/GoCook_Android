@@ -11,4 +11,6 @@ public class PrefKeys {
 	/************  个人中心   *******************/
 	
 	public static final String ACCOUNT_EMAIL = "account_email";
+	
+	public static final String ACCOUNT_AVATAR = "account_avatar";
 }

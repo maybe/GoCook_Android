@@ -22,16 +22,17 @@ public class ImgUtils {
 			File file = null;
 			FileOutputStream out = null;
 			try {
-				if(Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-					file = new File(Constants.FILE_IMAGE_PATH + fileName + ".png");
+//				if(Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+					file = new File(Constants.FILE_GOCOOK_IMAGE + fileName + ".png");
 					if(!file.exists()) {
+						file.getParentFile().mkdirs();
 						file.createNewFile();
 					}
 					
 					out = new FileOutputStream(file);
 					bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
 					
-				}				
+//				}				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
