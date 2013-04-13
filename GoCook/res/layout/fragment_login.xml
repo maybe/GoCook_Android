@@ -3,33 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginFragment" >
-    
+
     <!-- Login progress -->
 
-    <LinearLayout
-        android:id="@+id/login_status"
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/login_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+        layout="@layout/fragment_progress_status" />
 
     <!-- Login form -->
 
@@ -69,9 +50,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/account_login_selector"
                 android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:background="@drawable/login_selector" />
+                android:paddingRight="32dp" />
         </LinearLayout>
     </ScrollView>
 

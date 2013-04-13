@@ -1,7 +1,9 @@
 package com.m6.gocook.biz.account;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -94,6 +96,22 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		default:
 			break;
 		}
+		
+		onTabChange(v.getId());
+	}
+	
+	private void onTabChange(int viewId) {
+		int[] tabIds = {R.id.login, R.id.register};
+		FragmentActivity activity = getActivity();
+		Resources resources = activity.getResources();
+		for(int id : tabIds) {
+			if(viewId == id) {
+				activity.findViewById(id).setBackgroundColor(resources.getColor(R.color.account_loginorregister_tab_bg_pressed));
+			} else {
+				activity.findViewById(id).setBackgroundColor(resources.getColor(android.R.color.white));
+			}
+		}
+		
 		
 	}
 	

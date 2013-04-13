@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:gravity="center"
+        android:layout_margin="15dp"
         android:orientation="horizontal" >
 
         <Button
@@ -16,13 +17,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="40dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/account_loginorregister_tab_selector"
             android:text="@string/biz_account_tab_login" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/account_loginorregister_tab_selector"
             android:layout_weight="1"
+            android:minHeight="40dp"
             android:text="@string/biz_account_tab_register" />
     </LinearLayout>
 

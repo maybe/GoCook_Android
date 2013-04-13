@@ -87,6 +87,8 @@ public class AccountModel {
 	
 	public static void logout(Context context) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, "");
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
 		onLogout();
 	}
 	
@@ -100,6 +102,22 @@ public class AccountModel {
 		
 		return NetUtils.httpPost(Constants.URL_REGISTER, params, avatart, "avatar");
 //		return NetUtils.httpPost(Constants.URL_REGISTER, params);
+	}
+	
+	public static String getUsername(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_USERNAME, "");
+	}
+	
+	public static void saveUsername(Context context, String username) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, username);
+	}
+	
+	public static void saveAvatarPath(Context context, String avatar) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, avatar);
+	}
+	
+	public static String getAvatarPath(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_AVATAR, "");
 	}
 	
 	public static boolean isLogon(Context context) {

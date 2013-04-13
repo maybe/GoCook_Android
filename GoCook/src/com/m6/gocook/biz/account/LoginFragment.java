@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,8 +81,8 @@ public class LoginFragment extends Fragment {
 				});
 
 		mLoginFormView = activity.findViewById(R.id.login_form);
-		mLoginStatusView = activity.findViewById(R.id.login_status);
-		mLoginStatusMessageView = (TextView) activity.findViewById(R.id.login_status_message);
+		mLoginStatusView = activity.findViewById(R.id.progress_status);
+		mLoginStatusMessageView = (TextView) activity.findViewById(R.id.status_message);
 
 		activity.findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -151,7 +152,7 @@ public class LoginFragment extends Fragment {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
+			mAuthTask = new UserLoginTask(getActivity());
 			mAuthTask.execute((Void) null);
 		}
 	}
@@ -202,10 +203,21 @@ public class LoginFragment extends Fragment {
 	 * the user.
 	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Map<String, Object>> {
+		
+		private Context mContext;
+		
+		public UserLoginTask(Context context) {
+			if(context != null) {
+				mContext = context.getApplicationContext();
+			} else {
+				mContext = getActivity();
+			}
+		}
+		
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
 			
-			String result = AccountModel.login(getActivity(), mEmail, mPassword);
+			String result = AccountModel.login(mContext, mEmail, mPassword);
 			if (!TextUtils.isEmpty(result)) {
 				try {
 					JSONObject json = new JSONObject(result);
@@ -216,7 +228,8 @@ public class LoginFragment extends Fragment {
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
-						AccountModel.saveAccount(getActivity(), mEmail);
+						AccountModel.saveAccount(mContext, mEmail);
+						AccountModel.saveUsername(mContext, userName);
 						return map;
 					}
 				} catch (JSONException e) {
@@ -235,7 +248,7 @@ public class LoginFragment extends Fragment {
 				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
 				String userName = (String) result.get(AccountModel.RETURN_USERNAME);
 				AccountModel.onLogin(mEmail, avatarUrl, userName);
-				Toast.makeText(getActivity(), R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+				Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
 			} else {
 				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();

@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.account;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,8 +27,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -35,10 +40,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.profile.ProfileActivity;
 import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.preference.PrefHelper;
 
 public class RegisterFragment extends Fragment {
 
@@ -236,7 +243,7 @@ public class RegisterFragment extends Fragment {
         	FragmentActivity context = getActivity();
         	if (mAvatartUri == null) {
         		if (mAvatarBitmap != null) {
-        			avatarBitmap = ImgUtils.resizeBitmap(getActivity(), mAvatarBitmap, 100, 100);
+        			avatarBitmap = ImgUtils.resizeBitmap(getActivity(), mAvatarBitmap, 120, 120);
         		}
         	} else {
         		String imgPath = null;
@@ -252,11 +259,11 @@ public class RegisterFragment extends Fragment {
         		
         		if (!TextUtils.isEmpty(imgPath)) {
         			Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
-        			avatarBitmap = ImgUtils.resizeBitmap(context, bitmap, 100, 100);
+        			avatarBitmap = ImgUtils.resizeBitmap(context, bitmap, 120, 120);
         		}
         	}
-        	
-			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), avatarBitmap));
+        	File avatarFile = ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), avatarBitmap);
+			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, avatarFile);
 			
 			if(!TextUtils.isEmpty(result)) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -265,10 +272,15 @@ public class RegisterFragment extends Fragment {
 					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
 					if (responseCode == AccountModel.SUCCESS) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
-						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						String username = json.optString(AccountModel.RETURN_USERNAME);
 						map.put(AccountModel.RETURN_ICON, icon);
-						map.put(AccountModel.RETURN_USERNAME, userName);
+						map.put(AccountModel.RETURN_USERNAME, username);
+						
+						// 保存邮件、用户名和头像的本地路径
 						AccountModel.saveAccount(context, mEmail);
+						AccountModel.saveUsername(context, username);
+						AccountModel.saveAvatarPath(context, avatarFile != null ? avatarFile.getPath() : "");
+						
 					} else {
 						map.put(AccountModel.RETURN_ERRORCODE, json.optInt(AccountModel.RETURN_ERRORCODE));
 					}
@@ -333,14 +345,32 @@ public class RegisterFragment extends Fragment {
 			}
 			showProgress(false);
 		}
-		
 	}
 	
 	private static void updateAvatar(Uri uri, Bitmap bitmap) {
 		mAvatarBitmap = bitmap;
 		mAvatartUri = uri;
-		mAvatarImageView.setImageBitmap(mAvatarBitmap);
+		
+		if(mAvatarBitmap != null) {
+			mAvatarImageView.setImageBitmap(mAvatarBitmap);
+		} else if (mAvatartUri != null) {
+			mAvatarImageView.setImageURI(mAvatartUri);
+		} else {
+			mAvatarImageView.setImageResource(R.drawable.register_photo);
+		}
 	}
+	
+	@Override
+	public void onResume() {
+		Fragment f = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		if (f != null) {
+			DialogFragment df = (DialogFragment) f;
+			df.dismiss();
+			getFragmentManager().beginTransaction().remove(f).commit();
+		}
+		super.onResume();
+	}
+	
 	
 	// 上传照片
 	public static class AvatarFragment extends DialogFragment implements OnActivityAction {
@@ -362,6 +392,22 @@ public class RegisterFragment extends Fragment {
 		public void onDestroy() {
 			super.onDestroy();
 			MainActivityHelper.unRegisterOnActivityActionListener(this);
+		}
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			Dialog dialog = super.onCreateDialog(savedInstanceState);
+			
+			dialog.setCanceledOnTouchOutside(true);
+			Window window = dialog.getWindow();
+
+			window.getAttributes().dimAmount = 0.7f;
+			window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			window.setGravity(Gravity.CENTER);
+			window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+			window.setBackgroundDrawableResource(android.R.color.transparent);
+			
+			return dialog;
 		}
 		
 		@Override
@@ -405,7 +451,7 @@ public class RegisterFragment extends Fragment {
 				Object o = bundle == null ? null : bundle.get("data");
 				Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
 				updateAvatar(null, bitmap);
-			} else if (REQ_PHOTO == requestCode) {
+			} else if (requestCode == REQ_PHOTO) {
 				if (resultCode != Activity.RESULT_OK) {
 					return;
 				}

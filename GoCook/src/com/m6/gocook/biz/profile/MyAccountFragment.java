@@ -8,12 +8,16 @@ import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.cache.util.ImageWorker;
 import com.m6.gocook.util.preference.PrefHelper;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,12 +59,24 @@ public class MyAccountFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		View view = getView();
+		final FragmentActivity activity = getActivity();
 		
 		view.findViewById(R.id.logout).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				AccountModel.logout(getActivity());
+				AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle(R.string.biz_account_logout_dialog_title);
+				builder.setMessage(R.string.biz_account_logout_dialog_message);
+				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						AccountModel.logout(activity);
+					}
+				});
+				builder.setNegativeButton(android.R.string.cancel, null);
+				builder.create().show();
 			}
 		});
 		
@@ -68,28 +84,29 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getActivity(), ProfileActivity.class));
+				startActivity(new Intent(activity, ProfileActivity.class));
 			}
 		});
 		
-		Bundle args = getArguments();
-		if(args != null) {
-			String url = args.getString(AccountModel.RETURN_ICON);
-			if(!TextUtils.isEmpty(url)) {
-				ImageView avatar = (ImageView) getActivity().findViewById(R.id.avatar);
-				// 从网络取数据
-//				mImageFetcher.loadImage(url, avatar);
-				// 取本地数据
-				String avatarPath = PrefHelper.getString(getActivity(), PrefKeys.ACCOUNT_AVATAR, "");
-				if(!TextUtils.isEmpty(avatarPath)) {
-					avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
-				}
-			}
-			String userName = args.getString(AccountModel.RETURN_USERNAME);
-			((TextView) getActivity().findViewById(R.id.actionbar_title)).setText(userName);
+		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
+		// 取本地数据
+		String avatarPath = AccountModel.getAvatarPath(activity);
+		if(!TextUtils.isEmpty(avatarPath)) {
+			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
 		}
+		((TextView) view.findViewById(R.id.name)).setText(AccountModel.getUsername(activity));
 		
 		
+		// 从网络取数据
+//		Bundle args = getArguments();
+//		if(args != null) {
+//			String url = args.getString(AccountModel.RETURN_ICON);
+//			if(!TextUtils.isEmpty(url)) {
+//				mImageFetcher.loadImage(url, avatar);
+//			}
+//			String userName = args.getString(AccountModel.RETURN_USERNAME);
+//			setTitle(userName);
+//		}
 	}
 	
 	@Override

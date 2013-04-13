@@ -184,9 +184,9 @@ public class NetUtils {
 	private static void writeStream(OutputStream out, List<BasicNameValuePair> params) throws IOException {
 		StringBuilder sbBuilder = new StringBuilder();
 		for(NameValuePair param : params) {
-			sbBuilder.append(URLEncoder.encode(param.getName(), "UTF-8"));
+			sbBuilder.append(param.getName());
 			sbBuilder.append("=");
-			sbBuilder.append(URLEncoder.encode(param.getValue(), "UTF-8"));
+			sbBuilder.append(param.getValue());
 			sbBuilder.append("&");
 		}
 		sbBuilder.deleteCharAt(sbBuilder.length() - 1);

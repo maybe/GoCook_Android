@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="base_divider_gray">#e3e3e3</color>
+    
     <color name="main_bg">#f6ebe7</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>
@@ -14,4 +16,7 @@
     
     <color name="purchase_recipe_list_item_title_bg">#ffffff</color>
     <color name="purchase_recipe_list_item_title_bg_pressed">#f9f6f4</color>
+    
+    <color name="account_loginorregister_tab_bg">@android:color/white</color>
+    <color name="account_loginorregister_tab_bg_pressed">#f9f7f5</color>
 </resources>
