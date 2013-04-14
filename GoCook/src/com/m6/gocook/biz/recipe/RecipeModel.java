@@ -17,9 +17,10 @@ public class RecipeModel {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		if(jsonObject != null) {
@@ -28,7 +29,12 @@ public class RecipeModel {
 			return entity;
 		} 
 
-		return null;
+		// Temporary Fake Data
+		RecipeEntity entity = new RecipeEntity();
+		entity.parse(null);
+		return entity;
+		
+//		return null;
 	}
 	
 }
