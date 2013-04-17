@@ -102,7 +102,7 @@
                     android:layout_marginBottom="15dp"
                     android:lineSpacingMultiplier="1.5"
                     android:textColor="#3B272D"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/recipe_author_textview"
@@ -183,12 +183,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:padding="25dp"
                 android:background="@android:color/white"
+                android:lineSpacingMultiplier="1.5"
+                android:padding="25dp"
                 android:text="TextView"
                 android:textColor="#3B272D"
-                android:textSize="12sp"
-                android:lineSpacingMultiplier="1.5" />
+                android:textSize="12sp" />
 
             <!-- Comments -->
 
@@ -290,5 +290,14 @@
                 android:verticalSpacing="5dp" />
         </LinearLayout>
     </ScrollView>
+
+    <!-- Processbar -->
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        layout="@layout/fragment_progress_status" />
 
 </RelativeLayout>

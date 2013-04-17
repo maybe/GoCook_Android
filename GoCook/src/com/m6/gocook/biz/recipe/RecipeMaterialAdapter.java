@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.recipe;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +10,25 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.entity.RecipeEntity.Material;
 
 public class RecipeMaterialAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
+	private ArrayList<Material> mMaterials;
 	
-	public RecipeMaterialAdapter(Context context) {
+	public RecipeMaterialAdapter(Context context, ArrayList<Material> materials) {
 		mInflater = LayoutInflater.from(context);
+		mMaterials = materials;
 	}
 	
 	@Override
 	public int getCount() {
-		return 11;
+		if(mMaterials != null) {
+			return mMaterials.size();
+		}
+		return 0;
 	}
 
 	@Override
@@ -46,8 +55,9 @@ public class RecipeMaterialAdapter extends BaseAdapter {
 			holder = (ViewHold) convertView.getTag();
 		}
 		
-		holder.name.setText("土豆");
-		holder.remark.setText("切块");
+		Material material = mMaterials.get(position);
+		holder.name.setText(material.getName());
+		holder.remark.setText(material.getRemark());
 		return convertView;
 	}
 	
