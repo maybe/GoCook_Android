@@ -36,6 +36,7 @@
     <string name="biz_profile_more_btn">查看全部%d个菜谱</string>
     <string name="biz_profile_myrecipe_title">%s的菜谱</string>
     <string name="biz_profile_introduction">个人简介\n %s</string>
+    <string name="biz_profile_introduction_title">%s的介绍</string>
     
     <!-- recipe -->
     <string name="biz_recipe_about" formatted="false">%s人做过 %s人收藏</string>

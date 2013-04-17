@@ -4,101 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/actionbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/base_actionbar" />
-
-    <RelativeLayout
-        android:id="@+id/profile"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/register_photo" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/avatar"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/avatar"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/follow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_toRightOf="@id/avatar"
-            android:textColor="#eda593" />
-
-        <TextView
-            android:id="@+id/fans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_toRightOf="@id/follow"
-            android:textColor="#eda593" />
-
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/follow"
-            android:layout_toRightOf="@id/avatar"
-            android:background="@drawable/follow_selector" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/intro"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/profile_intro_bg"
-        android:lines="5"
-        android:padding="10dp"
-        android:text="@string/biz_profile_introduction"
-        android:textColor="#7e7d7b" />
-
-    <LinearLayout
-        android:id="@+id/myrecipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/profile_myrecipe_bg"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/biz_profile_myrecipe_title"
-            android:textColor="#aeaba4" />
-
-        <GridView
-            android:id="@+id/recipe_grid"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3" >
-        </GridView>
-
-        <Button
-            android:id="@+id/more"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/profile_more_btn_bg"
-            android:padding="5dp"
-            android:text="@string/biz_profile_more_btn"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </LinearLayout>
