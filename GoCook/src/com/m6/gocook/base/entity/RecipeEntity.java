@@ -185,6 +185,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	public boolean parse(JSONObject object) {
 
 		// Temporary Fake Data
+		this.id = 5657;
 		this.name = "鱼香肉丝";
 		this.author = "居然";
 		this.desc = "辣中带酸，酸中带甜，甜中带咸，咸中又带鲜……味道丰富而不杂腻！恰似女儿心，捉摸不透，又飘忽不定，似近又远，偶尔火辣又偶尔羞涩……";

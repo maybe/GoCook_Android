@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.recipe;
 
+import javax.security.auth.PrivateCredentialPermission;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class RecipeActivity extends Activity {
-	
+
 	final private String TAG = RecipeActivity.class.getCanonicalName();
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
@@ -45,8 +47,7 @@ public class RecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe);
 
-		mStatusView = this.findViewById(R.id.progress_status);
-		mStatusMessageView = (TextView) this.findViewById(R.id.status_message);
+		initView();
 
 		showProgress(true);
 
@@ -59,16 +60,16 @@ public class RecipeActivity extends Activity {
 		((TextView) findViewById(R.id.actionbar_title)).setText(title);
 	}
 
-	private void initView() {
+	private void applyData() {
 
-		if(mRecipeEntity == null) {
+		if (mRecipeEntity == null) {
 			Logger.e(TAG, "RecipeEntity is null");
 		}
-		
-		// Init Recipe Values
+
+		// Set Recipe Properties Values
 
 		setTitle(mRecipeEntity.getName());
-		
+
 		TextView recipeIntructionTextView = (TextView) findViewById(R.id.recipe_intruction_textview);
 		recipeIntructionTextView.setText(mRecipeEntity.getDesc());
 
@@ -81,14 +82,17 @@ public class RecipeActivity extends Activity {
 				mRecipeEntity.getDishCount(), mRecipeEntity.getCollectCount()));
 
 		GridView grid = (GridView) findViewById(R.id.material_gridview);
-		grid.setAdapter(new RecipeMaterialAdapter(this, mRecipeEntity.getMaterials()));
+		grid.setAdapter(new RecipeMaterialAdapter(this, mRecipeEntity
+				.getMaterials()));
 
 		ListView list = (ListView) findViewById(R.id.procedure_listview);
-		list.setAdapter(new RecipeProcedureAdapter(this, mRecipeEntity.getProcedures()));
-		
+		list.setAdapter(new RecipeProcedureAdapter(this, mRecipeEntity
+				.getProcedures()));
+
 		TextView recipeTipsTextView = (TextView) findViewById(R.id.recipe_tips_textview);
 		recipeTipsTextView.setText(mRecipeEntity.getTips());
-		
+
+		// Recipe Comments
 		TextView commentItem = (TextView) findViewById(R.id.comment_item);
 		commentItem
 				.setText(Html.fromHtml(String.format(FINISHEN_DISH_TAG_STRING,
@@ -104,6 +108,7 @@ public class RecipeActivity extends Activity {
 			}
 		});
 
+		// Related Recipes
 		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
 		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(this));
 
@@ -125,14 +130,24 @@ public class RecipeActivity extends Activity {
 
 			}
 		});
+	}
+
+	private void initView() {
+
+		// Progress Bar
+		mStatusView = this.findViewById(R.id.progress_status);
+		mStatusMessageView = (TextView) this.findViewById(R.id.status_message);
 
 		// Tabbar Event Listener
-
 		((TextView) this.findViewById(R.id.tabbar_textview_buy))
 				.setOnClickListener(new OnClickListener() {
-
 					@Override
 					public void onClick(View v) {
+
+						if(mRecipeEntity != null) {
+							RecipeModel.saveRecipeToProcedureList(getApplicationContext(), mRecipeEntity);
+						}
+						
 						((TextView) v).setCompoundDrawablesWithIntrinsicBounds(
 								null,
 								getResources().getDrawable(
@@ -159,7 +174,6 @@ public class RecipeActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
 
 					}
 				});
@@ -199,7 +213,7 @@ public class RecipeActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			mRecipeEntity = RecipeModel.getRecipe(RecipeActivity.this, 0);
+			mRecipeEntity = RecipeModel.getRecipe(getApplicationContext(), 0);
 			return null;
 		}
 
@@ -207,7 +221,7 @@ public class RecipeActivity extends Activity {
 		protected void onPostExecute(Void result) {
 
 			showProgress(false);
-			initView();
+			applyData();
 			super.onPostExecute(result);
 		}
 
