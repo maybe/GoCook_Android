@@ -5,6 +5,7 @@ import com.m6.gocook.biz.recipe.RecipeActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class PurchaseListFragment extends Fragment {
 
@@ -24,40 +26,12 @@ public class PurchaseListFragment extends Fragment {
 		
 		mContext = this.getActivity();
 
-		View view = inflater.inflate(R.layout.adapter_purchase_recipe_list_item, container, false);
+		View view = inflater.inflate(R.layout.fragment_purchase_list, container, false);
 		
-		View bgView = view.findViewById(R.id.recipe_title_bg);
-		final View deleteButtonView = view.findViewById(R.id.delete_item_image);
-		bgView.setOnLongClickListener(new OnLongClickListener() {
-			
-			@Override
-			public boolean onLongClick(View v) {
-				deleteButtonView.setVisibility(View.VISIBLE);
-				return true;
-			}
-		});
+		Cursor cursor = PurchaseListModel.getRecipePurchaseListCursor(getActivity());
 		
-		bgView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(mContext, RecipeActivity.class);
-				mContext.startActivity(intent);
-			}
-		});
-		
-		View materialItemView = view.findViewById(R.id.material_item);
-		final View lineSwipeImage = view.findViewById(R.id.line_swipe);
-		
-		materialItemView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				lineSwipeImage.setVisibility((lineSwipeImage.getVisibility() == View.VISIBLE) ?
-						View.INVISIBLE : View.VISIBLE);
-			}
-		});
+		ListView purchaseListView = (ListView) view.findViewById(R.id.purchase_listview);
+		purchaseListView.setAdapter(new PurchaseListAdapter(getActivity(), cursor));
 		
 		return view;
 

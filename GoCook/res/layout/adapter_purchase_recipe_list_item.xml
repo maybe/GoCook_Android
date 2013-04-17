@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal" >
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp" >
 
     <LinearLayout
         android:id="@+id/panel"
@@ -21,12 +22,12 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/recipe_title"
+                android:id="@+id/recipe_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/arrow_dark"
-                android:text="平底锅脆皮蛋卷"
+                android:text=""
                 android:textColor="#3B272D"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -40,49 +41,13 @@
             android:src="@drawable/line_dot" />
 
         <LinearLayout
+            android:id="@+id/material_group_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:orientation="vertical" >
-
-            <FrameLayout
-                android:id="@+id/material_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp" >
-
-                <ImageView
-                    android:id="@+id/line_swipe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/line_swipe"
-                    android:visibility="invisible" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="18dp"
-                        android:layout_weight="3"
-                        android:gravity="right"
-                        android:text="5个"
-                        android:textColor="#a9a4a0"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:text="鸡蛋"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </FrameLayout>
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp" >
         </LinearLayout>
 
         <ImageView
