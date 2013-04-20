@@ -9,16 +9,21 @@ import android.database.Cursor;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class PurchaseListFragment extends Fragment {
 
 	private Context mContext;
+	private Cursor mCursor;
+	private BaseAdapter mAdapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,10 +33,11 @@ public class PurchaseListFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.fragment_purchase_list, container, false);
 		
-		Cursor cursor = PurchaseListModel.getRecipePurchaseListCursor(getActivity());
+		mCursor = PurchaseListModel.getRecipePurchaseListCursor(getActivity());
+		mAdapter = new PurchaseListAdapter(getActivity(), mCursor, CursorAdapter.FLAG_AUTO_REQUERY);
 		
 		ListView purchaseListView = (ListView) view.findViewById(R.id.purchase_listview);
-		purchaseListView.setAdapter(new PurchaseListAdapter(getActivity(), cursor));
+		purchaseListView.setAdapter(mAdapter);
 		
 		return view;
 
@@ -39,8 +45,25 @@ public class PurchaseListFragment extends Fragment {
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityCreated(savedInstanceState);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		
+	}
+	
+	@Override
+	public void onDestroy() {
+		
+		super.onDestroy();
+		
+		if(mCursor != null) {
+			mCursor.close();
+		}
 	}
 	
 }

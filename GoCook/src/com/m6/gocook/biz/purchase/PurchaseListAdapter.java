@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,21 +22,16 @@ import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeEntity.Material;
 import com.m6.gocook.biz.recipe.RecipeActivity;
+import com.m6.gocook.util.log.Logger;
 
-public class PurchaseListAdapter extends BaseAdapter {
+public class PurchaseListAdapter extends CursorAdapter {
 
 	private LayoutInflater mInflater;
-	private Cursor mCursor;
-	private Context mContext;
 	
-	public PurchaseListAdapter(Context context, Cursor cursor) {
+
+	public PurchaseListAdapter(Context context, Cursor c, int flags) {
+		super(context, c, flags);
 		mInflater = LayoutInflater.from(context);
-		mCursor = cursor;
-		mContext = context;
-		if(mCursor != null) {
-			mCursor.moveToFirst();
-		}
-		
 	}
 	
 	@Override
@@ -69,6 +65,7 @@ public class PurchaseListAdapter extends BaseAdapter {
 			holder = (ViewHold) convertView.getTag();
 		}
 		
+		mCursor.moveToPosition(position);
 		holder.name.setText(mCursor.getString(mCursor.getColumnIndex(RecipePurchaseList.RECIPE_NAME)));
 		holder.name.setTag(mCursor.getInt(mCursor.getColumnIndex(RecipePurchaseList.RECIPE_ID)));
 		
@@ -81,15 +78,23 @@ public class PurchaseListAdapter extends BaseAdapter {
 						materialCursor.getColumnIndex(RecipeMaterialPurchaseList.MATERIAL_NAME));
 				String remark = materialCursor.getString(
 						materialCursor.getColumnIndex(RecipeMaterialPurchaseList.MATERIAL_REMARK));
-				View material = createMaterial(name, remark);
+				String id = materialCursor.getString(
+						materialCursor.getColumnIndex(RecipeMaterialPurchaseList._ID));
+				boolean isBought = materialCursor.getInt(
+						materialCursor.getColumnIndex(RecipeMaterialPurchaseList.IS_BOUGHT)) == 1;
+				
+				View material = createMaterial(name, remark, id, isBought);
 				holder.materialGroup.addView(material);
 
 				
 			} while (materialCursor.moveToNext());
+			materialCursor.close();
 		}
 		
+		// Event Listener Setting
 		View bgView = convertView.findViewById(R.id.recipe_title_bg);
 		final View deleteButtonView = convertView.findViewById(R.id.delete_item_image);
+		deleteButtonView.setVisibility(View.INVISIBLE);
 		bgView.setOnLongClickListener(new OnLongClickListener() {
 			
 			@Override
@@ -99,6 +104,7 @@ public class PurchaseListAdapter extends BaseAdapter {
 			}
 		});
 		
+		final String recipeId = holder.name.getTag().toString();
 		bgView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -109,11 +115,19 @@ public class PurchaseListAdapter extends BaseAdapter {
 			}
 		});
 		
+		deleteButtonView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				PurchaseListModel.removeRecipeFromPurchaseList(mContext, recipeId);
+			}
+		});
+		
 		return convertView;
 	}
 	
 	
-	private View createMaterial(String name, String remark) {
+	private View createMaterial(String name, String remark, String id, boolean isBought) {
 		
 		View view = mInflater.inflate(R.layout.adapter_purchase_recipe_material_list_item, null);
 		TextView nameView = (TextView) view.findViewById(R.id.name);
@@ -122,22 +136,43 @@ public class PurchaseListAdapter extends BaseAdapter {
 		remarkView.setText(remark);
 		
 		View materialItemView = view.findViewById(R.id.material_item);
-		final View lineSwipeImage = view.findViewById(R.id.line_swipe);
+		materialItemView.setOnClickListener(markMaterialListener);
+		materialItemView.setTag(id);
 		
-		materialItemView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				lineSwipeImage.setVisibility((lineSwipeImage.getVisibility() == View.VISIBLE) ?
-						View.INVISIBLE : View.VISIBLE);
-			}
-		});
+		View lineSwipeImage = view.findViewById(R.id.line_swipe);
+		lineSwipeImage.setVisibility(isBought ? View.VISIBLE : View.INVISIBLE);
+		
 		return view;
 	}
+	
+	private OnClickListener markMaterialListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			View lineSwipeImage = v.findViewById(R.id.line_swipe);
+			boolean isBought = lineSwipeImage.getVisibility() == View.VISIBLE;
+			isBought = !isBought;
+			PurchaseListModel.updateRecipeMaterialPurchased(mContext, v.getTag().toString(), isBought);
+			lineSwipeImage.setVisibility(isBought?
+					View.VISIBLE : View.INVISIBLE);
+		}
+	};
 	
 	private class ViewHold {
 		private TextView name;
 		private LinearLayout materialGroup;
+	}
+
+	@Override
+	public View newView(Context context, Cursor cursor, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void bindView(View view, Context context, Cursor cursor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

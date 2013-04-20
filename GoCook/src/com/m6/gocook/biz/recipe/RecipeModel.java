@@ -52,32 +52,6 @@ public class RecipeModel {
 //		return null;
 	}
 	
-	public static void saveRecipeToProcedureList(Context context, RecipeEntity recipeEntity) {
-		
-		if(recipeEntity != null) {
-			
-			ContentValues values = new ContentValues();
-			values.put(RecipePurchaseList.RECIPE_ID, recipeEntity.getId());
-			values.put(RecipePurchaseList.RECIPE_NAME, recipeEntity.getName());
-			Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
-			Uri resultUri = context.getContentResolver().insert(uri, values);
-			Logger.i(TAG, "inserted:" + resultUri.toString());
-			
-			int materialNum = recipeEntity.getMaterials().size();
-			ContentValues[] valuesA = new ContentValues[materialNum];
-			for (int i = 0; i < materialNum; i++) {
-				RecipeEntity.Material material = recipeEntity.getMaterials().get(i);
-				ContentValues newValues = new ContentValues();
-				newValues.put(RecipeMaterialPurchaseList.RECIPE_ID, recipeEntity.getId());
-				newValues.put(RecipeMaterialPurchaseList.MATERIAL_NAME, material.getName());
-				newValues.put(RecipeMaterialPurchaseList.MATERIAL_REMARK, material.getRemark());
-
-				valuesA[i] = newValues;
-			}
-			
-			Uri uriMaterial = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
-			int result = context.getContentResolver().bulkInsert(uriMaterial, valuesA);
-		}
-	}
+	
 	
 }

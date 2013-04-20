@@ -16,6 +16,6 @@ public class RecipeMaterialPurchaseList {
 	        + RECIPE_ID + " INTEGER,"
 	        + MATERIAL_NAME + " TEXT,"
 	        + MATERIAL_REMARK + " TEXT,"
-	        + IS_BOUGHT + " BOOLEAN"
+	        + IS_BOUGHT + " INTEGER"
 	        + ");";
 }

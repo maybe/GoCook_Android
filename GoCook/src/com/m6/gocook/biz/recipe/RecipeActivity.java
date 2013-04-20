@@ -9,6 +9,7 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.biz.profile.RecipeAdapter;
+import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
 
@@ -46,11 +47,10 @@ public class RecipeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe);
-
+		
 		initView();
-
+		
 		showProgress(true);
-
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
 
@@ -130,6 +130,15 @@ public class RecipeActivity extends Activity {
 
 			}
 		});
+		
+		TextView tabBarBuyTextView = ((TextView) this.findViewById(R.id.tabbar_textview_buy));
+		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()))) {
+			tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
+					null,
+					getResources().getDrawable(
+							R.drawable.recipe_tabbar_bought), null,
+					null);
+		}
 	}
 
 	private void initView() {
@@ -139,20 +148,27 @@ public class RecipeActivity extends Activity {
 		mStatusMessageView = (TextView) this.findViewById(R.id.status_message);
 
 		// Tabbar Event Listener
-		((TextView) this.findViewById(R.id.tabbar_textview_buy))
-				.setOnClickListener(new OnClickListener() {
+		TextView tabBarBuyTextView = ((TextView) this.findViewById(R.id.tabbar_textview_buy));
+		tabBarBuyTextView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-
-						if(mRecipeEntity != null) {
-							RecipeModel.saveRecipeToProcedureList(getApplicationContext(), mRecipeEntity);
+						if(mRecipeEntity == null) return;
+						TextView tabBarBuyTextView = (TextView)v;
+						if(PurchaseListModel.isRecipeSavedToProcedureList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()))) {
+							PurchaseListModel.removeRecipeFromPurchaseList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()));
+							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
+									null,
+									getResources().getDrawable(
+											R.drawable.recipe_tabbar_buy), null,
+									null);
+						} else {
+							PurchaseListModel.saveRecipeToProcedureList(getApplicationContext(), mRecipeEntity);
+							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
+									null,
+									getResources().getDrawable(
+											R.drawable.recipe_tabbar_bought), null,
+									null);
 						}
-						
-						((TextView) v).setCompoundDrawablesWithIntrinsicBounds(
-								null,
-								getResources().getDrawable(
-										R.drawable.recipe_tabbar_bought), null,
-								null);
 					}
 				});
 
