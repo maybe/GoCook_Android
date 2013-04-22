@@ -12,10 +12,12 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	public class Material {
 		private String name;
 		private String remark;
+		private boolean isMain;
 
-		public Material(String name, String remark) {
+		public Material(String name, String remark, boolean isMain) {
 			this.name = name;
 			this.remark = remark;
+			this.isMain = isMain;
 		}
 
 		public String getName() {
@@ -32,6 +34,14 @@ public class RecipeEntity implements IParseable<JSONObject> {
 
 		public void setRemark(String remark) {
 			this.remark = remark;
+		}
+
+		public boolean isMain() {
+			return isMain;
+		}
+
+		public void setMain(boolean isMain) {
+			this.isMain = isMain;
 		}
 	}
 
@@ -185,7 +195,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	public boolean parse(JSONObject object) {
 
 		// Temporary Fake Data
-		this.id = 123;
+		this.id = 222;
 		this.name = "鱼香肉丝3";
 		this.author = "居然";
 		this.desc = "辣中带酸，酸中带甜，甜中带咸，咸中又带鲜……味道丰富而不杂腻！恰似女儿心，捉摸不透，又飘忽不定，似近又远，偶尔火辣又偶尔羞涩……";
@@ -193,14 +203,14 @@ public class RecipeEntity implements IParseable<JSONObject> {
 		this.collectCount = 35587;
 		
 		this.materials = new ArrayList<RecipeEntity.Material>();
-		this.materials.add(new Material("里脊肉2", "250克"));
-		this.materials.add(new Material("青红辣椒2", "各一个"));
-		this.materials.add(new Material("胡萝卜2", "1/3根"));
-		this.materials.add(new Material("干木耳2", "30克"));
-		this.materials.add(new Material("郫县豆瓣酱2", "2汤勺"));
-		this.materials.add(new Material("蒜瓣2", "两粒"));
-		this.materials.add(new Material("料酒2", "少量"));
-		this.materials.add(new Material("油2", "适量"));
+		this.materials.add(new Material("里脊肉2", "250克", true));
+		this.materials.add(new Material("青红辣椒2", "各一个", false));
+		this.materials.add(new Material("胡萝卜2", "1/3根", true));
+		this.materials.add(new Material("干木耳2", "30克", true));
+		this.materials.add(new Material("郫县豆瓣酱2", "2汤勺", false));
+		this.materials.add(new Material("蒜瓣2", "两粒", false));
+		this.materials.add(new Material("料酒2", "少量", false));
+		this.materials.add(new Material("油2", "适量", false));
 
 		this.procedures = new ArrayList<RecipeEntity.Procedure>();
 		this.procedures

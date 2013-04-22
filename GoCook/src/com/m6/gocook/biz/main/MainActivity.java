@@ -19,6 +19,7 @@ import com.m6.gocook.R;
 import com.m6.gocook.biz.account.AccountFragment;
 import com.m6.gocook.biz.account.RegisterFragment;
 import com.m6.gocook.biz.main.TabHelper.Tab;
+import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
 import com.m6.gocook.biz.search.SearchFragment;
 
@@ -40,9 +41,9 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		mTabHost = (FragmentTabHost) findViewById(R.id.main_tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 		
-		addTab(mTabHost, inflater, Tab.SEARCH.tag, R.string.biz_main_tab_search, R.drawable.tab_pop_alpha, SearchFragment.class, null);
+		addTab(mTabHost, inflater, Tab.SEARCH.tag, R.string.biz_main_tab_search, R.drawable.tab_pop_alpha, PurchaseListFragment.class, null);
 //		addTab(tabHost, inflater, Tab.HOT.tag, R.string.biz_main_tab_hot, R.drawable.tab_pop_alpha, Fragment.class, null);
-		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseListFragment.class, null);
+		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseListByTypeFragment.class, null);
 		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
 		
 		mTabHost.setOnTabChangedListener(this);

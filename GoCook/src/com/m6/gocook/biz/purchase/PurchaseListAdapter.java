@@ -71,7 +71,7 @@ public class PurchaseListAdapter extends CursorAdapter {
 		
 		// Add materials
 		holder.materialGroup.removeAllViews();
-		Cursor materialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursor(mContext, holder.name.getTag().toString());
+		Cursor materialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursorById(mContext, holder.name.getTag().toString());
 		if (materialCursor.moveToFirst()) {
 			do {
 				String name = materialCursor.getString(
@@ -152,9 +152,10 @@ public class PurchaseListAdapter extends CursorAdapter {
 			View lineSwipeImage = v.findViewById(R.id.line_swipe);
 			boolean isBought = lineSwipeImage.getVisibility() == View.VISIBLE;
 			isBought = !isBought;
-			PurchaseListModel.updateRecipeMaterialPurchased(mContext, v.getTag().toString(), isBought);
-			lineSwipeImage.setVisibility(isBought?
-					View.VISIBLE : View.INVISIBLE);
+			if(PurchaseListModel.updateRecipeMaterialPurchased(mContext, v.getTag().toString(), isBought)) {
+				lineSwipeImage.setVisibility(isBought?
+						View.VISIBLE : View.INVISIBLE);
+			}
 		}
 	};
 	

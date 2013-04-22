@@ -8,6 +8,7 @@ public class RecipeMaterialPurchaseList {
 	public static final String RECIPE_ID = "recipe_id";
 	public static final String MATERIAL_NAME = "material_name";
 	public static final String MATERIAL_REMARK = "material_remark";
+	public static final String IS_MAIN = "is_main";
 	public static final String IS_BOUGHT = "is_bought";
 	
 	public static final String CREATE_TABLE =
@@ -16,6 +17,7 @@ public class RecipeMaterialPurchaseList {
 	        + RECIPE_ID + " INTEGER,"
 	        + MATERIAL_NAME + " TEXT,"
 	        + MATERIAL_REMARK + " TEXT,"
+	        + IS_MAIN + " INTEGER,"
 	        + IS_BOUGHT + " INTEGER"
 	        + ");";
 }

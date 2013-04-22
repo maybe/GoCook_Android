@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.m6.gocook"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp" >
+
+        <TextView
+            android:id="@+id/main_material_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:background="@android:color/white"
+            android:gravity="center_horizontal"
+            android:textColor="#a9a4a0"
+            android:textSize="12sp"
+            android:textStyle="italic|bold" />
+
+        <com.m6.gocook.base.view.ExpandedListView
+            android:id="@+id/purchase_main_material_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_disbleScroll="true"
+            android:background="@android:color/white"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/nmain_material_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:background="@android:color/white"
+            android:gravity="center_horizontal"
+            android:text="sdfsdfdfdsfs"
+            android:textColor="#a9a4a0"
+            android:textSize="12sp"
+            android:textStyle="italic|bold" />
+
+        <com.m6.gocook.base.view.ExpandedListView
+            android:id="@+id/purchase_nmain_material_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_disbleScroll="true"
+            android:background="@android:color/white"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/line_wave" />
+    </LinearLayout>
+
+</ScrollView>

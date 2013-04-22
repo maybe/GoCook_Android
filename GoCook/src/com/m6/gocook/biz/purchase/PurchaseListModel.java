@@ -24,7 +24,16 @@ public class PurchaseListModel {
 		return cursor;
 	}
 	
-	public static Cursor getRecipeMaterialPurchaseListCursor(Context context, String recipeId) {
+	public static int getRecipePurchaseCount(Context context) {
+		
+		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
+		Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+		int count = cursor.getCount();
+		cursor.close();
+		return count;
+	}
+	
+	public static Cursor getRecipeMaterialPurchaseListCursorById(Context context, String recipeId) {
 		
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
 		Cursor cursor = context.getContentResolver().query(uri, null,
@@ -62,7 +71,8 @@ public class PurchaseListModel {
 				newValues.put(RecipeMaterialPurchaseList.RECIPE_ID, recipeEntity.getId());
 				newValues.put(RecipeMaterialPurchaseList.MATERIAL_NAME, material.getName());
 				newValues.put(RecipeMaterialPurchaseList.MATERIAL_REMARK, material.getRemark());
-
+				newValues.put(RecipeMaterialPurchaseList.IS_MAIN, material.isMain() ? 1 : 0);
+				newValues.put(RecipeMaterialPurchaseList.IS_BOUGHT, 0);
 				valuesA[i] = newValues;
 			}
 			
@@ -84,7 +94,7 @@ public class PurchaseListModel {
 				new String[] { recipeId });
 	}
 	
-	public static void updateRecipeMaterialPurchased(Context context, String recipeId, boolean isBought) {
+	public static boolean updateRecipeMaterialPurchased(Context context, String recipeId, boolean isBought) {
 		
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
 		ContentValues values = new ContentValues();
@@ -92,6 +102,16 @@ public class PurchaseListModel {
 		int result = context.getContentResolver().update(uri, values,
 				RecipeMaterialPurchaseList._ID + "=?", 
 				new String[] { recipeId });
+		return result > 0;
+	}
+	
+	public static Cursor getRecipeMaterialPurchaseListCursorByType(Context context, boolean isMain) {
+		
+		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
+		Cursor cursor = context.getContentResolver().query(uri, null,
+				RecipeMaterialPurchaseList.IS_MAIN + "=?",
+				new String[] { isMain ? "1" : "0" }, null);
+		return cursor; 
 	}
 	
 }

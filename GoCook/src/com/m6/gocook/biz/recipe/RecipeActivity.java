@@ -1,18 +1,9 @@
 package com.m6.gocook.biz.recipe;
 
-import javax.security.auth.PrivateCredentialPermission;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.m6.gocook.R;
-import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.biz.profile.RecipeAdapter;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.util.log.Logger;
-import com.m6.gocook.util.net.NetUtils;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -20,7 +11,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +40,6 @@ public class RecipeActivity extends Activity {
 		
 		initView();
 		
-		showProgress(true);
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
 
@@ -225,6 +214,11 @@ public class RecipeActivity extends Activity {
 	}
 
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			showProgress(true);
+		}
 
 		@Override
 		protected Void doInBackground(Void... params) {

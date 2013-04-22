@@ -14,16 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class PurchaseListFragment extends Fragment {
 
 	private Context mContext;
 	private Cursor mCursor;
-	private BaseAdapter mAdapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,11 +35,16 @@ public class PurchaseListFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.fragment_purchase_list, container, false);
 		
-		mCursor = PurchaseListModel.getRecipePurchaseListCursor(getActivity());
-		mAdapter = new PurchaseListAdapter(getActivity(), mCursor, CursorAdapter.FLAG_AUTO_REQUERY);
+		mCursor = PurchaseListModel.getRecipePurchaseListCursor(mContext);
+		BaseAdapter mAdapter = new PurchaseListAdapter(mContext, mCursor, CursorAdapter.FLAG_AUTO_REQUERY);
 		
 		ListView purchaseListView = (ListView) view.findViewById(R.id.purchase_listview);
+		
+		View footerView = inflater.inflate(R.layout.adapter_purchase_recipe_list_footer, null);
+		purchaseListView.addFooterView(footerView, null, false);
+		
 		purchaseListView.setAdapter(mAdapter);
+		
 		
 		return view;
 
@@ -49,12 +56,6 @@ public class PurchaseListFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		
-	}
 	
 	@Override
 	public void onDestroy() {
