@@ -389,6 +389,12 @@ public class RegisterFragment extends Fragment {
 		}
 		
 		@Override
+		public void onDestroyView() {
+			super.onDestroyView();
+			mAvatarBitmap = null;
+		}
+		
+		@Override
 		public void onDestroy() {
 			super.onDestroy();
 			MainActivityHelper.unRegisterOnActivityActionListener(this);
