@@ -4,23 +4,28 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeEntity.Procedure;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class RecipeProcedureAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private ArrayList<Procedure> mProcedures;
+	private ImageFetcher mImageFetcher;
 	
-	public RecipeProcedureAdapter(Context context, ArrayList<Procedure> procedures) {
+	public RecipeProcedureAdapter(Context context, ArrayList<Procedure> procedures, ImageFetcher imageFetcher) {
 		mInflater = LayoutInflater.from(context);
 		mProcedures = procedures;
+		mImageFetcher = imageFetcher;
 	}
 	
 	@Override
@@ -49,6 +54,7 @@ public class RecipeProcedureAdapter extends BaseAdapter {
 			holder = new ViewHold();
 			holder.index = (TextView) convertView.findViewById(R.id.index);
 			holder.desc = (TextView) convertView.findViewById(R.id.desc);
+			holder.image = (ImageView) convertView.findViewById(R.id.cover_image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHold) convertView.getTag();
@@ -57,6 +63,12 @@ public class RecipeProcedureAdapter extends BaseAdapter {
 		Procedure procedure = mProcedures.get(position);
 		holder.index.setText(String.valueOf(position + 1));
 		holder.desc.setText(procedure.getDesc());
+		if(TextUtils.isEmpty(procedure.getImageURL())) {
+			holder.image.setVisibility(View.GONE);
+		} else {
+			mImageFetcher.loadImage(procedure.getImageURL(), holder.image);
+			holder.image.setVisibility(View.VISIBLE);
+		}
 		
 		return convertView;
 	}
@@ -64,7 +76,7 @@ public class RecipeProcedureAdapter extends BaseAdapter {
 	private class ViewHold {
 		private TextView index;
 		private TextView desc;
-		private Bitmap image;
+		private ImageView image;
 	}
 
 }

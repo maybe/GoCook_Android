@@ -134,7 +134,7 @@ public class RecipeActivity extends FragmentActivity {
 
 		ListView list = (ListView) findViewById(R.id.procedure_listview);
 		list.setAdapter(new RecipeProcedureAdapter(this, mRecipeEntity
-				.getProcedures()));
+				.getProcedures(), mImageFetcher));
 
 		LinearLayout tipsLinearLayout = (LinearLayout) findViewById(R.id.tips_layout);
 		if(TextUtils.isEmpty(mRecipeEntity.getTips())) {

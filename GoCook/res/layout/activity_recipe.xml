@@ -80,7 +80,7 @@
                 android:id="@+id/cover_image"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/biz_recipe_cover_image_height"
-                android:background="#ff0000"
+                android:background="@color/recipe_cover_image_background"
                 android:contentDescription="@string/biz_recipe_image_banner_content_description"
                 android:scaleType="centerCrop" />
 
@@ -144,7 +144,9 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 app:layout_disbleScroll="true"
+                android:divider="@android:color/transparent"
                 android:horizontalSpacing="1dp"
+                android:listSelector="@android:color/transparent"
                 android:numColumns="2"
                 android:verticalSpacing="1dp" />
 
@@ -167,6 +169,9 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 app:layout_disbleScroll="true"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="1dp"
+                android:listSelector="@android:color/transparent"
                 android:verticalSpacing="1dp" />
 
             <!-- Tips -->
@@ -175,8 +180,8 @@
                 android:id="@+id/tips_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="invisible" >
 
                 <TextView
                     android:layout_width="fill_parent"

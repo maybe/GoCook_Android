@@ -7,6 +7,7 @@
     <color name="profile_myrecipe_bg">#edf5f7</color>
     <color name="profile_more_btn_bg">#79c7d1</color>
     
+    <color name="recipe_cover_image_background">#a9a4a0</color>
     <color name="recipe_finished_link_bg">#aaaaaa</color>
     <color name="recipe_finished_link_bg_pressed">#9b938e</color>
     <color name="recipe_comments_link_bg">#ffffff</color>
