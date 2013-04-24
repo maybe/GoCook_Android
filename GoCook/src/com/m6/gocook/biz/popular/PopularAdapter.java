@@ -1,6 +1,11 @@
 package com.m6.gocook.biz.popular;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.m6.gocook.R;
+import com.m6.gocook.base.protocol.ServerProtocol;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,96 +16,75 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PopularAdapter extends BaseAdapter {
-	
-	private static final int VIEW_TYPE_HEADER = 0;
-	
-	private static final int VIEW_TYPE_NORMAL = 1;
-	
+
 	private LayoutInflater mInflater;
 	
-	public PopularAdapter(Context context) {
+	private ImageFetcher mImageFetcher;
+
+	private ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String,Object>>();
+	
+	public PopularAdapter(Context context, ImageFetcher imageFetcher, ArrayList<HashMap<String,Object>> data) {
 		mInflater = LayoutInflater.from(context);
+		mImageFetcher = imageFetcher;
+		mData.addAll(data);
 	}
 
 	@Override
 	public int getCount() {
-		return 0;
-	}
-	
-	@Override
-	public int getItemViewType(int position) {
-		if(position == 0) {
-			return VIEW_TYPE_HEADER;
-		} else {
-			return VIEW_TYPE_NORMAL;
-		}
-	}
-	
-	@Override
-	public int getViewTypeCount() {
-		return 2;
+		return mData.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
+		return mData.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		HeaderViewHolder headerHolder;
-		NormalViewHolder normalHolder;
-		int type = getItemViewType(position);
-		if(convertView == null) {
-			if(type == VIEW_TYPE_HEADER) {
-				convertView = mInflater.inflate(R.layout.adapter_popular_header_item, null);
-				headerHolder = new HeaderViewHolder();
-				headerHolder.image1 = (ImageView) convertView.findViewById(R.id.image1);
-				headerHolder.image2 = (ImageView) convertView.findViewById(R.id.image2);
-				headerHolder.text1 = (TextView) convertView.findViewById(R.id.text1);
-				headerHolder.text2 = (TextView) convertView.findViewById(R.id.text2);
-				convertView.setTag(headerHolder);
-			} else if(type == VIEW_TYPE_NORMAL) {
-				convertView = mInflater.inflate(R.layout.adapter_popular_normal_item, null);
-				normalHolder = new NormalViewHolder();
-				normalHolder.title = (TextView) convertView.findViewById(R.id.title);
-				normalHolder.image1 = (ImageView) convertView.findViewById(R.id.image1);
-				normalHolder.image2 = (ImageView) convertView.findViewById(R.id.image2);
-				normalHolder.image3 = (ImageView) convertView.findViewById(R.id.image3);
-				normalHolder.image4 = (ImageView) convertView.findViewById(R.id.image4);
-				convertView.setTag(normalHolder);
-			}
+		ViewHolder holder;
+		if (convertView == null) {
+			holder = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.adapter_popular_normal_item, null);
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder.image1 = (ImageView) convertView.findViewById(R.id.image1);
+			holder.image2 = (ImageView) convertView.findViewById(R.id.image2);
+			holder.image3 = (ImageView) convertView.findViewById(R.id.image3);
+			holder.image4 = (ImageView) convertView.findViewById(R.id.image4);
+			convertView.setTag(holder);
 		} else {
-			if(type == VIEW_TYPE_HEADER) {
-				headerHolder = (HeaderViewHolder) convertView.getTag();
-			} else if(type == VIEW_TYPE_NORMAL) {
-				normalHolder = (NormalViewHolder) convertView.getTag();
-			}
+			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		if(type == VIEW_TYPE_HEADER) {
-			
-		} else if(type == VIEW_TYPE_NORMAL) {
-			
+		HashMap<String, Object> map = mData.get(position);
+		holder.title.setText((String) map.get(ServerProtocol.KEY_POPULAR_RECOMMEND_ITEM_NAME));
+		ArrayList<String> images = (ArrayList<String>) map.get(ServerProtocol.KEY_POPULAR_RECOMMEND_ITEM_IMG);
+		if(images != null) {
+			int length = images.size();
+			if(length >=4) {
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(2), holder.image3);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(3), holder.image4);
+			} else if (length  == 3) {
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(2), holder.image3);
+			} else if (length  == 2) {
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
+			} else if (length  == 1) {
+				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
+			}
 		}
 		return convertView;
 	}
-	
-	class HeaderViewHolder {
-		private ImageView image1;
-		private ImageView image2;
-		private TextView text1;
-		private TextView text2;
-	}
-	
-	class NormalViewHolder {
+
+	class ViewHolder {
 		private TextView title;
 		private ImageView image1;
 		private ImageView image2;

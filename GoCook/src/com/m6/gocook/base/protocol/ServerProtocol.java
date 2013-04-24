@@ -2,6 +2,7 @@ package com.m6.gocook.base.protocol;
 
 public class ServerProtocol {
 
+	/* URL */
 	public static final String URL_ROOT = "http://192.168.1.103";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
@@ -10,12 +11,12 @@ public class ServerProtocol {
 	
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
 	
-	
+	/** Popular URL */
+	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
 	public static final String KEY_RESULT = "result";
 	public static final int VALUE_RESULT_OK = 0;
 	public static final int VALUE_RESULT_ERROR = 0;
-
 	
 	
 	/* Recipe JSON Protocol */
@@ -38,5 +39,11 @@ public class ServerProtocol {
 	public static final String KEY_RECIPE_STEPS_IMG = "img";
 	public static final String KEY_RECIPE_TIPS = "tips";
 	
+	/* Popular JSON Protocol */
+	public static final String KEY_POPULAR_TOPNEW_IMG = "topnew_img";
+	public static final String KEY_POPULAR_TOPHOT_IMG = "tophot_img";
+	public static final String KEY_POPULAR_RECOMMEND_ITEMS = "recommend_items";
+	public static final String KEY_POPULAR_RECOMMEND_ITEM_NAME = "name";
+	public static final String KEY_POPULAR_RECOMMEND_ITEM_IMG = "images";
 	
 }

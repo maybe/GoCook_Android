@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
+import com.m6.gocook.base.protocol.ServerProtocol;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 
@@ -82,7 +83,7 @@ public class AccountModel {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("login", username));
 		params.add(new BasicNameValuePair("password", password));
-		return NetUtils.httpPost(Constants.URL_LOGIN, params);
+		return NetUtils.httpPost(ServerProtocol.URL_LOGIN, params);
 	}
 	
 	public static void logout(Context context) {
@@ -100,7 +101,7 @@ public class AccountModel {
 		params.add(new BasicNameValuePair("repassword", password));
 //		params.add(new BasicNameValuePair("avatar", ""));
 		
-		return NetUtils.httpPost(Constants.URL_REGISTER, params, avatart, "avatar");
+		return NetUtils.httpPost(ServerProtocol.URL_REGISTER, params, avatart, "avatar");
 //		return NetUtils.httpPost(Constants.URL_REGISTER, params);
 	}
 	

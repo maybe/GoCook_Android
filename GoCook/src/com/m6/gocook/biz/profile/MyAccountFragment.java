@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.profile;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.cache.util.ImageCache;
@@ -30,7 +31,7 @@ public class MyAccountFragment extends Fragment {
 	
 	public static final String TAG = "MyAccountFragment";
 	
-	private static final String IMAGE_CACHE_DIR = "images";
+	
 	private ImageFetcher mImageFetcher;
 	
 	@Override
@@ -40,7 +41,7 @@ public class MyAccountFragment extends Fragment {
 		int imageThumbSize = getResources().getDimensionPixelSize(R.dimen.biz_profile_avatar);
 
         ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(getActivity(), IMAGE_CACHE_DIR);
+                new ImageCache.ImageCacheParams(getActivity(), Constants.IMAGE_CACHE_DIR);
         cacheParams.setMemCacheSizePercent(0.25f); // Set memory cache to 25% of app memory
 
         // The ImageFetcher takes care of loading images into our ImageView children asynchronously

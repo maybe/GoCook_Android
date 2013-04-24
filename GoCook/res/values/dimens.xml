@@ -12,5 +12,8 @@
     <!--  recipe show -->
     <dimen name="biz_recipe_cover_image_width">240dp</dimen>
 	<dimen name="biz_recipe_cover_image_height">180dp</dimen>
+	
+	<!-- popular -->
+    <dimen name="biz_popular_item_image_size">50dp</dimen>
     
 </resources>
