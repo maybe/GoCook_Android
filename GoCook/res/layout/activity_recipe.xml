@@ -77,11 +77,12 @@
             <!-- Baner Image -->
 
             <ImageView
-                android:id="@+id/banner_image"
+                android:id="@+id/cover_image"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/biz_recipe_image_banner_height"
+                android:layout_height="@dimen/biz_recipe_cover_image_height"
                 android:background="#ff0000"
-                android:contentDescription="@string/biz_recipe_image_banner_content_description" />
+                android:contentDescription="@string/biz_recipe_image_banner_content_description"
+                android:scaleType="centerCrop" />
 
             <!-- Recipe Introduction -->
 
@@ -102,7 +103,8 @@
                     android:layout_marginBottom="15dp"
                     android:lineSpacingMultiplier="1.5"
                     android:textColor="#3B272D"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/recipe_author_textview"
@@ -169,26 +171,34 @@
 
             <!-- Tips -->
 
-            <TextView
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/tips_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/biz_recipe_tips"
-                android:textColor="#999999"
-                android:textSize="14sp" />
+                android:visibility="invisible"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/recipe_tips_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/white"
-                android:lineSpacingMultiplier="1.5"
-                android:padding="25dp"
-                android:text="TextView"
-                android:textColor="#3B272D"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/biz_recipe_tips"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/recipe_tips_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/white"
+                    android:lineSpacingMultiplier="1.5"
+                    android:padding="25dp"
+                    android:text="TextView"
+                    android:textColor="#3B272D"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <!-- Comments -->
 

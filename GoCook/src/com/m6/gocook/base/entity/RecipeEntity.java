@@ -2,7 +2,11 @@ package com.m6.gocook.base.entity;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.m6.gocook.base.protocol.ServerProtocol;
+import com.m6.gocook.biz.account.AccountModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -194,39 +198,46 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	@Override
 	public boolean parse(JSONObject object) {
 
-		// Temporary Fake Data
-		this.id = 222;
-		this.name = "鱼香肉丝3";
-		this.author = "居然";
-		this.desc = "辣中带酸，酸中带甜，甜中带咸，咸中又带鲜……味道丰富而不杂腻！恰似女儿心，捉摸不透，又飘忽不定，似近又远，偶尔火辣又偶尔羞涩……";
-		this.dishCount = 582;
-		this.collectCount = 35587;
-		
-		this.materials = new ArrayList<RecipeEntity.Material>();
-		this.materials.add(new Material("里脊肉2", "250克", true));
-		this.materials.add(new Material("青红辣椒2", "各一个", false));
-		this.materials.add(new Material("胡萝卜2", "1/3根", true));
-		this.materials.add(new Material("干木耳2", "30克", true));
-		this.materials.add(new Material("郫县豆瓣酱2", "2汤勺", false));
-		this.materials.add(new Material("蒜瓣2", "两粒", false));
-		this.materials.add(new Material("料酒2", "少量", false));
-		this.materials.add(new Material("油2", "适量", false));
+		try {
+			if(object.optInt(ServerProtocol.KEY_RESULT) != ServerProtocol.VALUE_RESULT_OK) {
+				return false;
+			}
 
-		this.procedures = new ArrayList<RecipeEntity.Procedure>();
-		this.procedures
-				.add(new Procedure(
-						"木耳泡发，里脊肉切丝，用少许盐，糖抓均匀，一小勺淀粉上浆后用一小勺油拌匀封备用，木耳，辣椒，红萝卜也切丝备用，用糖、香醋，料酒，酱油，清水调成酱汁，比例约为：1：1：0.3：2：3",
-						""));
-		this.procedures.add(new Procedure("锅烧热，倒入少许油，倒入瘦肉滑油", ""));
-		this.procedures.add(new Procedure("锅里留油，放少许蒜末，爆香后放入木耳快炒几秒", ""));
-		this.procedures.add(new Procedure("加豆瓣酱", ""));
-		this.procedures.add(new Procedure("炒熟吃了", ""));
+			JSONObject recipe = object.optJSONObject(ServerProtocol.KEY_RECIPE);
+			
+			this.id = recipe.optInt(ServerProtocol.KEY_RECIPE_ID);
+			this.name = recipe.optString(ServerProtocol.KEY_RECIPE_NAME);
+			this.author = recipe.optString(ServerProtocol.KEY_RECIPE_AUTHOR_NAME);
+			this.desc = recipe.optString(ServerProtocol.KEY_RECIPE_INTRO);
+			this.coverImgURL = ServerProtocol.URL_ROOT + "/" + recipe.optString(ServerProtocol.KEY_RECIPE_COVER_IMAGE);
+			this.dishCount = recipe.optInt(ServerProtocol.KEY_RECIPE_DISH_COUNT);
+			this.collectCount = recipe.optInt(ServerProtocol.KEY_RECIPE_COLLECTED_COUNT);
+			
+			String materialStr = recipe.optString(ServerProtocol.KEY_RECIPE_MATERIALS);
+			String[] materials = materialStr.split(ServerProtocol.VALUE_RECIPE_MATERIALS_FLAG);
+			this.materials = new ArrayList<RecipeEntity.Material>();
+			for (int index = 0; index < materials.length / 2; index++) {
+				this.materials.add(new Material(materials[index * 2], materials[index * 2 + 1], true));
+			}
+			if(materials.length % 2 == 1) {
+				this.materials.add(new Material(materials[materials.length - 1], "", true));
+			}
+			
+			JSONArray steps = recipe.optJSONArray(ServerProtocol.KEY_RECIPE_STEPS);
+			this.procedures = new ArrayList<RecipeEntity.Procedure>();
+			for(int index=0;index<steps.length();index++) {
+				JSONObject step = steps.getJSONObject(index);
+				this.procedures
+				.add(new Procedure(step.optString(ServerProtocol.KEY_RECIPE_STEPS_CONTENT),
+						step.optString(ServerProtocol.KEY_RECIPE_STEPS_IMG)));
+			}
+			
+			this.tips = recipe.optString(ServerProtocol.KEY_RECIPE_TIPS);
 
-		this.tips = "1、步骤中提到的比例为大约，具体请根据个人口味稍作调整，要以自己喜欢的口感为准。\r\n"
-				+ "2、豆瓣酱一定要炒出红油再倒入肉丝，要不油色会相差比较远，亮泽度也会较差\r\n"
-				+ "3、酱汁提前兑好，在肉丝下锅炒均匀后立即可以倒入锅中，避免临时找酱汁引起遗漏\r\n"
-				+ "4、整个菜只需要很少的盐，只有在腌制肉丝的时候放一点点，因为酱油比较咸，豆瓣酱也咸，泡椒、香醋都有盐分\r\n"
-				+ "5、勾芡别太厚重，吃起来会腻，因为有酸，甜咸鲜味，搭配很均衡，所以，这道菜虽然看着红油很亮，其实并不太辣。";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 
 		return true;
 	}

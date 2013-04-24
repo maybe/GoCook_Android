@@ -111,6 +111,7 @@ public class PurchaseListAdapter extends CursorAdapter {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClass(mContext, RecipeActivity.class);
+				intent.putExtra(RecipeActivity.INTENT_KEY_RECIPE_ID, recipeId);
 				mContext.startActivity(intent);
 			}
 		});

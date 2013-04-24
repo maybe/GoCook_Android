@@ -5,11 +5,12 @@
     
     <!-- account -->
     <dimen name="biz_account_register_edittext_minWidth">180dp</dimen>
-    
-    <!-- recipe -->
-    <dimen name="biz_recipe_image_banner_height">180dp</dimen>
 
     <!-- profile -->
     <dimen name="biz_profile_avatar">80dp</dimen>
-
+    
+    <!--  recipe show -->
+    <dimen name="biz_recipe_cover_image_width">240dp</dimen>
+	<dimen name="biz_recipe_cover_image_height">180dp</dimen>
+    
 </resources>

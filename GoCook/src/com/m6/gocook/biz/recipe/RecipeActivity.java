@@ -3,47 +3,96 @@ package com.m6.gocook.biz.recipe;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
+import com.m6.gocook.util.cache.util.ImageCache;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.log.Logger;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecipeActivity extends Activity {
+public class RecipeActivity extends FragmentActivity {
 
 	final private String TAG = RecipeActivity.class.getCanonicalName();
+	
+	final static public String INTENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
-
+	private static final String IMAGE_CACHE_DIR = "images";
+	
 	// DataSet
-	private int mRecipeId;
+	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private AchieveRecipeTask mAchieveRecipeTask;
 
 	// UI reference
 	private View mStatusView;
 	private TextView mStatusMessageView;
+	
+	// Network Image Catchable Fetcher
+	private ImageFetcher mImageFetcher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe);
 		
+		Intent intent = getIntent();
+		mRecipeId = intent.getStringExtra(RecipeActivity.INTENT_KEY_RECIPE_ID);
+				
 		initView();
 		
+		ImageCache.ImageCacheParams cacheParams = new ImageCache.ImageCacheParams(
+				this, IMAGE_CACHE_DIR);
+		cacheParams.setMemCacheSizePercent(0.25f); // Set memory cache to 25% of App memory
+
+		// The ImageFetcher takes care of loading images into our ImageView
+		// children asynchronously
+		mImageFetcher = new ImageFetcher(this, getResources()
+				.getDimensionPixelSize(R.dimen.biz_recipe_cover_image_width),
+				getResources().getDimensionPixelSize(
+						R.dimen.biz_recipe_cover_image_height));
+		mImageFetcher.addImageCache(this.getSupportFragmentManager(),
+				cacheParams);
+		mImageFetcher.setImageFadeIn(false);
+
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
 
 	}
+	
+	@Override
+    public void onResume() {
+        super.onResume();
+        mImageFetcher.setExitTasksEarly(false);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mImageFetcher.setPauseWork(false);
+        mImageFetcher.setExitTasksEarly(true);
+        mImageFetcher.flushCache();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mImageFetcher.closeCache();
+    }
 
 	private void setTitle(String title) {
 		((TextView) findViewById(R.id.actionbar_title)).setText(title);
@@ -60,6 +109,12 @@ public class RecipeActivity extends Activity {
 		setTitle(mRecipeEntity.getName());
 
 		TextView recipeIntructionTextView = (TextView) findViewById(R.id.recipe_intruction_textview);
+		if(TextUtils.isEmpty(mRecipeEntity.getDesc())) {
+			recipeIntructionTextView.setVisibility(View.GONE);
+		} else {
+			recipeIntructionTextView.setText(mRecipeEntity.getDesc());
+			recipeIntructionTextView.setVisibility(View.VISIBLE);
+		}
 		recipeIntructionTextView.setText(mRecipeEntity.getDesc());
 
 		TextView recipeAuthorTextView = (TextView) findViewById(R.id.recipe_author_textview);
@@ -69,6 +124,9 @@ public class RecipeActivity extends Activity {
 		recipeAboutTextView.setText(String.format(
 				getResources().getString(R.string.biz_recipe_about),
 				mRecipeEntity.getDishCount(), mRecipeEntity.getCollectCount()));
+		
+		ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
+		mImageFetcher.loadImage(mRecipeEntity.getCoverImgURL(), coverImage);
 
 		GridView grid = (GridView) findViewById(R.id.material_gridview);
 		grid.setAdapter(new RecipeMaterialAdapter(this, mRecipeEntity
@@ -78,9 +136,15 @@ public class RecipeActivity extends Activity {
 		list.setAdapter(new RecipeProcedureAdapter(this, mRecipeEntity
 				.getProcedures()));
 
-		TextView recipeTipsTextView = (TextView) findViewById(R.id.recipe_tips_textview);
-		recipeTipsTextView.setText(mRecipeEntity.getTips());
-
+		LinearLayout tipsLinearLayout = (LinearLayout) findViewById(R.id.tips_layout);
+		if(TextUtils.isEmpty(mRecipeEntity.getTips())) {
+			tipsLinearLayout.setVisibility(View.GONE);
+		} else {
+			TextView recipeTipsTextView = (TextView) findViewById(R.id.recipe_tips_textview);
+			recipeTipsTextView.setText(mRecipeEntity.getTips());
+			tipsLinearLayout.setVisibility(View.VISIBLE);
+		}
+		
 		// Recipe Comments
 		TextView commentItem = (TextView) findViewById(R.id.comment_item);
 		commentItem
@@ -223,7 +287,7 @@ public class RecipeActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			mRecipeEntity = RecipeModel.getRecipe(getApplicationContext(), 0);
+			mRecipeEntity = RecipeModel.getRecipe(getApplicationContext(), mRecipeId);
 			return null;
 		}
 
