@@ -59,6 +59,10 @@
     <string name="biz_recipe_purchase_main_material">做%s道菜所需的主料</string>
     <string name="biz_recipe_purchase_nmain_material">做%s道菜所需的辅料</string>
     
+    <!-- popular -->
+    <string name="biz_popular_tophot">本周最热欢迎</string>
+    <string name="biz_popular_topnew">本周最新菜谱</string>
+    
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>
     

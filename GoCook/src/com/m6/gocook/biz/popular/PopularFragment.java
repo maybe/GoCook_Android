@@ -9,14 +9,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
-import com.m6.gocook.base.protocol.ServerProtocol;
+import com.m6.gocook.base.entity.Popular;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -70,27 +74,28 @@ public class PopularFragment extends Fragment {
         mImageFetcher.closeCache();
     }
     
-    private static class PopularTask extends AsyncTask<Void, Void, ArrayList<HashMap<String, Object>>> {
+    private static class PopularTask extends AsyncTask<Void, Void, Popular> {
 
-    	private Context mContext;
+    	private FragmentActivity mContext;
     	private ImageFetcher mImageFetcher;
     	
-    	public PopularTask(Context context, ImageFetcher imageFetcher) {
+    	public PopularTask(FragmentActivity context, ImageFetcher imageFetcher) {
     		mContext = context;
     		mImageFetcher = imageFetcher;
 		}
 		@Override
-		protected ArrayList<HashMap<String, Object>> doInBackground(Void... params) {
-			Map<String, Object> resutl = PopularModel.getPopularData();
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) resutl.get(ServerProtocol.KEY_POPULAR_RECOMMEND_ITEMS);
-			return list;
+		protected Popular doInBackground(Void... params) {
+			Popular resutl = PopularModel.getPopularData();
+			return resutl;
 		}
     	
 		@Override
-		protected void onPostExecute(ArrayList<HashMap<String, Object>> result) {
+		protected void onPostExecute(Popular result) {
 			if(mContext != null) {
-				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result);
-				ListView list = (ListView) ((FragmentActivity) mContext).findViewById(R.id.list);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image1)));
+				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image2)));
+				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result.getRecommendItems());
+				ListView list = (ListView) mContext.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}
 		}

@@ -1,6 +1,6 @@
 package com.m6.gocook.base.protocol;
 
-public class ServerProtocol {
+public class Protocol {
 
 	/* URL */
 	public static final String URL_ROOT = "http://192.168.1.103";

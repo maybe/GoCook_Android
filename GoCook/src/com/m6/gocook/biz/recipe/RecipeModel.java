@@ -20,7 +20,7 @@ import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.protocol.ServerProtocol;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
 
@@ -35,7 +35,7 @@ public class RecipeModel {
 			return null;
 		}
 		
-		String result = NetUtils.httpGet(String.format(ServerProtocol.URL_RECIPE, recipeId));
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE, recipeId));
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);

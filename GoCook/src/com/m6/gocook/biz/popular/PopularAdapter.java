@@ -1,13 +1,9 @@
 package com.m6.gocook.biz.popular;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.m6.gocook.R;
-import com.m6.gocook.base.protocol.ServerProtocol;
-import com.m6.gocook.util.cache.util.ImageFetcher;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +11,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.m6.gocook.R;
+import com.m6.gocook.base.protocol.ProtocolUtils;
+import com.m6.gocook.util.cache.util.ImageFetcher;
+
 public class PopularAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	
 	private ImageFetcher mImageFetcher;
 
-	private ArrayList<HashMap<String, Object>> mData = new ArrayList<HashMap<String,Object>>();
+	private ArrayList<Pair<String, String[]>> mData = new ArrayList<Pair<String, String[]>>();
 	
-	public PopularAdapter(Context context, ImageFetcher imageFetcher, ArrayList<HashMap<String,Object>> data) {
+	public PopularAdapter(Context context, ImageFetcher imageFetcher, ArrayList<Pair<String, String[]>> data) {
 		mInflater = LayoutInflater.from(context);
 		mImageFetcher = imageFetcher;
 		mData.addAll(data);
@@ -60,25 +60,25 @@ public class PopularAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		HashMap<String, Object> map = mData.get(position);
-		holder.title.setText((String) map.get(ServerProtocol.KEY_POPULAR_RECOMMEND_ITEM_NAME));
-		ArrayList<String> images = (ArrayList<String>) map.get(ServerProtocol.KEY_POPULAR_RECOMMEND_ITEM_IMG);
+		Pair<String, String[]> data = mData.get(position);
+		holder.title.setText(data.first);
+		String[] images = data.second;
 		if(images != null) {
-			int length = images.size();
+			int length = images.length;
 			if(length >=4) {
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(2), holder.image3);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(3), holder.image4);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), holder.image3);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[3]), holder.image4);
 			} else if (length  == 3) {
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(2), holder.image3);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), holder.image3);
 			} else if (length  == 2) {
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(1), holder.image2);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
 			} else if (length  == 1) {
-				mImageFetcher.loadImage(ServerProtocol.URL_ROOT + images.get(0), holder.image1);
+				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
 			}
 		}
 		return convertView;
