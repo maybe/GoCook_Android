@@ -26,9 +26,9 @@ import android.widget.TextView;
 
 public class RecipeActivity extends FragmentActivity {
 
-	final private String TAG = RecipeActivity.class.getCanonicalName();
+	private final String TAG = RecipeActivity.class.getCanonicalName();
 	
-	final static public String INTENT_KEY_RECIPE_ID = "intent_key_recipe_id";
+	public static final String INTENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";

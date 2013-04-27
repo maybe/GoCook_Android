@@ -12,8 +12,39 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textSize="16sp"
         android:textColor="@android:color/white"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:id="@+id/purchaselist_switch_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <RadioButton
+            android:id="@+id/recipe_view_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@drawable/recipe_purchase_list_radiobutton_recipe_selector"
+            android:text=""
+            android:checked="true"
+            android:clickable="false" />
+
+        <RadioButton
+            android:id="@+id/total_view_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@drawable/recipe_purchase_list_radiobutton_total_selector"
+            android:text=""
+            android:checked="false"
+            android:clickable="false" />
+    </RadioGroup>
 
 </RelativeLayout>

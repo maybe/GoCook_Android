@@ -2,27 +2,25 @@ package com.m6.gocook.biz.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.text.TextUtils;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.account.AccountFragment;
-import com.m6.gocook.biz.account.RegisterFragment;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.popular.PopularFragment;
+import com.m6.gocook.biz.purchase.PurchaseFragment;
 import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
-import com.m6.gocook.biz.search.SearchFragment;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 	
@@ -44,11 +42,26 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		addTab(mTabHost, inflater, Tab.SEARCH.tag, R.string.biz_main_tab_search, R.drawable.tab_pop_alpha, PopularFragment.class, null);
 //		addTab(tabHost, inflater, Tab.HOT.tag, R.string.biz_main_tab_hot, R.drawable.tab_pop_alpha, Fragment.class, null);
-		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseListByTypeFragment.class, null);
+		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseFragment.class, null);
 		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
 		
 		mTabHost.setOnTabChangedListener(this);
 		mTitle.setText(TabHelper.getActionBarTitle(this, Tab.SEARCH.tag));
+		
+		((RadioGroup) findViewById(R.id.purchaselist_switch_radiogroup)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RadioGroup group = (RadioGroup) v;
+				if (group.getCheckedRadioButtonId() == R.id.recipe_view_radiobutton) {
+					group.check(R.id.total_view_radiobutton);
+					MainActivityHelper.OnFragmentSwitch(PurchaseListByTypeFragment.class);
+				} else {
+					group.check(R.id.recipe_view_radiobutton);
+					MainActivityHelper.OnFragmentSwitch(PurchaseListFragment.class);
+				}
+			}
+		});
 	}
 
 	private void addTab(FragmentTabHost tabHost, LayoutInflater inflater, String tag, int titleId, int iconId, Class<?> clss, Bundle args) {
@@ -63,6 +76,12 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 	public void onTabChanged(String tabId) {
 		if(TextUtils.isEmpty(tabId)) {
 			return;
+		}
+		
+		if(tabId.equals(Tab.SHOPPING.tag)) {
+			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.VISIBLE);
+		} else {
+			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.GONE);
 		}
 		
 		mTitle.setText(TabHelper.getActionBarTitle(this, tabId));
