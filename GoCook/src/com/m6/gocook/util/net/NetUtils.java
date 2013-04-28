@@ -317,7 +317,7 @@ public class NetUtils {
 					conn.getInputStream());
 			result = readStream(in);
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		} finally {
 			if(conn != null) {
 				conn.disconnect();

@@ -4,21 +4,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <EditText
+        android:id="@+id/search_box"
+        android:inputType="text"
+        android:layout_margin="5dp"
+        android:hint="@string/biz_search_box_hint"
+        android:background="@drawable/search_box"
+        android:paddingLeft="@dimen/biz_search_box_padding_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="top"
+        android:padding="5dp"
         android:orientation="horizontal" >
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
             android:layout_weight="1" >
 
             <ImageView
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/register_photo" />
 
             <TextView
@@ -39,6 +52,7 @@
                 android:id="@+id/image2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/register_photo" />
 
             <TextView
@@ -53,6 +67,9 @@
 
     <ListView
         android:id="@+id/list"
+        android:layout_marginTop="5dp"
+        android:divider="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
