@@ -91,7 +91,7 @@ public class PopularFragment extends Fragment {
     	
 		@Override
 		protected void onPostExecute(Popular result) {
-			if(mContext != null) {
+			if(mContext != null && result != null) {
 				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image1)));
 				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image2)));
 				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result.getRecommendItems());
