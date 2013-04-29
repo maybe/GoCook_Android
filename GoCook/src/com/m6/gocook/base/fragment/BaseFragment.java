@@ -85,10 +85,24 @@ public class BaseFragment extends Fragment {
 		return null;
 	}
 	
+	/**
+	 * Create the default ActionBar view.
+	 * 
+	 * @param inflater
+	 * @param container
+	 * @return
+	 */
 	private View createDefaultActionBarView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.base_actionbar, container, false);
 	}
 	
+	/**
+	 * Called to have the fragment instantiate its progress interface view. This is optional.
+	 * 
+	 * @param inflater
+	 * @param container
+	 * @return
+	 */
 	public View onCreateProgressView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.fragment_progress_status, container, false);
 	}
@@ -98,48 +112,7 @@ public class BaseFragment extends Fragment {
 	}
 	
 	/**
-	 * Shows the progress UI and hides the login form.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	public void showProgress(final View contentView, final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mProgressView.setVisibility(View.VISIBLE);
-			mProgressView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-
-			contentView.setVisibility(View.VISIBLE);
-			contentView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							contentView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			contentView.setVisibility(show ? View.GONE : View.VISIBLE);
-		}
-	}
-	
-	/**
-	 * Shows the progress UI and hides the login form.
+	 * Shows or hides the progress UI.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 	public void showProgress(final boolean show) {
@@ -167,12 +140,22 @@ public class BaseFragment extends Fragment {
 		}
 	}
 	
+	/**
+	 * 设置loading时的提示文字
+	 * 
+	 * @param message
+	 */
 	public void setProgressMessage(String message) {
 		if(mProgressMessageView != null) {
 			mProgressMessageView.setText(message);
 		}
 	}
 	
+	/**
+	 * 设置loading时的提示文字
+	 * 
+	 * @param resId
+	 */
 	public void setProgressMessage(int resId) {
 		if(mProgressMessageView != null) {
 			mProgressMessageView.setText(resId);
