@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:padding="5dp" >
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
         android:layout_weight="1" >
 
         <ImageView
             android:id="@+id/image1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:src="@drawable/register_photo" />
 
         <TextView
@@ -20,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="@string/biz_popular_tophot" />
     </FrameLayout>
 
     <FrameLayout
@@ -32,6 +38,7 @@
             android:id="@+id/image2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:src="@drawable/register_photo" />
 
         <TextView
@@ -39,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="@string/biz_popular_topnew" />
     </FrameLayout>
 
 </LinearLayout>

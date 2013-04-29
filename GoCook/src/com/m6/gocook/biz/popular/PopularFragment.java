@@ -1,26 +1,17 @@
 package com.m6.gocook.biz.popular;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
-import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -40,6 +31,7 @@ public class PopularFragment extends Fragment {
         mImageFetcher = new ImageFetcher(getActivity(), imageThumbSize);
         mImageFetcher.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
         mImageFetcher.setImageFadeIn(false);
+        
 	}
 	
 	@Override
@@ -92,9 +84,7 @@ public class PopularFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Popular result) {
 			if(mContext != null && result != null) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image1)));
-				mImageFetcher.loadImage(ProtocolUtils.getURL(result.getTopHotImg()), (ImageView) (mContext.findViewById(R.id.image2)));
-				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result.getRecommendItems());
+				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result);
 				ListView list = (ListView) mContext.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}

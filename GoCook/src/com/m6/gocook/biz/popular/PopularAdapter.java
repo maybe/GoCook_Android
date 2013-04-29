@@ -12,31 +12,50 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PopularAdapter extends BaseAdapter {
+	
+	private static final int VIEW_TYPE_HEADER = 0;
+	
+	private static final int VIEW_TYPE_NORMAL = 1;
 
 	private LayoutInflater mInflater;
 	
 	private ImageFetcher mImageFetcher;
 
-	private ArrayList<Pair<String, String[]>> mData = new ArrayList<Pair<String, String[]>>();
+	private Popular mPopular;
 	
-	public PopularAdapter(Context context, ImageFetcher imageFetcher, ArrayList<Pair<String, String[]>> data) {
+	public PopularAdapter(Context context, ImageFetcher imageFetcher, Popular popular) {
 		mInflater = LayoutInflater.from(context);
 		mImageFetcher = imageFetcher;
-		mData.addAll(data);
+		mPopular = popular;
 	}
 
 	@Override
 	public int getCount() {
-		return mData.size();
+		return mPopular == null ? 0 : mPopular.getRecommendItems().size() + 1;
+	}
+	
+	@Override
+	public int getItemViewType(int position) {
+		if(position == 0) {
+			return VIEW_TYPE_HEADER;
+		} else {
+			return VIEW_TYPE_NORMAL;
+		}
+	}
+	
+
+	public int getViewTypeCount() {
+		return 2;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mData.get(position);
+		return null;
 	}
 
 	@Override
@@ -46,45 +65,73 @@ public class PopularAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
-		if (convertView == null) {
-			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.adapter_popular_normal_item, null);
-			holder.title = (TextView) convertView.findViewById(R.id.title);
-			holder.image1 = (ImageView) convertView.findViewById(R.id.image1);
-			holder.image2 = (ImageView) convertView.findViewById(R.id.image2);
-			holder.image3 = (ImageView) convertView.findViewById(R.id.image3);
-			holder.image4 = (ImageView) convertView.findViewById(R.id.image4);
-			convertView.setTag(holder);
+		HeaderViewHolder headerHolder = null;
+		NormalViewHolder normalHolder = null;
+		int type = getItemViewType(position);
+		if(convertView == null) {
+			if(type == VIEW_TYPE_HEADER) {
+				convertView = mInflater.inflate(R.layout.adapter_popular_header_item, null);
+				headerHolder = new HeaderViewHolder();
+				headerHolder.image1 = (ImageView) convertView.findViewById(R.id.image1);
+				headerHolder.image2 = (ImageView) convertView.findViewById(R.id.image2);
+				headerHolder.text1 = (TextView) convertView.findViewById(R.id.text1);
+				headerHolder.text2 = (TextView) convertView.findViewById(R.id.text2);
+				convertView.setTag(headerHolder);
+			} else if(type == VIEW_TYPE_NORMAL) {
+				convertView = mInflater.inflate(R.layout.adapter_popular_normal_item, null);
+				normalHolder = new NormalViewHolder();
+				normalHolder.title = (TextView) convertView.findViewById(R.id.title);
+				normalHolder.image1 = (ImageView) convertView.findViewById(R.id.image1);
+				normalHolder.image2 = (ImageView) convertView.findViewById(R.id.image2);
+				normalHolder.image3 = (ImageView) convertView.findViewById(R.id.image3);
+				normalHolder.image4 = (ImageView) convertView.findViewById(R.id.image4);
+				convertView.setTag(normalHolder);
+			}
 		} else {
-			holder = (ViewHolder) convertView.getTag();
+			if(type == VIEW_TYPE_HEADER) {
+				headerHolder = (HeaderViewHolder) convertView.getTag();
+			} else if(type == VIEW_TYPE_NORMAL) {
+				normalHolder = (NormalViewHolder) convertView.getTag();
+			}
 		}
-		
-		Pair<String, String[]> data = mData.get(position);
-		holder.title.setText(data.first);
-		String[] images = data.second;
-		if(images != null) {
-			int length = images.length;
-			if(length >=4) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), holder.image3);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[3]), holder.image4);
-			} else if (length  == 3) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), holder.image3);
-			} else if (length  == 2) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), holder.image2);
-			} else if (length  == 1) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), holder.image1);
+
+		if(type == VIEW_TYPE_HEADER) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
+			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
+		} else if(type == VIEW_TYPE_NORMAL) {
+			Pair<String, String[]> data = mPopular.getRecommendItems().get(position - 1);
+			normalHolder.title.setText(data.first);
+			String[] images = data.second;
+			if(images != null) {
+				int length = images.length;
+				if(length >=4) {
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), normalHolder.image1);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), normalHolder.image2);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), normalHolder.image3);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[3]), normalHolder.image4);
+				} else if (length  == 3) {
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), normalHolder.image1);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), normalHolder.image2);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[2]), normalHolder.image3);
+				} else if (length  == 2) {
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), normalHolder.image1);
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[1]), normalHolder.image2);
+				} else if (length  == 1) {
+					mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), normalHolder.image1);
+				}
 			}
 		}
 		return convertView;
 	}
+	
+	class HeaderViewHolder {
+		private ImageView image1;
+		private ImageView image2;
+		private TextView text1;
+		private TextView text2;
+	}
 
-	class ViewHolder {
+	class NormalViewHolder {
 		private TextView title;
 		private ImageView image1;
 		private ImageView image2;

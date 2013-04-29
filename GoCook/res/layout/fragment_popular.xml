@@ -14,62 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="top"
-        android:padding="5dp"
-        android:orientation="horizontal" >
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/register_photo" />
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="@string/biz_popular_tophot"
-                android:gravity="center" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/register_photo" />
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="@string/biz_popular_topnew"
-                android:gravity="center" />
-        </FrameLayout>
-    </LinearLayout>
-
     <ListView
         android:id="@+id/list"
-        android:layout_marginTop="5dp"
         android:divider="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
