@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.biz.recipe.hot.RecipeTopActivity;
+import com.m6.gocook.biz.recipe.top.RecipeTopActivity;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PopularAdapter extends BaseAdapter {

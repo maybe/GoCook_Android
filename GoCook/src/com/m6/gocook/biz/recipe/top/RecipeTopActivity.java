@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.recipe.hot;
+package com.m6.gocook.biz.recipe.top;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,19 +20,15 @@ public class RecipeTopActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.base_activity);
 		
+		Fragment f = new RecipeTopFragment();
 		Intent it = getIntent();
-		Bundle args = new Bundle();
 		if(it != null) {
+			Bundle args = new Bundle();
 			args.putString(PARAM_FROM, it.getStringExtra(PARAM_FROM));
-		} else {
-			// 默认显示最新菜谱
-			args.putString(PARAM_FROM, PARAM_FROM_NEW);
+			f.setArguments(args);
 		}
-		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		Fragment f = new RecipeTopFragment();
-		f.setArguments(args);
 		ft.add(R.id.container, f, RecipeTopFragment.class.getName());
 		ft.commit();
 	}

@@ -9,6 +9,9 @@
     <string name="biz_main_tab_shopping">购买清单</string>
     <string name="biz_main_tab_account">我的账户</string>
     
+    <!-- progress -->
+    <string name="base_progress_message">正在加载...</string>
+    
     <!-- 搜索 -->
     <string name="biz_search_box_hint">搜索菜谱</string>
     <string name="biz_search_error_tip">点击获取菜谱</string>

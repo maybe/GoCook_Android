@@ -1,7 +1,8 @@
-package com.m6.gocook.biz.recipe.hot;
+package com.m6.gocook.biz.recipe.top;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeHot;
+import com.m6.gocook.base.entity.RecipeTop;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
@@ -29,50 +30,60 @@ public class RecipeTopFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		String url;
+		ActionBar actionBar = getAction();
 		Bundle args = getArguments();
 		if(args != null) {
 			String param = args.getString(RecipeTopActivity.PARAM_FROM);
 			if(RecipeTopActivity.PARAM_FROM_HOT.equalsIgnoreCase(param)) {
+				actionBar.setTitle(R.string.biz_popular_tophot);
 				url = Protocol.URL_RECIPE_HOT;
 			} else {
+				actionBar.setTitle(R.string.biz_popular_topnew);
 				url = Protocol.URL_RECIPE_NEW;
 			}
 		} else {
-			url = Protocol.URL_RECIPE_NEW;
+			actionBar.setTitle(R.string.biz_popular_tophot);
+			url = Protocol.URL_RECIPE_HOT;
 		}
 		
-		ActionBar actionBar = getAction();
-		actionBar.setTitle(R.string.biz_popular_tophot);
-		
-		new HotRecipeTask(getActivity(), mImageFetcher, url).execute((Void) null);
+		new HotRecipeTask(this, mImageFetcher, url).execute((Void) null);
+		showProgress(true);
 	}
 
-	private static class HotRecipeTask extends AsyncTask<Void, Void, RecipeHot> {
+	private class HotRecipeTask extends AsyncTask<Void, Void, RecipeTop> {
 
-		private FragmentActivity mContext;
+		private Fragment mContext;
 		private ImageFetcher mImageFetcher;
 		private String mUrl;
 
-		public HotRecipeTask(FragmentActivity context, ImageFetcher imageFetcher, String url) {
+		public HotRecipeTask(Fragment context, ImageFetcher imageFetcher, String url) {
 			mContext = context;
 			mImageFetcher = imageFetcher;
 			mUrl = url;
 		}
 
 		@Override
-		protected RecipeHot doInBackground(Void... params) {
+		protected RecipeTop doInBackground(Void... params) {
 			return RecipeModel.getRecipeTop(mUrl, 1);
 		}
 
 		@Override
-		protected void onPostExecute(RecipeHot result) {
+		protected void onPostExecute(RecipeTop result) {
 			if (result != null && mContext != null) {
-				RecipeTopAdapter adapter = new RecipeTopAdapter(mContext,
+				View root = mContext.getView();
+				showProgress(false);
+				
+				RecipeTopAdapter adapter = new RecipeTopAdapter(mContext.getActivity(),
 						mImageFetcher, result);
-				ListView list = (ListView) mContext.findViewById(R.id.list);
+				ListView list = (ListView) root.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}
-
+		}
+		
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+			showProgress(false);
 		}
 	}
 }

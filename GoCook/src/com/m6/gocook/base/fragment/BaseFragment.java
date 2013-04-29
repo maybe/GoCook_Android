@@ -1,11 +1,16 @@
 package com.m6.gocook.base.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
@@ -15,7 +20,11 @@ import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 
 public class BaseFragment extends Fragment {
 
+	// UI references.
 	private ActionBar mAction;
+	private View mProgressView;
+	private TextView mProgressMessageView;
+	
 	protected ImageFetcher mImageFetcher;
 	
 	@Override
@@ -53,6 +62,17 @@ public class BaseFragment extends Fragment {
             lp.addRule(RelativeLayout.BELOW, actionBarView.getId());
             root.addView(content, lp);
 		}
+		
+		View progress = onCreateProgressView(inflater, container);
+		if(progress != null) {
+			lp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+			root.addView(progress, lp);
+			
+			mProgressView = progress.findViewById(R.id.progress_status);
+			mProgressMessageView = (TextView) progress.findViewById(R.id.status_message);
+		}
 		return root;
 	}
 	
@@ -69,8 +89,101 @@ public class BaseFragment extends Fragment {
 		return inflater.inflate(R.layout.base_actionbar, container, false);
 	}
 	
+	public View onCreateProgressView(LayoutInflater inflater, ViewGroup container) {
+		return inflater.inflate(R.layout.fragment_progress_status, container, false);
+	}
+	
 	public ActionBar getAction() {
 		return mAction;
+	}
+	
+	/**
+	 * Shows the progress UI and hides the login form.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	public void showProgress(final View contentView, final boolean show) {
+		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+		// for very easy animations. If available, use these APIs to fade-in
+		// the progress spinner.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			int shortAnimTime = getResources().getInteger(
+					android.R.integer.config_shortAnimTime);
+
+			mProgressView.setVisibility(View.VISIBLE);
+			mProgressView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 1 : 0)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							mProgressView.setVisibility(show ? View.VISIBLE
+									: View.GONE);
+						}
+					});
+
+			contentView.setVisibility(View.VISIBLE);
+			contentView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 0 : 1)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							contentView.setVisibility(show ? View.GONE
+									: View.VISIBLE);
+						}
+					});
+		} else {
+			// The ViewPropertyAnimator APIs are not available, so simply show
+			// and hide the relevant UI components.
+			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+			contentView.setVisibility(show ? View.GONE : View.VISIBLE);
+		}
+	}
+	
+	/**
+	 * Shows the progress UI and hides the login form.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	public void showProgress(final boolean show) {
+		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+		// for very easy animations. If available, use these APIs to fade-in
+		// the progress spinner.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			int shortAnimTime = getResources().getInteger(
+					android.R.integer.config_shortAnimTime);
+
+			mProgressView.setVisibility(View.VISIBLE);
+			mProgressView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 1 : 0)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							mProgressView.setVisibility(show ? View.VISIBLE
+									: View.GONE);
+						}
+					});
+		} else {
+			// The ViewPropertyAnimator APIs are not available, so simply show
+			// and hide the relevant UI components.
+			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+		}
+	}
+	
+	public void setProgressMessage(String message) {
+		if(mProgressMessageView != null) {
+			mProgressMessageView.setText(message);
+		}
+	}
+	
+	public void setProgressMessage(int resId) {
+		if(mProgressMessageView != null) {
+			mProgressMessageView.setText(resId);
+		}
+	}
+	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mProgressMessageView = null;
+		mProgressView = null;
 	}
 	
 }
