@@ -21,7 +21,7 @@ import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeEntity.Material;
-import com.m6.gocook.biz.recipe.RecipeActivity;
+import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
 import com.m6.gocook.util.log.Logger;
 
 public class PurchaseListAdapter extends CursorAdapter {

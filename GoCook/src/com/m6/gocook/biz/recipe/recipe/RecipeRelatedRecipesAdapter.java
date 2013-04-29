@@ -1,34 +1,27 @@
-package com.m6.gocook.biz.recipe;
-
-import java.util.ArrayList;
+package com.m6.gocook.biz.recipe.recipe;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.entity.RecipeEntity.Material;
 
-public class RecipeMaterialAdapter extends BaseAdapter {
+public class RecipeRelatedRecipesAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private ArrayList<Material> mMaterials;
 	
-	public RecipeMaterialAdapter(Context context, ArrayList<Material> materials) {
+	public RecipeRelatedRecipesAdapter(Context context) {
 		mInflater = LayoutInflater.from(context);
-		mMaterials = materials;
 	}
 	
 	@Override
 	public int getCount() {
-		if(mMaterials != null) {
-			return mMaterials.size();
-		}
-		return 0;
+		return 6;
 	}
 
 	@Override
@@ -46,24 +39,21 @@ public class RecipeMaterialAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHold holder;
 		if(convertView == null) {
-			convertView = mInflater.inflate(R.layout.adapter_recipe_material_item, null);
+			convertView = mInflater.inflate(R.layout.adapter_recipe_related_recipes, null);
 			holder = new ViewHold();
 			holder.name = (TextView) convertView.findViewById(R.id.name);
-			holder.remark = (TextView) convertView.findViewById(R.id.remark);
+			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-		
-		Material material = mMaterials.get(position);
-		holder.name.setText(material.getName());
-		holder.remark.setText(material.getRemark());
+		holder.name.setText("什么菜什么菜");
 		return convertView;
 	}
 	
 	private class ViewHold {
 		private TextView name;
-		private TextView remark;
+		private ImageView image;
 	}
 
 }

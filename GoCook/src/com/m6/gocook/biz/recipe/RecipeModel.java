@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.recipe;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.entity.RecipeHot;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
@@ -54,6 +56,22 @@ public class RecipeModel {
 		return null;
 	}
 	
-	
+	public static RecipeHot getRecipeTop(String url, int page) {
+		String result = NetUtils.httpGet(String.format(url, page));
+		if(TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject json = new JSONObject(result);
+			RecipeHot popularHot = new RecipeHot();
+			if(popularHot.parse(json)) {
+				return popularHot;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 }

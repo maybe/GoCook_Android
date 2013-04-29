@@ -43,13 +43,19 @@
         </activity>
         
         <activity
-            android:name="com.m6.gocook.biz.recipe.RecipeActivity"
+            android:name="com.m6.gocook.biz.recipe.recipe.RecipeActivity"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         
         <activity
-            android:name="com.m6.gocook.biz.recipe.RecipeCommentsActivity"
+            android:name="com.m6.gocook.biz.recipe.recipe.RecipeCommentsActivity"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        
+        <activity
+            android:name="com.m6.gocook.biz.recipe.hot.RecipeTopActivity"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize">
         </activity>
         

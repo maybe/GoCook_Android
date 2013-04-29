@@ -24,7 +24,7 @@ import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.recipe.RecipeActivity;
+import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
 import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {

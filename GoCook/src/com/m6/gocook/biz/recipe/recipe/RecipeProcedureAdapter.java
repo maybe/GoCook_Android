@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.recipe;
+package com.m6.gocook.biz.recipe.recipe;
 
 import java.util.ArrayList;
 

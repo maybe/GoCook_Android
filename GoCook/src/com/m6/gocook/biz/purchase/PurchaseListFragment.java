@@ -1,7 +1,7 @@
 package com.m6.gocook.biz.purchase;
 
 import com.m6.gocook.R;
-import com.m6.gocook.biz.recipe.RecipeActivity;
+import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
 
 import android.content.Context;
 import android.content.Intent;

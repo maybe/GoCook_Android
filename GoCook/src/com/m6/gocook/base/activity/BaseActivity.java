@@ -19,7 +19,7 @@ public class BaseActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		LayoutInflater inflater = LayoutInflater.from(this);
-		RelativeLayout root = (RelativeLayout) inflater.inflate(R.layout.base_fragment_layout, null);
+		RelativeLayout root = (RelativeLayout) inflater.inflate(R.layout.base_fragment, null);
 		View actionBarView = createDefaultActionBarView(inflater);
 		
 		mAction = new ActionBar(actionBarView);

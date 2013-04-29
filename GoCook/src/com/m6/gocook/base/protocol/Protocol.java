@@ -14,6 +14,10 @@ public class Protocol {
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
+	public static final String URL_RECIPE_NEW = URL_ROOT + "/recipe/topnew?page=%d";
+	
+	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=%d";
+	
 	public static final String KEY_RESULT = "result";
 	public static final int VALUE_RESULT_OK = 0;
 	public static final int VALUE_RESULT_ERROR = 0;
@@ -45,5 +49,12 @@ public class Protocol {
 	public static final String KEY_POPULAR_RECOMMEND_ITEMS = "recommend_items";
 	public static final String KEY_POPULAR_RECOMMEND_ITEM_NAME = "name";
 	public static final String KEY_POPULAR_RECOMMEND_ITEM_IMG = "images";
+	
+	/* Popular Hot JSON Protocol */
+	public static final String KEY_POPULAR_HOT_RECIPES = "result_recipes";
+	public static final String KEY_POPULAR_HOT_RECIPE_ID = "recipe_id";
+	public static final String KEY_POPULAR_HOT_NAME = "name";
+	public static final String KEY_POPULAR_HOT_IMAGE = "image";
+	public static final String KEY_POPULAR_HOT_COLLECTION = "dish_count";
 	
 }

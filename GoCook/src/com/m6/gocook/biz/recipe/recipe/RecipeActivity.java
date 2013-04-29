@@ -1,8 +1,9 @@
-package com.m6.gocook.biz.recipe;
+package com.m6.gocook.biz.recipe.recipe;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
+import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.log.Logger;

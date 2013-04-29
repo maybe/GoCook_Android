@@ -3,9 +3,11 @@ package com.m6.gocook.biz.popular;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.protocol.ProtocolUtils;
+import com.m6.gocook.biz.recipe.hot.RecipeTopActivity;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PopularAdapter extends BaseAdapter {
@@ -24,11 +27,14 @@ public class PopularAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	
+	private Context mContext;
+	
 	private ImageFetcher mImageFetcher;
 
 	private Popular mPopular;
 	
 	public PopularAdapter(Context context, ImageFetcher imageFetcher, Popular popular) {
+		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mImageFetcher = imageFetcher;
 		mPopular = popular;
@@ -98,6 +104,27 @@ public class PopularAdapter extends BaseAdapter {
 		if(type == VIEW_TYPE_HEADER) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
 			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
+			
+			headerHolder.image1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(mContext, RecipeTopActivity.class);
+					intent.putExtra(RecipeTopActivity.PARAM_FROM, RecipeTopActivity.PARAM_FROM_HOT);
+					mContext.startActivity(intent);
+				}
+			});
+			
+			headerHolder.image2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(mContext, RecipeTopActivity.class);
+					intent.putExtra(RecipeTopActivity.PARAM_FROM, RecipeTopActivity.PARAM_FROM_NEW);
+					mContext.startActivity(intent);
+				}
+			});
+			
 		} else if(type == VIEW_TYPE_NORMAL) {
 			Pair<String, String[]> data = mPopular.getRecommendItems().get(position - 1);
 			normalHolder.title.setText(data.first);

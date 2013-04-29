@@ -77,8 +77,7 @@ public class PopularFragment extends Fragment {
 		}
 		@Override
 		protected Popular doInBackground(Void... params) {
-			Popular resutl = PopularModel.getPopularData();
-			return resutl;
+			return PopularModel.getPopularData();
 		}
     	
 		@Override
