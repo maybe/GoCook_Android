@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeTop;
+import com.m6.gocook.base.entity.RecipeListItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
@@ -50,7 +50,7 @@ public class RecipeTopFragment extends BaseFragment {
 		showProgress(true);
 	}
 
-	private class HotRecipeTask extends AsyncTask<Void, Void, RecipeTop> {
+	private class HotRecipeTask extends AsyncTask<Void, Void, RecipeListItem> {
 
 		private Fragment mContext;
 		private ImageFetcher mImageFetcher;
@@ -63,12 +63,12 @@ public class RecipeTopFragment extends BaseFragment {
 		}
 
 		@Override
-		protected RecipeTop doInBackground(Void... params) {
+		protected RecipeListItem doInBackground(Void... params) {
 			return RecipeModel.getRecipeTop(mUrl, 1);
 		}
 
 		@Override
-		protected void onPostExecute(RecipeTop result) {
+		protected void onPostExecute(RecipeListItem result) {
 			if (result != null && mContext != null) {
 				View root = mContext.getView();
 				showProgress(false);

@@ -18,6 +18,11 @@ public class Protocol {
 	
 	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=%d";
 	
+	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=%d";
+	
+	
+	
+	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";
 	public static final int VALUE_RESULT_OK = 0;
 	public static final int VALUE_RESULT_ERROR = 0;

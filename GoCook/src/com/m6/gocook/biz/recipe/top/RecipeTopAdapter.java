@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeTop;
+import com.m6.gocook.base.entity.RecipeListItem;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -17,10 +17,10 @@ public class RecipeTopAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private RecipeTop mRecipeHot;
+	private RecipeListItem mRecipeHot;
 	private ImageFetcher mImageFetcher;
 	
-	public RecipeTopAdapter(Context context, ImageFetcher imageFetcher, RecipeTop recipeHot) {
+	public RecipeTopAdapter(Context context, ImageFetcher imageFetcher, RecipeListItem recipeHot) {
 		mContext = context;
 		mRecipeHot = recipeHot;
 		mInflater = LayoutInflater.from(mContext);
@@ -60,7 +60,7 @@ public class RecipeTopAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		RecipeTop.RecipeHotItem item = mRecipeHot.getHotRecipes().get(position);
+		RecipeListItem.RecipeHotItem item = mRecipeHot.getHotRecipes().get(position);
 		if(item != null) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getImage()), holder.image);
 			holder.name.setText(item.getName());
