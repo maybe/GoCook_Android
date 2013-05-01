@@ -51,11 +51,11 @@ public class RecipeListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if(convertView == null) {
-			convertView = mInflater.inflate(R.layout.adapter_recipe_top_item, null);
+			convertView = mInflater.inflate(R.layout.adapter_recipe_list_item, null);
 			holder = new ViewHolder();
 			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
-			holder.collectCount = (TextView) convertView.findViewById(R.id.collect_count);
+//			holder.collectCount = (TextView) convertView.findViewById(R.id.collect_count);
 			holder.material = (TextView) convertView.findViewById(R.id.material);
 			convertView.setTag(holder);
 		} else {
@@ -66,7 +66,7 @@ public class RecipeListAdapter extends BaseAdapter {
 		if(item != null) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getImage()), holder.image);
 			holder.name.setText(item.getName());
-			holder.collectCount.setText(String.format(mContext.getString(R.string.biz_recipe_hot_collect_count), item.getCollectCount()));
+//			holder.collectCount.setText(String.format(mContext.getString(R.string.biz_recipe_hot_collect_count), item.getCollectCount()));
 			holder.material.setText(item.getMaterial());
 		}
 		return convertView;
@@ -75,7 +75,7 @@ public class RecipeListAdapter extends BaseAdapter {
 	class ViewHolder {
 		private ImageView image;
 		private TextView name;
-		private TextView collectCount;
+//		private TextView collectCount;
 		private TextView material;
 	}
 

@@ -37,6 +37,12 @@
         </activity>
 
         <activity
+            android:name="com.m6.gocook.base.activity.BaseActivity"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+
+        <activity
             android:name="com.m6.gocook.biz.profile.ProfileActivity"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
