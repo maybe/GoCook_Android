@@ -30,9 +30,8 @@ public class SearchFragment extends RecipeListFragment {
 	}
 	
 	@Override
-	protected String getURL() {
+	protected String createURL() {
 		return String.format(Protocol.URL_RECIPE_SEARCH, mKeyWords, mPage);
 	}
 
-	
 }

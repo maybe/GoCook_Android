@@ -28,13 +28,14 @@ public abstract class RecipeListFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		mUrl = getURL();
+		mUrl = createURL();
 		
 		new RecipeListTask(getActivity()).execute((Void) null);
 		showProgress(true);
 	}
 	
-	abstract protected String getURL();
+	abstract protected String createURL();
+	abstract protected int createLayout();
 	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeListItem> {
 
