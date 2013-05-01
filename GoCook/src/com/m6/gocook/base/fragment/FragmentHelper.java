@@ -20,6 +20,16 @@ public class FragmentHelper {
 		mActivity = activity;
 	}
 	
+	/**
+	 * Get the intent to start fragment.
+	 * 
+	 * @param context
+	 * @param clss
+	 * @param fragmentName
+	 * @param fragmentTag
+	 * @param args
+	 * @return
+	 */
 	public static Intent getIntent(Context context, Class<?> clss, String fragmentName, String fragmentTag, Bundle args) {
 		Intent intent = new Intent(context, clss);
 		Bundle bundle = new Bundle();
