@@ -74,4 +74,22 @@ public class RecipeModel {
 		return null;
 	}
 	
+	public static RecipeListItem getSearchData(String keyWords, int page) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_SEARCH, keyWords, page));
+		if(TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject json = new JSONObject(result);
+			RecipeListItem popularHot = new RecipeListItem();
+			if(popularHot.parse(json)) {
+				return popularHot;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
