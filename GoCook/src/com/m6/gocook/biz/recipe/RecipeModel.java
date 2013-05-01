@@ -57,34 +57,25 @@ public class RecipeModel {
 	}
 	
 	public static RecipeListItem getRecipeTop(String url, int page) {
-		String result = NetUtils.httpGet(String.format(url, page));
-		if(TextUtils.isEmpty(result)) {
-			return null;
-		}
-		
-		try {
-			JSONObject json = new JSONObject(result);
-			RecipeListItem popularHot = new RecipeListItem();
-			if(popularHot.parse(json)) {
-				return popularHot;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return getRecipeData(NetUtils.httpGet(String.format(url, page)));
 	}
 	
 	public static RecipeListItem getSearchData(String keyWords, int page) {
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_SEARCH, keyWords, page));
+		String url = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_SEARCH, keyWords, page));
+		return getRecipeData(url);
+	}
+	
+	public static RecipeListItem getRecipeData(String url) {
+		String result = NetUtils.httpGet(url);
 		if(TextUtils.isEmpty(result)) {
 			return null;
 		}
 		
 		try {
 			JSONObject json = new JSONObject(result);
-			RecipeListItem popularHot = new RecipeListItem();
-			if(popularHot.parse(json)) {
-				return popularHot;
+			RecipeListItem recipeListItem = new RecipeListItem();
+			if(recipeListItem.parse(json)) {
+				return recipeListItem;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

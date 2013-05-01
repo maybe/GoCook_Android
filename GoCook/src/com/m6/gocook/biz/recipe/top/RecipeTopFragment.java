@@ -69,9 +69,9 @@ public class RecipeTopFragment extends BaseFragment {
 
 		@Override
 		protected void onPostExecute(RecipeListItem result) {
+			showProgress(false);
 			if (result != null && mContext != null) {
 				View root = mContext.getView();
-				showProgress(false);
 				
 				RecipeTopAdapter adapter = new RecipeTopAdapter(mContext.getActivity(),
 						mImageFetcher, result);

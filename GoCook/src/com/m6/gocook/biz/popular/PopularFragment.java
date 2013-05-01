@@ -1,17 +1,28 @@
 package com.m6.gocook.biz.popular;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
+import com.m6.gocook.base.entity.RecipeListItem;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.recipe.search.SearchFragment;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -43,6 +54,23 @@ public class PopularFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		final EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_box);
+		searchEditText.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+					Bundle args = new Bundle();
+					args.putString(SearchFragment.PARAM_KEYWORDS, searchEditText.getText().toString());
+                    Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, SearchFragment.class.getName(), SearchFragment.class.getName(), args);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+			}
+		});
+		
 		new PopularTask(getActivity(), mImageFetcher).execute((Void) null);
 	}
 	
@@ -89,4 +117,6 @@ public class PopularFragment extends Fragment {
 			}
 		}
     }
+    
+    
 }

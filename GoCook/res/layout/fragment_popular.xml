@@ -11,6 +11,7 @@
         android:hint="@string/biz_search_box_hint"
         android:background="@drawable/search_box"
         android:paddingLeft="@dimen/biz_search_box_padding_left"
+        android:imeOptions="actionSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     
