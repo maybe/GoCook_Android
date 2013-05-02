@@ -103,6 +103,8 @@ public class RecipeActivity extends FragmentActivity {
 
 		if (mRecipeEntity == null) {
 			Logger.e(TAG, "RecipeEntity is null");
+			this.finish();
+			return;
 		}
 
 		// Set Recipe Properties Values
