@@ -1,22 +1,11 @@
 package com.m6.gocook.biz.recipe.top;
 
-import android.R.raw;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeListItem;
-import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.list.RecipeListFragment;
-import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class RecipeTopFragment extends RecipeListFragment {
 

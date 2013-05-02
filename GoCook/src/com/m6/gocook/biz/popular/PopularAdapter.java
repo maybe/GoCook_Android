@@ -3,6 +3,7 @@ package com.m6.gocook.biz.popular;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,15 +29,15 @@ public class PopularAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	
-	private Context mContext;
+	private FragmentActivity mActivity;
 	
 	private ImageFetcher mImageFetcher;
 
 	private Popular mPopular;
 	
-	public PopularAdapter(Context context, ImageFetcher imageFetcher, Popular popular) {
-		mContext = context;
-		mInflater = LayoutInflater.from(context);
+	public PopularAdapter(FragmentActivity activity, ImageFetcher imageFetcher, Popular popular) {
+		mActivity = activity;
+		mInflater = LayoutInflater.from(activity);
 		mImageFetcher = imageFetcher;
 		mPopular = popular;
 	}
@@ -112,8 +113,8 @@ public class PopularAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					Bundle args = new Bundle();
 					args.putString(RecipeTopFragment.PARAM_TYPE, RecipeTopFragment.PARAM_TYPE_HOT);
-					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
-					mContext.startActivity(intent);
+					Intent intent = FragmentHelper.getIntent(mActivity, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
+					mActivity.startActivity(intent);
 				}
 			});
 			
@@ -123,8 +124,8 @@ public class PopularAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					Bundle args = new Bundle();
 					args.putString(RecipeTopFragment.PARAM_TYPE, RecipeTopFragment.PARAM_TYPE_NEW);
-					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
-					mContext.startActivity(intent);
+					Intent intent = FragmentHelper.getIntent(mActivity, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
+					mActivity.startActivity(intent);
 				}
 			});
 			

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp" >
+    android:paddingTop="5dp" >
 
     <ImageView
         android:id="@+id/image"
@@ -22,10 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/image"
-        android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="1dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/image"
         android:background="@android:color/white"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -43,6 +43,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/name" />
+
+        <TextView
+            android:id="@+id/collect_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_toRightOf="@id/material"
+            android:visibility="gone" />
 
         <ImageView
             android:layout_width="wrap_content"

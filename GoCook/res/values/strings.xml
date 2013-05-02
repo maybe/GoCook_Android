@@ -55,7 +55,7 @@
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
     
     <!-- recipe hot -->
-    <string name="biz_recipe_hot_collect_count">%d收藏</string>
+    <string name="biz_recipe_collect_count">%d收藏</string>
     
     <!-- recipe comment -->
     <string name="biz_recipe_comment_input_hint">添加评论</string>

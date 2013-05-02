@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
@@ -15,7 +17,6 @@ import com.m6.gocook.biz.recipe.RecipeModel;
 
 public abstract class RecipeListFragment extends BaseFragment {
 	
-	private String mUrl;
 	protected int mPage = 1;
 
 	@Override
@@ -28,9 +29,7 @@ public abstract class RecipeListFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		mUrl = getURL();
-		
-		new RecipeListTask(getActivity()).execute((Void) null);
+		new RecipeListTask(getActivity(), getURL()).execute((Void) null);
 		showProgress(true);
 	}
 	
@@ -42,7 +41,8 @@ public abstract class RecipeListFragment extends BaseFragment {
 	abstract protected String getURL();
 	
 	/**
-	 * 子类重写此方法给出需要的Adapter Item Layout，默认使用adapter_recipe_list_item
+	 * 子类重写此方法给出需要的Adapter Item Layout，默认使用adapter_recipe_list_item。</br>
+	 * 注意，此方法返回的布局只适用于RecipeListAdapter(默认Adapter)，若使用getAdapter()返回自定义Adapter，则此方法不再有效。
 	 * 
 	 * @return
 	 */
@@ -50,12 +50,23 @@ public abstract class RecipeListFragment extends BaseFragment {
 		return R.layout.adapter_recipe_list_item;
 	}
 	
+	/**
+	 * 子类重写此方法返回自己需要的Adapter
+	 * 
+	 * @return
+	 */
+	protected BaseAdapter getAdapter() {
+		return null;
+	}
+	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeListItem> {
 
     	private FragmentActivity mActivity;
+    	private String mUrl;
     	
-    	public RecipeListTask(FragmentActivity activity) {
+    	public RecipeListTask(FragmentActivity activity, String url) {
     		mActivity = activity;
+    		mUrl = url;
     	}
     	
 		@Override
@@ -67,7 +78,10 @@ public abstract class RecipeListFragment extends BaseFragment {
 		protected void onPostExecute(RecipeListItem result) {
 			showProgress(false);
 			if (result != null && mActivity != null) {
-				RecipeListAdapter adapter = new RecipeListAdapter(mActivity, mImageFetcher, result, getAdapterLayout());
+				BaseAdapter adapter = getAdapter();
+				if(adapter == null) {
+					adapter = new RecipeListAdapter(mActivity, mImageFetcher, result, getAdapterLayout());
+				}
 				ListView list = (ListView) mActivity.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}
