@@ -21,12 +21,14 @@ public class RecipeListAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private RecipeListItem mRecipeHot;
 	private ImageFetcher mImageFetcher;
+	private int mLayoutId;
 	
-	public RecipeListAdapter(Context context, ImageFetcher imageFetcher, RecipeListItem recipeHot) {
+	public RecipeListAdapter(Context context, ImageFetcher imageFetcher, RecipeListItem recipeHot, int layoutId) {
 		mContext = context;
 		mRecipeHot = recipeHot;
 		mInflater = LayoutInflater.from(mContext);
 		mImageFetcher = imageFetcher;
+		mLayoutId = layoutId;
 	}
 	
 	@Override
@@ -51,7 +53,7 @@ public class RecipeListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if(convertView == null) {
-			convertView = mInflater.inflate(R.layout.adapter_recipe_list_item, null);
+			convertView = mInflater.inflate(mLayoutId, null);
 			holder = new ViewHolder();
 			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			holder.name = (TextView) convertView.findViewById(R.id.name);

@@ -1,9 +1,8 @@
 package com.m6.gocook.biz.popular;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Popular;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.biz.recipe.top.RecipeTopActivity;
+import com.m6.gocook.biz.recipe.top.RecipeTopFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PopularAdapter extends BaseAdapter {
@@ -109,8 +110,9 @@ public class PopularAdapter extends BaseAdapter {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(mContext, RecipeTopActivity.class);
-					intent.putExtra(RecipeTopActivity.PARAM_FROM, RecipeTopActivity.PARAM_FROM_HOT);
+					Bundle args = new Bundle();
+					args.putString(RecipeTopFragment.PARAM_TYPE, RecipeTopFragment.PARAM_TYPE_HOT);
+					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
 					mContext.startActivity(intent);
 				}
 			});
@@ -119,8 +121,9 @@ public class PopularAdapter extends BaseAdapter {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(mContext, RecipeTopActivity.class);
-					intent.putExtra(RecipeTopActivity.PARAM_FROM, RecipeTopActivity.PARAM_FROM_NEW);
+					Bundle args = new Bundle();
+					args.putString(RecipeTopFragment.PARAM_TYPE, RecipeTopFragment.PARAM_TYPE_NEW);
+					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, RecipeTopFragment.class.getName(), RecipeTopFragment.class.getName(), args);
 					mContext.startActivity(intent);
 				}
 			});

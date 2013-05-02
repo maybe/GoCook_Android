@@ -28,14 +28,27 @@ public abstract class RecipeListFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		mUrl = createURL();
+		mUrl = getURL();
 		
 		new RecipeListTask(getActivity()).execute((Void) null);
 		showProgress(true);
 	}
 	
-	abstract protected String createURL();
-	abstract protected int createLayout();
+	/**
+	 * 子类实现此方法返回业务的URL
+	 * 
+	 * @return
+	 */
+	abstract protected String getURL();
+	
+	/**
+	 * 子类重写此方法给出需要的Adapter Item Layout，默认使用adapter_recipe_list_item
+	 * 
+	 * @return
+	 */
+	protected int getAdapterLayout() {
+		return R.layout.adapter_recipe_list_item;
+	}
 	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeListItem> {
 
@@ -54,7 +67,7 @@ public abstract class RecipeListFragment extends BaseFragment {
 		protected void onPostExecute(RecipeListItem result) {
 			showProgress(false);
 			if (result != null && mActivity != null) {
-				RecipeListAdapter adapter = new RecipeListAdapter(mActivity, mImageFetcher, result);
+				RecipeListAdapter adapter = new RecipeListAdapter(mActivity, mImageFetcher, result, getAdapterLayout());
 				ListView list = (ListView) mActivity.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}
