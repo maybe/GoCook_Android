@@ -1,8 +1,10 @@
 package com.m6.gocook.biz.purchase;
 
 import com.m6.gocook.R;
-import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +12,7 @@ import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,10 +30,24 @@ public class PurchaseListFragment extends Fragment {
 	private Context mContext;
 	private Cursor mCursor;
 	
+
+	@Override
+	public void onAttach(Activity activity) {
+		Log.i("PurchaseListFragment", "LRL onAttach");
+		super.onAttach(activity);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		Log.i("PurchaseListFragment", "LRL onCreate");
+		super.onCreate(savedInstanceState);
+	}
+	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		Log.i("PurchaseListFragment", "LRL onCreateView");
 		mContext = this.getActivity();
 
 		View view = inflater.inflate(R.layout.fragment_purchase_list, container, false);
@@ -47,24 +64,68 @@ public class PurchaseListFragment extends Fragment {
 		
 		
 		return view;
+	}
+
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.i("PurchaseListFragment", "LRL onActivityCreated");
 
 	}
 	
+	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		
-		super.onActivityCreated(savedInstanceState);
+	public void onStart() {
+		Log.i("PurchaseListFragment", "LRL onStart");
+		super.onStart();
 	}
 	
+	@Override
+	public void onResume() {
+		Log.i("PurchaseListFragment", "LRL onResume");
+		super.onResume();
+		
+	}
+	
+	
+	//--------
+	
+	@Override
+	public void onPause() {
+		Log.i("PurchaseListFragment", "LRL onPause");
+		super.onPause();
+		
+	}
+	
+	@Override
+	public void onStop() {
+		Log.i("PurchaseListFragment", "LRL onStop");
+		super.onStop();
+	}
+
+	@Override
+	public void onDestroyView() {
+		Log.i("PurchaseListFragment", "LRL onDestroyView");
+		super.onDestroyView();
+	}
 	
 	@Override
 	public void onDestroy() {
-		
+		Log.i("PurchaseListFragment", "LRL onDestroy");
 		super.onDestroy();
-		
-		if(mCursor != null) {
+
+		if (mCursor != null) {
 			mCursor.close();
 		}
 	}
+	
+	@Override
+	public void onDetach() {
+		Log.i("PurchaseListFragment", "LRL onDetach");
+		super.onDetach();
+	}
+	
+	
 	
 }

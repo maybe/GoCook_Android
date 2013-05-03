@@ -2,14 +2,19 @@ package com.m6.gocook.biz.recipe.recipe;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.log.Logger;
+
+import android.R.integer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,7 +22,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -25,54 +32,61 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecipeActivity extends FragmentActivity {
+public class RecipeFragment extends BaseFragment {
 
-	private final String TAG = RecipeActivity.class.getCanonicalName();
+	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
 	public static final String INTENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";
 	
+	private Context mContext = null;
+	private View mRootView = null;
+	
 	// DataSet
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private AchieveRecipeTask mAchieveRecipeTask;
-
-	// UI reference
-	private View mStatusView;
-	private TextView mStatusMessageView;
 	
-	// Network Image Catchable Fetcher
-	private ImageFetcher mImageFetcher;
-
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recipe);
+	public View onCreateFragmentView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		mRootView = inflater.inflate(R.layout.fragment_recipe, null, false);
+		return mRootView;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		
-		Intent intent = getIntent();
-		mRecipeId = intent.getStringExtra(RecipeActivity.INTENT_KEY_RECIPE_ID);
-				
-		initView();
-		
-		ImageCache.ImageCacheParams cacheParams = new ImageCache.ImageCacheParams(
-				this, IMAGE_CACHE_DIR);
-		cacheParams.setMemCacheSizePercent(0.25f); // Set memory cache to 25% of App memory
+		if(mContext == null) {
+			mContext = getActivity().getApplicationContext();
+			doCreate();
+		}
+	}
+	
+	private View findViewById(int id) {
+		if(mRootView != null) {
+			return mRootView.findViewById(id);
+		} else {
+			return null;
+		}
+	}
+	
+	private void doCreate() {
 
-		// The ImageFetcher takes care of loading images into our ImageView
-		// children asynchronously
-		mImageFetcher = new ImageFetcher(this, getResources()
-				.getDimensionPixelSize(R.dimen.biz_recipe_cover_image_width),
-				getResources().getDimensionPixelSize(
-						R.dimen.biz_recipe_cover_image_height));
-		mImageFetcher.addImageCache(this.getSupportFragmentManager(),
-				cacheParams);
-		mImageFetcher.setImageFadeIn(false);
+		Bundle argument = getArguments();
+		mRecipeId = argument.getString(RecipeFragment.INTENT_KEY_RECIPE_ID);
+		
+		initView();
 
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
 
+		EditDialogFragment editDialog = new EditDialogFragment();
+		editDialog.show(getChildFragmentManager(), EditDialogFragment.class.getName());
+		
 	}
 	
 	@Override
@@ -80,7 +94,7 @@ public class RecipeActivity extends FragmentActivity {
         super.onResume();
         mImageFetcher.setExitTasksEarly(false);
     }
-
+ 
     @Override
     public void onPause() {
         super.onPause();
@@ -93,17 +107,19 @@ public class RecipeActivity extends FragmentActivity {
     public void onDestroy() {
         super.onDestroy();
         mImageFetcher.closeCache();
+        mContext = null;
+        mRootView = null;
     }
 
 	private void setTitle(String title) {
-		((TextView) findViewById(R.id.actionbar_title)).setText(title);
+		getAction().setTitle(title);
 	}
 
 	private void applyData() {
 
 		if (mRecipeEntity == null) {
 			Logger.e(TAG, "RecipeEntity is null");
-			this.finish();
+//			getActivity().finish();
 			return;
 		}
 
@@ -132,11 +148,11 @@ public class RecipeActivity extends FragmentActivity {
 		mImageFetcher.loadImage(mRecipeEntity.getCoverImgURL(), coverImage);
 
 		GridView grid = (GridView) findViewById(R.id.material_gridview);
-		grid.setAdapter(new RecipeMaterialAdapter(this, mRecipeEntity
+		grid.setAdapter(new RecipeMaterialAdapter(mContext, mRecipeEntity
 				.getMaterials()));
 
 		ListView list = (ListView) findViewById(R.id.procedure_listview);
-		list.setAdapter(new RecipeProcedureAdapter(this, mRecipeEntity
+		list.setAdapter(new RecipeProcedureAdapter(mContext, mRecipeEntity
 				.getProcedures(), mImageFetcher));
 
 		LinearLayout tipsLinearLayout = (LinearLayout) findViewById(R.id.tips_layout);
@@ -166,7 +182,7 @@ public class RecipeActivity extends FragmentActivity {
 
 		// Related Recipes
 		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
-		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(this));
+		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(mContext));
 
 		TextView commentNum = (TextView) findViewById(R.id.comment_num);
 		commentNum
@@ -187,8 +203,8 @@ public class RecipeActivity extends FragmentActivity {
 			}
 		});
 		
-		TextView tabBarBuyTextView = ((TextView) this.findViewById(R.id.tabbar_textview_buy));
-		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()))) {
+		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
+		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
 			tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 					null,
 					getResources().getDrawable(
@@ -199,26 +215,22 @@ public class RecipeActivity extends FragmentActivity {
 
 	private void initView() {
 
-		// Progress Bar
-		mStatusView = this.findViewById(R.id.progress_status);
-		mStatusMessageView = (TextView) this.findViewById(R.id.status_message);
-
 		// Tabbar Event Listener
-		TextView tabBarBuyTextView = ((TextView) this.findViewById(R.id.tabbar_textview_buy));
+		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
 		tabBarBuyTextView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						if(mRecipeEntity == null) return;
 						TextView tabBarBuyTextView = (TextView)v;
-						if(PurchaseListModel.isRecipeSavedToProcedureList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()))) {
-							PurchaseListModel.removeRecipeFromPurchaseList(getApplicationContext(), String.valueOf(mRecipeEntity.getId()));
+						if(PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
+							PurchaseListModel.removeRecipeFromPurchaseList(getActivity(), String.valueOf(mRecipeEntity.getId()));
 							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 									null,
 									getResources().getDrawable(
 											R.drawable.recipe_tabbar_buy), null,
 									null);
 						} else {
-							PurchaseListModel.saveRecipeToProcedureList(getApplicationContext(), mRecipeEntity);
+							PurchaseListModel.saveRecipeToProcedureList(getActivity(), mRecipeEntity);
 							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 									null,
 									getResources().getDrawable(
@@ -228,7 +240,7 @@ public class RecipeActivity extends FragmentActivity {
 					}
 				});
 
-		((TextView) this.findViewById(R.id.tabbar_textview_like))
+		((TextView) findViewById(R.id.tabbar_textview_like))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -241,7 +253,7 @@ public class RecipeActivity extends FragmentActivity {
 					}
 				});
 
-		((TextView) this.findViewById(R.id.tabbar_textview_upload))
+		((TextView) findViewById(R.id.tabbar_textview_upload))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -249,35 +261,6 @@ public class RecipeActivity extends FragmentActivity {
 
 					}
 				});
-	}
-
-	/**
-	 * Shows the progress UI and hides the login form.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	private void showProgress(final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mStatusView.setVisibility(View.VISIBLE);
-			mStatusView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mStatusView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-		}
 	}
 
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
@@ -290,7 +273,7 @@ public class RecipeActivity extends FragmentActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			mRecipeEntity = RecipeModel.getRecipe(getApplicationContext(), mRecipeId);
+			mRecipeEntity = RecipeModel.getRecipe(getActivity(), mRecipeId);
 			return null;
 		}
 

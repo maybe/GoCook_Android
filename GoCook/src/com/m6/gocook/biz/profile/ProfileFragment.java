@@ -24,7 +24,7 @@ import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
+import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {
@@ -96,7 +96,7 @@ public class ProfileFragment extends BaseFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent it = new Intent(getActivity(), RecipeActivity.class);
+				Intent it = new Intent(getActivity(), RecipeFragment.class);
 				Bundle args = new Bundle();
 				it.putExtras(args);
 				startActivity(it);

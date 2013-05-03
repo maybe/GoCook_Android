@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeEntity.Material;
-import com.m6.gocook.biz.recipe.recipe.RecipeActivity;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
+import com.m6.gocook.biz.recipe.search.SearchFragment;
 import com.m6.gocook.util.log.Logger;
 
 public class PurchaseListAdapter extends CursorAdapter {
@@ -109,10 +113,12 @@ public class PurchaseListAdapter extends CursorAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(mContext, RecipeActivity.class);
-				intent.putExtra(RecipeActivity.INTENT_KEY_RECIPE_ID, recipeId);
-				mContext.startActivity(intent);
+				Bundle argument = new Bundle();
+				argument.putString(RecipeFragment.INTENT_KEY_RECIPE_ID, recipeId);
+                Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
+                		RecipeFragment.class.getName(), 
+                		RecipeFragment.class.getName(), argument);
+                mContext.startActivity(intent);
 			}
 		});
 		

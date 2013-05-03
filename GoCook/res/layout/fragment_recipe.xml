@@ -6,15 +6,6 @@
     android:background="#F0E9E5"
     android:orientation="vertical" >
 
-    <!-- ActionBar -->
-
-    <include
-        android:id="@+id/actionBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        layout="@layout/base_actionbar" />
-
     <!-- Tabbar -->
 
     <LinearLayout
@@ -66,7 +57,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_above="@id/tabbar"
-        android:layout_below="@id/actionBar"
+		android:layout_alignParentTop="true"
         android:scrollbars="none" >
 
         <LinearLayout
