@@ -2,6 +2,9 @@
 <resources>
     <color name="base_divider_gray">#e3e3e3</color>
     
+    <color name="button_background_pressed">#a52226</color>
+    <color name="button_background_normal">#b31e24</color>
+    
     <color name="main_bg">#f6ebe7</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>
