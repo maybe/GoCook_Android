@@ -63,7 +63,11 @@ public class PopularAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		if(position == 0) {
+			return null;
+		} else {
+			return mPopular.getRecommendItems().get(position - 1);
+		}
 	}
 
 	@Override
