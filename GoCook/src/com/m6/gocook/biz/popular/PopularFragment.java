@@ -22,8 +22,6 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
-import com.m6.gocook.base.entity.RecipeListItem;
-import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.recipe.search.SearchFragment;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;

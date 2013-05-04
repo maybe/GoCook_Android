@@ -55,11 +55,12 @@ public class Protocol {
 	public static final String KEY_POPULAR_RECOMMEND_ITEM_NAME = "name";
 	public static final String KEY_POPULAR_RECOMMEND_ITEM_IMG = "images";
 	
-	/* Popular Hot JSON Protocol */
-	public static final String KEY_POPULAR_HOT_RECIPES = "result_recipes";
-	public static final String KEY_POPULAR_HOT_RECIPE_ID = "recipe_id";
-	public static final String KEY_POPULAR_HOT_NAME = "name";
-	public static final String KEY_POPULAR_HOT_IMAGE = "image";
-	public static final String KEY_POPULAR_HOT_COLLECTION = "dish_count";
+	/* Recipe List JSON Protocol */
+	public static final String KEY_RECIPE_LIST_RECIPES = "result_recipes";
+	public static final String KEY_RECIPE_LIST_RECIPE_ID = "recipe_id";
+	public static final String KEY_RECIPE_LIST_NAME = "name";
+	public static final String KEY_RECIPE_LIST_IMAGE = "image";
+	public static final String KEY_RECIPE_LIST_COLLECTION = "dish_count";
+	public static final String KEY_RECIPE_LIST_MATERIALS = "materials";
 	
 }

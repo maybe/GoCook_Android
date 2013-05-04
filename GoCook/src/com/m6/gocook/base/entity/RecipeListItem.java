@@ -7,20 +7,21 @@ import org.json.JSONObject;
 
 
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.biz.recipe.RecipeModel;
 
 public class RecipeListItem implements IParseable<JSONObject> {
 	
 	/** 默认1为失败 */
 	private int result = 1;
-	private ArrayList<RecipeHotItem> hotRecipes;
+	private ArrayList<RecipeItem> recipes;
 
-	public class RecipeHotItem {
+	public class RecipeItem {
 		
 		private String id;
 		private String name;
 		private String image;
 		private int collectCount;
-		private String material;
+		private String materials;
 		
 		public String getId() {
 			return id;
@@ -46,11 +47,11 @@ public class RecipeListItem implements IParseable<JSONObject> {
 		public void setCollectCount(int collectCount) {
 			this.collectCount = collectCount;
 		}
-		public String getMaterial() {
-			return material;
+		public String getMaterials() {
+			return materials;
 		}
 		public void setMaterial(String material) {
-			this.material = material;
+			this.materials = material;
 		}
 	}
 	
@@ -66,20 +67,20 @@ public class RecipeListItem implements IParseable<JSONObject> {
 				return false;
 			}
 			
-			JSONArray array = object.getJSONArray(Protocol.KEY_POPULAR_HOT_RECIPES);
+			JSONArray array = object.getJSONArray(Protocol.KEY_RECIPE_LIST_RECIPES);
 			if(array != null) {
 				int size = array.length();
-				hotRecipes = new ArrayList<RecipeListItem.RecipeHotItem>(size);
+				recipes = new ArrayList<RecipeListItem.RecipeItem>(size);
 				for(int i = 0; i < size; i++) {
 					JSONObject json = array.optJSONObject(i);
 					if(json != null) {
-						RecipeHotItem recipe = new RecipeHotItem();
-						recipe.id = json.optString(Protocol.KEY_POPULAR_HOT_RECIPE_ID);
-						recipe.name = json.optString(Protocol.KEY_POPULAR_HOT_NAME);
-						recipe.image = json.optString(Protocol.KEY_POPULAR_HOT_IMAGE);
-						recipe.collectCount = json.optInt(Protocol.KEY_POPULAR_HOT_COLLECTION);
-//						recipe.material = json.optString(Protocol.);
-						hotRecipes.add(recipe);
+						RecipeItem recipe = new RecipeItem();
+						recipe.id = json.optString(Protocol.KEY_RECIPE_LIST_RECIPE_ID);
+						recipe.name = json.optString(Protocol.KEY_RECIPE_LIST_NAME);
+						recipe.image = json.optString(Protocol.KEY_RECIPE_LIST_IMAGE);
+						recipe.collectCount = json.optInt(Protocol.KEY_RECIPE_LIST_COLLECTION);
+						recipe.materials = RecipeModel.getRecipePureMaterials(json.optString(Protocol.KEY_RECIPE_LIST_MATERIALS));
+						recipes.add(recipe);
 					}
 				}
 				return true;
@@ -96,11 +97,11 @@ public class RecipeListItem implements IParseable<JSONObject> {
 	public void setResult(int result) {
 		this.result = result;
 	}
-	public ArrayList<RecipeHotItem> getHotRecipes() {
-		return hotRecipes;
+	public ArrayList<RecipeItem> getHotRecipes() {
+		return recipes;
 	}
-	public void setHotRecipes(ArrayList<RecipeHotItem> hotRecipes) {
-		this.hotRecipes = hotRecipes;
+	public void setHotRecipes(ArrayList<RecipeItem> hotRecipes) {
+		this.recipes = hotRecipes;
 	}
 	
 	

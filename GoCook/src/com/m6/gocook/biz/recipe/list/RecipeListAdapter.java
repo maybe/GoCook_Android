@@ -19,13 +19,13 @@ public class RecipeListAdapter extends BaseAdapter {
 	
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private RecipeListItem mRecipeHot;
+	private RecipeListItem mRecipe;
 	private ImageFetcher mImageFetcher;
 	private int mLayoutId;
 	
 	public RecipeListAdapter(Context context, ImageFetcher imageFetcher, RecipeListItem recipeHot, int layoutId) {
 		mContext = context;
-		mRecipeHot = recipeHot;
+		mRecipe = recipeHot;
 		mInflater = LayoutInflater.from(mContext);
 		mImageFetcher = imageFetcher;
 		mLayoutId = layoutId;
@@ -33,10 +33,10 @@ public class RecipeListAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		if(mRecipeHot == null || mRecipeHot.getHotRecipes() == null) {
+		if(mRecipe == null || mRecipe.getHotRecipes() == null) {
 			return 0;
 		}
-		return mRecipeHot.getHotRecipes().size();
+		return mRecipe.getHotRecipes().size();
 	}
 
 	@Override
@@ -64,12 +64,12 @@ public class RecipeListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		RecipeListItem.RecipeHotItem item = mRecipeHot.getHotRecipes().get(position);
+		RecipeListItem.RecipeItem item = mRecipe.getHotRecipes().get(position);
 		if(item != null) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getImage()), holder.image);
 			holder.name.setText(item.getName());
 			holder.collectCount.setText(String.format(mContext.getString(R.string.biz_recipe_collect_count), item.getCollectCount()));
-			holder.material.setText(item.getMaterial());
+			holder.material.setText(item.getMaterials());
 		}
 		return convertView;
 	}

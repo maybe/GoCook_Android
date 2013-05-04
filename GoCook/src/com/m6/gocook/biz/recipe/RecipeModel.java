@@ -2,6 +2,7 @@ package com.m6.gocook.biz.recipe;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,15 +57,6 @@ public class RecipeModel {
 		return null;
 	}
 	
-	public static RecipeListItem getRecipeTop(String url, int page) {
-		return getRecipeData(NetUtils.httpGet(String.format(url, page)));
-	}
-	
-	public static RecipeListItem getSearchData(String keyWords, int page) {
-		String url = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_SEARCH, keyWords, page));
-		return getRecipeData(url);
-	}
-	
 	public static RecipeListItem getRecipeData(String url) {
 		String result = NetUtils.httpGet(url);
 		if(TextUtils.isEmpty(result)) {
@@ -79,6 +71,30 @@ public class RecipeModel {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 将食材中的分量内容去掉，获得纯粹的食材名称。<br/>
+	 * 如：茄子||葱||姜||蒜||酱油|1汤匙|醋|1汤匙|糖|2勺   =>  茄子 葱 姜 蒜 酱油 醋 糖
+	 * 
+	 * @param materials
+	 * @return
+	 */
+	public static String getRecipePureMaterials(String materials) {
+		if (!TextUtils.isEmpty(materials)) {
+			String[] array = materials.split("\\|");
+			if(array != null) {
+				StringBuilder sb = new StringBuilder();
+				int size = array.length;
+				for(int i = 0; i < size; i++) {
+					if(i % 2 == 0) {
+						sb.append(array[i] + " ");
+					}
+				}
+				return sb.toString();
+			}
 		}
 		return null;
 	}
