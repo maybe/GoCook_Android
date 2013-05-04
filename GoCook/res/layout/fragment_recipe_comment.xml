@@ -6,15 +6,6 @@
     android:background="#F0E9E5"
     android:orientation="vertical" >
 
-    <!-- ActionBar -->
-
-    <include
-        android:id="@+id/actionBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        layout="@layout/base_actionbar" />
-
     <LinearLayout
         android:id="@+id/comments_input_layout"
         android:layout_width="match_parent"
@@ -50,7 +41,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:divider="#F0E9E5"
-        android:layout_below="@id/actionBar"
+		android:layout_alignParentTop="true"
         android:layout_above="@id/comments_input_layout"/>
     
     
