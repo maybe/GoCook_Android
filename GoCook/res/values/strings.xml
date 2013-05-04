@@ -53,6 +53,7 @@
     <string name="biz_recipe_tabbar_menu_addcollecting">加入收藏</string>
     <string name="biz_recipe_tabbar_menu_upload">上传你做的这道菜</string>
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
+    <string name="biz_recipe_tabbar_menu_removeshoppinglist">移出购买清单</string>
     
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>

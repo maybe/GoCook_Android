@@ -96,10 +96,8 @@ public class ProfileFragment extends BaseFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent it = new Intent(getActivity(), RecipeFragment.class);
-				Bundle args = new Bundle();
-				it.putExtras(args);
-				startActivity(it);
+				//TODO Replace with the real recipe id
+				RecipeFragment.startInActivity(getActivity(), "0");
 			}
 		});
 		

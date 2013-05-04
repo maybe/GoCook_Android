@@ -7,13 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeListItem;
+import com.m6.gocook.base.entity.RecipeListItem.RecipeItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 
 public abstract class RecipeListFragment extends BaseFragment {
 	
@@ -82,8 +86,21 @@ public abstract class RecipeListFragment extends BaseFragment {
 				if(adapter == null) {
 					adapter = new RecipeListAdapter(mActivity, mImageFetcher, result, getAdapterLayout());
 				}
+				final BaseAdapter shandowAdapter = adapter;
 				ListView list = (ListView) mActivity.findViewById(R.id.list);
 				list.setAdapter(adapter);
+				list.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Object item = (RecipeItem) shandowAdapter.getItem(position);
+						if(item != null) {
+							String recipeId = ((RecipeItem) item).getId();
+							RecipeFragment.startInActivity(getActivity(), recipeId);
+						}
+					}
+				});
 			}
 		}
 		
