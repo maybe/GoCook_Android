@@ -1,25 +1,19 @@
 package com.m6.gocook.biz.recipe.recipe;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
-import com.m6.gocook.util.cache.util.ImageCache;
-import com.m6.gocook.util.cache.util.ImageFetcher;
+import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
 import com.m6.gocook.util.log.Logger;
 
-import android.R.integer;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,7 +30,7 @@ public class RecipeFragment extends BaseFragment {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
-	public static final String INTENT_KEY_RECIPE_ID = "intent_key_recipe_id";
+	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";
@@ -48,6 +42,15 @@ public class RecipeFragment extends BaseFragment {
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private AchieveRecipeTask mAchieveRecipeTask;
+	
+	public static void startInActivity(Context context, String recipeId) {
+		Bundle argument = new Bundle();
+		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
+        Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+        		RecipeFragment.class.getName(), 
+        		RecipeFragment.class.getName(), argument);
+        context.startActivity(intent);
+	}
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -61,7 +64,7 @@ public class RecipeFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		if(mContext == null) {
-			mContext = getActivity().getApplicationContext();
+			mContext = getActivity();
 			doCreate();
 		}
 	}
@@ -77,36 +80,18 @@ public class RecipeFragment extends BaseFragment {
 	private void doCreate() {
 
 		Bundle argument = getArguments();
-		mRecipeId = argument.getString(RecipeFragment.INTENT_KEY_RECIPE_ID);
+		mRecipeId = argument.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
 		
 		initView();
 
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
-
-		EditDialogFragment editDialog = new EditDialogFragment();
-		editDialog.show(getChildFragmentManager(), EditDialogFragment.class.getName());
-		
 	}
-	
-	@Override
-    public void onResume() {
-        super.onResume();
-        mImageFetcher.setExitTasksEarly(false);
-    }
- 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mImageFetcher.setPauseWork(false);
-        mImageFetcher.setExitTasksEarly(true);
-        mImageFetcher.flushCache();
-    }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mImageFetcher.closeCache();
         mContext = null;
         mRootView = null;
     }
@@ -119,7 +104,7 @@ public class RecipeFragment extends BaseFragment {
 
 		if (mRecipeEntity == null) {
 			Logger.e(TAG, "RecipeEntity is null");
-//			getActivity().finish();
+			getActivity().finish();
 			return;
 		}
 
@@ -145,6 +130,11 @@ public class RecipeFragment extends BaseFragment {
 				mRecipeEntity.getDishCount(), mRecipeEntity.getCollectCount()));
 		
 		ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
+		mImageFetcher.setImageSize(
+				getResources().getDimensionPixelSize(
+						R.dimen.biz_recipe_cover_image_width),
+				getResources().getDimensionPixelSize(
+						R.dimen.biz_recipe_cover_image_height));
 		mImageFetcher.loadImage(mRecipeEntity.getCoverImgURL(), coverImage);
 
 		GridView grid = (GridView) findViewById(R.id.material_gridview);
@@ -175,8 +165,7 @@ public class RecipeFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
+				RecipeCommentFragment.startInActivity(mContext, mRecipeId);
 			}
 		});
 
@@ -210,6 +199,7 @@ public class RecipeFragment extends BaseFragment {
 					getResources().getDrawable(
 							R.drawable.recipe_tabbar_bought), null,
 					null);
+			tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
 		}
 	}
 
@@ -229,6 +219,7 @@ public class RecipeFragment extends BaseFragment {
 									getResources().getDrawable(
 											R.drawable.recipe_tabbar_buy), null,
 									null);
+							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_addshoppinglist));
 						} else {
 							PurchaseListModel.saveRecipeToProcedureList(getActivity(), mRecipeEntity);
 							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
@@ -236,6 +227,7 @@ public class RecipeFragment extends BaseFragment {
 									getResources().getDrawable(
 											R.drawable.recipe_tabbar_bought), null,
 									null);
+							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
 						}
 					}
 				});

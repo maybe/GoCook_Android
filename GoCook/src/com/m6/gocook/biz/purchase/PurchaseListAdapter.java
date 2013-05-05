@@ -113,12 +113,7 @@ public class PurchaseListAdapter extends CursorAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Bundle argument = new Bundle();
-				argument.putString(RecipeFragment.INTENT_KEY_RECIPE_ID, recipeId);
-                Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
-                		RecipeFragment.class.getName(), 
-                		RecipeFragment.class.getName(), argument);
-                mContext.startActivity(intent);
+				RecipeFragment.startInActivity(mContext, recipeId);
 			}
 		});
 		

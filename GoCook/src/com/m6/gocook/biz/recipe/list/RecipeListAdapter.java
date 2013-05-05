@@ -45,7 +45,7 @@ public class RecipeListAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		return mRecipeList.getRecipes().get(position);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.recipe.recipe;
+package com.m6.gocook.biz.recipe.comment;
 
 import android.content.Context;
 import android.view.LayoutInflater;

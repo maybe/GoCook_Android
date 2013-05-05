@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 
 public abstract class RecipeListFragment extends BaseFragment implements OnScrollListener {
 	
@@ -64,6 +67,19 @@ public abstract class RecipeListFragment extends BaseFragment implements OnScrol
 		mAdapter = new RecipeListAdapter(getActivity(), mImageFetcher, mRecipeList, getAdapterLayout());
 		mListView.addFooterView(mFooterView);
 		mListView.setAdapter(mAdapter);
+		
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Object item = (RecipeItem) mAdapter.getItem(position);
+				if(item != null) {
+					String recipeId = ((RecipeItem) item).getId();
+					RecipeFragment.startInActivity(getActivity(), recipeId);
+				}
+			}
+		});
 	}
 	
 	@Override

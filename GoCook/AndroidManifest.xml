@@ -48,12 +48,6 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         
-        <activity
-            android:name="com.m6.gocook.biz.recipe.recipe.RecipeCommentsActivity"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-        
-        
     </application>
 
 </manifest>
