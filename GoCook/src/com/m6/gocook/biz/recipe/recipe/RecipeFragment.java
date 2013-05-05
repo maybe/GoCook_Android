@@ -169,28 +169,28 @@ public class RecipeFragment extends BaseFragment {
 			}
 		});
 
-		// Related Recipes
-		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
-		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(mContext));
-
-		TextView commentNum = (TextView) findViewById(R.id.comment_num);
-		commentNum
-				.setText(String.format(
-						getResources().getString(
-								R.string.biz_recipe_comment_num), 234));
-
-		TextView finishedView = (TextView) findViewById(R.id.finished_dish_textview);
-		finishedView.setText(String.format(
-				getResources().getString(R.string.biz_recipe_finished_dish),
-				"葱油饼"));
-		finishedView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+//		// Related Recipes
+//		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
+//		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(mContext));
+//
+//		TextView commentNum = (TextView) findViewById(R.id.comment_num);
+//		commentNum
+//				.setText(String.format(
+//						getResources().getString(
+//								R.string.biz_recipe_comment_num), 234));
+//
+//		TextView finishedView = (TextView) findViewById(R.id.finished_dish_textview);
+//		finishedView.setText(String.format(
+//				getResources().getString(R.string.biz_recipe_finished_dish),
+//				"葱油饼"));
+//		finishedView.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 		
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
 		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
@@ -245,14 +245,14 @@ public class RecipeFragment extends BaseFragment {
 					}
 				});
 
-		((TextView) findViewById(R.id.tabbar_textview_upload))
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-					}
-				});
+//		((TextView) findViewById(R.id.tabbar_textview_upload))
+//				.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//
+//					}
+//				});
 	}
 
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {

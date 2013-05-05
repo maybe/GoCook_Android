@@ -27,7 +27,7 @@
             android:text="@string/biz_recipe_tabbar_menu_addcollecting"
             android:textColor="#999999"
             android:textSize="10sp" />
-
+		<!-- 
         <TextView
             android:id="@+id/tabbar_textview_upload"
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
             android:text="@string/biz_recipe_tabbar_menu_upload"
             android:textColor="#999999"
             android:textSize="10sp" />
-
+		 -->
         <TextView
             android:id="@+id/tabbar_textview_buy"
             android:layout_width="0dp"
@@ -205,6 +205,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/recipe_comments_link_selector"
                 android:orientation="vertical"
                 android:paddingBottom="15dp"
@@ -244,7 +245,7 @@
             </RelativeLayout>
 
             <!-- Finished Link -->
-
+			<!--
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -271,9 +272,9 @@
                     android:layout_marginTop="10dp"
                     android:src="@drawable/recipe_finished_arrow" />
             </FrameLayout>
-
+			-->
             <!-- Related Recipe -->
-
+			<!--
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -294,16 +295,8 @@
                 android:horizontalSpacing="5dp"
                 android:numColumns="2"
                 android:verticalSpacing="5dp" />
+            -->
         </LinearLayout>
     </ScrollView>
-
-    <!-- Processbar -->
-
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        layout="@layout/fragment_progress_status" />
 
 </RelativeLayout>
