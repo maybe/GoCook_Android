@@ -58,6 +58,17 @@
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
     <string name="biz_recipe_tabbar_menu_removeshoppinglist">移出购买清单</string>
     
+    <!-- recipe edit -->
+    <string name="biz_recipe_edit_required">（必填）</string>
+    <string name="biz_recipe_edit_cover">菜谱封面</string>
+    <string name="biz_recipe_edit_title">菜谱标题</string>
+    <string name="biz_recipe_edit_introduction">菜谱介绍</string>
+    <string name="biz_recipe_edit_material_tip">左：食材名（必填）   右：用量</string>
+    <string name="biz_recipe_edit_material_addmore">再加一行</string>
+    <string name="biz_recipe_edit_procedure_tip">左：步骤说明（必填）   右：步骤示意图</string>
+    <string name="biz_recipe_edit_procedure_addmore">再加一项</string>
+    <string name="biz_recipe_edit_tip_tip">做好这道菜的小诀窍</string>
+    
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>
     
