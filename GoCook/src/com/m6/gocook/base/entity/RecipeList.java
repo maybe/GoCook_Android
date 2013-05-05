@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.recipe.RecipeModel;
 
-public class RecipeListItem implements IParseable<JSONObject> {
+public class RecipeList implements IParseable<JSONObject> {
 	
 	/** 默认1为失败 */
 	private int result = 1;
@@ -70,7 +70,7 @@ public class RecipeListItem implements IParseable<JSONObject> {
 			JSONArray array = object.getJSONArray(Protocol.KEY_RECIPE_LIST_RECIPES);
 			if(array != null) {
 				int size = array.length();
-				recipes = new ArrayList<RecipeListItem.RecipeItem>(size);
+				recipes = new ArrayList<RecipeList.RecipeItem>(size);
 				for(int i = 0; i < size; i++) {
 					JSONObject json = array.optJSONObject(i);
 					if(json != null) {
@@ -97,11 +97,11 @@ public class RecipeListItem implements IParseable<JSONObject> {
 	public void setResult(int result) {
 		this.result = result;
 	}
-	public ArrayList<RecipeItem> getHotRecipes() {
+	public ArrayList<RecipeItem> getRecipes() {
 		return recipes;
 	}
-	public void setHotRecipes(ArrayList<RecipeItem> hotRecipes) {
-		this.recipes = hotRecipes;
+	public void setRecipes(ArrayList<RecipeItem> recipes) {
+		this.recipes = recipes;
 	}
 	
 	

@@ -1,7 +1,7 @@
 package com.m6.gocook.biz.recipe.list;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeListItem;
+import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -19,24 +19,28 @@ public class RecipeListAdapter extends BaseAdapter {
 	
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private RecipeListItem mRecipe;
+	private RecipeList mRecipeList;
 	private ImageFetcher mImageFetcher;
 	private int mLayoutId;
 	
-	public RecipeListAdapter(Context context, ImageFetcher imageFetcher, RecipeListItem recipeHot, int layoutId) {
+	public RecipeListAdapter(Context context, ImageFetcher imageFetcher, RecipeList recipeList, int layoutId) {
 		mContext = context;
-		mRecipe = recipeHot;
+		mRecipeList = recipeList;
 		mInflater = LayoutInflater.from(mContext);
 		mImageFetcher = imageFetcher;
 		mLayoutId = layoutId;
 	}
 	
+	public void setRecipeList(RecipeList recipeList) {
+		mRecipeList = recipeList;
+	}
+	
 	@Override
 	public int getCount() {
-		if(mRecipe == null || mRecipe.getHotRecipes() == null) {
+		if(mRecipeList == null || mRecipeList.getRecipes() == null) {
 			return 0;
 		}
-		return mRecipe.getHotRecipes().size();
+		return mRecipeList.getRecipes().size();
 	}
 
 	@Override
@@ -64,7 +68,7 @@ public class RecipeListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		RecipeListItem.RecipeItem item = mRecipe.getHotRecipes().get(position);
+		RecipeList.RecipeItem item = mRecipeList.getRecipes().get(position);
 		if(item != null) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getImage()), holder.image);
 			holder.name.setText(item.getName());

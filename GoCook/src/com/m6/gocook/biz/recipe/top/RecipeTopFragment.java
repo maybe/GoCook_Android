@@ -53,7 +53,7 @@ public class RecipeTopFragment extends RecipeListFragment {
 
 	@Override
 	protected String getURL() {
-		return String.format(mUrl, mPage);
+		return mUrl;
 	}
 	
 	@Override

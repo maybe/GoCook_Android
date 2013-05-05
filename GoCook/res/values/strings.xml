@@ -9,6 +9,9 @@
     <string name="biz_main_tab_shopping">购买清单</string>
     <string name="biz_main_tab_account">我的账户</string>
     
+    <!-- Base -->
+    <string name="base_loading_more">%d条载入中&#8230;</string>
+    
     <!-- progress -->
     <string name="base_progress_message">正在加载...</string>
     

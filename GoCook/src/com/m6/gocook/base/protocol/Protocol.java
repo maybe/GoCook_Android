@@ -14,11 +14,11 @@ public class Protocol {
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
-	public static final String URL_RECIPE_NEW = URL_ROOT + "/recipe/topnew?page=%d";
+	public static final String URL_RECIPE_NEW = URL_ROOT + "/recipe/topnew?page=";
 	
-	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=%d";
+	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=";
 	
-	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=%d";
+	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
 	
 	
 	

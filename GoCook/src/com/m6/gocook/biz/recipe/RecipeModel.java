@@ -22,7 +22,7 @@ import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.entity.RecipeListItem;
+import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
@@ -57,7 +57,7 @@ public class RecipeModel {
 		return null;
 	}
 	
-	public static RecipeListItem getRecipeData(String url) {
+	public static RecipeList getRecipeData(String url) {
 		String result = NetUtils.httpGet(url);
 		if(TextUtils.isEmpty(result)) {
 			return null;
@@ -65,7 +65,7 @@ public class RecipeModel {
 		
 		try {
 			JSONObject json = new JSONObject(result);
-			RecipeListItem recipeListItem = new RecipeListItem();
+			RecipeList recipeListItem = new RecipeList();
 			if(recipeListItem.parse(json)) {
 				return recipeListItem;
 			}
