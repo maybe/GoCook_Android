@@ -27,6 +27,15 @@ public class RecipeEntity implements IParseable<JSONObject> {
 		public String getName() {
 			return name;
 		}
+		
+		public String getName(int maxLength) {
+			if(name != null && name.length() > maxLength) {
+				return name.substring(0, maxLength - 1) + "...";
+			} else {
+				return name;
+			}
+			
+		}
 
 		public void setName(String name) {
 			this.name = name;
@@ -34,6 +43,15 @@ public class RecipeEntity implements IParseable<JSONObject> {
 
 		public String getRemark() {
 			return remark;
+		}
+		
+		public String getRemark(int maxLength) {
+			if(remark != null && remark.length() > maxLength) {
+				return remark.substring(0, maxLength - 1) + "...";
+			} else {
+				return remark;
+			}
+			
 		}
 
 		public void setRemark(String remark) {
