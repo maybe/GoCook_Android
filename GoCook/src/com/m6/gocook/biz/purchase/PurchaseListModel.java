@@ -33,6 +33,12 @@ public class PurchaseListModel {
 		return count;
 	}
 	
+	public static Cursor getRecipePurchaseCursor(Context context) {
+		
+		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
+		return context.getContentResolver().query(uri, null, null, null, null);
+	}
+	
 	public static Cursor getRecipeMaterialPurchaseListCursorById(Context context, String recipeId) {
 		
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
@@ -92,6 +98,14 @@ public class PurchaseListModel {
 		int result2 = context.getContentResolver().delete(materialUri, 
 				RecipeMaterialPurchaseList.RECIPE_ID + "=?", 
 				new String[] { recipeId });
+	}
+	
+	public static void removeAll(Context context) {
+		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
+		int result = context.getContentResolver().delete(uri, "", null);
+		
+		Uri materialUri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
+		int result2 = context.getContentResolver().delete(materialUri, "", null);
 	}
 	
 	public static boolean updateRecipeMaterialPurchased(Context context, String recipeId, boolean isBought) {

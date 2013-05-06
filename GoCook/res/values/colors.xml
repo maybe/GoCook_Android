@@ -5,7 +5,7 @@
     <color name="button_background_pressed">#a52226</color>
     <color name="button_background_normal">#b31e24</color>
     
-    <color name="main_bg">#f6ebe7</color>
+    <color name="main_bg">#f0e9e5</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>
     <color name="profile_more_btn_bg">#79c7d1</color>

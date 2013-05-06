@@ -94,6 +94,7 @@ public class RecipeEditFragment extends BaseFragment {
 				v.getParent().requestDisallowInterceptTouchEvent(true);
 				switch (event.getAction() & MotionEvent.ACTION_MASK) {
 				case MotionEvent.ACTION_UP:
+				case MotionEvent.ACTION_CANCEL:
 					v.getParent().requestDisallowInterceptTouchEvent(false);
 					break;
 				}

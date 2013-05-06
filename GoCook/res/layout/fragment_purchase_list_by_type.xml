@@ -30,7 +30,7 @@
             android:background="@android:color/white"
             android:divider="@android:color/transparent"
             android:listSelector="@android:color/transparent" />
-
+<!-- 
         <TextView
             android:id="@+id/nmain_material_title"
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             app:layout_disbleScroll="true"
             android:background="@android:color/white"
             android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent" />
+            android:listSelector="@android:color/transparent" /> -->
 
         <ImageView
             android:layout_width="match_parent"

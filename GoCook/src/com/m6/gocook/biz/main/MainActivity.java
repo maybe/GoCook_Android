@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
@@ -21,6 +22,7 @@ import com.m6.gocook.biz.popular.PopularFragment;
 import com.m6.gocook.biz.purchase.PurchaseFragment;
 import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
+import com.m6.gocook.biz.purchase.PurchaseListModel;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 	
@@ -52,14 +54,24 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 			
 			@Override
 			public void onClick(View v) {
-				RadioGroup group = (RadioGroup) v;
-				if (group.getCheckedRadioButtonId() == R.id.recipe_view_radiobutton) {
-					group.check(R.id.total_view_radiobutton);
-					MainActivityHelper.OnFragmentSwitch(PurchaseListByTypeFragment.class);
-				} else {
-					group.check(R.id.recipe_view_radiobutton);
-					MainActivityHelper.OnFragmentSwitch(PurchaseListFragment.class);
+				if(PurchaseListModel.getRecipePurchaseCount(getApplicationContext()) > 0) {
+					RadioGroup group = (RadioGroup) v;
+					if (group.getCheckedRadioButtonId() == R.id.recipe_view_radiobutton) {
+						group.check(R.id.total_view_radiobutton);
+						MainActivityHelper.OnFragmentSwitch(PurchaseListByTypeFragment.class);
+					} else {
+						group.check(R.id.recipe_view_radiobutton);
+						MainActivityHelper.OnFragmentSwitch(PurchaseListFragment.class);
+					}
 				}
+			}
+		});
+		
+		((Button) findViewById(R.id.actionbar_delete_button)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivityHelper.OnActionBarClick(v, v.getId());
 			}
 		});
 	}
@@ -80,8 +92,10 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		if(tabId.equals(Tab.SHOPPING.tag)) {
 			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.VISIBLE);
+			findViewById(R.id.actionbar_delete_button).setVisibility(View.VISIBLE);
 		} else {
 			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.GONE);
+			findViewById(R.id.actionbar_delete_button).setVisibility(View.GONE);
 		}
 		
 		mTitle.setText(TabHelper.getActionBarTitle(this, tabId));
