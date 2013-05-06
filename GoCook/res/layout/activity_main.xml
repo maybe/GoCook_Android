@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
     tools:context=".MainActivity" >
 
     <include
@@ -17,7 +16,8 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/main_tabhost"
         android:layout_below="@id/actionbar"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:background="@color/main_bg" />
 
     <android.support.v4.app.FragmentTabHost
         android:id="@id/main_tabhost"
