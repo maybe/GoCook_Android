@@ -5,6 +5,16 @@
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:background="@drawable/actionbar_bg" >
+    
+    <Button
+        android:id="@+id/actionbar_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_delete_button_selector"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="6dp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/actionbar_title"
@@ -14,7 +24,10 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textIsSelectable="true"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
     <RadioGroup
         android:id="@+id/purchaselist_switch_radiogroup"
@@ -22,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="6dp"
         android:orientation="horizontal"
         android:visibility="gone" >
 

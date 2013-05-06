@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.m6.gocook.base.fragment.OnActionBarEventListener;
 import com.m6.gocook.base.fragment.OnActivityAction;
@@ -61,6 +62,12 @@ public class MainActivityHelper {
 	public static void OnFragmentSwitch(Class<? extends Fragment> fragment) {
 		for(OnActionBarEventListener listener : mOnActionBarEventListeners) {
 			listener.OnFragmentSwitch(fragment);
+		}
+	}
+	
+	public static void OnActionBarClick(View view, int id) {
+		for(OnActionBarEventListener listener : mOnActionBarEventListeners) {
+			listener.OnActionBarClick(view ,id);
 		}
 	}
 	
