@@ -1,5 +1,6 @@
 package com.m6.gocook.base.fragment;
 
+import android.R.bool;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -48,19 +49,27 @@ public class BaseFragment extends Fragment {
 		
 		RelativeLayout root = (RelativeLayout) inflater.inflate(R.layout.base_fragment, container, false);
 		
-		View actionBarView = createDefaultActionBarView(inflater, container);
-		mAction = new ActionBar(actionBarView);
-		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        root.addView(actionBarView, lp);
+		RelativeLayout.LayoutParams lp;
+		
+		View actionBarView = onCreateActionBarView(inflater, container);
+		if(actionBarView != null) {
+			mAction = new ActionBar(actionBarView);
+			lp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+			lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			root.addView(actionBarView, lp);
+		}
 		
 		View content = onCreateFragmentView(inflater, container, savedInstanceState);
 		if(content != null) {
 			lp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
-            lp.addRule(RelativeLayout.BELOW, actionBarView.getId());
-            root.addView(content, lp);
+					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+			if(actionBarView != null) {
+				lp.addRule(RelativeLayout.BELOW, actionBarView.getId());
+			} else {
+				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			}
+			root.addView(content, lp);
 		}
 		
 		View progress = onCreateProgressView(inflater, container);
@@ -86,13 +95,13 @@ public class BaseFragment extends Fragment {
 	}
 	
 	/**
-	 * Create the default ActionBar view.
+	 * Create the ActionBar view, return null if use a fragment without ActionBar.
 	 * 
 	 * @param inflater
 	 * @param container
 	 * @return
 	 */
-	private View createDefaultActionBarView(LayoutInflater inflater, ViewGroup container) {
+	private View onCreateActionBarView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.base_actionbar, container, false);
 	}
 	
