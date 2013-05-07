@@ -23,11 +23,9 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textIsSelectable="true"
         android:textSize="16sp"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="true"
+		android:focusable="true" />
 
     <RadioGroup
         android:id="@+id/purchaselist_switch_radiogroup"
