@@ -10,28 +10,20 @@ import org.json.JSONObject;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,14 +32,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.constant.PrefKeys;
-import com.m6.gocook.base.fragment.OnActivityAction;
-import com.m6.gocook.biz.main.MainActivityHelper;
-import com.m6.gocook.biz.profile.ProfileActivity;
-import com.m6.gocook.util.File.ImgUtils;
-import com.m6.gocook.util.preference.PrefHelper;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.profile.AvatarFragment;
+import com.m6.gocook.biz.profile.AvatarFragment.AvatarCallback;
+import com.m6.gocook.biz.profile.ProfileEditFragment;
+import com.m6.gocook.biz.profile.ProfileModel;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements AvatarCallback {
 
 	/**
 	 * Keep track of the register task to ensure we can cancel it if requested.
@@ -59,8 +51,8 @@ public class RegisterFragment extends Fragment {
 	private String mPassword;
 	private String mRePassword;
 	private String mNickname;
-	private static Uri mAvatartUri;
-	private static Bitmap mAvatarBitmap;
+	private Uri mAvatartUri;
+	private Bitmap mAvatarBitmap;
 
 	// UI references.
 	private EditText mEmailView;
@@ -68,7 +60,7 @@ public class RegisterFragment extends Fragment {
 	private EditText mPasswordRepeatView;
 	private EditText mUsernameView;
 	private TextView mStatusMessageView;
-	private static ImageView mAvatarImageView;
+	private ImageView mAvatarImageView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,6 +105,7 @@ public class RegisterFragment extends Fragment {
 
 		        // Create and show the dialog.
 				AvatarFragment dialog = AvatarFragment.newInstance();
+				dialog.setAvatarCallback(RegisterFragment.this);
 				dialog.show(ft, AvatarFragment.class.getName());
 			}
 		});
@@ -239,30 +232,8 @@ public class RegisterFragment extends Fragment {
 		
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
-        	Bitmap avatarBitmap = null;
         	FragmentActivity context = getActivity();
-        	if (mAvatartUri == null) {
-        		if (mAvatarBitmap != null) {
-        			avatarBitmap = ImgUtils.resizeBitmap(getActivity(), mAvatarBitmap, 120, 120);
-        		}
-        	} else {
-        		String imgPath = null;
-        		Cursor cursor = context.getContentResolver().query(mAvatartUri, null,
-                        null, null, null);
-        		if (cursor != null && cursor.moveToFirst()) {
-        			imgPath = cursor.getString(1); // 图片文件路径
-        		}
-
-        		if (cursor != null) {
-        			cursor.close();
-        		}
-        		
-        		if (!TextUtils.isEmpty(imgPath)) {
-        			Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
-        			avatarBitmap = ImgUtils.resizeBitmap(context, bitmap, 120, 120);
-        		}
-        	}
-        	File avatarFile = ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), avatarBitmap);
+        	File avatarFile = ProfileModel.getAvatarFile(context, mAvatarBitmap, mAvatartUri);
 			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, avatarFile);
 			
 			if(!TextUtils.isEmpty(result)) {
@@ -307,11 +278,12 @@ public class RegisterFragment extends Fragment {
 				AccountModel.onRegister(mEmail, avatarUrl, userName);
 				Toast.makeText(context, R.string.biz_account_register_success, Toast.LENGTH_LONG).show();
 				
-				Intent intent = new Intent(context, ProfileActivity.class);
 				Bundle args = new Bundle();
 				args.putString(AccountModel.RETURN_ICON, avatarUrl);
 				args.putString(AccountModel.RETURN_USERNAME, userName);
-				context.startActivity(intent.putExtras(args));
+				Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+						ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), args);
+				startActivity(intent);
 			} else {
 				int errorCode = -1;
 				try {
@@ -347,19 +319,6 @@ public class RegisterFragment extends Fragment {
 		}
 	}
 	
-	private static void updateAvatar(Uri uri, Bitmap bitmap) {
-		mAvatarBitmap = bitmap;
-		mAvatartUri = uri;
-		
-		if(mAvatarBitmap != null) {
-			mAvatarImageView.setImageBitmap(mAvatarBitmap);
-		} else if (mAvatartUri != null) {
-			mAvatarImageView.setImageURI(mAvatartUri);
-		} else {
-			mAvatarImageView.setImageResource(R.drawable.register_photo);
-		}
-	}
-	
 	@Override
 	public void onResume() {
 		Fragment f = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
@@ -371,100 +330,31 @@ public class RegisterFragment extends Fragment {
 		super.onResume();
 	}
 	
-	
-	// 上传照片
-	public static class AvatarFragment extends DialogFragment implements OnActivityAction {
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mAvatarBitmap = null;
+		mAvatarImageView = null;
+		mEmailView = null;
+		mPasswordView = null;
+		mPasswordRepeatView = null;
+		mUsernameView = null;
+		mStatusMessageView = null;
+		mAvatarImageView = null;
+	}
 
-		private final static int REQ_CAMERA = 0;
-		private final static int REQ_PHOTO = 1;
+	@Override
+	public void onAvatarUpdate(Uri uri, Bitmap bitmap) {
+		mAvatarBitmap = bitmap;
+		mAvatartUri = uri;
 		
-		public static AvatarFragment newInstance() {
-			return new AvatarFragment();
+		if(mAvatarBitmap != null) {
+			mAvatarImageView.setImageBitmap(mAvatarBitmap);
+		} else if (mAvatartUri != null) {
+			mAvatarImageView.setImageURI(mAvatartUri);
+		} else {
+			mAvatarImageView.setImageResource(R.drawable.register_photo);
 		}
-		
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			MainActivityHelper.registerOnActivityActionListener(this);
-		}
-		
-		@Override
-		public void onDestroyView() {
-			super.onDestroyView();
-			mAvatarBitmap = null;
-		}
-		
-		@Override
-		public void onDestroy() {
-			super.onDestroy();
-			MainActivityHelper.unRegisterOnActivityActionListener(this);
-		}
-		
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			Dialog dialog = super.onCreateDialog(savedInstanceState);
-			
-			dialog.setCanceledOnTouchOutside(true);
-			Window window = dialog.getWindow();
-
-			window.getAttributes().dimAmount = 0.7f;
-			window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-			window.setGravity(Gravity.CENTER);
-			window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-			window.setBackgroundDrawableResource(android.R.color.transparent);
-			
-			return dialog;
-		}
-		
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View view = inflater.inflate(R.layout.fragment_avatar, container, false);
-			
-			view.findViewById(R.id.camera).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// 照相
-	        		Intent innerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	        		Intent wrapperIntent = Intent.createChooser(innerIntent, null);
-	        		getActivity().startActivityForResult(wrapperIntent, REQ_CAMERA);
-				}
-			});
-			
-			view.findViewById(R.id.photo).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// 图片库
-	        		Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-	        		innerIntent.setType("image/*");
-	        		Intent wrapperIntent = Intent.createChooser(innerIntent, null);
-	        		getActivity().startActivityForResult(wrapperIntent, REQ_PHOTO);
-				}
-			});
-			return view;
-		}
-		
-		@Override
-		public void onActivityResult(int requestCode, int resultCode,
-				Intent data) {
-			if(requestCode == REQ_CAMERA) {
-				if (resultCode != Activity.RESULT_OK) {
-					return;
-				}
-				Bundle bundle = data == null ? null : data.getExtras();
-				Object o = bundle == null ? null : bundle.get("data");
-				Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
-				updateAvatar(null, bitmap);
-			} else if (requestCode == REQ_PHOTO) {
-				if (resultCode != Activity.RESULT_OK) {
-					return;
-				}
-				updateAvatar(data != null ? data.getData() : null, null);
-			}
-		}
-		
 	}
 	
 }

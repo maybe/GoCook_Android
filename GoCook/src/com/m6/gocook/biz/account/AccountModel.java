@@ -99,10 +99,7 @@ public class AccountModel {
 		params.add(new BasicNameValuePair("nickname", nickname));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("repassword", password));
-//		params.add(new BasicNameValuePair("avatar", ""));
-		
 		return NetUtils.httpPost(Protocol.URL_REGISTER, params, avatart, "avatar");
-//		return NetUtils.httpPost(Constants.URL_REGISTER, params);
 	}
 	
 	public static String getUsername(Context context) {

@@ -152,7 +152,7 @@ public class PurchaseFragment extends Fragment implements
 	public void OnActionBarClick(View view, int id) {
 		
 		switch (id) {
-		case R.id.actionbar_delete_button:
+		case R.id.actionbar_left_button:
 			if(mPurchaseRecipeCursor != null && mPurchaseRecipeCursor.getCount() > 0) {
 				MyAlertDialogFragment conFragment = new MyAlertDialogFragment();
 				conFragment.show(getChildFragmentManager(), MyAlertDialogFragment.class.getName());

@@ -7,7 +7,7 @@
     android:background="@drawable/actionbar_bg" >
     
     <Button
-        android:id="@+id/actionbar_delete_button"
+        android:id="@+id/actionbar_left_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/actionbar_delete_button_selector"
@@ -57,5 +57,15 @@
             android:checked="false"
             android:clickable="false" />
     </RadioGroup>
+    
+    <Button
+        android:id="@+id/actionbar_right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_delete_button_selector"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="6dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -1,8 +1,10 @@
 package com.m6.gocook.biz.profile;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
@@ -85,7 +87,11 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(activity, ProfileActivity.class));
+				Bundle args = new Bundle();
+				args.putInt(ProfileFragment.PROFILE_TYPE, ProfileFragment.PROFILE_MYSELF);
+				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+						ProfileFragment.class.getName(), ProfileFragment.class.getName(), args);
+				startActivity(intent);
 			}
 		});
 		

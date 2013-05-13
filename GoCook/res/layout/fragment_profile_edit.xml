@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/register_photo" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/avatar"
+        android:layout_marginTop="20dp"
+        android:hint="@string/biz_profile_edit_hint_name" />
+
+    <LinearLayout
+        android:id="@+id/birth_and_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/name"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:hint="@string/biz_profile_edit_hint_birth" />
+
+        <EditText
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/biz_profile_edit_hint_sex" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/profession"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/birth_and_sex"
+        android:hint="@string/biz_profile_edit_hint_profession" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profession"
+        android:hint="@string/biz_profile_edit_hint_city" />
+
+    <EditText
+        android:id="@+id/intro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/city"
+        android:hint="@string/biz_profile_edit_hint_intro"
+        android:minHeight="100dp" />
+
+</RelativeLayout>

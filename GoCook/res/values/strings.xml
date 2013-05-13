@@ -44,6 +44,15 @@
     <string name="biz_profile_introduction">个人简介\n %s</string>
     <string name="biz_profile_introduction_title">%s的介绍</string>
     
+    <string name="biz_profile_edit_save">保存</string>
+    <string name="biz_profile_edit_title">编辑个人资料</string>
+    <string name="biz_profile_edit_hint_name">姓名</string>
+    <string name="biz_profile_edit_hint_birth">生日</string>
+    <string name="biz_profile_edit_hint_profession">职业</string>
+    <string name="biz_profile_edit_hint_sex">性别</string>
+    <string name="biz_profile_edit_hint_city">居住城市</string>
+    <string name="biz_profile_edit_hint_intro">个人简介</string>
+    
     <!-- recipe -->
     <string name="biz_recipe_about" formatted="false">%s人做过 %s人收藏</string>
     <string name="biz_recipe_material">用料</string>

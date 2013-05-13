@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 			}
 		});
 		
-		((Button) findViewById(R.id.actionbar_delete_button)).setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.actionbar_left_button)).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -92,10 +92,10 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		if(tabId.equals(Tab.SHOPPING.tag)) {
 			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.VISIBLE);
-			findViewById(R.id.actionbar_delete_button).setVisibility(View.VISIBLE);
+			findViewById(R.id.actionbar_left_button).setVisibility(View.VISIBLE);
 		} else {
 			findViewById(R.id.purchaselist_switch_radiogroup).setVisibility(View.GONE);
-			findViewById(R.id.actionbar_delete_button).setVisibility(View.GONE);
+			findViewById(R.id.actionbar_left_button).setVisibility(View.GONE);
 		}
 		
 		mTitle.setText(TabHelper.getActionBarTitle(this, tabId));

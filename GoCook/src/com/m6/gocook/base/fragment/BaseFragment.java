@@ -1,6 +1,5 @@
 package com.m6.gocook.base.fragment;
 
-import android.R.bool;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -16,10 +15,11 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.util.cache.util.ImageFetcher;
+import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements OnActionBarClick {
 
 	// UI references.
 	private ActionBar mAction;
@@ -40,7 +40,6 @@ public class BaseFragment extends Fragment {
         mImageFetcher = new ImageFetcher(getActivity(), imageThumbSize);
         mImageFetcher.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
         mImageFetcher.setImageFadeIn(false);
-        
 	}
 	
 	@Override
@@ -54,6 +53,7 @@ public class BaseFragment extends Fragment {
 		View actionBarView = onCreateActionBarView(inflater, container);
 		if(actionBarView != null) {
 			mAction = new ActionBar(actionBarView);
+			mAction.setActionBarClickListener(this);
 			lp = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 			lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -198,5 +198,17 @@ public class BaseFragment extends Fragment {
         super.onDestroy();
         mImageFetcher.closeCache();
     }
+
+	@Override
+	public void onActionBarRightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onActionBarLeftButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

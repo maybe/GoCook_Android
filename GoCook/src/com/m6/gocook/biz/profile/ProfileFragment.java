@@ -15,19 +15,28 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {
+	
+	public static final String PROFILE_TYPE = "profile_type";
+	public static final int PROFILE_MYSELF = 0;
+	public static final int PROFILE_OTHERS = 1;
+	
+	private int mProfileType = 0;
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +48,12 @@ public class ProfileFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		FragmentActivity activity = getActivity();
+		Bundle args = getArguments();
+		if(args != null) {
+			mProfileType = args.getInt(PROFILE_TYPE);
+		}
+		
+		final FragmentActivity activity = getActivity();
 		View view = getView();
 		ActionBar action = getAction();
 		
@@ -54,6 +68,22 @@ public class ProfileFragment extends BaseFragment {
 		action.setTitle(username);
 		((TextView) view.findViewById(R.id.name)).setText(username);
 		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+		
+		Button edit = (Button) view.findViewById(R.id.edit);
+		edit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(mProfileType == PROFILE_MYSELF) {
+					Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
+					startActivity(intent);
+				} else {
+					
+				}
+				
+			}
+		});
 		
 		final TextView intro = (TextView) activity.findViewById(R.id.intro);
 		intro.setOnClickListener(new OnClickListener() {
