@@ -3,7 +3,6 @@ package com.m6.gocook.biz.popular;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
 import android.view.KeyEvent;
@@ -20,43 +19,36 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
+import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.recipe.search.SearchFragment;
-import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
-public class PopularFragment extends Fragment {
-
-	private ImageFetcher mImageFetcher;
+public class PopularFragment extends BaseFragment {
 	
+	private PopularTask mTask;
+
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		int imageThumbSize = getResources().getDimensionPixelSize(R.dimen.biz_popular_item_image_size);
-	    ImageCacheParams cacheParams = new ImageCacheParams(getActivity(), Constants.IMAGE_CACHE_DIR);
-
-        cacheParams.setMemCacheSizePercent(0.25f); // Set memory cache to 25% of app memory
-
-        // The ImageFetcher takes care of loading images into our ImageView children asynchronously
-        mImageFetcher = new ImageFetcher(getActivity(), imageThumbSize);
-        mImageFetcher.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
-        mImageFetcher.setImageFadeIn(false);
-        
+	public View onCreateFragmentView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_popular, container, false);
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater,
-			ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_popular, container, false);
+	protected View onCreateActionBarView(LayoutInflater inflater,
+			ViewGroup container) {
+		return null;
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		new PopularTask(getActivity(), mImageFetcher).execute((Void) null);
+		showProgress(true);
+		
+		mTask = new PopularTask(getActivity(), mImageFetcher);
+		mTask.execute((Void) null);
 		
 		final EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_box);
 		searchEditText.setOnEditorActionListener(new OnEditorActionListener() {
@@ -99,27 +91,7 @@ public class PopularFragment extends Fragment {
         startActivity(intent);
 	}
 	
-	@Override
-    public void onResume() {
-        super.onResume();
-        mImageFetcher.setExitTasksEarly(false);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mImageFetcher.setPauseWork(false);
-        mImageFetcher.setExitTasksEarly(true);
-        mImageFetcher.flushCache();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mImageFetcher.closeCache();
-    }
-    
-    private static class PopularTask extends AsyncTask<Void, Void, Popular> {
+    private class PopularTask extends AsyncTask<Void, Void, Popular> {
 
     	private FragmentActivity mContext;
     	private ImageFetcher mImageFetcher;
@@ -135,11 +107,20 @@ public class PopularFragment extends Fragment {
     	
 		@Override
 		protected void onPostExecute(Popular result) {
+			mTask = null;
+			showProgress(false);
+			
 			if(mContext != null && result != null) {
 				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result);
 				ListView list = (ListView) mContext.findViewById(R.id.list);
 				list.setAdapter(adapter);
 			}
+		}
+		
+		@Override
+		protected void onCancelled() {
+			mTask = null;
+			showProgress(false);
 		}
     }
     

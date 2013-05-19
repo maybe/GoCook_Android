@@ -55,7 +55,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		ActionBar actionBar = getAction();
+		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(R.string.biz_profile_edit_title);
 		actionBar.setRightButton(null, R.drawable.actionbar_save_selector);
 		

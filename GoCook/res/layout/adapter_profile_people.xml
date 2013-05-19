@@ -35,28 +35,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginBottom="3dp"
             android:textColor="#4e4045"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/material"
+            android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/name"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="15dp"
             android:singleLine="true"
-            android:textColor="#a9a6a2" />
+            android:textColor="#db8572" />
 
         <TextView
-            android:id="@+id/collect_count"
+            android:id="@+id/fans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
-            android:layout_toRightOf="@id/material"
-            android:textColor="#a9a6a2"
-            android:visibility="gone" />
+            android:layout_toRightOf="@id/follow"
+            android:textColor="#db8572" />
 
         <ImageView
             android:layout_width="wrap_content"

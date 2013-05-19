@@ -1,6 +1,9 @@
 package com.m6.gocook.biz.recipe.top;
 
+import android.R.anim;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.protocol.Protocol;
@@ -37,7 +40,7 @@ public class RecipeTopFragment extends RecipeListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		ActionBar actionBar = getAction();
+		ActionBar actionBar = getActionBar();
 		Bundle args = getArguments();
 		if(args != null) {
 			if(RecipeTopFragment.PARAM_TYPE_HOT.equalsIgnoreCase(mTopType)) {
@@ -48,7 +51,6 @@ public class RecipeTopFragment extends RecipeListFragment {
 		} else {
 			actionBar.setTitle(R.string.biz_popular_tophot);
 		}
-		
 	}
 
 	@Override

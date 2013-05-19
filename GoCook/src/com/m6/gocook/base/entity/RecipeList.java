@@ -15,6 +15,19 @@ public class RecipeList implements IParseable<JSONObject> {
 	private int result = 1;
 	private ArrayList<RecipeItem> recipes;
 
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
+	public ArrayList<RecipeItem> getRecipes() {
+		return recipes;
+	}
+	public void setRecipes(ArrayList<RecipeItem> recipes) {
+		this.recipes = recipes;
+	}
+	
 	public class RecipeItem {
 		
 		private String id;
@@ -90,19 +103,4 @@ public class RecipeList implements IParseable<JSONObject> {
 		}
 		return false;
 	}
-	
-	public int getResult() {
-		return result;
-	}
-	public void setResult(int result) {
-		this.result = result;
-	}
-	public ArrayList<RecipeItem> getRecipes() {
-		return recipes;
-	}
-	public void setRecipes(ArrayList<RecipeItem> recipes) {
-		this.recipes = recipes;
-	}
-	
-	
 }

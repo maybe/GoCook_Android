@@ -7,7 +7,9 @@
     <EditText
         android:id="@+id/search_box"
         android:inputType="text"
-        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:hint="@string/biz_search_box_hint"
         android:background="@drawable/search_box"
         android:paddingLeft="@dimen/biz_search_box_padding_left"

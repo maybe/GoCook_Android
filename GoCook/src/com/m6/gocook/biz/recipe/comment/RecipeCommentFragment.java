@@ -39,7 +39,7 @@ public class RecipeCommentFragment extends BaseFragment {
 	}
 	
 	private void setTitle(String title) {
-		getAction().setTitle(title);
+		getActionBar().setTitle(title);
 	}
 	
 	private View findViewById(int id) {

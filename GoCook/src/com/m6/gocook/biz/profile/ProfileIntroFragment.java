@@ -38,7 +38,7 @@ public class ProfileIntroFragment extends BaseFragment {
 		}
 		
 		String title = String.format(getString(R.string.biz_profile_introduction_title), AccountModel.getUsername(getActivity()));
-		ActionBar action = getAction();
+		ActionBar action = getActionBar();
 		action.setTitle(title);
 	}
 }

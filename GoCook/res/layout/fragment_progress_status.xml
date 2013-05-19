@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-light"
+        android:textColor="@android:color/black"
         android:text="@string/base_progress_message"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

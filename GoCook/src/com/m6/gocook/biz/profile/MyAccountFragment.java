@@ -1,23 +1,9 @@
 package com.m6.gocook.biz.profile;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.constant.Constants;
-import com.m6.gocook.base.constant.PrefKeys;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.util.cache.util.ImageCache;
-import com.m6.gocook.util.cache.util.ImageFetcher;
-import com.m6.gocook.util.cache.util.ImageWorker;
-import com.m6.gocook.util.preference.PrefHelper;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +14,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.constant.Constants;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.util.cache.util.ImageCache;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class MyAccountFragment extends Fragment {
 	
@@ -80,6 +74,28 @@ public class MyAccountFragment extends Fragment {
 				});
 				builder.setNegativeButton(android.R.string.cancel, null);
 				builder.create().show();
+			}
+		});
+		
+		view.findViewById(R.id.follow).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+						PeopleFragment.class.getName(), PeopleFragment.class.getName(), null);
+				startActivity(intent);
+				
+			}
+		});
+		
+		view.findViewById(R.id.fans).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+						PeopleFragment.class.getName(), PeopleFragment.class.getName(), null);
+				startActivity(intent);
+				
 			}
 		});
 		

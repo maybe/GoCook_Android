@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import com.m6.gocook.base.entity.People;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.File.ImgUtils;
 import com.m6.gocook.util.net.NetUtils;
@@ -18,6 +19,19 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class ProfileModel {
+	
+	public static ArrayList<People> getPeoples() {
+		ArrayList<People> peoples = new ArrayList<People>();
+		for (int i = 0; i < 10; i++) {
+			People people = new People();
+			people.setFans(23);
+			people.setFollows(30);
+			people.setName("卖萌蜀黎喵呜桑");
+			people.setImage("images/recipe/140/23403.1.jpg");
+			peoples.add(people);
+		}
+		return peoples;
+	}
 	
 	private static Bitmap getAvatarBitmap(Context context, Bitmap bitmap, Uri uri) {
 		Bitmap avatarBitmap = null;

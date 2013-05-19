@@ -55,7 +55,7 @@ public class ProfileFragment extends BaseFragment {
 		
 		final FragmentActivity activity = getActivity();
 		View view = getView();
-		ActionBar action = getAction();
+		ActionBar action = getActionBar();
 		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
 		// 取本地数据

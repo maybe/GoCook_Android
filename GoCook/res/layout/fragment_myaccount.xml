@@ -33,6 +33,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/follow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -45,10 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="@string/myaccount_follow" />
+            android:text="@string/biz_profile_myaccount_follow" />
 
         <TextView
-            android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -56,6 +56,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/fans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -68,10 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="@string/myaccount_fans" />
+            android:text="@string/biz_profile_myaccount_fans" />
 
         <TextView
-            android:id="@+id/fans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="@string/myaccount_collection" />
+            android:text="@string/biz_profile_myaccount_collection" />
 
         <TextView
             android:id="@+id/collection"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="@string/myaccount_recipe" />
+            android:text="@string/biz_profile_myaccount_recipe" />
 
         <TextView
             android:id="@+id/recipe"
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="@string/myaccount_logout" />
+            android:text="@string/biz_profile_myaccount_logout" />
     </LinearLayout>
 
 </LinearLayout>

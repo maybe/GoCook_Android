@@ -25,7 +25,7 @@ public class SearchFragment extends RecipeListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		ActionBar action = getAction();
+		ActionBar action = getActionBar();
 		action.setTitle(mKeyWords);
 	}
 	

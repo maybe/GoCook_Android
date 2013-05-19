@@ -97,7 +97,7 @@ public class RecipeFragment extends BaseFragment {
     }
 
 	private void setTitle(String title) {
-		getAction().setTitle(title);
+		getActionBar().setTitle(title);
 	}
 
 	private void applyData() {

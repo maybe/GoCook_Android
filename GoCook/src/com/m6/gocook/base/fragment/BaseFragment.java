@@ -101,7 +101,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	 * @param container
 	 * @return
 	 */
-	private View onCreateActionBarView(LayoutInflater inflater, ViewGroup container) {
+	protected View onCreateActionBarView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.base_actionbar, container, false);
 	}
 	
@@ -116,7 +116,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		return inflater.inflate(R.layout.fragment_progress_status, container, false);
 	}
 	
-	public ActionBar getAction() {
+	public ActionBar getActionBar() {
 		return mAction;
 	}
 	
