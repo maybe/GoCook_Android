@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:gravity="center"
+            android:background="#70000000"
             android:text="@string/biz_popular_tophot" />
     </FrameLayout>
 
@@ -46,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="#70000000"
             android:gravity="center"
             android:text="@string/biz_popular_topnew" />
     </FrameLayout>

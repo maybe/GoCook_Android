@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -120,4 +121,5 @@ public class AvatarFragment extends DialogFragment implements OnActivityAction {
 	public interface AvatarCallback {
 		public void onAvatarUpdate(Uri uri, Bitmap bitmap);
 	}
+
 }

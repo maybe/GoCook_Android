@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,7 +47,8 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 //		addTab(tabHost, inflater, Tab.HOT.tag, R.string.biz_main_tab_hot, R.drawable.tab_pop_alpha, Fragment.class, null);
 		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseFragment.class, null);
 		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
-		
+
+		onIndicatorChanged(Tab.SEARCH.tag);
 		mTabHost.setOnTabChangedListener(this);
 		mTitle.setText(TabHelper.getActionBarTitle(this, Tab.SEARCH.tag));
 		
@@ -139,10 +141,19 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 	}
 	
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(MainActivityHelper.onKeyDown(keyCode, event)) {
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		mTabHost = null;
 		MainActivityHelper.clearOnActivityActionListeners();
+		MainActivityHelper.clearOnKeyDownListeners();
 	}
 	
 	@Override

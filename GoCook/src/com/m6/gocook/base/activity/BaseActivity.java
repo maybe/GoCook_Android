@@ -17,5 +17,4 @@ public class BaseActivity extends FragmentActivity {
 		fragmentHelper.initFragment(getIntent(), R.id.container);
 	}
 	
-	
 }

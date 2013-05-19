@@ -7,9 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -22,13 +27,31 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnKeyDown;
+import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.search.SearchFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
-public class PopularFragment extends BaseFragment {
+public class PopularFragment extends BaseFragment implements OnKeyDown {
 	
 	private PopularTask mTask;
-
+	
+	/** 搜索框是否处于输入状态 */
+	private boolean mInputMode = false;
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnKeyDownListener(this);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnKeyDownListener(this);
+	}
+	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +68,13 @@ public class PopularFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		showProgress(true);
+		if(mTask == null) {
+			showProgress(true);
+			mTask = new PopularTask(getActivity(), mImageFetcher);
+			mTask.execute((Void) null);
+		}
 		
-		mTask = new PopularTask(getActivity(), mImageFetcher);
-		mTask.execute((Void) null);
-		
+		final View maskView = getView().findViewById(R.id.mask);
 		final EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_box);
 		searchEditText.setOnEditorActionListener(new OnEditorActionListener() {
 			
@@ -60,6 +85,41 @@ public class PopularFragment extends BaseFragment {
                     return true;
                 }
                 return false;
+			}
+		});
+		
+		searchEditText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!mInputMode) {
+					mInputMode = true;
+					maskView.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+		
+		searchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(!mInputMode) {
+					mInputMode = true;
+					maskView.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+		
+		maskView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(mInputMode) {
+					mInputMode = false;
+					maskView.setVisibility(View.GONE);
+					hideSoftKeyBoard();
+				}
+				return true;
 			}
 		});
 		
@@ -77,6 +137,36 @@ public class PopularFragment extends BaseFragment {
                 performSearch(data.first);
 			}
 		});
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		mInputMode = false;
+		getView().findViewById(R.id.mask).setVisibility(View.GONE);
+		hideSoftKeyBoard();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			if(mInputMode) {
+				mInputMode = false;
+				getView().findViewById(R.id.mask).setVisibility(View.GONE);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void hideSoftKeyBoard() {
+		InputMethodManager imm = (InputMethodManager) getActivity()
+				.getSystemService(getActivity().INPUT_METHOD_SERVICE);
+		if (null != imm) {
+			imm.hideSoftInputFromWindow(
+					((EditText) getActivity().findViewById(R.id.search_box)).getWindowToken(), 0);
+		}
 	}
 	
 	/**
@@ -100,6 +190,7 @@ public class PopularFragment extends BaseFragment {
     		mContext = context;
     		mImageFetcher = imageFetcher;
 		}
+    	
 		@Override
 		protected Popular doInBackground(Void... params) {
 			return PopularModel.getPopularData();
@@ -123,6 +214,5 @@ public class PopularFragment extends BaseFragment {
 			showProgress(false);
 		}
     }
-    
-    
+
 }

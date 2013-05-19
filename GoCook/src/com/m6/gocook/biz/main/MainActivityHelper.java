@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.m6.gocook.base.fragment.OnActionBarEventListener;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.fragment.OnKeyDown;
 
 public class MainActivityHelper {
 
@@ -35,7 +37,34 @@ public class MainActivityHelper {
 	
 	public static void clearOnActivityActionListeners() {
 		mOnActivityActions.clear();
-	}	
+	}
+	
+	public static ArrayList<OnKeyDown> mOnKeyDownListeners = new ArrayList<OnKeyDown>();
+	
+	public static void registerOnKeyDownListener(OnKeyDown listener) {
+		if(listener == null || mOnKeyDownListeners.contains(listener)) {
+			return;
+		}
+		mOnKeyDownListeners.add(listener);
+	}
+	
+	public static void unRegisterOnKeyDownListener(OnKeyDown listener) {
+		if(listener == null || !mOnKeyDownListeners.contains(listener)) {
+			return;
+		}
+		mOnKeyDownListeners.remove(listener);
+	}
+	
+	public static void clearOnKeyDownListeners() {
+		mOnKeyDownListeners.clear();
+	}
+	
+	public static boolean onKeyDown(int keyCode, KeyEvent event) {
+		for(OnKeyDown listener : mOnKeyDownListeners) {
+			return listener.onKeyDown(keyCode, event);
+		}
+		return false;
+	}
 
 	public static ArrayList<OnActionBarEventListener> mOnActionBarEventListeners = new ArrayList<OnActionBarEventListener>();
 	

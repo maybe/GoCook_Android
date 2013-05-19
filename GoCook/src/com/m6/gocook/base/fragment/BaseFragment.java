@@ -138,8 +138,10 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
+							if(mProgressView != null) {
+								mProgressView.setVisibility(show ? View.VISIBLE
+										: View.GONE);
+							}
 						}
 					});
 		} else {
@@ -174,6 +176,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		
 		mProgressMessageView = null;
 		mProgressView = null;
 	}
