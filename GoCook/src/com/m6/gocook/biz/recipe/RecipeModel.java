@@ -1,9 +1,11 @@
 package com.m6.gocook.biz.recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +23,7 @@ import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
 import com.m6.gocook.base.db.table.SearchHistory;
+import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
@@ -97,6 +100,17 @@ public class RecipeModel {
 			}
 		}
 		return null;
+	}
+	
+	public static RecipeCommentList getRecipeComments(Context context, String recipeId) {
+		return null;
+	}
+	
+	public static String postComment(Context context, String recipeId, String content) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_RECIPE_ID, recipeId));
+		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_CONTENT, content));
+		return NetUtils.httpPost(Protocol.URL_RECIPE_COMMENT_POST, params);
 	}
 	
 }

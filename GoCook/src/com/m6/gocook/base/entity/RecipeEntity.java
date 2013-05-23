@@ -216,13 +216,19 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	@Override
 	public boolean parse(JSONObject object) {
 
+		if(object == null) {
+			return false;
+		}
+		
 		try {
 			if(object.optInt(Protocol.KEY_RESULT) != Protocol.VALUE_RESULT_OK) {
 				return false;
 			}
 
 			JSONObject recipe = object.optJSONObject(Protocol.KEY_RECIPE);
-			
+			if(recipe == null) {
+				return false;
+			}
 			this.id = recipe.optInt(Protocol.KEY_RECIPE_ID);
 			this.name = recipe.optString(Protocol.KEY_RECIPE_NAME);
 			this.author = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_NAME);
@@ -251,13 +257,14 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			}
 			
 			this.tips = recipe.optString(Protocol.KEY_RECIPE_TIPS);
+			
+			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
 
-		return true;
+		return false;
 	}
 
 }

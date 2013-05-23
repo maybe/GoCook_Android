@@ -11,6 +11,10 @@ public class Protocol {
 	
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
 	
+	public static final String URL_RECIPE_COMMENT = URL_ROOT + "/recipe/comments?id=%s";
+	
+	public static final String URL_RECIPE_COMMENT_POST = URL_ROOT + "/recipe/comment";
+	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
@@ -47,6 +51,17 @@ public class Protocol {
 	public static final String KEY_RECIPE_STEPS_CONTENT = "content";
 	public static final String KEY_RECIPE_STEPS_IMG = "img";
 	public static final String KEY_RECIPE_TIPS = "tips";
+	
+	/* Recipe Comments JSON Protocol */
+	public static final String KEY_RECIPE_COMMENT = "result_recipe_comments";
+	public static final String KEY_RECIPE_COMMENT_USER_ID = "user_id";
+	public static final String KEY_RECIPE_COMMENT_NAME = "name";
+	public static final String KEY_RECIPE_COMMENT_PORTRAIT = "portrait";
+	public static final String KEY_RECIPE_COMMENT_CONTENT = "content";
+	public static final String KEY_RECIPE_COMMENT_CREATE_TIME = "create_time";
+
+	public static final String KEY_POST_RECIPE_COMMENT_RECIPE_ID = "recipe_id";
+	public static final String KEY_POST_RECIPE_COMMENT_CONTENT = "content";
 	
 	/* Popular JSON Protocol */
 	public static final String KEY_POPULAR_TOPNEW_IMG = "topnew_img";
