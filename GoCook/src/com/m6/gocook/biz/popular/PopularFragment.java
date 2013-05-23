@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.popular;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,11 +31,12 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.search.SearchFragment;
-import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PopularFragment extends BaseFragment implements OnKeyDown {
 	
 	private PopularTask mTask;
+	private Popular mPopular;
+	private PopularAdapter mAdapter;
 	
 	/** 搜索框是否处于输入状态 */
 	private boolean mInputMode = false;
@@ -50,6 +52,9 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 	public void onDestroy() {
 		super.onDestroy();
 		MainActivityHelper.unRegisterOnKeyDownListener(this);
+		
+		mAdapter = null;
+		mPopular = null;
 	}
 	
 	@Override
@@ -67,12 +72,6 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		if(mTask == null) {
-			showProgress(true);
-			mTask = new PopularTask(getActivity(), mImageFetcher);
-			mTask.execute((Void) null);
-		}
 		
 		final View maskView = getView().findViewById(R.id.mask);
 		final EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_box);
@@ -137,6 +136,17 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
                 performSearch(data.first);
 			}
 		});
+		
+		mAdapter = new PopularAdapter(getActivity(), mImageFetcher, mPopular);
+		listView.setAdapter(mAdapter);
+		
+		if(mPopular == null) {
+			if(mTask == null) {
+				showProgress(true);
+				mTask = new PopularTask(getActivity());
+				mTask.execute((Void) null);
+			}
+		}
 	}
 	
 	@Override
@@ -183,12 +193,10 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 	
     private class PopularTask extends AsyncTask<Void, Void, Popular> {
 
-    	private FragmentActivity mContext;
-    	private ImageFetcher mImageFetcher;
+    	private Context mContext;
     	
-    	public PopularTask(FragmentActivity context, ImageFetcher imageFetcher) {
-    		mContext = context;
-    		mImageFetcher = imageFetcher;
+    	public PopularTask(FragmentActivity context) {
+    		mContext = context.getApplicationContext();
 		}
     	
 		@Override
@@ -202,9 +210,11 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 			showProgress(false);
 			
 			if(mContext != null && result != null) {
-				PopularAdapter adapter = new PopularAdapter(mContext, mImageFetcher, result);
-				ListView list = (ListView) mContext.findViewById(R.id.list);
-				list.setAdapter(adapter);
+				mPopular = result;
+				if(mAdapter != null) {
+					mAdapter.setPopularData(result);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 		}
 		
