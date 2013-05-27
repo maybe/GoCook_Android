@@ -128,6 +128,10 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
 		// for very easy animations. If available, use these APIs to fade-in
 		// the progress spinner.
+		if(mProgressView == null) {
+			return;
+		}
+		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
@@ -138,10 +142,8 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							if(mProgressView != null) {
-								mProgressView.setVisibility(show ? View.VISIBLE
-										: View.GONE);
-							}
+							mProgressView.setVisibility(show ? View.VISIBLE
+									: View.GONE);
 						}
 					});
 		} else {
