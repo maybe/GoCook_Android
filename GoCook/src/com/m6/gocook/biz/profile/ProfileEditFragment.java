@@ -75,6 +75,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		if(!TextUtils.isEmpty(avatarPath)) {
 			mAvatarImageView.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
 		}
+		
 		mAvatarImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -154,6 +155,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 			mAvatarImageView.setImageResource(R.drawable.register_photo);
 		}
 	}
+	
 	
 	private class UpdateProfileTask extends AsyncTask<String, Void, Void> {
 
