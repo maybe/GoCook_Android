@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -140,9 +142,28 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		}
 	}
 	
+	private void exit() {
+		new AlertDialog.Builder(this)
+        .setTitle(R.string.biz_main_exit_title)
+        .setMessage(R.string.biz_main_exit_message)
+        .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	MainActivity.this.finish();
+            }
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .create()
+        .show();
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(MainActivityHelper.onKeyDown(keyCode, event)) {
+			return true;
+		}
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			exit();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
