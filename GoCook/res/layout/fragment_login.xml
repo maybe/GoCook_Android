@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".LoginFragment" >
 
-    <!-- Login progress -->
-
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        layout="@layout/fragment_progress_status" />
-
     <!-- Login form -->
 
     <ScrollView
