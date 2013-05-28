@@ -5,11 +5,14 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
 import com.m6.gocook.util.log.Logger;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -237,11 +240,24 @@ public class RecipeFragment extends BaseFragment {
 
 					@Override
 					public void onClick(View v) {
-						((TextView) v).setCompoundDrawablesWithIntrinsicBounds(
-								null,
-								getResources().getDrawable(
-										R.drawable.recipe_tabbar_likehl), null,
-								null);
+						
+						if(AccountModel.isLogon(mContext)) {
+							// TODO
+							((TextView) v).setCompoundDrawablesWithIntrinsicBounds(
+									null,
+									getResources().getDrawable(
+											R.drawable.recipe_tabbar_likehl), null,
+									null);
+						} else {
+							Bundle bundle = new Bundle();
+							bundle.putBoolean(LoginFragment.PARAM_JUMP_LOGIN, true);
+							Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class,
+									LoginFragment.class.getName(), 
+									LoginFragment.class.getName()
+									,bundle);
+							mContext.startActivity(intent);
+						}
+						
 					}
 				});
 
