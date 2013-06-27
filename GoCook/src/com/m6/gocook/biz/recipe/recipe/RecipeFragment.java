@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecipeFragment extends BaseFragment {
 
@@ -45,6 +46,7 @@ public class RecipeFragment extends BaseFragment {
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private AchieveRecipeTask mAchieveRecipeTask;
+	private RecipeCollectTask mRecipeCollectTask;
 	
 	public static void startInActivity(Context context, String recipeId) {
 		Bundle argument = new Bundle();
@@ -242,12 +244,11 @@ public class RecipeFragment extends BaseFragment {
 					public void onClick(View v) {
 						
 						if(AccountModel.isLogon(mContext)) {
-							// TODO
-							((TextView) v).setCompoundDrawablesWithIntrinsicBounds(
-									null,
-									getResources().getDrawable(
-											R.drawable.recipe_tabbar_likehl), null,
-									null);
+							if(mRecipeCollectTask == null) {
+								mRecipeCollectTask = new RecipeCollectTask(v);
+								mRecipeCollectTask.execute();
+							}
+							
 						} else {
 							Bundle bundle = new Bundle();
 							bundle.putBoolean(LoginFragment.PARAM_JUMP_LOGIN, true);
@@ -293,6 +294,40 @@ public class RecipeFragment extends BaseFragment {
 			super.onPostExecute(result);
 		}
 
+	}
+	
+	private class RecipeCollectTask extends AsyncTask<Void, Void, Boolean> {
+
+		private TextView view;
+		
+		public RecipeCollectTask(View view) {
+			this.view = (TextView) view;
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			
+			return RecipeModel.addToCollectList(mRecipeId);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			
+			if(result && view != null) {
+				view.setCompoundDrawablesWithIntrinsicBounds(
+						null,
+						getResources().getDrawable(
+								R.drawable.recipe_tabbar_likehl), null,
+						null);
+			} else {
+				Toast.makeText(mContext,
+						R.string.biz_recipe_tabbar_menu_addcollectfailed,
+						Toast.LENGTH_SHORT)
+						.show();
+			}
+			
+		}
+		
 	}
 
 }

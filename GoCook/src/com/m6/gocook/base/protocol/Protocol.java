@@ -3,7 +3,7 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
-	public static final String URL_ROOT = "http://10.233.49.33";
+	public static final String URL_ROOT = "http://192.168.1.105";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
@@ -14,6 +14,8 @@ public class Protocol {
 	public static final String URL_RECIPE_COMMENT = URL_ROOT + "/recipe/comments?id=%s";
 	
 	public static final String URL_RECIPE_COMMENT_POST = URL_ROOT + "/recipe/comment";
+	
+	public static final String URL_RECIPE_COLLECT_ADD = URL_ROOT + "/cook/addmycoll?collid=%s";
 	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
@@ -29,7 +31,7 @@ public class Protocol {
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";
 	public static final int VALUE_RESULT_OK = 0;
-	public static final int VALUE_RESULT_ERROR = 0;
+	public static final int VALUE_RESULT_ERROR = 1;
 	
 	
 	/* Recipe JSON Protocol */

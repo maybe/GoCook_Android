@@ -106,11 +106,30 @@ public class RecipeModel {
 		return null;
 	}
 	
-	public static String postComment(Context context, String recipeId, String content) {
+	public static String postComment(String recipeId, String content) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_RECIPE_ID, recipeId));
 		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_CONTENT, content));
 		return NetUtils.httpPost(Protocol.URL_RECIPE_COMMENT_POST, params);
+	}
+	
+	public static Boolean addToCollectList(String recipeId) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId));
+		
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
