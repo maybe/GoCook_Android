@@ -179,8 +179,8 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	public void onDestroyView() {
 		super.onDestroyView();
 		
-		mProgressMessageView = null;
-		mProgressView = null;
+//		mProgressMessageView = null;
+//		mProgressView = null;
 	}
 	
 	
