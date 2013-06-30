@@ -20,7 +20,7 @@
     <string name="base_loading_more">%d条载入中&#8230;</string>
     
     <!-- progress -->
-    <string name="base_progress_message">正在加载...</string>
+    <string name="base_progress_message">正在加载&#8230;</string>
     
     <!-- 搜索 -->
     <string name="biz_search_box_hint">搜索菜谱</string>
@@ -34,6 +34,7 @@
     <string name="biz_account_register_success">注册成功！</string>
     <string name="biz_account_avatar_camera">通过拍照上传</string>
     <string name="biz_account_avatar_photo">从本地图库选择</string>
+    <string name="biz_account_login_failure">登录失败，请重试</string>
     
     <string name="biz_account_register_errorcode_failure">注册失败</string>
     <string name="biz_account_register_errorcode_email">email不可用</string>

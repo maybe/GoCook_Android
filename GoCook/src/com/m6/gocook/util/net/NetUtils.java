@@ -311,6 +311,7 @@ public class NetUtils {
 			conn.setConnectTimeout(15000);
 			conn.setReadTimeout(10000);
 			conn.setRequestMethod("GET");
+			conn.setRequestProperty("x-client-identifier", "Mobile");
 			conn.setDoInput(true);
 			conn.connect();
 			InputStream in = new BufferedInputStream(

@@ -320,10 +320,12 @@ public class RecipeFragment extends BaseFragment {
 								R.drawable.recipe_tabbar_likehl), null,
 						null);
 			} else {
-				Toast.makeText(mContext,
-						R.string.biz_recipe_tabbar_menu_addcollectfailed,
-						Toast.LENGTH_SHORT)
-						.show();
+				if(isAdded()) {
+					Toast.makeText(mContext,
+							R.string.biz_recipe_tabbar_menu_addcollectfailed,
+							Toast.LENGTH_SHORT)
+							.show();
+				}
 			}
 			
 		}

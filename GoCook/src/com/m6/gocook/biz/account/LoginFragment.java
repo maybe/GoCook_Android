@@ -223,8 +223,9 @@ public class LoginFragment extends BaseFragment {
 					AccountModel.onLogin(mEmail, avatarUrl, userName);
 				}
 			} else {
-				mPasswordView.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
+//				mPasswordView.setError(getString(R.string.error_incorrect_password));
+//				mPasswordView.requestFocus();
 			}
 		}
 

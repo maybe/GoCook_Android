@@ -283,7 +283,9 @@ public class RegisterFragment extends Fragment implements AvatarCallback {
 				args.putString(AccountModel.RETURN_USERNAME, userName);
 				Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
 						ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), args);
-				startActivity(intent);
+				if(isAdded()) {
+					startActivity(intent);
+				}
 			} else {
 				int errorCode = -1;
 				try {
