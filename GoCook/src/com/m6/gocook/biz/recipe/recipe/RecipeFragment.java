@@ -45,6 +45,9 @@ public class RecipeFragment extends BaseFragment {
 	// DataSet
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
+	
+	private boolean mCollected = false;
+	
 	private AchieveRecipeTask mAchieveRecipeTask;
 	private RecipeCollectTask mRecipeCollectTask;
 	
@@ -91,6 +94,7 @@ public class RecipeFragment extends BaseFragment {
 
 		mAchieveRecipeTask = new AchieveRecipeTask();
 		mAchieveRecipeTask.execute((Void) null);
+		
 	}
 
 
@@ -206,6 +210,11 @@ public class RecipeFragment extends BaseFragment {
 					null);
 			tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
 		}
+		
+		TextView tabBarCollectTextView = ((TextView) findViewById(R.id.tabbar_textview_like));
+
+		// TODO: get collected value form server
+		setCollected(true, tabBarCollectTextView);
 	}
 
 	private void initView() {
@@ -272,6 +281,16 @@ public class RecipeFragment extends BaseFragment {
 //				});
 	}
 
+	private void setCollected(boolean mCollected, TextView view) {
+		this.mCollected = mCollected;
+		view.setCompoundDrawablesWithIntrinsicBounds(
+				null,
+				getResources().getDrawable(
+						this.mCollected ? R.drawable.recipe_tabbar_likehl
+									: R.drawable.recipe_tabbar_like), null,
+				null);
+	}
+
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
@@ -306,19 +325,20 @@ public class RecipeFragment extends BaseFragment {
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			
-			return RecipeModel.addToCollectList(mRecipeId);
+			if(mCollected) {
+				return RecipeModel.removeFromCollectList(mRecipeId);
+			} else {
+				return RecipeModel.addToCollectList(mRecipeId);
+			}
 		}
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
 			
+			mRecipeCollectTask = null;
+			
 			if(result && view != null) {
-				view.setCompoundDrawablesWithIntrinsicBounds(
-						null,
-						getResources().getDrawable(
-								R.drawable.recipe_tabbar_likehl), null,
-						null);
+				setCollected(!mCollected, view);
 			} else {
 				if(isAdded()) {
 					Toast.makeText(mContext,

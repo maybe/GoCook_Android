@@ -132,4 +132,23 @@ public class RecipeModel {
 		}
 	}
 	
+	public static Boolean removeFromCollectList(String recipeId) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId));
+		
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

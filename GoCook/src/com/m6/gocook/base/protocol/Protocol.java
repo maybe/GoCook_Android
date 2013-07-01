@@ -17,6 +17,8 @@ public class Protocol {
 	
 	public static final String URL_RECIPE_COLLECT_ADD = URL_ROOT + "/cook/addmycoll?collid=%s";
 	
+	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/deletemycoll?collid=%s";
+	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
