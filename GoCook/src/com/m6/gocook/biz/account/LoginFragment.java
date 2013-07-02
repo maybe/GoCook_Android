@@ -22,8 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.util.preference.PrefHelper;
+import com.m6.gocook.util.util.Base64;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -199,6 +202,7 @@ public class LoginFragment extends BaseFragment {
 						map.put(AccountModel.RETURN_USERNAME, userName);
 						AccountModel.saveAccount(mContext, mEmail);
 						AccountModel.saveUsername(mContext, userName);
+						AccountModel.savePassword(mContext, mPassword);
 						return map;
 					}
 				} catch (JSONException e) {

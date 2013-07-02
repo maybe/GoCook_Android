@@ -15,4 +15,6 @@ public class PrefKeys {
 	public static final String ACCOUNT_AVATAR = "account_avatar";
 	
 	public static final String ACCOUNT_USERNAME = "account_username";
+	
+	public static final String ACCOUNT_PASSWORD = "account_password";
 }

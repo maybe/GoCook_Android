@@ -1,8 +1,10 @@
 package com.m6.gocook.biz.main;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.account.AccountFragment;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.popular.PopularFragment;
 import com.m6.gocook.biz.purchase.PurchaseFragment;
@@ -78,6 +81,10 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 				MainActivityHelper.OnActionBarClick(v, v.getId());
 			}
 		});
+		
+		if(AccountModel.isLogon(this)) {
+			new AuthenLoginTask(this).execute((Void) null);
+		}
 	}
 
 	private void addTab(FragmentTabHost tabHost, LayoutInflater inflater, String tag, int titleId, int iconId, Class<?> clss, Bundle args) {
@@ -183,4 +190,22 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		MainActivityHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
+	private static class AuthenLoginTask extends AsyncTask<Void, Void, Void> {
+
+		private Context mContext;
+		public AuthenLoginTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			String usr = AccountModel.getAccount(mContext);
+			String pwd = AccountModel.getPassword(mContext);
+			if(!TextUtils.isEmpty(pwd)) {
+				AccountModel.login(mContext, usr, pwd);
+			}
+			return null;
+		}
+		
+	}
 }

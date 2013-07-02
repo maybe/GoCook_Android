@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.impl.conn.DefaultClientConnection;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
+import com.m6.gocook.util.util.Base64;
 
 public class AccountModel {
 	
@@ -90,6 +92,7 @@ public class AccountModel {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_PASSWORD, "");
 		onLogout();
 	}
 	
@@ -122,7 +125,24 @@ public class AccountModel {
 		return !TextUtils.isEmpty(PrefHelper.getString(context, PrefKeys.ACCOUNT_EMAIL, ""));
 	}
 	
+	public static String getAccount(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_EMAIL, "");
+	}
+	
 	public static void saveAccount(Context context, String email) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, email);
+	}
+	
+	public static void savePassword(Context context, String password) {
+		String code = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_PASSWORD, code);
+	}
+	
+	public static String getPassword(Context context) {
+		String pwd = PrefHelper.getString(context, PrefKeys.ACCOUNT_PASSWORD, "");
+		if (!TextUtils.isEmpty(pwd)) {
+			return new String(Base64.decode(pwd.getBytes(), Base64.DEFAULT));
+		}
+		return null;
 	}
 }
