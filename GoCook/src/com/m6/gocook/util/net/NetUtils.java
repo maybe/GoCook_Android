@@ -19,11 +19,13 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.log.Logger;
 
 public class NetUtils {
@@ -31,6 +33,10 @@ public class NetUtils {
 	public static final String TAG = "NetUtils";
 	
 	private static final String BOUNDARY = "HttpPostGoCook";
+	
+	public static final String POST = "POST";
+	
+	public static final String GET = "GET";
 
 	/**
 	 * Check network connection status
@@ -233,20 +239,44 @@ public class NetUtils {
         in.close();  
         return out.toByteArray(); 
 	}
-
-	public static String httpPost(String urlString, List<BasicNameValuePair> params) {
-		String result = null;
-		HttpURLConnection conn = null;
+	
+	private static HttpURLConnection getHttpURLConnection(String urlString, String method, String cookie) {
+		if (TextUtils.isEmpty(urlString)) {
+			return null;
+		}
+		
 		try {
 			URL url = new URL(urlString);
-			conn = (HttpURLConnection) url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
+			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
+			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setRequestProperty("Cookie", cookie);
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
 			conn.setConnectTimeout(15000);
 			conn.setReadTimeout(10000);
+			return conn;
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static void saveCookie(Context context, HttpURLConnection conn) {
+		String cookie = conn.getHeaderField("Set-Cookie");
+		if(!TextUtils.isEmpty(cookie)) {
+			AccountModel.saveCookie(context, cookie);
+			System.out.println(cookie);
+		}
+	}
+
+	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params) {
+		String result = null;
+		HttpURLConnection conn = null;
+		try {
+			conn = getHttpURLConnection(urlString, POST, AccountModel.getCookie(context));
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
@@ -255,6 +285,7 @@ public class NetUtils {
 			out.close();
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
+			saveCookie(context, conn);
 			result = readStream(in);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -266,31 +297,22 @@ public class NetUtils {
 		return result;
 	}
 	
-	public static String httpPost(String urlString, List<BasicNameValuePair> params, File file, String fileParamName) {
+	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params, File file, String fileParamName) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
-			URL url = new URL(urlString);
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("x-client-identifier", "Mobile");
-			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
-			conn.setUseCaches(false);
-			conn.setChunkedStreamingMode(0);
-			conn.setConnectTimeout(15000);
-			conn.setReadTimeout(10000);
+			conn = getHttpURLConnection(urlString, POST, AccountModel.getCookie(context));
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
 			writeFileStream(out, file, fileParamName);
 			writeStringStream(out, params);
 			writeEnd(out);
-			
 			out.flush();
 			out.close();
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
+			saveCookie(context, conn);
 			result = readStream(in);
 		} catch (IOException e) {
 			e.printStackTrace();

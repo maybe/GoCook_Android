@@ -106,11 +106,11 @@ public class RecipeModel {
 		return null;
 	}
 	
-	public static String postComment(String recipeId, String content) {
+	public static String postComment(Context context, String recipeId, String content) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_RECIPE_ID, recipeId));
 		params.add(new BasicNameValuePair(Protocol.KEY_POST_RECIPE_COMMENT_CONTENT, content));
-		return NetUtils.httpPost(Protocol.URL_RECIPE_COMMENT_POST, params);
+		return NetUtils.httpPost(context, Protocol.URL_RECIPE_COMMENT_POST, params);
 	}
 	
 	public static Boolean addToCollectList(String recipeId) {

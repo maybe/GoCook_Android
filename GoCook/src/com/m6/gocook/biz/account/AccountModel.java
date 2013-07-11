@@ -85,24 +85,34 @@ public class AccountModel {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("login", username));
 		params.add(new BasicNameValuePair("password", password));
-		return NetUtils.httpPost(Protocol.URL_LOGIN, params);
+		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params);
 	}
 	
 	public static void logout(Context context) {
+		// TODO all personal info put null
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_PASSWORD, "");
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, "");
 		onLogout();
 	}
 	
-	public static String register(String email, String password, String rePassword, String nickname, File avatart) {
+	public static String register(Context context, String email, String password, String rePassword, String nickname, File avatart) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("nickname", nickname));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("repassword", password));
-		return NetUtils.httpPost(Protocol.URL_REGISTER, params, avatart, "avatar");
+		return NetUtils.httpPost(context, Protocol.URL_REGISTER, params, avatart, "avatar");
+	}
+	
+	public static String getCookie(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_COOKIE, "");
+	}
+	
+	public static void saveCookie(Context context, String cookie) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, cookie);
 	}
 	
 	public static String getUsername(Context context) {

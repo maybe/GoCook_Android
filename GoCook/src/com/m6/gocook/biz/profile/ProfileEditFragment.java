@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.PrefKeys;
@@ -69,6 +70,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		mProfessionEditText = (EditText) view.findViewById(R.id.profession);
 		mIntroEditText = (EditText) view.findViewById(R.id.intro);
 		
+		initIntro();
 		
 		// 取本地数据
 		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
@@ -96,10 +98,15 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 				dialog.show(ft, AvatarFragment.class.getName());
 			}
 		});
-		
-		String username = AccountModel.getUsername(activity);
-		mNameEditText.setText(username);
-		
+	}
+	
+	private void initIntro() {
+		FragmentActivity activity =  getActivity();
+		mNameEditText.setText(AccountModel.getUsername(activity));
+		mSexeEditText.setText(ProfileModel.getSex(activity));
+		mBirthEditText.setText(ProfileModel.getAge(activity));
+		mCityEditText.setText(ProfileModel.getCity(activity));
+		mIntroEditText.setText(ProfileModel.getIntro(activity));
 	}
 	
 	@Override
@@ -135,10 +142,11 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		
 		showProgress(true);
 		new UpdateProfileTask(getActivity()).execute(mNameEditText.getText().toString(),
-													mBirthEditText.getText().toString(),
 													mSexeEditText.getText().toString(),
+													mBirthEditText.getText().toString(),
 													mProfessionEditText.getText().toString(),
 													mCityEditText.getText().toString(),
+													"", "",
 													mIntroEditText.getText().toString());
 	}
 
@@ -157,7 +165,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	}
 	
 	
-	private class UpdateProfileTask extends AsyncTask<String, Void, Void> {
+	private class UpdateProfileTask extends AsyncTask<String, Void, String> {
 
 		private Context mContext;
 		
@@ -166,23 +174,28 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		}
 		
 		@Override
-		protected Void doInBackground(String... params) {
+		protected String doInBackground(String... params) {
 			if(params != null && params.length > 0) {
 				File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
-				String result = ProfileModel.UpdateProfile(params[0], params[1], params[2], params[3], params[4], params[5], avatarFile);
+				String result = ProfileModel.updateInfo(mContext, avatarFile, params[0], params[1], params[2], 
+						params[3], params[4], params[5], params[6], params[7]);
 				if(!TextUtils.isEmpty(result)) {
 					try {
 						JSONObject json = new JSONObject(result);
 						int responseCode = json.optInt(AccountModel.RETURN_RESULT);
 						if (responseCode == AccountModel.SUCCESS) {
-							String username = json.optString(AccountModel.RETURN_USERNAME);
-							
 							// 保存邮件、用户名和头像的本地路径
-							AccountModel.saveUsername(mContext, username);
+							AccountModel.saveUsername(mContext, params[0]);
 							AccountModel.saveAvatarPath(mContext, avatarFile != null ? avatarFile.getPath() : "");
-							
-						} else {
-							
+							// 保存个人信息
+							ProfileModel.saveAge(mContext, params[2]);
+							ProfileModel.saveSex(mContext, params[1]);
+							ProfileModel.saveCity(mContext, params[5]);
+							ProfileModel.saveProvince(mContext, params[4]);
+							ProfileModel.saveIntro(mContext, params[7]);
+							ProfileModel.saveCareer(mContext, params[3]);
+							ProfileModel.saveTelephone(mContext, params[6]);
+							return result;
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -193,8 +206,14 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(String result) {
 			showProgress(false);
+			
+			if(TextUtils.isEmpty(result)) {
+				Toast.makeText(mContext, R.string.biz_profile_edit_fail_tip, Toast.LENGTH_SHORT).show();
+			} else {
+				getActivity().finish();
+			}
 		}
 		
 		@Override

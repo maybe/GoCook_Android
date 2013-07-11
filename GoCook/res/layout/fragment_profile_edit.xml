@@ -69,6 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/city"
+        android:gravity="left|top"
+        android:maxLines="5"
         android:hint="@string/biz_profile_edit_hint_intro"
         android:minHeight="100dp" />
 

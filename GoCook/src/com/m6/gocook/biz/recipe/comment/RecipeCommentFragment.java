@@ -115,7 +115,7 @@ public class RecipeCommentFragment extends BaseFragment {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			if(params.length > 0 && !TextUtils.isEmpty(params[0])) {
-				String result = RecipeModel.postComment(mRecipeId, params[0]);
+				String result = RecipeModel.postComment(mContext, mRecipeId, params[0]);
 				if (!TextUtils.isEmpty(result)) {
 					try {
 						JSONObject json = new JSONObject(result);

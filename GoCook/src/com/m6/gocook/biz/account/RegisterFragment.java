@@ -234,7 +234,7 @@ public class RegisterFragment extends Fragment implements AvatarCallback {
 		protected Map<String, Object> doInBackground(Void... params) {
         	FragmentActivity context = getActivity();
         	File avatarFile = ProfileModel.getAvatarFile(context, mAvatarBitmap, mAvatartUri);
-			String result = AccountModel.register(mEmail, mPassword, mRePassword, mNickname, avatarFile);
+			String result = AccountModel.register(context, mEmail, mPassword, mRePassword, mNickname, avatarFile);
 			
 			if(!TextUtils.isEmpty(result)) {
 				HashMap<String, Object> map = new HashMap<String, Object>();

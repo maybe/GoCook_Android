@@ -22,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.profile.ProfileEditFragment;
 import com.m6.gocook.util.preference.PrefHelper;
 import com.m6.gocook.util.util.Base64;
 

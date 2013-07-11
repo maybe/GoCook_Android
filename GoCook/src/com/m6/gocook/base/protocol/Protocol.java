@@ -3,7 +3,7 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
-	public static final String URL_ROOT = "http://192.168.1.107";
+	public static final String URL_ROOT = "http://verypanda.com";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
@@ -18,6 +18,9 @@ public class Protocol {
 	public static final String URL_RECIPE_COLLECT_ADD = URL_ROOT + "/cook/addmycoll?collid=%s";
 	
 	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/deletemycoll?collid=%s";
+	
+	/* Profile URL */
+	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
 	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
