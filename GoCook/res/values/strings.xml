@@ -90,6 +90,7 @@
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
     <string name="biz_recipe_tabbar_menu_removeshoppinglist">移出购买清单</string>
     <string name="biz_recipe_tabbar_menu_addcollectfailed">添加收藏失败</string>
+    <string name="biz_recipe_tabbar_menu_removecollectfailed">移出收藏失败</string>
     
     <!-- recipe edit -->
     <string name="biz_recipe_edit_required">（必填）</string>

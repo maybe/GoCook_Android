@@ -325,6 +325,10 @@ public class NetUtils {
 	}
 	
 	public static String httpGet(String urlString) {
+		return NetUtils.httpGet(null, urlString);
+	}
+	
+	public static String httpGet(Context context, String urlString) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
@@ -334,6 +338,9 @@ public class NetUtils {
 			conn.setReadTimeout(10000);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("x-client-identifier", "Mobile");
+			if(context != null) {
+				conn.setRequestProperty("Cookie", AccountModel.getCookie(context));				
+			}
 			conn.setDoInput(true);
 			conn.connect();
 			InputStream in = new BufferedInputStream(

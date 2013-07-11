@@ -113,8 +113,8 @@ public class RecipeModel {
 		return NetUtils.httpPost(context, Protocol.URL_RECIPE_COMMENT_POST, params);
 	}
 	
-	public static Boolean addToCollectList(String recipeId) {
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId));
+	public static Boolean addToCollectList(Context context, String recipeId) {
+		String result = NetUtils.httpGet(context, String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId));
 		
 		JSONObject jsonObject = null;
 		try {
@@ -132,8 +132,8 @@ public class RecipeModel {
 		}
 	}
 	
-	public static Boolean removeFromCollectList(String recipeId) {
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId));
+	public static Boolean removeFromCollectList(Context context, String recipeId) {
+		String result = NetUtils.httpGet(context, String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId));
 		
 		JSONObject jsonObject = null;
 		try {

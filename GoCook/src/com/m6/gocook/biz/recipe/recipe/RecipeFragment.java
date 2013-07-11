@@ -325,11 +325,16 @@ public class RecipeFragment extends BaseFragment {
 		}
 		
 		@Override
+		protected void onPreExecute() {
+			showProgress(true);
+		}
+		
+		@Override
 		protected Boolean doInBackground(Void... params) {
 			if(mCollected) {
-				return RecipeModel.removeFromCollectList(mRecipeId);
+				return RecipeModel.removeFromCollectList(mContext,mRecipeId);
 			} else {
-				return RecipeModel.addToCollectList(mRecipeId);
+				return RecipeModel.addToCollectList(mContext, mRecipeId);
 			}
 		}
 		
@@ -343,11 +348,14 @@ public class RecipeFragment extends BaseFragment {
 			} else {
 				if(isAdded()) {
 					Toast.makeText(mContext,
+							mCollected ?
+							R.string.biz_recipe_tabbar_menu_removecollectfailed :
 							R.string.biz_recipe_tabbar_menu_addcollectfailed,
 							Toast.LENGTH_SHORT)
 							.show();
 				}
 			}
+			showProgress(false);
 			
 		}
 		
