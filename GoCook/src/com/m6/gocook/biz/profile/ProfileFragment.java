@@ -55,7 +55,6 @@ public class ProfileFragment extends BaseFragment {
 		
 		final FragmentActivity activity = getActivity();
 		View view = getView();
-		ActionBar action = getActionBar();
 		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
 		// 取本地数据
@@ -64,10 +63,7 @@ public class ProfileFragment extends BaseFragment {
 			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
 		}
 		
-		String username = AccountModel.getUsername(activity);
-		action.setTitle(username);
-		((TextView) view.findViewById(R.id.name)).setText(username);
-		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+		updateInfo(view);
 		
 		Button edit = (Button) view.findViewById(R.id.edit);
 		edit.setOnClickListener(new OnClickListener() {
@@ -132,6 +128,20 @@ public class ProfileFragment extends BaseFragment {
 		});
 		
 		new RecipeTask(getActivity()).execute((Void) null);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateInfo(getView());
+	}
+	
+	private void updateInfo(View view) {
+		ActionBar action = getActionBar();
+		String username = AccountModel.getUsername(getActivity());
+		action.setTitle(username);
+		((TextView) view.findViewById(R.id.name)).setText(username);
+		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
 	}
 	
 	private static class RecipeTask extends AsyncTask<Void, Void, Void> {

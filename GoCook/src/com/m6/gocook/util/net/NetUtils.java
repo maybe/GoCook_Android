@@ -255,8 +255,8 @@ public class NetUtils {
 			conn.setRequestProperty("Cookie", cookie);
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
-			conn.setConnectTimeout(15000);
-			conn.setReadTimeout(10000);
+			conn.setConnectTimeout(30000);
+			conn.setReadTimeout(30000);
 			return conn;
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -349,9 +349,4 @@ public class NetUtils {
 		return result;
 	}
 	
-	private static String getParams(List<String> params) {
-		StringBuilder sb = new StringBuilder();
-		
-		return sb.toString();
-	}
 }

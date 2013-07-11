@@ -289,7 +289,7 @@ public class RegisterFragment extends Fragment implements AvatarCallback {
 			} else {
 				int errorCode = -1;
 				try {
-					errorCode = Integer.valueOf((String) result.get(AccountModel.RETURN_ERRORCODE));
+					errorCode = (Integer) result.get(AccountModel.RETURN_ERRORCODE);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return;
