@@ -17,7 +17,7 @@ public class Protocol {
 	
 	public static final String URL_RECIPE_COLLECT_ADD = URL_ROOT + "/cook/addmycoll?collid=%s";
 	
-	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/deletemycoll?collid=%s";
+	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/delmycoll?collid=%s";
 	
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
@@ -48,6 +48,7 @@ public class Protocol {
 	public static final String KEY_RECIPE_NAME = "recipe_name";
 	public static final String KEY_RECIPE_INTRO = "intro";
 	public static final String KEY_RECIPE_COLLECTED_COUNT = "collected_count";
+	public static final String KEY_RECIPE_ISCOLLECTED = "collect";
 	public static final String KEY_RECIPE_DISH_COUNT = "dish_count";
 	public static final String KEY_RECIPE_COMMENT_COUNT = "comment_count";
 	public static final String KEY_RECIPE_COVER_IMAGE = "cover_image";

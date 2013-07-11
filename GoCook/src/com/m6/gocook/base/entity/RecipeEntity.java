@@ -116,6 +116,8 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	private int commentCount;
 
 	private String commentStrs;
+	
+	private boolean isCollected;
 
 	public int getId() {
 		return id;
@@ -213,6 +215,14 @@ public class RecipeEntity implements IParseable<JSONObject> {
 		this.commentStrs = commentStrs;
 	}
 
+	public boolean isCollected() {
+		return isCollected;
+	}
+
+	public void setCollected(boolean isCollected) {
+		this.isCollected = isCollected;
+	}
+
 	@Override
 	public boolean parse(JSONObject object) {
 
@@ -236,6 +246,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			this.coverImgURL = Protocol.URL_ROOT + "/" + recipe.optString(Protocol.KEY_RECIPE_COVER_IMAGE);
 			this.dishCount = recipe.optInt(Protocol.KEY_RECIPE_DISH_COUNT);
 			this.collectCount = recipe.optInt(Protocol.KEY_RECIPE_COLLECTED_COUNT);
+			this.isCollected = recipe.optInt(Protocol.KEY_RECIPE_ISCOLLECTED) == 0;
 			
 			String materialStr = recipe.optString(Protocol.KEY_RECIPE_MATERIALS);
 			String[] materials = materialStr.split(Protocol.VALUE_RECIPE_MATERIALS_FLAG);
@@ -266,5 +277,6 @@ public class RecipeEntity implements IParseable<JSONObject> {
 
 		return false;
 	}
+
 
 }

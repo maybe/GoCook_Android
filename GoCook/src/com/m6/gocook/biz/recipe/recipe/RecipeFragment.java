@@ -212,9 +212,7 @@ public class RecipeFragment extends BaseFragment {
 		}
 		
 		TextView tabBarCollectTextView = ((TextView) findViewById(R.id.tabbar_textview_like));
-
-		// TODO: get collected value form server
-		setCollected(true, tabBarCollectTextView);
+		setCollected(mRecipeEntity.isCollected(), tabBarCollectTextView);
 	}
 
 	private void initView() {
@@ -289,6 +287,9 @@ public class RecipeFragment extends BaseFragment {
 						this.mCollected ? R.drawable.recipe_tabbar_likehl
 									: R.drawable.recipe_tabbar_like), null,
 				null);
+		view.setText(mCollected ? 
+				R.string.biz_recipe_tabbar_menu_removecollecting :
+				R.string.biz_recipe_tabbar_menu_addcollecting);
 	}
 
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
