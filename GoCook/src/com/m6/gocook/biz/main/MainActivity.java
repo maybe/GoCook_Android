@@ -49,7 +49,6 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 		
 		addTab(mTabHost, inflater, Tab.SEARCH.tag, R.string.biz_main_tab_search, R.drawable.tab_pop_alpha, PopularFragment.class, null);
-//		addTab(tabHost, inflater, Tab.HOT.tag, R.string.biz_main_tab_hot, R.drawable.tab_pop_alpha, Fragment.class, null);
 		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseFragment.class, null);
 		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
 

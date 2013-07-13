@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/progress_status"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
+    android:background="@color/main_bg"
     android:visibility="gone" >
 
     <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+        style="@style/base_large_progressbar_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp" />
@@ -18,10 +19,9 @@
         android:id="@+id/status_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-light"
         android:textColor="@android:color/black"
         android:text="@string/base_progress_message"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="16sp" />
 
 </LinearLayout>

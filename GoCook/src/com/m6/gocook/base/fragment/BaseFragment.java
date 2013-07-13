@@ -76,7 +76,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		View progress = onCreateProgressView(inflater, container);
 		if(progress != null) {
 			lp = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
 			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
 			root.addView(progress, lp);
 			
@@ -88,8 +88,12 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		if(mEmptyView != null) {
 			lp = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
-			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
 			mEmptyView.setVisibility(View.GONE);
+			if(actionBarView != null) {
+				lp.addRule(RelativeLayout.BELOW, actionBarView.getId());
+			} else {
+				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			}
 			root.addView(mEmptyView, lp);
 		}
 		
