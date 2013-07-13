@@ -41,7 +41,8 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 					comment.name = json.optString(Protocol.KEY_RECIPE_COMMENT_NAME);
 					comment.portrait = json.optString(Protocol.KEY_RECIPE_COMMENT_PORTRAIT);
 					comment.content = json.optString(Protocol.KEY_RECIPE_COMMENT_CONTENT);
-					comment.createTime = json.optString(Protocol.KEY_RECIPE_COMMENT_CREATE_TIME);
+					JSONObject time = json.optJSONObject(Protocol.KEY_RECIPE_COMMENT_CREATE_TIME);
+					comment.createTime = time.optString(Protocol.KEY_RECIPE_COMMENT_CREATE_TIME_DATE);
 					mComments.add(comment);
 				}
 			}
@@ -76,6 +77,8 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 			mComments.add(item);
 			return true;
 		} else {
+			mComments = new ArrayList<RecipeCommentList.RecipeCommentItem>();
+			mComments.add(item);
 			return false;
 		}
 	}

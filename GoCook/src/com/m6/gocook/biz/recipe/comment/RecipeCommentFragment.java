@@ -1,12 +1,14 @@
 package com.m6.gocook.biz.recipe.comment;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
 import com.m6.gocook.base.fragment.BaseFragment;
@@ -16,6 +18,8 @@ import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.cache.util.AsyncTask;
+import com.m6.gocook.util.cache.util.ImageFetcher;
+import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -40,20 +44,24 @@ public class RecipeCommentFragment extends BaseFragment {
 	private final String TAG = RecipeCommentFragment.class.getCanonicalName();
 	
 	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
+	public static final String ARGUMENT_KEY_RECIPE_NAME = "intent_key_recipe_name";
 
 	private Context mContext = null;
 	private View mRootView = null;
+	private EditText mInputText = null;
+	
 	private RecipeCommentAdapter mAdapter = null;
 	
-	private ReadCommentsTask mReadCommentsTask = null;
+	private AchieveCommentsTask mReadCommentsTask = null;
 	private PostCommentTask mPostTask = null;
 	
 	// DataSet
 	private String mRecipeId;
 	
-	public static void startInActivity(Context context, String recipeId) {
+	public static void startInActivity(Context context, String recipeId, String recipeName) {
 		Bundle argument = new Bundle();
 		argument.putString(RecipeCommentFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
+		argument.putString(RecipeCommentFragment.ARGUMENT_KEY_RECIPE_NAME, recipeName);
         Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
         		RecipeCommentFragment.class.getName(), 
         		RecipeCommentFragment.class.getName(), argument);
@@ -96,20 +104,24 @@ public class RecipeCommentFragment extends BaseFragment {
 	
 	private void doCreate() {
 		Bundle argument = getArguments();
-		mRecipeId = argument.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
+		mRecipeId = argument.getString(RecipeCommentFragment.ARGUMENT_KEY_RECIPE_ID);
 		
-		mReadCommentsTask = new ReadCommentsTask();
+		setTitle(argument.getString(RecipeCommentFragment.ARGUMENT_KEY_RECIPE_NAME));
+		
+		mInputText = (EditText) findViewById(R.id.input_edittext);
+		
+		mReadCommentsTask = new AchieveCommentsTask();
 		mReadCommentsTask.execute();
+		
 		
 		Button postButton = (Button) findViewById(R.id.post_button);
 		postButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				EditText editText = (EditText) findViewById(R.id.input_edittext);
-				String content = editText.getText().toString().trim();
+				String content = mInputText.getText().toString().trim();
 				if(TextUtils.isEmpty(content)) {
-					Toast.makeText(mContext, "empty", Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, R.string.biz_recipe_comment_input_null, Toast.LENGTH_SHORT).show();
 				} else {
 					if(mPostTask == null) {
 						mPostTask = new PostCommentTask();
@@ -120,7 +132,7 @@ public class RecipeCommentFragment extends BaseFragment {
 		});
 	}
 	
-	public class ReadCommentsTask extends AsyncTask<Void, Void, RecipeCommentList> {
+	public class AchieveCommentsTask extends AsyncTask<Void, Void, RecipeCommentList> {
 
 		@Override
 		protected void onPreExecute() {
@@ -138,7 +150,7 @@ public class RecipeCommentFragment extends BaseFragment {
 			showProgress(false);
 			if(result != null) {
 				ListView list = (ListView) findViewById(R.id.comments_listview);
-				mAdapter = new RecipeCommentAdapter(mContext, result);
+				mAdapter = new RecipeCommentAdapter(mContext, result, mImageFetcher);
 				list.setAdapter(mAdapter);
 			}
 		}
@@ -146,6 +158,11 @@ public class RecipeCommentFragment extends BaseFragment {
 	}
 	
 	public class PostCommentTask extends AsyncTask<String, Void, Boolean> {
+		
+		@Override
+		protected void onPreExecute() {
+			mInputText.setEnabled(false);
+		}
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -173,9 +190,17 @@ public class RecipeCommentFragment extends BaseFragment {
 			if(result) {
 				RecipeCommentItem item = new RecipeCommentItem();
 				item.setName(AccountModel.getUsername(mContext));
-				item.setCreateTime(Time.getCurrentTimezone());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String currentDateandTime = sdf.format(new Date());
+				item.setCreateTime(currentDateandTime);
 				item.setPortrait(AccountModel.getAvatarPath(mContext));
+				item.setContent(mInputText.getText().toString().trim());
 				mAdapter.addItem(item);
+				
+				
+				mInputText.setText("");
+				ListView list = (ListView) findViewById(R.id.comments_listview);
+				list.scrollTo(0, 0);
 				
 				if(mAdapter != null) {
 					mAdapter.notifyDataSetChanged();
@@ -183,6 +208,8 @@ public class RecipeCommentFragment extends BaseFragment {
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_comment_addfailed, Toast.LENGTH_SHORT).show();	
 			}
+			
+			mInputText.setEnabled(true);
 		}
 		
 		

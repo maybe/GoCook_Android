@@ -113,6 +113,7 @@
     <string name="biz_recipe_comment_input_hint">添加评论</string>
     <string name="biz_recipe_comment_button_commit">提交</string>
     <string name="biz_recipe_comment_addfailed">评论失败</string>
+    <string name="biz_recipe_comment_input_null">请输入评论内容</string>
     
     <!-- purchase list -->
     <string name="biz_recipe_purchase_material">做%s道菜所需的材料</string>

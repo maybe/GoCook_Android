@@ -174,7 +174,7 @@ public class RecipeFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
-				RecipeCommentFragment.startInActivity(mContext, mRecipeId);
+				RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
 			}
 		});
 

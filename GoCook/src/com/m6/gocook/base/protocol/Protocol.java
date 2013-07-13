@@ -3,8 +3,8 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
-	public static final String URL_ROOT = "http://192.168.1.102";
-//	public static final String URL_ROOT = "http://verypanda.com";
+//	public static final String URL_ROOT = "http://192.168.1.103";
+	public static final String URL_ROOT = "http://verypanda.com";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
@@ -70,6 +70,7 @@ public class Protocol {
 	public static final String KEY_RECIPE_COMMENT_PORTRAIT = "portrait";
 	public static final String KEY_RECIPE_COMMENT_CONTENT = "content";
 	public static final String KEY_RECIPE_COMMENT_CREATE_TIME = "create_time";
+	public static final String KEY_RECIPE_COMMENT_CREATE_TIME_DATE = "date";
 
 	public static final String KEY_POST_RECIPE_COMMENT_RECIPE_ID = "recipe_id";
 	public static final String KEY_POST_RECIPE_COMMENT_CONTENT = "content";
