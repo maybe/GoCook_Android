@@ -3,13 +3,18 @@ package com.m6.gocook.biz.profile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.People;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.model.ModelUtils;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 
@@ -22,6 +27,7 @@ import android.text.TextUtils;
 
 public class ProfileModel {
 	
+	public static final String NICKNAME = "nickname";
 	public static final String SEX = "gender";
 	public static final String AGE = "age";
 	public static final String CAREER = "career";
@@ -86,19 +92,60 @@ public class ProfileModel {
 		return PrefHelper.getString(context, PrefKeys.PROFILE_TELEPHONE, "");
 	}
 	
+	/**
+	 * 修改个人信息
+	 * 
+	 * @param context
+	 * @param avatart
+	 * @param name
+	 * @param sex
+	 * @param age
+	 * @param career
+	 * @param province
+	 * @param city
+	 * @param telephone
+	 * @param intro
+	 * @return
+	 */
 	public static String updateInfo(Context context, File avatart, String name, String sex, String age, String career, 
 			String province, String city, String telephone, String intro) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("nickname", name));
-//		params.add(new BasicNameValuePair("gender", sex));
-//		params.add(new BasicNameValuePair("age", age));
-//		params.add(new BasicNameValuePair("career", career));
-//		params.add(new BasicNameValuePair("city", province));
-//		params.add(new BasicNameValuePair("province", province));
-//		params.add(new BasicNameValuePair("tel", "15200009999"));
-//		params.add(new BasicNameValuePair("intro", intro));
+		params.add(new BasicNameValuePair(NICKNAME, name));
+		params.add(new BasicNameValuePair(SEX, sex));
+		params.add(new BasicNameValuePair(AGE, age));
+		params.add(new BasicNameValuePair(CAREER, career));
+		params.add(new BasicNameValuePair(CITY, province));
+		params.add(new BasicNameValuePair(PROVINCE, province));
+		params.add(new BasicNameValuePair(TELEPHONE, ""));
+		params.add(new BasicNameValuePair(INTRO, intro));
 		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params);
-//		return NetUtils.httpPost(Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
+//		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
+	}
+	
+	/**
+	 * 获取个人信息
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static Map<String, Object> getBasicInfo(Context context) {
+		String result = NetUtils.httpGet(Protocol.URL_PROFILE_BASIC_INFO, AccountModel.getCookie(context));
+		if (TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject jsonObject = new JSONObject(result);
+			if(jsonObject != null) {
+				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
+				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+					return ModelUtils.getMapValue(resultMap, "result_user_info");
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static ArrayList<People> getPeoples() {

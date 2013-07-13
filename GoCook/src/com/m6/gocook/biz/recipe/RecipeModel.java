@@ -27,6 +27,7 @@ import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
 
@@ -41,7 +42,7 @@ public class RecipeModel {
 			return null;
 		}
 		
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE, recipeId));
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE, recipeId), AccountModel.getCookie(context));
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);
@@ -114,7 +115,7 @@ public class RecipeModel {
 	}
 	
 	public static Boolean addToCollectList(Context context, String recipeId) {
-		String result = NetUtils.httpGet(context, String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId));
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId), AccountModel.getCookie(context));
 		
 		JSONObject jsonObject = null;
 		try {
@@ -133,7 +134,7 @@ public class RecipeModel {
 	}
 	
 	public static Boolean removeFromCollectList(Context context, String recipeId) {
-		String result = NetUtils.httpGet(context, String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId));
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId), AccountModel.getCookie(context));
 		
 		JSONObject jsonObject = null;
 		try {

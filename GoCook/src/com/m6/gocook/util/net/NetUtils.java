@@ -37,6 +37,10 @@ public class NetUtils {
 	public static final String POST = "POST";
 	
 	public static final String GET = "GET";
+	
+	private static final int HTTP_READ_TIMEOUT = 60000;
+	
+	private static final int HTTP_CONNECT_TIMEOUT = 60000;
 
 	/**
 	 * Check network connection status
@@ -252,11 +256,14 @@ public class NetUtils {
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
 			conn.setRequestProperty("Connection", "Keep-Alive");
-			conn.setRequestProperty("Cookie", cookie);
+			if(!TextUtils.isEmpty(cookie)) {
+				conn.setRequestProperty("Cookie", cookie);
+				System.out.println("setCookie : " + cookie);
+			}
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
-			conn.setConnectTimeout(30000);
-			conn.setReadTimeout(30000);
+			conn.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
+			conn.setReadTimeout(HTTP_READ_TIMEOUT);
 			return conn;
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -267,16 +274,40 @@ public class NetUtils {
 	private static void saveCookie(Context context, HttpURLConnection conn) {
 		String cookie = conn.getHeaderField("Set-Cookie");
 		if(!TextUtils.isEmpty(cookie)) {
-			AccountModel.saveCookie(context, cookie);
-			System.out.println(cookie);
+			String[] cookies = cookie.split(";");
+			if (cookies != null && cookies.length > 0) {
+				AccountModel.saveCookie(context, cookies[0]);
+				System.out.println("saveCookie : " + cookies[0]);
+			}
 		}
 	}
-
+	
+	/**
+	 * POST请求默认带cookie
+	 * 
+	 * @param context
+	 * @param urlString
+	 * @param params
+	 * @return
+	 */
 	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params) {
+		return httpPost(context, urlString, params, AccountModel.getCookie(context));
+	}
+	
+	/**
+	 * 带cookie的POST请求
+	 * 
+	 * @param context
+	 * @param urlString
+	 * @param params
+	 * @param cookie
+	 * @return
+	 */
+	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params, String cookie) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
-			conn = getHttpURLConnection(urlString, POST, AccountModel.getCookie(context));
+			conn = getHttpURLConnection(urlString, POST, cookie);
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
@@ -287,6 +318,7 @@ public class NetUtils {
 					conn.getInputStream());
 			saveCookie(context, conn);
 			result = readStream(in);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -298,10 +330,14 @@ public class NetUtils {
 	}
 	
 	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params, File file, String fileParamName) {
+		return httpPost(context, urlString, params, file, fileParamName, AccountModel.getCookie(context));
+	}
+	
+	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params, File file, String fileParamName, String cookie) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
-			conn = getHttpURLConnection(urlString, POST, AccountModel.getCookie(context));
+			conn = getHttpURLConnection(urlString, POST, cookie);
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
@@ -324,22 +360,36 @@ public class NetUtils {
 		return result;
 	}
 	
+	/**
+	 * 默认的GET请求不带cookie
+	 * 
+	 * @param urlString
+	 * @return
+	 */
 	public static String httpGet(String urlString) {
-		return NetUtils.httpGet(null, urlString);
+		return NetUtils.httpGet(urlString, null);
 	}
 	
-	public static String httpGet(Context context, String urlString) {
+	/**
+	 * 带cookie的GET请求
+	 * 
+	 * @param urlString
+	 * @param cookie
+	 * @return
+	 */
+	public static String httpGet(String urlString, String cookie) {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
 			URL url = new URL(urlString);
 			conn = (HttpURLConnection) url.openConnection();
-			conn.setConnectTimeout(15000);
-			conn.setReadTimeout(10000);
+			conn.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
+			conn.setReadTimeout(HTTP_READ_TIMEOUT);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			if(context != null) {
-				conn.setRequestProperty("Cookie", AccountModel.getCookie(context));				
+			if(!TextUtils.isEmpty(cookie)) {
+				conn.setRequestProperty("Cookie", cookie);			
+				System.out.println("getCookie : " + cookie);
 			}
 			conn.setDoInput(true);
 			conn.connect();

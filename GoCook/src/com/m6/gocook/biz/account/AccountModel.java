@@ -85,7 +85,7 @@ public class AccountModel {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("login", username));
 		params.add(new BasicNameValuePair("password", password));
-		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params);
+		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params, null);
 	}
 	
 	public static void logout(Context context) {
@@ -104,7 +104,7 @@ public class AccountModel {
 		params.add(new BasicNameValuePair("nickname", nickname));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("repassword", password));
-		return NetUtils.httpPost(context, Protocol.URL_REGISTER, params, avatart, "avatar");
+		return NetUtils.httpPost(context, Protocol.URL_REGISTER, params, avatart, "avatar", null);
 	}
 	
 	public static String getCookie(Context context) {

@@ -207,7 +207,9 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 		@Override
 		protected void onPostExecute(Popular result) {
 			mTask = null;
-			showProgress(false);
+			if (isAdded()) {
+				showProgress(false);
+			}
 			
 			if(mContext != null && result != null) {
 				mPopular = result;

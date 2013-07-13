@@ -61,6 +61,8 @@
     <string name="biz_profile_edit_hint_city">居住城市</string>
     <string name="biz_profile_edit_hint_intro">个人简介</string>
     <string name="biz_profile_edit_fail_tip">更新信息失败，请重试</string>
+    <string name="biz_profile_edit_sex_male">男</string>
+    <string name="biz_profile_edit_sex_female">女</string>
     
     <!-- myaccount -->
     <string name="biz_profile_myaccount_follow">我的关注</string>

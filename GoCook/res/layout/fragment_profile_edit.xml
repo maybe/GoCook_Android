@@ -36,14 +36,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="1dp"
+            android:focusable="false"
             android:layout_weight="1"
             android:hint="@string/biz_profile_edit_hint_birth" />
 
-        <EditText
+        <Spinner
             android:id="@+id/sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
             android:hint="@string/biz_profile_edit_hint_sex" />
     </LinearLayout>
 

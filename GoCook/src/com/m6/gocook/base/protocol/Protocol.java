@@ -22,6 +22,8 @@ public class Protocol {
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
 	
+	public static final String URL_PROFILE_BASIC_INFO = URL_ROOT + "/user/basicinfo";
+	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
