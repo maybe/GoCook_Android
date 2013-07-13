@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.recipe.comment;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,28 +10,32 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.entity.RecipeCommentList;
+import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
+import com.m6.gocook.biz.account.AccountModel;
 
 public class RecipeCommentAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
+	private RecipeCommentList mList;
 	
-	public RecipeCommentAdapter(Context context) {
+	public RecipeCommentAdapter(Context context, RecipeCommentList list) {
 		mInflater = LayoutInflater.from(context);
+		mList = list;
 	}
 	
 	@Override
 	public int getCount() {
-		return 11;
+		return mList.getCount();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		return mList.getItem(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -45,15 +51,19 @@ public class RecipeCommentAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-		
-		holder.content.setText("做了效果很好！很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃很好吃");
-		holder.date.setText("2013-04-03 14：34：65");
+		RecipeCommentItem item = (RecipeCommentItem) getItem(position);
+		holder.content.setText(item.getContent());
+		holder.date.setText(item.getCreateTime());
 		return convertView;
 	}
 	
 	private class ViewHold {
 		private TextView content;
 		private TextView date;
+	}
+	
+	public void addItem(RecipeCommentItem item) {
+		mList.addItem(item);
 	}
 
 }
