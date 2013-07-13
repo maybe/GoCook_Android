@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.MultiAutoCompleteTextView.CommaTokenizer;
 
 import com.m6.gocook.R.string;
 import com.m6.gocook.base.constant.Constants;
@@ -104,7 +105,22 @@ public class RecipeModel {
 	}
 	
 	public static RecipeCommentList getRecipeComments(Context context, String recipeId) {
-		return null;
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COMMENT, recipeId), AccountModel.getCookie(context));
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(jsonObject != null) {
+			RecipeCommentList commentList = new RecipeCommentList();
+			commentList.parse(jsonObject);
+			return commentList;
+		} else {
+			return null;
+		}
 	}
 	
 	public static String postComment(Context context, String recipeId, String content) {

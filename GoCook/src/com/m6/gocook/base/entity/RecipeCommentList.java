@@ -12,7 +12,7 @@ import com.m6.gocook.biz.recipe.RecipeModel;
 
 public class RecipeCommentList implements IParseable<JSONObject> {
 
-	private ArrayList<RecipeCommentItem> comments;
+	private ArrayList<RecipeCommentItem> mComments;
 	
 	@Override
 	public boolean parse(JSONObject object) {
@@ -29,8 +29,8 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 			
 			JSONArray array = object.getJSONArray(Protocol.KEY_RECIPE_COMMENT);
 			int size = array.length();
-			comments = new ArrayList<RecipeCommentItem>(size);
-			if(comments == null) {
+			mComments = new ArrayList<RecipeCommentItem>(size);
+			if(mComments == null) {
 				return false;
 			}
 			for(int i = 0; i < size; i++) {
@@ -42,7 +42,7 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 					comment.portrait = json.optString(Protocol.KEY_RECIPE_COMMENT_PORTRAIT);
 					comment.content = json.optString(Protocol.KEY_RECIPE_COMMENT_CONTENT);
 					comment.createTime = json.optString(Protocol.KEY_RECIPE_COMMENT_CREATE_TIME);
-					comments.add(comment);
+					mComments.add(comment);
 				}
 			}
 			
@@ -55,7 +55,32 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 		return false;
 	}
 	
-	public class RecipeCommentItem {
+	public int getCount() {
+		if(mComments != null) {
+			return mComments.size();
+		} else {
+			return 0;
+		}
+	}
+	
+	public Object getItem(int index) {
+		if(mComments != null) {
+			return mComments.get(index);
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean addItem(RecipeCommentItem item) {
+		if(item != null && mComments != null) {
+			mComments.add(item);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	static public class RecipeCommentItem {
 		private String userId;
 		private String name;
 		private String portrait;
