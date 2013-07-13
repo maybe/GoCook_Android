@@ -3,13 +3,8 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
-<<<<<<< HEAD
 //	public static final String URL_ROOT = "http://verypanda.com";
-	public static final String URL_ROOT = "http://192.168.1.102";
-=======
-	public static final String URL_ROOT = "http://192.168.1.102";
-//	public static final String URL_ROOT = "http://verypanda.com";
->>>>>>> 0b10e4fbc7845888f62a0bd6556b882014d062f3
+	public static final String URL_ROOT = "http://192.168.1.103";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	

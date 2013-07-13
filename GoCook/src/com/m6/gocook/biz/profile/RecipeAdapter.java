@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.model.ModelUtils;
 
@@ -34,8 +35,8 @@ public class RecipeAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return null;
+	public Map<String, Object> getItem(int position) {
+		return mData == null ? null : (position < mData.size() ? mData.get(position) : null);
 	}
 
 	@Override
@@ -56,8 +57,8 @@ public class RecipeAdapter extends BaseAdapter {
 			holder = (ViewHold) convertView.getTag();
 		}
 		
-		mImageFetcher.loadImage(ModelUtils.getStringValue(mData.get(position), Protocol.KEY_RECIPE_COVER_IMAGE), holder.image);
-		holder.title.setText(ModelUtils.getStringValue(mData.get(position), Protocol.KEY_RECIPE_NAME));
+		mImageFetcher.loadImage(ProtocolUtils.getURL(ModelUtils.getStringValue(mData.get(position), Protocol.KEY_RECIPE_LIST_IMAGE)), holder.image);
+		holder.title.setText(ModelUtils.getStringValue(mData.get(position), Protocol.KEY_RECIPE_LIST_NAME));
 		return convertView;
 	}
 	

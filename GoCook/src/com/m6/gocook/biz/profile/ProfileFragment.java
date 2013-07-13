@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
@@ -111,14 +113,19 @@ public class ProfileFragment extends BaseFragment {
 			}
 		});
 		
-		GridView grid = (GridView) activity.findViewById(R.id.recipe_grid);
+		final GridView grid = (GridView) activity.findViewById(R.id.recipe_grid);
 		grid.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				//TODO Replace with the real recipe id
-				RecipeFragment.startInActivity(getActivity(), "0");
+				Adapter adapter = grid.getAdapter();
+				if (adapter != null) {
+					Map<String, Object> map = (Map<String, Object>) adapter.getItem(position);
+					if (map != null) {
+						RecipeFragment.startInActivity(getActivity(), ModelUtils.getStringValue(map, Protocol.KEY_RECIPE_ID));
+					}
+				}
 			}
 		});
 		
