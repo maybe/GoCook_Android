@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -46,17 +47,24 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	// UI references
 	private ImageView mAvatarImageView;
 	private EditText mNameEditText;
-	private EditText mBirthEditText;
-	private Spinner mSexeSpinner;
+	private EditText mAgeEditText;
+	private Spinner mSexSpinner;
 	private EditText mProfessionEditText;
 	private EditText mCityEditText;
 	private EditText mIntroEditText;
-	private DatePickerDialog mDatePickerDialog;
+//	private DatePickerDialog mDatePickerDialog;
 	
 	// date
     private int mYear;
     private int mMonth;
     private int mDay;
+    
+    private String mSex;
+    private String mAge;
+    private String mCity;
+    private String mIntro;
+    private String mUsername;
+    private String mCareer;
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -76,13 +84,14 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		FragmentActivity activity =  getActivity();
 		mAvatarImageView = (ImageView) view.findViewById(R.id.avatar);
 		mNameEditText = (EditText) view.findViewById(R.id.name);
-		mBirthEditText = (EditText) view.findViewById(R.id.birth);
-		mSexeSpinner = (Spinner) view.findViewById(R.id.sex);
+		mAgeEditText = (EditText) view.findViewById(R.id.birth);
+		mSexSpinner = (Spinner) view.findViewById(R.id.sex);
 		mCityEditText = (EditText) view.findViewById(R.id.city);
 		mProfessionEditText = (EditText) view.findViewById(R.id.profession);
 		mIntroEditText = (EditText) view.findViewById(R.id.intro);
 
 		setOnListeners();
+		initIntro();
 		
 		// 取本地数据
 		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
@@ -90,42 +99,39 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 			mAvatarImageView.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
 		}
 		
-		new BasicInfoTask(getActivity()).execute((Void) null);
-		showProgress(true);
 	}
 	
-	private void initIntro(Map<String, Object> info) {
+	private void initIntro() {
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				getActivity(), R.array.sex, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mSexeSpinner.setAdapter(adapter);
+		mSexSpinner.setAdapter(adapter);
 		
-		FragmentActivity activity =  getActivity();
-		String sex = null;
-		if (info != null) {
-			mNameEditText.setText(ModelUtils.getStringValue(info, ProfileModel.NICKNAME));
-			mBirthEditText.setText(ModelUtils.getStringValue(info, ProfileModel.AGE));
-			mCityEditText.setText(ModelUtils.getStringValue(info, ProfileModel.CITY));
-			mIntroEditText.setText(ModelUtils.getStringValue(info, ProfileModel.INTRO));
-			sex = ModelUtils.getStringValue(info, ProfileModel.SEX);
-		} else {
-//			mNameEditText.setText(AccountModel.getUsername(activity));
-//			mBirthEditText.setText(ProfileModel.getAge(activity));
-//			mCityEditText.setText(ProfileModel.getCity(activity));
-//			mIntroEditText.setText(ProfileModel.getIntro(activity));
-//			sex = ProfileModel.getSex(activity);
-			showEmpty(true);
-		}
+		mSex = ProfileModel.getSex(getActivity());
+		mUsername = AccountModel.getUsername(getActivity());
+		mAge = ProfileModel.getAge(getActivity());
+		mIntro = ProfileModel.getIntro(getActivity());
+		mCity = ProfileModel.getCity(getActivity());
+		mCareer = ProfileModel.getCareer(getActivity());
+		
+		mNameEditText.setText(mUsername);
+		mAgeEditText.setText(mAge);
+		mCityEditText.setText(mCity);
+		mIntroEditText.setText(mIntro);
+		mProfessionEditText.setText(mCareer);
 		
 		String male = getString(R.string.biz_profile_edit_sex_male);
 		String female = getString(R.string.biz_profile_edit_sex_female);
-		if (TextUtils.isEmpty(sex)) {
-			if (male.equals(sex)) {
-				mSexeSpinner.setSelection(0);
-			} else if (female.equals(sex)) {
-				mSexeSpinner.setSelection(1);
+		if (!TextUtils.isEmpty(mSex)) {
+			if (male.equals(mSex)) {
+				mSexSpinner.setSelection(1);
+			} else if (female.equals(mSex)) {
+				mSexSpinner.setSelection(2);
+			} else {
+				mSexSpinner.setSelection(0);
 			}
 		}
+		
 	}
 	
 	private void setOnListeners() {
@@ -150,42 +156,42 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 			}
 		});
 
-		mBirthEditText.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (mDatePickerDialog == null) {
-					mDatePickerDialog = new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay);
-				}
-				
-				if (!mDatePickerDialog.isShowing()) {
-					mDatePickerDialog.show();
-				}
-			}
-		});
+//		mBirthEditText.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				if (mDatePickerDialog == null) {
+//					mDatePickerDialog = new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay);
+//				}
+//				
+//				if (!mDatePickerDialog.isShowing()) {
+//					mDatePickerDialog.show();
+//				}
+//			}
+//		});
 		
 	}
 	
-	private void updateDisplay() {
-        mBirthEditText.setText(
-            new StringBuilder()
-                // Month is 0 based so add 1
-            	.append(mYear).append("-")
-		        .append(mMonth + 1).append("-")
-                .append(mDay));
-    }
+//	private void updateDisplay() {
+//        mBirthEditText.setText(
+//            new StringBuilder()
+//                // Month is 0 based so add 1
+//            	.append(mYear).append("-")
+//		        .append(mMonth + 1).append("-")
+//                .append(mDay));
+//    }
 	
-	private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
-
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                        int dayOfMonth) {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    updateDisplay();
-                }
-     };
+//	private DatePickerDialog.OnDateSetListener mDateSetListener =
+//            new DatePickerDialog.OnDateSetListener() {
+//
+//                public void onDateSet(DatePicker view, int year, int monthOfYear,
+//                        int dayOfMonth) {
+//                    mYear = year;
+//                    mMonth = monthOfYear;
+//                    mDay = dayOfMonth;
+//                    updateDisplay();
+//                }
+//     };
 	
 	@Override
 	public void onResume() {
@@ -204,12 +210,12 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		
 		mAvatarImageView = null;
 		mNameEditText = null;
-		mBirthEditText = null;
-		mSexeSpinner = null;
+		mAgeEditText = null;
+		mSexSpinner = null;
 		mProfessionEditText = null;
 		mCityEditText = null;
 		mIntroEditText = null;
-		mDatePickerDialog = null;
+//		mDatePickerDialog = null;
 		
 		mAvatarBitmap = null;
 		mAvatartUri = null;
@@ -219,14 +225,51 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	public void onActionBarRightButtonClick(View v) {
 		super.onActionBarRightButtonClick(v);
 		
-		showProgress(true);
-		new UpdateProfileTask(getActivity()).execute(mNameEditText.getText().toString(),
-													(String) mSexeSpinner.getSelectedItem(),
-													mBirthEditText.getText().toString(),
-													mProfessionEditText.getText().toString(),
-													mCityEditText.getText().toString(),
-													"", "",
-													mIntroEditText.getText().toString());
+		if (!isOnProgressing()) {
+			
+			String name = mNameEditText.getText().toString();
+			String birth = mAgeEditText.getText().toString();
+			String city = mCityEditText.getText().toString();
+			String career = mProfessionEditText.getText().toString();
+			String intro = mIntroEditText.getText().toString();
+			String sex = (String) mSexSpinner.getSelectedItem();
+			if (!TextUtils.isEmpty(sex) && sex.equals("性别")) {
+				sex = "2"; // 0：男，1：女，2：性别
+			}
+			
+			UpdateProfileTask task = new UpdateProfileTask(getActivity(), 
+					changedValue(mUsername, name), 
+					changedValue(mSex, sex),
+					changedValue(mAge, birth),
+					changedValue(mCity, city),
+					changedValue(mCareer, career),
+					changedValue(mIntro, intro));
+			
+			if (mIsAnythingChanged) {
+				showProgress(true);
+				task.execute((Void) null);
+			}
+		}
+	}
+	
+	private boolean mIsAnythingChanged = false;
+	private String changedValue(String oldString, String newString) {
+		if (TextUtils.isEmpty(oldString) && TextUtils.isEmpty(newString)) {
+			return null;
+		} else if (!TextUtils.isEmpty(oldString) && TextUtils.isEmpty(newString)) {
+			mIsAnythingChanged = true;
+			return newString;
+		} if (TextUtils.isEmpty(oldString) && !TextUtils.isEmpty(newString)) {
+			mIsAnythingChanged = true;
+			return newString;
+		} else {
+			if (newString.equals(oldString)) {
+				return null;
+			} else {
+				mIsAnythingChanged = true;
+				return newString;
+			}
+		}
 	}
 
 	@Override
@@ -243,66 +286,64 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		}
 	}
 	
-	
-	private class BasicInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
+	private class UpdateProfileTask extends AsyncTask<Void, Void, String> {
 
 		private Context mContext;
 		
-		public BasicInfoTask(Context context) {
-			mContext = context.getApplicationContext();
-		}
+		private String mParamSex;
+	    private String mParamBirth;
+	    private String mParamCity;
+	    private String mParamIntro;
+	    private String mParamUsername;
+	    private String mParamCareer;
 		
-		@Override
-		protected Map<String, Object> doInBackground(Void... params) {
-			return ProfileModel.getBasicInfo(mContext);
-		}
-		
-		@Override
-		protected void onPostExecute(Map<String, Object> result) {
-			if (isAdded()) {
-				showProgress(false);
-				if (result != null) {
-					initIntro(result);
-				}
-			}
-		}
-	}
-	
-	private class UpdateProfileTask extends AsyncTask<String, Void, String> {
-
-		private Context mContext;
-		
-		public UpdateProfileTask(Context context) {
+		public UpdateProfileTask(Context context, String name, String sex, String birth, String city, String career, String intro) {
 			mContext = context;
+			mParamSex = sex;
+			mParamBirth = birth;
+			mParamCity = city;
+			mParamIntro = intro;
+			mParamUsername = name;
+			mParamCareer = career;
 		}
 		
 		@Override
-		protected String doInBackground(String... params) {
-			if(params != null && params.length > 0) {
-				File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
-				String result = ProfileModel.updateInfo(mContext, avatarFile, params[0], params[1], params[2], 
-						params[3], params[4], params[5], params[6], params[7]);
-				if(!TextUtils.isEmpty(result)) {
-					try {
-						JSONObject json = new JSONObject(result);
-						int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-						if (responseCode == AccountModel.SUCCESS) {
-							// 保存邮件、用户名和头像的本地路径
-							AccountModel.saveUsername(mContext, params[0]);
-							AccountModel.saveAvatarPath(mContext, avatarFile != null ? avatarFile.getPath() : "");
-							// 保存个人信息
-							ProfileModel.saveAge(mContext, params[2]);
-							ProfileModel.saveSex(mContext, params[1]);
-							ProfileModel.saveCity(mContext, params[5]);
-							ProfileModel.saveProvince(mContext, params[4]);
-							ProfileModel.saveIntro(mContext, params[7]);
-							ProfileModel.saveCareer(mContext, params[3]);
-							ProfileModel.saveTelephone(mContext, params[6]);
-							return result;
+		protected String doInBackground(Void... params) {
+			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
+			String result = ProfileModel.updateInfo(mContext, avatarFile, mParamUsername, mParamSex, mParamBirth, 
+					mParamCareer, null, mParamCity, null, mParamIntro);
+			if(!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+					if (responseCode == AccountModel.SUCCESS) {
+						// 保存邮件、用户名和头像的本地路径
+						if (!TextUtils.isEmpty(mParamUsername)) {
+							AccountModel.saveUsername(mContext, mParamUsername);
 						}
-					} catch (JSONException e) {
-						e.printStackTrace();
+						AccountModel.saveAvatarPath(mContext, avatarFile != null ? avatarFile.getPath() : "");
+						// 保存个人信息
+						if (mParamBirth != null) {
+							ProfileModel.saveAge(mContext, mParamBirth);
+						}
+						if (mParamSex != null) {
+							ProfileModel.saveSex(mContext, mParamSex);
+						}
+						if (mParamCity != null) {
+							ProfileModel.saveCity(mContext, mParamCity);
+						}
+//							ProfileModel.saveProvince(mContext, );
+						if (mParamIntro != null) {
+							ProfileModel.saveIntro(mContext, mParamIntro);
+						}
+						if (mParamCareer != null) {
+							ProfileModel.saveCareer(mContext, mParamCareer);
+						}
+//							ProfileModel.saveTelephone(mContext, params[6]);
+						return result;
 					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 			}
 			return null;

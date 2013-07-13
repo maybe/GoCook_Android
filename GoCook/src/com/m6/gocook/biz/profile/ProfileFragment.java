@@ -1,5 +1,9 @@
 package com.m6.gocook.biz.profile;
 
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -28,6 +32,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
+import com.m6.gocook.util.model.ModelUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {
@@ -63,8 +68,6 @@ public class ProfileFragment extends BaseFragment {
 			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
 		}
 		
-		updateInfo(view);
-		
 		Button edit = (Button) view.findViewById(R.id.edit);
 		edit.setOnClickListener(new OnClickListener() {
 			
@@ -86,10 +89,6 @@ public class ProfileFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				intro.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 				if(TextUtils.isEmpty(intro.getText().toString()) || intro.getLineCount() <= 5) {
 					return;
 				}
@@ -97,11 +96,7 @@ public class ProfileFragment extends BaseFragment {
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				FragmentTransaction ft = fm.beginTransaction();
 				Bundle args = new Bundle();
-				args.putString(ProfileIntroFragment.PARAM_INTRO, "aaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-						"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+				args.putString(ProfileIntroFragment.PARAM_INTRO, ProfileModel.getIntro(getActivity()));
 				Fragment f = fm.findFragmentByTag(ProfileIntroFragment.class.getName());
 				if(f == null) {
 					f = ProfileIntroFragment.instantiate(getActivity(), ProfileIntroFragment.class.getName(), args);
@@ -127,24 +122,83 @@ public class ProfileFragment extends BaseFragment {
 			}
 		});
 		
+		new BasicInfoTask(getActivity()).execute((Void) null);
 		new RecipeTask(getActivity()).execute((Void) null);
+		showProgress(true);
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		updateInfo(getView());
-	}
-	
-	private void updateInfo(View view) {
+		
+		View view = getView();
 		ActionBar action = getActionBar();
 		String username = AccountModel.getUsername(getActivity());
 		action.setTitle(username);
 		((TextView) view.findViewById(R.id.name)).setText(username);
 		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+		((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction,
+				ProfileModel.getIntro(getActivity())));
 	}
 	
-	private static class RecipeTask extends AsyncTask<Void, Void, Void> {
+	private void updateInfo(Map<String, Object> info) {
+		View view = getView();
+		if (view == null || info == null) {
+			showEmpty(true);
+			return;
+		}
+		
+		ActionBar action = getActionBar();
+		String username = ModelUtils.getStringValue(info, ProfileModel.NICKNAME);
+		action.setTitle(username);
+		((TextView) view.findViewById(R.id.name)).setText(username);
+		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+		
+		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);
+		((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction, intro));
+		
+		AccountModel.saveUsername(getActivity(), ModelUtils.getStringValue(info, ProfileModel.NICKNAME));
+		ProfileModel.saveAge(getActivity(), ModelUtils.getStringValue(info, ProfileModel.AGE));
+		int sexType = ModelUtils.getIntValue(info, ProfileModel.SEX, 0);
+		String sex;
+		if (sexType == 0) {
+			sex = "男";
+		} else if (sexType == 1) {
+			sex = "女";
+		} else {
+			sex = "2";
+		}
+		ProfileModel.saveSex(getActivity(), sex);
+		ProfileModel.saveCity(getActivity(), ModelUtils.getStringValue(info, ProfileModel.CITY));
+		ProfileModel.saveCareer(getActivity(), ModelUtils.getStringValue(info, ProfileModel.CAREER));
+		ProfileModel.saveIntro(getActivity(), intro);
+	}
+	
+	
+	private class BasicInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
+
+		private Context mContext;
+		
+		public BasicInfoTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected Map<String, Object> doInBackground(Void... params) {
+			return ProfileModel.getBasicInfo(mContext);
+		}
+		
+		@Override
+		protected void onPostExecute(Map<String, Object> result) {
+			if (isAdded()) {
+				showProgress(false);
+				if (result != null) {
+					updateInfo(result);
+				}
+			}
+		}
+	}
+	private class RecipeTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
 		private FragmentActivity mActivity;
 		
@@ -153,15 +207,16 @@ public class ProfileFragment extends BaseFragment {
 		}
 		
 		@Override
-		protected Void doInBackground(Void... params) {
-			
-			return null;
+		protected List<Map<String, Object>> doInBackground(Void... params) {
+			return ProfileModel.getMyRecipes(mActivity.getApplicationContext());
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(List<Map<String, Object>> result) {
 			GridView grid = (GridView) mActivity.findViewById(R.id.recipe_grid);
-			grid.setAdapter(new RecipeAdapter(mActivity));
+			if (grid != null) {
+				grid.setAdapter(new RecipeAdapter(mActivity, mImageFetcher, result));
+			}
 		}
 		
 	}

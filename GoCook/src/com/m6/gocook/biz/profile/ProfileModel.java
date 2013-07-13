@@ -92,6 +92,14 @@ public class ProfileModel {
 		return PrefHelper.getString(context, PrefKeys.PROFILE_TELEPHONE, "");
 	}
 	
+	public static String getInfo(Context context) {
+		return PrefHelper.getString(context, PrefKeys.PROFILE_INFO, "");
+	}
+	
+	public static void saveInfo(Context context, String info) {
+		PrefHelper.putString(context, PrefKeys.PROFILE_INFO, info);
+	}
+	
 	/**
 	 * 修改个人信息
 	 * 
@@ -110,14 +118,30 @@ public class ProfileModel {
 	public static String updateInfo(Context context, File avatart, String name, String sex, String age, String career, 
 			String province, String city, String telephone, String intro) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair(NICKNAME, name));
-		params.add(new BasicNameValuePair(SEX, sex));
-		params.add(new BasicNameValuePair(AGE, age));
-		params.add(new BasicNameValuePair(CAREER, career));
-		params.add(new BasicNameValuePair(CITY, province));
-		params.add(new BasicNameValuePair(PROVINCE, province));
-		params.add(new BasicNameValuePair(TELEPHONE, ""));
-		params.add(new BasicNameValuePair(INTRO, intro));
+		if (name != null) {
+			params.add(new BasicNameValuePair(NICKNAME, name));
+		}
+		if (sex != null) {
+			params.add(new BasicNameValuePair(SEX, sex));
+		}
+		if (age != null) {
+			params.add(new BasicNameValuePair(AGE, age));
+		}
+		if (career != null) {
+			params.add(new BasicNameValuePair(CAREER, career));
+		}
+		if (province != null) {
+			params.add(new BasicNameValuePair(PROVINCE, province));
+		}
+		if (city != null) {
+			params.add(new BasicNameValuePair(CITY, city));
+		}
+		if (telephone != null) {
+			params.add(new BasicNameValuePair(TELEPHONE, telephone));
+		}
+		if (intro != null) {
+			params.add(new BasicNameValuePair(INTRO, intro));
+		}
 		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params);
 //		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
 	}
@@ -159,6 +183,26 @@ public class ProfileModel {
 			peoples.add(people);
 		}
 		return peoples;
+	}
+	
+	public static List<Map<String, Object>> getMyRecipes(Context context) {
+		String result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context)); 
+		if (TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject jsonObject = new JSONObject(result);
+			if (jsonObject != null) {
+				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
+				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+					return ModelUtils.getListMapValue(resultMap, "result_recipes");
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private static Bitmap getAvatarBitmap(Context context, Bitmap bitmap, Uri uri) {
