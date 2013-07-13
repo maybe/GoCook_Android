@@ -25,6 +25,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	private ActionBar mAction;
 	private View mProgressView;
 	private TextView mProgressMessageView;
+	private View mEmptyView;
 	
 	protected ImageFetcher mImageFetcher;
 	
@@ -82,6 +83,16 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 			mProgressView = progress.findViewById(R.id.progress_status);
 			mProgressMessageView = (TextView) progress.findViewById(R.id.status_message);
 		}
+		
+		mEmptyView = onCreateEmptyView(inflater, container);
+		if(mEmptyView != null) {
+			lp = new RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+			mEmptyView.setVisibility(View.GONE);
+			root.addView(mEmptyView, lp);
+		}
+		
 		return root;
 	}
 	
@@ -114,6 +125,10 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	 */
 	public View onCreateProgressView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.fragment_progress_status, container, false);
+	}
+	
+	public View onCreateEmptyView(LayoutInflater inflater, ViewGroup container) {
+		return inflater.inflate(R.layout.base_empty_layout, container, false);
 	}
 	
 	public ActionBar getActionBar() {
@@ -150,6 +165,19 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+		}
+	}
+	
+	/**
+	 * Shows or hides the empty UI.
+	 */
+	public void showEmpty(boolean show) {
+		if (mEmptyView != null) {
+			if (show) {
+				mEmptyView.setVisibility(View.VISIBLE);
+			} else {
+				mEmptyView.setVisibility(View.GONE);
+			}
 		}
 	}
 	

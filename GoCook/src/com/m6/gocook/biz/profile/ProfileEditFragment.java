@@ -101,7 +101,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		mSexeSpinner.setAdapter(adapter);
 		
 		FragmentActivity activity =  getActivity();
-		String sex;
+		String sex = null;
 		if (info != null) {
 			mNameEditText.setText(ModelUtils.getStringValue(info, ProfileModel.NICKNAME));
 			mBirthEditText.setText(ModelUtils.getStringValue(info, ProfileModel.AGE));
@@ -109,11 +109,12 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 			mIntroEditText.setText(ModelUtils.getStringValue(info, ProfileModel.INTRO));
 			sex = ModelUtils.getStringValue(info, ProfileModel.SEX);
 		} else {
-			mNameEditText.setText(AccountModel.getUsername(activity));
-			mBirthEditText.setText(ProfileModel.getAge(activity));
-			mCityEditText.setText(ProfileModel.getCity(activity));
-			mIntroEditText.setText(ProfileModel.getIntro(activity));
-			sex = ProfileModel.getSex(activity);
+//			mNameEditText.setText(AccountModel.getUsername(activity));
+//			mBirthEditText.setText(ProfileModel.getAge(activity));
+//			mCityEditText.setText(ProfileModel.getCity(activity));
+//			mIntroEditText.setText(ProfileModel.getIntro(activity));
+//			sex = ProfileModel.getSex(activity);
+			showEmpty(true);
 		}
 		
 		String male = getString(R.string.biz_profile_edit_sex_male);

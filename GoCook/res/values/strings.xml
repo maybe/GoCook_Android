@@ -18,6 +18,7 @@
     
     <!-- Base -->
     <string name="base_loading_more">%d条载入中&#8230;</string>
+    <string name="base_empty_text">数据加载失败，请重试</string>
     
     <!-- progress -->
     <string name="base_progress_message">正在加载&#8230;</string>
