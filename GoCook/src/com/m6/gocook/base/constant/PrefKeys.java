@@ -33,4 +33,7 @@ public class PrefKeys {
 	public static final String PROFILE_INTRO = "profile_intro";
 	
 	public static final String PROFILE_TELEPHONE = "profile_telephone";
+	
+	public static final String PROFILE_INFO = "profile_info";
+	
 }

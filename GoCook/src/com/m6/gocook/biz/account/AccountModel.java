@@ -95,6 +95,7 @@ public class AccountModel {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_PASSWORD, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, "");
+		PrefHelper.putString(context, PrefKeys.PROFILE_INFO, "");
 		onLogout();
 	}
 	

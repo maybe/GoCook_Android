@@ -77,7 +77,11 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		if(progress != null) {
 			lp = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
-			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+			if(actionBarView != null) {
+				lp.addRule(RelativeLayout.BELOW, actionBarView.getId());
+			} else {
+				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+			}
 			root.addView(progress, lp);
 			
 			mProgressView = progress.findViewById(R.id.progress_status);
@@ -131,6 +135,13 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		return inflater.inflate(R.layout.fragment_progress_status, container, false);
 	}
 	
+	/**
+	 * Called to have the fragment instantiate its empty interface view. This is optional.
+	 * 
+	 * @param inflater
+	 * @param container
+	 * @return
+	 */
 	public View onCreateEmptyView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.base_empty_layout, container, false);
 	}
@@ -205,6 +216,19 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		if(mProgressMessageView != null) {
 			mProgressMessageView.setText(resId);
 		}
+	}
+	
+	/**
+	 * 是否正在加载
+	 * 
+	 * @return
+	 */
+	public boolean isOnProgressing() {
+		return mProgressView.getVisibility() == View.VISIBLE ? true : false;
+	}
+	
+	public boolean isEmpty() {
+		return mEmptyView.getVisibility() == View.VISIBLE ? true : false;
 	}
 	
 	@Override

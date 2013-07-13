@@ -318,6 +318,10 @@ public class NetUtils {
 					conn.getInputStream());
 			saveCookie(context, conn);
 			result = readStream(in);
+			
+			for(BasicNameValuePair pair : params) {
+				System.out.println(pair.getName() + ":" + pair.getValue() + "\n");
+			}
 			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -350,6 +354,7 @@ public class NetUtils {
 					conn.getInputStream());
 			saveCookie(context, conn);
 			result = readStream(in);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -396,6 +401,7 @@ public class NetUtils {
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
 			result = readStream(in);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
