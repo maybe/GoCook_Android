@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.profile;
+package com.m6.gocook.biz.common;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,15 +21,15 @@ import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
 
-public class AvatarFragment extends DialogFragment implements OnActivityAction {
+public class PhotoPickDialogFragment extends DialogFragment implements OnActivityAction {
 
 	private final static int REQ_CAMERA = 0;
 	private final static int REQ_PHOTO = 1;
 	
 	private AvatarCallback mAvatarCallback;
 	
-	public static AvatarFragment newInstance() {
-		return new AvatarFragment();
+	public static PhotoPickDialogFragment newInstance() {
+		return new PhotoPickDialogFragment();
 	}
 	
 	@Override

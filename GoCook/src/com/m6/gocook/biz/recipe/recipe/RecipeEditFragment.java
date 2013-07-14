@@ -8,7 +8,7 @@ import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.RegisterFragment;
-import com.m6.gocook.biz.profile.AvatarFragment;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 
 import android.R.integer;
 import android.content.Context;
@@ -69,16 +69,16 @@ public class RecipeEditFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		        Fragment prev = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		        Fragment prev = getChildFragmentManager().findFragmentByTag(PhotoPickDialogFragment.class.getName());
 		        if (prev != null) {
 		            ft.remove(prev);
 		        }
 		        ft.addToBackStack(null);
 
 		        // Create and show the dialog.
-				AvatarFragment dialog = AvatarFragment.newInstance();
+				PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
 //				dialog.setAvatarCallback(RecipeEditFragment.this);
-				dialog.show(ft, AvatarFragment.class.getName());
+				dialog.show(ft, PhotoPickDialogFragment.class.getName());
 				
 			}
 		});

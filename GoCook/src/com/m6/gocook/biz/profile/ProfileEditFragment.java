@@ -35,7 +35,8 @@ import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.profile.AvatarFragment.AvatarCallback;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment.AvatarCallback;
 import com.m6.gocook.util.model.ModelUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 
@@ -143,16 +144,16 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 		        // in a transaction.  We also want to remove any currently showing
 		        // dialog, so make our own transaction and take care of that here.
 		        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		        Fragment prev = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		        Fragment prev = getChildFragmentManager().findFragmentByTag(PhotoPickDialogFragment.class.getName());
 		        if (prev != null) {
 		            ft.remove(prev);
 		        }
 		        ft.addToBackStack(null);
 
 		        // Create and show the dialog.
-				AvatarFragment dialog = AvatarFragment.newInstance();
+				PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
 				dialog.setAvatarCallback(ProfileEditFragment.this);
-				dialog.show(ft, AvatarFragment.class.getName());
+				dialog.show(ft, PhotoPickDialogFragment.class.getName());
 			}
 		});
 
@@ -195,7 +196,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	
 	@Override
 	public void onResume() {
-		Fragment f = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		Fragment f = getChildFragmentManager().findFragmentByTag(PhotoPickDialogFragment.class.getName());
 		if (f != null) {
 			DialogFragment df = (DialogFragment) f;
 			df.dismiss();
