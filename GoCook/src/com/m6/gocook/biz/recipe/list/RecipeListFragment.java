@@ -69,6 +69,16 @@ public abstract class RecipeListFragment extends BaseListFragment {
 		return R.layout.adapter_recipe_list_item;
 	}
 	
+	/**
+	 * 子类重写改方法返回业务需要的数据列表
+	 * 
+	 * @param url
+	 * @return
+	 */
+	protected RecipeList getListData(String url) {
+		return RecipeModel.getRecipeData(url);
+	}
+	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeList> {
 
     	private FragmentActivity mActivity;
@@ -81,7 +91,7 @@ public abstract class RecipeListFragment extends BaseListFragment {
     	
 		@Override
 		protected RecipeList doInBackground(Void... params) {
-			return RecipeModel.getRecipeData(mUrl);
+			return getListData(mUrl);
 		}
     	
 		@Override

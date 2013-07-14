@@ -100,6 +100,14 @@ public class ProfileModel {
 		PrefHelper.putString(context, PrefKeys.PROFILE_INFO, info);
 	}
 	
+	public static String getMyRecipesText(Context context) {
+		return PrefHelper.getString(context, PrefKeys.PROFILE_MYRECIPES, "");
+	}
+	
+	public static void saveMyRecipesText(Context context, String myRecipesText) {
+		PrefHelper.putString(context, PrefKeys.PROFILE_MYRECIPES, myRecipesText);
+	}
+	
 	/**
 	 * 修改个人信息
 	 * 
@@ -183,26 +191,6 @@ public class ProfileModel {
 			peoples.add(people);
 		}
 		return peoples;
-	}
-	
-	public static List<Map<String, Object>> getMyRecipes(Context context) {
-		String result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context)); 
-		if (TextUtils.isEmpty(result)) {
-			return null;
-		}
-		
-		try {
-			JSONObject jsonObject = new JSONObject(result);
-			if (jsonObject != null) {
-				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
-				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
-					return ModelUtils.getListMapValue(resultMap, "result_recipes");
-				}
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	private static Bitmap getAvatarBitmap(Context context, Bitmap bitmap, Uri uri) {

@@ -36,4 +36,6 @@ public class PrefKeys {
 	
 	public static final String PROFILE_INFO = "profile_info";
 	
+	public static final String PROFILE_MYRECIPES = "profile_myrecipes";
+	
 }

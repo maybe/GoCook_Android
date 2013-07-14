@@ -16,8 +16,10 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 
 	/** Page Number */
 	private int mPage = 1;
+	
 	/** 每页加载的数据条数 */  
-    private static final int COUNT_PER_PAGE = 10;  
+    private static final int COUNT_PER_PAGE = 10;
+    
     /** 最后可见条目的索引  */
     private int mLastVisibleIndex;
     
@@ -62,9 +64,9 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		// 滑到底部后自动加载，判断listview已经停止滚动并且最后可视的条目等于adapter的条目  
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && mLastVisibleIndex == mAdapter.getCount()) {  
+        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && mLastVisibleIndex == mAdapter.getCount() && doPaging()) {  
         	mPage++;
-        	mFooterView.setVisibility(view.VISIBLE);
+        	mFooterView.setVisibility(View.VISIBLE);
         	executeTask();
         }
 	}
@@ -83,6 +85,15 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	
 	protected String getURLWithPageNum() {
 		return getURL() + mPage;
+	}
+	
+	/**
+	 * 是否分页 
+	 * 
+	 * @return
+	 */
+	protected boolean doPaging() {
+		return true;
 	}
 	
 	/**

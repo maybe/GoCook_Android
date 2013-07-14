@@ -20,6 +20,7 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
@@ -104,8 +105,12 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				RecipeEditFragment.startInActivity(activity, "");
-				
+//				RecipeEditFragment.startInActivity(activity, "");
+				Bundle bundle = new Bundle();
+				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, false);
+				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
+				startActivity(intent);
 			}
 		});
 		

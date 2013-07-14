@@ -29,6 +29,7 @@ import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
 
@@ -72,6 +73,41 @@ public class RecipeModel {
 			JSONObject json = new JSONObject(result);
 			RecipeList recipeListItem = new RecipeList();
 			if(recipeListItem.parse(json)) {
+				return recipeListItem;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取我的菜谱(默认加载网络数据) 
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static RecipeList getMyRecipes(Context context) {
+		return getMyRecipes(context, false);
+	}
+	public static RecipeList getMyRecipes(Context context, boolean fromLocal) {
+		String result;
+		if (fromLocal) {
+			result = ProfileModel.getMyRecipesText(context);
+		} else {
+			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
+		}
+		if(TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject json = new JSONObject(result);
+			RecipeList recipeListItem = new RecipeList();
+			if(recipeListItem.parse(json)) {
+				if (!fromLocal) {
+					ProfileModel.saveMyRecipesText(context, result);
+				}
 				return recipeListItem;
 			}
 		} catch (JSONException e) {

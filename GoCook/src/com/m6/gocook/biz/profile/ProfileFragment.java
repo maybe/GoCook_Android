@@ -1,8 +1,10 @@
 package com.m6.gocook.biz.profile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -28,11 +30,14 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
+import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.model.ModelUtils;
 import com.m6.gocook.util.preference.PrefHelper;
@@ -52,31 +57,14 @@ public class ProfileFragment extends BaseFragment {
 	}
 	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
-		Bundle args = getArguments();
-		if(args != null) {
-			mProfileType = args.getInt(PROFILE_TYPE);
-		}
-		
-		final FragmentActivity activity = getActivity();
-		View view = getView();
-		
-		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
-		// 取本地数据
-		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
-		if(!TextUtils.isEmpty(avatarPath)) {
-			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
-		}
-		
+	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Button edit = (Button) view.findViewById(R.id.edit);
 		edit.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				if(mProfileType == PROFILE_MYSELF) {
-					Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
 					startActivity(intent);
 				} else {
@@ -86,7 +74,7 @@ public class ProfileFragment extends BaseFragment {
 			}
 		});
 		
-		final TextView intro = (TextView) activity.findViewById(R.id.intro);
+		final TextView intro = (TextView) view.findViewById(R.id.intro);
 		intro.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -113,7 +101,7 @@ public class ProfileFragment extends BaseFragment {
 			}
 		});
 		
-		final GridView grid = (GridView) activity.findViewById(R.id.recipe_grid);
+		final GridView grid = (GridView) view.findViewById(R.id.recipe_grid);
 		grid.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -128,6 +116,38 @@ public class ProfileFragment extends BaseFragment {
 				}
 			}
 		});
+		
+		view.findViewById(R.id.more).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, true);
+				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
+				startActivity(intent);
+			}
+		});
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		Bundle args = getArguments();
+		if(args != null) {
+			mProfileType = args.getInt(PROFILE_TYPE);
+		}
+		
+		final FragmentActivity activity = getActivity();
+		View view = getView();
+		
+		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
+		// 取本地数据
+		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
+		if(!TextUtils.isEmpty(avatarPath)) {
+			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
+		}
 		
 		new BasicInfoTask(getActivity()).execute((Void) null);
 		new RecipeTask(getActivity()).execute((Void) null);
@@ -205,7 +225,7 @@ public class ProfileFragment extends BaseFragment {
 			}
 		}
 	}
-	private class RecipeTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
+	private class RecipeTask extends AsyncTask<Void, Void, RecipeList> {
 
 		private FragmentActivity mActivity;
 		
@@ -214,15 +234,15 @@ public class ProfileFragment extends BaseFragment {
 		}
 		
 		@Override
-		protected List<Map<String, Object>> doInBackground(Void... params) {
-			return ProfileModel.getMyRecipes(mActivity.getApplicationContext());
+		protected RecipeList doInBackground(Void... params) {
+			return RecipeModel.getMyRecipes(mActivity);
 		}
 		
 		@Override
-		protected void onPostExecute(List<Map<String, Object>> result) {
+		protected void onPostExecute(RecipeList result) {
 			GridView grid = (GridView) mActivity.findViewById(R.id.recipe_grid);
 			if (grid != null) {
-				grid.setAdapter(new RecipeAdapter(mActivity, mImageFetcher, result));
+				grid.setAdapter(new ProfileRecipeAdapter(mActivity, mImageFetcher, result));
 			}
 		}
 		
