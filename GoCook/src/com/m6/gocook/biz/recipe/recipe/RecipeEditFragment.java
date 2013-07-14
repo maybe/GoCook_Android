@@ -7,11 +7,15 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.account.RegisterFragment;
+import com.m6.gocook.biz.profile.AvatarFragment;
 
 import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -59,6 +63,27 @@ public class RecipeEditFragment extends BaseFragment {
 			ViewGroup container, Bundle savedInstanceState) {
 		mInflater = inflater;
 		mRootView = inflater.inflate(R.layout.fragment_recipe_edit, null, false);
+		
+		mRootView.findViewById(R.id.cover_imageview).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		        Fragment prev = getChildFragmentManager().findFragmentByTag(AvatarFragment.class.getName());
+		        if (prev != null) {
+		            ft.remove(prev);
+		        }
+		        ft.addToBackStack(null);
+
+		        // Create and show the dialog.
+				AvatarFragment dialog = AvatarFragment.newInstance();
+//				dialog.setAvatarCallback(RecipeEditFragment.this);
+				dialog.show(ft, AvatarFragment.class.getName());
+				
+			}
+		});
+		
+		
 		return mRootView;
 	}
 	

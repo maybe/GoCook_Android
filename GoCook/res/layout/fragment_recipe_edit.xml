@@ -37,7 +37,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/biz_recipe_edit_cover"
                     android:textColor="#999999"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/cover_imageview"
@@ -75,7 +75,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/biz_recipe_edit_title"
                     android:textColor="#999999"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_marginTop="30dp"
                 android:text="@string/biz_recipe_edit_introduction"
                 android:textColor="#999999"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/recipe_introduction_edittext"
@@ -134,7 +134,7 @@
                 android:layout_marginTop="30dp"
                 android:text="@string/biz_recipe_material"
                 android:textColor="#999999"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                 android:layout_marginTop="30dp"
                 android:text="@string/biz_recipe_procedure"
                 android:textColor="#999999"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/biz_recipe_tips"
                     android:textColor="#999999"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

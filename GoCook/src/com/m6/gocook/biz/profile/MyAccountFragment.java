@@ -20,6 +20,7 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
@@ -99,6 +100,15 @@ public class MyAccountFragment extends Fragment {
 			}
 		});
 		
+		view.findViewById(R.id.myrecipe).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RecipeEditFragment.startInActivity(activity, "");
+				
+			}
+		});
+		
 		view.findViewById(R.id.profile).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -110,6 +120,8 @@ public class MyAccountFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		
+		
 		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
 		// 取本地数据
