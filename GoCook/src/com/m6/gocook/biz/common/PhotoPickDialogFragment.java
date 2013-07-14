@@ -8,9 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Choreographer.FrameCallback;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,10 +30,28 @@ public class PhotoPickDialogFragment extends DialogFragment implements OnActivit
 	private final static int REQ_CAMERA = 0;
 	private final static int REQ_PHOTO = 1;
 	
-	private AvatarCallback mAvatarCallback;
+	private OnPhotoPickCallback mAvatarCallback;
 	
 	public static PhotoPickDialogFragment newInstance() {
 		return new PhotoPickDialogFragment();
+	}
+	
+	public static boolean startForResult(FragmentManager fragmentManager, OnPhotoPickCallback callback) {
+		if(fragmentManager == null) {
+			return false;
+		}
+		FragmentTransaction ft = fragmentManager.beginTransaction();
+        Fragment prev = fragmentManager.findFragmentByTag(PhotoPickDialogFragment.class.getName());
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+		PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
+		dialog.setPhotoPickCallback(callback);
+		dialog.show(ft, PhotoPickDialogFragment.class.getName());
+		return true;
 	}
 	
 	@Override
@@ -100,24 +122,24 @@ public class PhotoPickDialogFragment extends DialogFragment implements OnActivit
 			Object o = bundle == null ? null : bundle.get("data");
 			Bitmap bitmap = (o != null && o instanceof Bitmap) ? (Bitmap)o : null;
 			if(mAvatarCallback != null) {
-				mAvatarCallback.onAvatarUpdate(null, bitmap);
+				mAvatarCallback.onPhotoPickResult(null, bitmap);
 			}
 		} else if (requestCode == REQ_PHOTO) {
 			if (resultCode != Activity.RESULT_OK) {
 				return;
 			}
 			if(mAvatarCallback != null) {
-				mAvatarCallback.onAvatarUpdate(data != null ? data.getData() : null, null);
+				mAvatarCallback.onPhotoPickResult(data != null ? data.getData() : null, null);
 			}
 		}
 	}
 	
-	public void setAvatarCallback(AvatarCallback avatarCallback) {
+	public void setPhotoPickCallback(OnPhotoPickCallback avatarCallback) {
 		mAvatarCallback = avatarCallback;
 	}
 	
-	public interface AvatarCallback {
-		public void onAvatarUpdate(Uri uri, Bitmap bitmap);
+	public interface OnPhotoPickCallback {
+		public void onPhotoPickResult(Uri uri, Bitmap bitmap);
 	}
 
 }

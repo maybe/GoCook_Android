@@ -9,10 +9,13 @@ import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.RegisterFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 
 import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -68,18 +72,21 @@ public class RecipeEditFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		        Fragment prev = getChildFragmentManager().findFragmentByTag(PhotoPickDialogFragment.class.getName());
-		        if (prev != null) {
-		            ft.remove(prev);
-		        }
-		        ft.addToBackStack(null);
-
-		        // Create and show the dialog.
-				PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
-//				dialog.setAvatarCallback(RecipeEditFragment.this);
-				dialog.show(ft, PhotoPickDialogFragment.class.getName());
-				
+				final ImageView imageView = (ImageView) v;
+				PhotoPickDialogFragment.startForResult(getChildFragmentManager(), new OnPhotoPickCallback() {
+					
+					@Override
+					public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
+						imageView.setImageBitmap(bitmap);
+						if(bitmap != null) {
+							imageView.setImageBitmap(bitmap);
+						} else if (uri != null) {
+							imageView.setImageURI(uri);
+						} else {
+							imageView.setImageResource(R.drawable.register_photo);
+						}
+					}
+				});
 			}
 		});
 		

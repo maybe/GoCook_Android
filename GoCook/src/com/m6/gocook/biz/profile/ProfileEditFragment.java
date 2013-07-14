@@ -36,11 +36,11 @@ import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
-import com.m6.gocook.biz.common.PhotoPickDialogFragment.AvatarCallback;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.util.model.ModelUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 
-public class ProfileEditFragment extends BaseFragment implements AvatarCallback {
+public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCallback {
 
 	private Uri mAvatartUri;
 	private Bitmap mAvatarBitmap;
@@ -152,7 +152,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 
 		        // Create and show the dialog.
 				PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
-				dialog.setAvatarCallback(ProfileEditFragment.this);
+				dialog.setPhotoPickCallback(ProfileEditFragment.this);
 				dialog.show(ft, PhotoPickDialogFragment.class.getName());
 			}
 		});
@@ -274,7 +274,7 @@ public class ProfileEditFragment extends BaseFragment implements AvatarCallback 
 	}
 
 	@Override
-	public void onAvatarUpdate(Uri uri, Bitmap bitmap) {
+	public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
 		mAvatarBitmap = bitmap;
 		mAvatartUri = uri;
 		

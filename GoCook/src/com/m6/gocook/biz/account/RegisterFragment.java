@@ -35,11 +35,11 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
-import com.m6.gocook.biz.common.PhotoPickDialogFragment.AvatarCallback;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.biz.profile.ProfileEditFragment;
 import com.m6.gocook.biz.profile.ProfileModel;
 
-public class RegisterFragment extends Fragment implements AvatarCallback {
+public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 
 	/**
 	 * Keep track of the register task to ensure we can cancel it if requested.
@@ -105,7 +105,7 @@ public class RegisterFragment extends Fragment implements AvatarCallback {
 
 		        // Create and show the dialog.
 				PhotoPickDialogFragment dialog = PhotoPickDialogFragment.newInstance();
-				dialog.setAvatarCallback(RegisterFragment.this);
+				dialog.setPhotoPickCallback(RegisterFragment.this);
 				dialog.show(ft, PhotoPickDialogFragment.class.getName());
 			}
 		});
@@ -346,7 +346,7 @@ public class RegisterFragment extends Fragment implements AvatarCallback {
 	}
 
 	@Override
-	public void onAvatarUpdate(Uri uri, Bitmap bitmap) {
+	public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
 		mAvatarBitmap = bitmap;
 		mAvatartUri = uri;
 		
