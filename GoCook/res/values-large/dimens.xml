@@ -14,8 +14,8 @@
 	<dimen name="biz_recipe_cover_image_height">200dp</dimen>
 	
 	<!--  recipe edit -->
-    <dimen name="biz_recipe_edit_cover_image_width">180dp</dimen>
-	<dimen name="biz_recipe_edit_cover_image_height">140dp</dimen>
+    <dimen name="biz_recipe_edit_cover_image_width">200dp</dimen>
+	<dimen name="biz_recipe_edit_cover_image_height">160dp</dimen>
 	
 	<!-- recipe list -->
 	<dimen name="biz_recipe_list_item_image_width">85dp</dimen>

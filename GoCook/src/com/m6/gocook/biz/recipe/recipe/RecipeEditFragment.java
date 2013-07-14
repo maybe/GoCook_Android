@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import java.security.PublicKey;
 import java.security.spec.ECField;
 
 import com.m6.gocook.R;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -40,11 +42,12 @@ public class RecipeEditFragment extends BaseFragment {
 	
 	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
-	private Context mContext = null;
-	private View mRootView = null;
+	private Context mContext;
+	private View mRootView;
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private LayoutInflater mInflater;
+	private ImageView mCurrentImageView;;
 	
 	public static void startInActivity(Context context, String recipeId) {
 		Bundle argument = new Bundle();
@@ -62,6 +65,24 @@ public class RecipeEditFragment extends BaseFragment {
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 	}
 	
+	private OnPhotoPickCallback mPhotoPickCallback = new OnPhotoPickCallback() {
+		
+		@Override
+		public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
+			if(mCurrentImageView != null) {
+				mCurrentImageView.setImageBitmap(bitmap);
+				if(bitmap != null) {
+					mCurrentImageView.setImageBitmap(bitmap);
+				} else if (uri != null) {
+					mCurrentImageView.setImageURI(uri);
+				} else {
+					mCurrentImageView.setImageResource(R.drawable.register_photo);
+				}
+			}
+			
+		}
+	};
+	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
@@ -72,21 +93,8 @@ public class RecipeEditFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				final ImageView imageView = (ImageView) v;
-				PhotoPickDialogFragment.startForResult(getChildFragmentManager(), new OnPhotoPickCallback() {
-					
-					@Override
-					public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
-						imageView.setImageBitmap(bitmap);
-						if(bitmap != null) {
-							imageView.setImageBitmap(bitmap);
-						} else if (uri != null) {
-							imageView.setImageURI(uri);
-						} else {
-							imageView.setImageResource(R.drawable.register_photo);
-						}
-					}
-				});
+				mCurrentImageView = (ImageView) v;
+				PhotoPickDialogFragment.startForResult(getChildFragmentManager(), mPhotoPickCallback);
 			}
 		});
 		
@@ -109,6 +117,18 @@ public class RecipeEditFragment extends BaseFragment {
 			return mRootView.findViewById(id);
 		} else {
 			return null;
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		Fragment f = getChildFragmentManager().findFragmentByTag(PhotoPickDialogFragment.class.getName());
+		if (f != null) {
+			DialogFragment df = (DialogFragment) f;
+			df.dismiss();
+			getFragmentManager().beginTransaction().remove(f).commit();
 		}
 	}
 	
