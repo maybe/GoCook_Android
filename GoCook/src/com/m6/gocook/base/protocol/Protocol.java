@@ -35,6 +35,7 @@ public class Protocol {
 	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=";
 	
 	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
+//	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
 	
 	
 	

@@ -1,5 +1,8 @@
 package com.m6.gocook.biz.recipe.search;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import android.os.Bundle;
 
 import com.m6.gocook.base.protocol.Protocol;
@@ -31,7 +34,12 @@ public class SearchFragment extends RecipeListFragment {
 	
 	@Override
 	protected String getURL() {
-		return String.format(Protocol.URL_RECIPE_SEARCH, mKeyWords);
+		try {
+			return String.format(Protocol.URL_RECIPE_SEARCH, URLEncoder.encode(mKeyWords, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

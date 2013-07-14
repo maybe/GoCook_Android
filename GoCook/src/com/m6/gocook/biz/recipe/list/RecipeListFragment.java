@@ -96,6 +96,10 @@ public abstract class RecipeListFragment extends BaseListFragment {
     	
 		@Override
 		protected void onPostExecute(RecipeList result) {
+			if (!isAdded()) {
+				return;
+			}
+			
 			mRecipeListTask = null;
 			showProgress(false);
 			mFooterView.setVisibility(View.GONE);

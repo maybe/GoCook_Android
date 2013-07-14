@@ -39,7 +39,7 @@ public class MyRecipesFragment extends RecipeListFragment {
 	}
 	
 	@Override
-	protected boolean doPaging() {
+	protected boolean doPaginate() {
 		return false;
 	}
 	
