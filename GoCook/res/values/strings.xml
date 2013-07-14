@@ -85,6 +85,7 @@
     <string name="biz_recipe_procedure">做法</string>
     <string name="biz_recipe_tips">小贴士</string>
     <string name="biz_recipe_comment_num">%s条评论</string>
+    <string name="biz_recipe_comment_num_no">还没有评论,点击进行评论</string>
 	<string name="biz_recipe_finished_dish">大家参照这个菜谱做的%s</string>
     <string name="biz_recipe_related">喜欢这个菜谱的也喜欢</string>
     <string name="biz_recipe_image_banner_content_description">样图</string>

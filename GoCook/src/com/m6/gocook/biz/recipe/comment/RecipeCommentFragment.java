@@ -142,7 +142,7 @@ public class RecipeCommentFragment extends BaseFragment {
 		
 		@Override
 		protected RecipeCommentList doInBackground(Void... params) {
-			return RecipeModel.getRecipeComments(mContext, mRecipeId);
+			return RecipeModel.getRecipeComments(mContext, mRecipeId, true);
 		}
 		
 		@Override

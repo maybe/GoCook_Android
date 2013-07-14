@@ -20,6 +20,7 @@ import android.widget.MultiAutoCompleteTextView.CommaTokenizer;
 
 import com.m6.gocook.R.string;
 import com.m6.gocook.base.constant.Constants;
+import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
@@ -32,6 +33,7 @@ import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
+import com.m6.gocook.util.preference.PrefHelper;
 
 public class RecipeModel {
 	
@@ -141,7 +143,17 @@ public class RecipeModel {
 	}
 	
 	public static RecipeCommentList getRecipeComments(Context context, String recipeId) {
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COMMENT, recipeId), AccountModel.getCookie(context));
+		return getRecipeComments(context, recipeId, false);
+	}
+	public static RecipeCommentList getRecipeComments(Context context, String recipeId, boolean fromLocal) {
+		String result;
+		if (fromLocal) {
+			result = PrefHelper.getString(context, PrefKeys.RECIPE_COMMENTS, "");
+		} else {
+			result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COMMENT, recipeId), AccountModel.getCookie(context));
+			PrefHelper.putString(context, PrefKeys.RECIPE_COMMENTS, result);
+		}
+		
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);

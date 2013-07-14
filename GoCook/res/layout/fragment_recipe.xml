@@ -220,12 +220,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="@string/biz_recipe_comment_num"
+                    android:text="@string/biz_recipe_comment_num_no"
                     android:textColor="#999999"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/comment_item"
+                    android:visibility="gone"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/comment_num"
@@ -239,9 +240,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
+					android:layout_centerVertical="true"
                     android:layout_marginRight="6dp"
-                    android:layout_marginTop="30dp"
                     android:src="@drawable/arrow_dark" />
             </RelativeLayout>
 

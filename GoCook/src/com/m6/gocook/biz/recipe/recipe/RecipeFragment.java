@@ -1,14 +1,18 @@
 package com.m6.gocook.biz.recipe.recipe;
 
 import com.m6.gocook.R;
+import com.m6.gocook.R.string;
 import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.comment.RecipeCommentAdapter;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
 import com.m6.gocook.util.log.Logger;
 
@@ -36,7 +40,7 @@ public class RecipeFragment extends BaseFragment {
 	
 	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 
-	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font><br/><i>%s</i><font color='#3b272d'> %s</font>";
+	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";
 	
 	private Context mContext = null;
@@ -48,8 +52,11 @@ public class RecipeFragment extends BaseFragment {
 	
 	private boolean mCollected = false;
 	
+	private boolean mRefreshComments = false;
+	
 	private AchieveRecipeTask mAchieveRecipeTask;
 	private RecipeCollectTask mRecipeCollectTask;
+	private AchieveCommentsTask mAchieveCommentsTask;
 	
 	public static void startInActivity(Context context, String recipeId) {
 		Bundle argument = new Bundle();
@@ -74,6 +81,15 @@ public class RecipeFragment extends BaseFragment {
 		if(mContext == null) {
 			mContext = getActivity();
 			doCreate();
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mRefreshComments) {
+			mRefreshComments = false;
+			achieveComments();
 		}
 	}
 	
@@ -117,6 +133,8 @@ public class RecipeFragment extends BaseFragment {
 			return;
 		}
 
+		achieveComments();
+		
 		// Set Recipe Properties Values
 
 		setTitle(mRecipeEntity.getName());
@@ -162,21 +180,6 @@ public class RecipeFragment extends BaseFragment {
 			recipeTipsTextView.setText(mRecipeEntity.getTips());
 			tipsLinearLayout.setVisibility(View.VISIBLE);
 		}
-		
-		// Recipe Comments
-		TextView commentItem = (TextView) findViewById(R.id.comment_item);
-		commentItem
-				.setText(Html.fromHtml(String.format(FINISHEN_DISH_TAG_STRING,
-						"小笨蛋", "真的很好吃啊", "longrenle", "不错不错")));
-
-		View commentsLinkView = findViewById(R.id.comments_link);
-		commentsLinkView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
-			}
-		});
 
 //		// Related Recipes
 //		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
@@ -213,6 +216,14 @@ public class RecipeFragment extends BaseFragment {
 		
 		TextView tabBarCollectTextView = ((TextView) findViewById(R.id.tabbar_textview_like));
 		setCollected(mRecipeEntity.isCollected(), tabBarCollectTextView);
+	}
+
+	private void achieveComments() {
+		// start achieve comments
+		if (mAchieveCommentsTask == null) {
+			mAchieveCommentsTask = new AchieveCommentsTask();
+			mAchieveCommentsTask.execute();
+		}
 	}
 
 	private void initView() {
@@ -277,6 +288,18 @@ public class RecipeFragment extends BaseFragment {
 //
 //					}
 //				});
+		
+		
+		// Comments
+		View commentsLinkView = findViewById(R.id.comments_link);
+		commentsLinkView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mRefreshComments = true;
+				RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
+			}
+		});
 	}
 
 	private void setCollected(boolean mCollected, TextView view) {
@@ -360,5 +383,54 @@ public class RecipeFragment extends BaseFragment {
 		}
 		
 	}
+	
+	public class AchieveCommentsTask extends AsyncTask<Void, Void, RecipeCommentList> {
+
+		
+		@Override
+		protected RecipeCommentList doInBackground(Void... params) {
+			return RecipeModel.getRecipeComments(mContext, mRecipeId);
+		}
+		
+		@Override
+		protected void onPostExecute(RecipeCommentList result) {
+			
+			if(result == null) {
+				return;
+			}
+			
+			int commentsNum = result.getCount();
+			
+			if(commentsNum == 0 ) {
+				return;
+			}
+			
+			StringBuilder topTwo = new StringBuilder();
+			
+			RecipeCommentItem item = (RecipeCommentItem) result.getItem(0);
+			topTwo.append(String.format(FINISHEN_DISH_TAG_STRING,
+						item.getName(), item.getContent()));
+			if (commentsNum > 1) {
+				item = (RecipeCommentItem) result.getItem(1);
+				topTwo.append("<br />");
+				topTwo.append(String.format(FINISHEN_DISH_TAG_STRING,
+						item.getName(), item.getContent()));
+			}
+			
+			TextView commentNum = (TextView) findViewById(R.id.comment_num);
+			commentNum.setText(String.format(getResources().getString(R.string.biz_recipe_comment_num)
+					, commentsNum));
+			
+			// Set Recipe Top two Comments
+			TextView commentItem = (TextView) findViewById(R.id.comment_item);
+			commentItem.setVisibility(View.VISIBLE);
+			commentItem.setText(Html.fromHtml(topTwo.toString()));
+
+			mAchieveCommentsTask = null;
+			
+		}
+		
+	}
+
 
 }
