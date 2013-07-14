@@ -74,7 +74,7 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 	
 	public boolean addItem(RecipeCommentItem item) {
 		if(item != null && mComments != null) {
-			mComments.add(item);
+			mComments.add(0, item);
 			return true;
 		} else {
 			mComments = new ArrayList<RecipeCommentList.RecipeCommentItem>();

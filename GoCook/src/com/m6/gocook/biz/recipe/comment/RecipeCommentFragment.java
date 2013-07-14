@@ -188,23 +188,22 @@ public class RecipeCommentFragment extends BaseFragment {
 			mPostTask = null;
 			
 			if(result) {
-				RecipeCommentItem item = new RecipeCommentItem();
-				item.setName(AccountModel.getUsername(mContext));
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				String currentDateandTime = sdf.format(new Date());
-				item.setCreateTime(currentDateandTime);
-				item.setPortrait(AccountModel.getAvatarPath(mContext));
-				item.setContent(mInputText.getText().toString().trim());
-				mAdapter.addItem(item);
-				
-				
-				mInputText.setText("");
-				ListView list = (ListView) findViewById(R.id.comments_listview);
-				list.scrollTo(0, 0);
-				
 				if(mAdapter != null) {
+					RecipeCommentItem item = new RecipeCommentItem();
+					item.setName(AccountModel.getUsername(mContext));
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					String currentDateandTime = sdf.format(new Date());
+					item.setCreateTime(currentDateandTime);
+					item.setPortrait(AccountModel.getAvatarPath(mContext));
+					item.setContent(mInputText.getText().toString().trim());
+					mAdapter.addItem(item);
 					mAdapter.notifyDataSetChanged();
 				}
+
+				mInputText.setText("");
+				ListView list = (ListView) findViewById(R.id.comments_listview);
+				list.setSelection(0);
+				
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_comment_addfailed, Toast.LENGTH_SHORT).show();	
 			}
