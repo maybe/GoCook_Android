@@ -148,7 +148,7 @@ public class RecipeCommentFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(RecipeCommentList result) {
 			showProgress(false);
-			if(result != null) {
+			if(result != null && isAdded()) {
 				ListView list = (ListView) findViewById(R.id.comments_listview);
 				mAdapter = new RecipeCommentAdapter(mContext, result, mImageFetcher);
 				list.setAdapter(mAdapter);
@@ -186,6 +186,10 @@ public class RecipeCommentFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			mPostTask = null;
+			
+			if(!isAdded()) {
+				return;
+			}
 			
 			if(result) {
 				if(mAdapter != null) {

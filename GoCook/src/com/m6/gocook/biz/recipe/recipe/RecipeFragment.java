@@ -332,8 +332,10 @@ public class RecipeFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(Void result) {
 
-			showProgress(false);
-			applyData();
+			if(isAdded()) {
+				showProgress(false);
+				applyData();
+			}
 			super.onPostExecute(result);
 		}
 
@@ -395,7 +397,9 @@ public class RecipeFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(RecipeCommentList result) {
 			
-			if(result == null) {
+			mAchieveCommentsTask = null;
+			
+			if(result == null || !isAdded()) {
 				return;
 			}
 			
@@ -426,7 +430,6 @@ public class RecipeFragment extends BaseFragment {
 			commentItem.setVisibility(View.VISIBLE);
 			commentItem.setText(Html.fromHtml(topTwo.toString()));
 
-			mAchieveCommentsTask = null;
 			
 		}
 		
