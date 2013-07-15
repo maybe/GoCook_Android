@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:background="#ada7a3"
         android:gravity="center"
         android:padding="5dp"
