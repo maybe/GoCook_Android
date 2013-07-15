@@ -111,7 +111,9 @@ public class ProfileFragment extends BaseFragment {
 				if (adapter != null) {
 					Map<String, Object> map = (Map<String, Object>) adapter.getItem(position);
 					if (map != null) {
-						RecipeFragment.startInActivity(getActivity(), ModelUtils.getStringValue(map, Protocol.KEY_RECIPE_ID));
+						RecipeFragment.startInActivity(getActivity(),
+								ModelUtils.getStringValue(map, Protocol.KEY_RECIPE_ID),
+								ModelUtils.getStringValue(map, Protocol.KEY_RECIPE_NAME));
 					}
 				}
 			}

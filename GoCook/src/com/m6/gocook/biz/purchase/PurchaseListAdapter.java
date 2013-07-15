@@ -109,11 +109,12 @@ public class PurchaseListAdapter extends CursorAdapter {
 		});
 		
 		final String recipeId = holder.name.getTag().toString();
+		final String recipeName = holder.name.getText().toString();
 		bgView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				RecipeFragment.startInActivity(mContext, recipeId);
+				RecipeFragment.startInActivity(mContext, recipeId, recipeName);
 			}
 		});
 		

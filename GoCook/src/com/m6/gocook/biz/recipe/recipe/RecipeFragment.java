@@ -39,6 +39,7 @@ public class RecipeFragment extends BaseFragment {
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
 	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
+	public static final String ARGUMENT_KEY_RECIPE_NAME = "intent_key_recipe_name";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";
@@ -58,9 +59,10 @@ public class RecipeFragment extends BaseFragment {
 	private RecipeCollectTask mRecipeCollectTask;
 	private AchieveCommentsTask mAchieveCommentsTask;
 	
-	public static void startInActivity(Context context, String recipeId) {
+	public static void startInActivity(Context context, String recipeId, String recipeName) {
 		Bundle argument = new Bundle();
 		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
+		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_NAME, recipeName);
         Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
         		RecipeFragment.class.getName(), 
         		RecipeFragment.class.getName(), argument);
@@ -105,6 +107,8 @@ public class RecipeFragment extends BaseFragment {
 
 		Bundle argument = getArguments();
 		mRecipeId = argument.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
+		
+		setTitle(argument.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_NAME));
 		
 		initView();
 

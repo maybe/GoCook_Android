@@ -37,10 +37,11 @@ public abstract class RecipeListFragment extends BaseListFragment {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Object item = (RecipeItem) mAdapter.getItem(position);
+					RecipeItem item = (RecipeItem) mAdapter.getItem(position);
 					if(item != null) {
-						String recipeId = ((RecipeItem) item).getId();
-						RecipeFragment.startInActivity(getActivity(), recipeId);
+						String recipeId = item.getId();
+						String recipeName = item.getName();
+						RecipeFragment.startInActivity(getActivity(), recipeId, recipeName);
 					}
 				}
 			});
