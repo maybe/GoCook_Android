@@ -5,11 +5,5 @@
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:cacheColorHint="@android:color/transparent" />
 
 </LinearLayout>

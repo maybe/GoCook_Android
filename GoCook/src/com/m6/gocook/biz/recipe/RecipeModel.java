@@ -65,8 +65,8 @@ public class RecipeModel {
 		return null;
 	}
 	
-	public static RecipeList getRecipeData(String url) {
-		String result = NetUtils.httpGet(url);
+	public static RecipeList getRecipeData(String url, String cookie) {
+		String result = NetUtils.httpGet(url, cookie);
 		if(TextUtils.isEmpty(result)) {
 			return null;
 		}

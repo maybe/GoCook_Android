@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
@@ -31,8 +32,25 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
     @Override
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.base_fragment_list, container, false);
+    	
+    	LinearLayout root = (LinearLayout) inflater.inflate(R.layout.base_fragment_list, container, false);
+    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
+    			LinearLayout.LayoutParams.WRAP_CONTENT);
+    	
+    	View headerView = onCreateHeaderView(inflater, container);
+		if (headerView != null) {
+			root.addView(headerView, params);
+		}
+		
+		ListView listView = (ListView) inflater.inflate(R.layout.base_listview, root, false);
+		root.addView(listView, params);
+		
+		return root;
 	}
+    
+    public View onCreateHeaderView(LayoutInflater inflater, ViewGroup container) {
+    	return null;
+    }
     
     @Override
 	public void onActivityCreated(Bundle savedInstanceState) {

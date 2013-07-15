@@ -15,6 +15,7 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.fragment.BaseListFragment;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 
@@ -76,7 +77,16 @@ public abstract class RecipeListFragment extends BaseListFragment {
 	 * @return
 	 */
 	protected RecipeList getListData(String url) {
-		return RecipeModel.getRecipeData(url);
+		return RecipeModel.getRecipeData(url, needCookie() ? AccountModel.getCookie(getActivity()) : null);
+	}
+	
+	/**
+	 * 获取数据的请求是否需要带cookie
+	 * 
+	 * @return
+	 */
+	protected boolean needCookie() {
+		return false;
 	}
 	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeList> {
