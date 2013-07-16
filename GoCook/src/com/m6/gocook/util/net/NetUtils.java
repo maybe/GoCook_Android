@@ -32,7 +32,7 @@ public class NetUtils {
 
 	public static final String TAG = "NetUtils";
 	
-	private static final String BOUNDARY = "HttpPostGoCook";
+	private static final String BOUNDARY = "---------------HttpPostGoCook";
 	
 	public static final String POST = "POST";
 	
@@ -256,6 +256,7 @@ public class NetUtils {
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
 			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);  
 			if(!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 				System.out.println("setCookie : " + cookie);
