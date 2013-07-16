@@ -13,7 +13,7 @@ import android.os.Parcelable;
 
 public class RecipeEntity implements IParseable<JSONObject> {
 
-	public class Material {
+	static public class Material {
 		private String name;
 		private String remark;
 		private boolean isMain;
@@ -67,7 +67,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 		}
 	}
 
-	public class Procedure {
+	static public class Procedure {
 		private String desc;
 		private String imageURL;
 

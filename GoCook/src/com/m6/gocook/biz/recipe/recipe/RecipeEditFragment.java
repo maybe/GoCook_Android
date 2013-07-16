@@ -1,18 +1,24 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import java.util.ArrayList;
+
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.entity.RecipeEntity.Material;
+import com.m6.gocook.base.entity.RecipeEntity.Procedure;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
+import com.m6.gocook.biz.recipe.RecipeModel;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -158,6 +164,8 @@ public class RecipeEditFragment extends BaseFragment {
 
 	private void doCreate() {
 		
+		new AchieveRecipeTask().execute();
+		
 		ActionBar action = getActionBar();
 		
 		Bundle arg = getArguments();
@@ -166,44 +174,167 @@ public class RecipeEditFragment extends BaseFragment {
 			mMode= (Mode)arg.getSerializable(ARGUMENT_KEY_ACTION);
 			if(mMode == Mode.RECIPE_NEW) {
 				action.setTitle(R.string.biz_recipe_edit_title_new);
-			} else if (mMode == Mode.RECIPE_NEW) {
+			} else if (mMode == Mode.RECIPE_EDIT) {
 				action.setTitle(R.string.biz_recipe_edit_title_edit);
-				mRecipeId = arg.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
+				mRecipeId = arg.getString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID);
 			}
 		}
-		
+
 		final EditText tipsEditText = (EditText) findViewById(R.id.recipe_tips_edittext);
 		tipsEditText.setOnTouchListener(new MyEditTextOnTouchListener(8));
-		
+
 		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
-		materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-		materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-		materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-		materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-		materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-		
-		((Button) findViewById(R.id.material_addmore_button)).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
-				
-			}
-		});
-		
+		for (int i = 0; i < 5; i++) {
+			materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
+		}
+
+		((Button) findViewById(R.id.material_addmore_button))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item,
+								null));
+
+					}
+				});
+
 		final LinearLayout procedureLayout = (LinearLayout) findViewById(R.id.procedure_layout);
-		procedureLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null));
-		procedureLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null));
-		procedureLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null));
-		procedureLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null));
+		for (int i = 0; i < 5; i++) {
+			procedureLayout.addView(mInflater.inflate(
+					R.layout.adapter_recipe_edit_procedure_item, null));
+		}
+
+		((Button) findViewById(R.id.procedure_addmore_button))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						procedureLayout.addView(mInflater.inflate(
+								R.layout.adapter_recipe_edit_procedure_item,
+								null));
+					}
+				});
 		
-		((Button) findViewById(R.id.procedure_addmore_button)).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				procedureLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null));
+	}
+	
+	private void applyData() {
+		
+		EditText titleEditText = (EditText) findViewById(R.id.recipe_title_edittext);
+		titleEditText.setText(mRecipeEntity.getName());
+		
+		EditText intrEditText = (EditText) findViewById(R.id.recipe_introduction_edittext);
+		intrEditText.setText(mRecipeEntity.getDesc());
+		
+		EditText tipEditText = (EditText) findViewById(R.id.recipe_tips_edittext);
+		tipEditText.setText(mRecipeEntity.getTips());
+		
+		applyMaterial();
+		applyProcedure();
+		
+	}
+	
+	private View applyMaterial() {
+		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
+		
+		ArrayList<Material> materials = mRecipeEntity.getMaterials();
+		int materialCount = materials.size();
+		int materialFlag = 0;
+
+		for (int i = 0; i < materialLayout.getChildCount(); i++, materialFlag++) {
+
+			if (materialFlag < materialCount) {
+
+				Material material = materials.get(materialFlag);
+				View view = materialLayout.getChildAt(i);
+
+				applyDataToMaterialItem(view, material);
 			}
-		});
+		}
+
+		for (; materialFlag < materialCount; materialFlag++) {
+			
+			Material material = materials.get(materialFlag);
+			View view = mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null);
+			
+			applyDataToMaterialItem(view, material);
+		}
+		return null;
+	}
+	
+	private void applyDataToMaterialItem(View view, Material material) {
 		
+		EditText name = (EditText) view.findViewById(R.id.name);
+		name.setText(material.getName());
+
+		EditText remark = (EditText) view.findViewById(R.id.remark);
+		remark.setText(material.getRemark());
+	}
+	
+	private View applyProcedure() {
+		final LinearLayout procedureLayout = (LinearLayout) findViewById(R.id.procedure_layout);
+		
+		ArrayList<Procedure> procedures = mRecipeEntity.getProcedures();
+		int procedureCount = procedures.size();
+		int procedureFlag = 0;
+
+		for (int i = 0; i < procedureLayout.getChildCount(); i++, procedureFlag++) {
+
+			if (procedureFlag < procedureCount) {
+
+				Procedure procedure = procedures.get(procedureFlag);
+				View view = procedureLayout.getChildAt(i);
+
+				applyDataToProcedurelItem(view, procedure);
+			}
+		}
+
+		for (; procedureFlag < procedureCount; procedureFlag++) {
+			
+			Procedure procedure = procedures.get(procedureFlag);
+			View view = mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null);
+			
+			applyDataToProcedurelItem(view, procedure);
+		}
+		return null;
+	}
+	
+	private void applyDataToProcedurelItem(View view, Procedure procedure) {
+		
+		EditText desc = (EditText) view.findViewById(R.id.desc);
+		desc.setText(procedure.getDesc());
+
+		ImageView image = (ImageView) view.findViewById(R.id.image);
+		mImageFetcher.loadImage(procedure.getImageURL(), image);
+	}
+	
+	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			showProgress(true);
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			mRecipeEntity = RecipeModel.getRecipe(getActivity(), mRecipeId);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+
+			if(isAdded()) {
+				showProgress(false);
+				if(mRecipeEntity != null) {
+					applyData();
+				} else {
+					getActivity().finish();
+				}
+			}
+			super.onPostExecute(result);
+		}
+
 	}
 }

@@ -14,6 +14,7 @@ import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentAdapter;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
+import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
 import com.m6.gocook.util.log.Logger;
 
 import android.accounts.AccountManager;
@@ -231,6 +232,8 @@ public class RecipeFragment extends BaseFragment {
 	}
 
 	private void initView() {
+		
+		getActionBar().setRightButton("修改", R.drawable.bar_delete_normal);
 
 		// Tabbar Event Listener
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
@@ -338,7 +341,11 @@ public class RecipeFragment extends BaseFragment {
 
 			if(isAdded()) {
 				showProgress(false);
-				applyData();
+				if(mRecipeEntity != null) {
+					applyData();
+				} else {
+					getActivity().finish();
+				}
 			}
 			super.onPostExecute(result);
 		}
@@ -439,5 +446,9 @@ public class RecipeFragment extends BaseFragment {
 		
 	}
 
+	@Override
+	public void onActionBarRightButtonClick(View v) {
+		RecipeEditFragment.startInActivity(mContext, Mode.RECIPE_EDIT, mRecipeId);
+	}
 
 }
