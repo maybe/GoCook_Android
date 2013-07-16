@@ -227,7 +227,7 @@ public class NetUtils {
 	}
 	
 	private static void writeEnd(OutputStream out) throws IOException {
-		String endData = "--" + BOUNDARY + "--\r\n";
+		String endData = "\r\n--" + BOUNDARY + "--\r\n";
 		out.write(endData.getBytes());
 		out.write("\r\n".getBytes());
 	}
@@ -256,7 +256,6 @@ public class NetUtils {
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
 			conn.setRequestProperty("Connection", "Keep-Alive");
-			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);  
 			if(!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 				System.out.println("setCookie : " + cookie);
@@ -343,6 +342,7 @@ public class NetUtils {
 		HttpURLConnection conn = null;
 		try {
 			conn = getHttpURLConnection(urlString, POST, cookie);
+			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
 			conn.connect();
 			OutputStream out = new BufferedOutputStream(
 					conn.getOutputStream());
