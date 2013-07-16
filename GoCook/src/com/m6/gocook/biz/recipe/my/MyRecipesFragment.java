@@ -36,7 +36,8 @@ public class MyRecipesFragment extends RecipeListFragment {
 			
 			@Override
 			public void onClick(View v) {
-				RecipeEditFragment.startInActivity(getActivity(), "");
+				RecipeEditFragment.startInActivity(getActivity(),
+						RecipeEditFragment.Mode.RECIPE_NEW, "");
 			}
 		});
 		return view;

@@ -1,18 +1,14 @@
 package com.m6.gocook.biz.recipe.recipe;
 
-import java.security.PublicKey;
-import java.security.spec.ECField;
-
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.biz.account.RegisterFragment;
+import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 
-import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,37 +16,42 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 public class RecipeEditFragment extends BaseFragment {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
-	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
+	public static final String ARGUMENT_KEY_ACTION = "argument_key_action";
+	public static final String ARGUMENT_KEY_RECIPE_ID = "argument_key_recipe_id";
 
 	private Context mContext;
 	private View mRootView;
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private LayoutInflater mInflater;
-	private ImageView mCurrentImageView;;
+	private ImageView mCurrentImageView;
+	private Mode mMode;
 	
-	public static void startInActivity(Context context, String recipeId) {
+	public enum Mode {
+		RECIPE_NEW, RECIPE_EDIT
+	}
+	
+	public static void startInActivity(Context context, Mode mode, String recipeId) {
 		Bundle argument = new Bundle();
+		argument.putSerializable(RecipeEditFragment.ARGUMENT_KEY_ACTION,
+				mode);
 		argument.putString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
         Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
         		RecipeEditFragment.class.getName(), 
@@ -156,10 +157,21 @@ public class RecipeEditFragment extends BaseFragment {
 	}
 
 	private void doCreate() {
-
-		Bundle argument = getArguments();
-		mRecipeId = argument.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
-
+		
+		ActionBar action = getActionBar();
+		
+		Bundle arg = getArguments();
+		if(arg != null) {
+			//set action mode and title
+			mMode= (Mode)arg.getSerializable(ARGUMENT_KEY_ACTION);
+			if(mMode == Mode.RECIPE_NEW) {
+				action.setTitle(R.string.biz_recipe_edit_title_new);
+			} else if (mMode == Mode.RECIPE_NEW) {
+				action.setTitle(R.string.biz_recipe_edit_title_edit);
+				mRecipeId = arg.getString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID);
+			}
+		}
+		
 		final EditText tipsEditText = (EditText) findViewById(R.id.recipe_tips_edittext);
 		tipsEditText.setOnTouchListener(new MyEditTextOnTouchListener(8));
 		
