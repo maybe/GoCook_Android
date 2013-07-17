@@ -164,8 +164,6 @@ public class RecipeEditFragment extends BaseFragment {
 
 	private void doCreate() {
 		
-		new AchieveRecipeTask().execute();
-		
 		ActionBar action = getActionBar();
 		
 		Bundle arg = getArguments();
@@ -178,6 +176,10 @@ public class RecipeEditFragment extends BaseFragment {
 				action.setTitle(R.string.biz_recipe_edit_title_edit);
 				mRecipeId = arg.getString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID);
 			}
+		}
+		
+		if(mMode == Mode.RECIPE_EDIT) {
+			new AchieveRecipeTask().execute();
 		}
 
 		final EditText tipsEditText = (EditText) findViewById(R.id.recipe_tips_edittext);
@@ -318,7 +320,7 @@ public class RecipeEditFragment extends BaseFragment {
 		@Override
 		protected Void doInBackground(Void... params) {
 
-			mRecipeEntity = RecipeModel.getRecipe(getActivity(), mRecipeId);
+			mRecipeEntity = RecipeModel.getRecipe(getActivity(), mRecipeId, true);
 			return null;
 		}
 

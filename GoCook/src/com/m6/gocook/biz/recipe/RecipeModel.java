@@ -39,14 +39,27 @@ public class RecipeModel {
 	
 	private static final String TAG = RecipeModel.class.getCanonicalName();
 
+	
 	public static RecipeEntity getRecipe(Context context, String recipeId) {
+		
+		return getRecipe(context, recipeId, false);
+	}
+	
+	public static RecipeEntity getRecipe(Context context, String recipeId, boolean fromLocal) {
 		
 		if(context == null || TextUtils.isEmpty(recipeId)) {
 			Logger.e(TAG, "getRecipe failed, parameter is invalid");
 			return null;
 		}
 		
-		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE, recipeId), AccountModel.getCookie(context));
+		String result = null;
+		if (fromLocal) {
+			result = PrefHelper.getString(context, PrefKeys.RECIPE_ENTITY, "");
+		} else {
+			result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE, recipeId), AccountModel.getCookie(context));
+			PrefHelper.putString(context, PrefKeys.RECIPE_ENTITY, result);
+		}
+		
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);

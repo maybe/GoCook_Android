@@ -40,4 +40,6 @@ public class PrefKeys {
 	
 	public static final String RECIPE_COMMENTS = "recipe_comments";
 	
+	public static final String RECIPE_ENTITY = "recipe_entity";
+	
 }
