@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.recipe;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -226,6 +227,28 @@ public class RecipeModel {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public static String uploadRecipeCoverImage(Context context, File imageFile) {
+		String result = NetUtils.httpPost(context,
+				Protocol.URL_RECIPE_UPLOAD_COVERIMAGE_STRING,
+				imageFile,
+				Protocol.KEY_RECIPE_UPLOAD_COVERIMAGE);
+		
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+			return result;
+		} else {
+			return null;
 		}
 	}
 	

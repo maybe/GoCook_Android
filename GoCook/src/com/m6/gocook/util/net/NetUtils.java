@@ -333,6 +333,40 @@ public class NetUtils {
 		return result;
 	}
 	
+	public static String httpPost(Context context, String urlString, File file, String fileParamName) {
+		return httpPost(context, urlString, file, fileParamName, AccountModel.getCookie(context));
+	}
+	
+	public static String httpPost(Context context, String urlString, File file, String fileParamName, String cookie) {
+		String result = null;
+		HttpURLConnection conn = null;
+		try {
+			conn = getHttpURLConnection(urlString, POST, cookie);
+			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+			conn.connect();
+			OutputStream out = new BufferedOutputStream(
+					conn.getOutputStream());
+			writeFileStream(out, file, fileParamName);
+			writeEnd(out);
+			out.flush();
+			out.close();
+			InputStream in = new BufferedInputStream(
+					conn.getInputStream());
+			saveCookie(context, conn);
+			result = readStream(in);
+			System.out.println("result : " + result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				conn.disconnect();
+			}
+		}
+		return result;
+	}
+		
+		
+	
 	public static String httpPost(Context context, String urlString, List<BasicNameValuePair> params, File file, String fileParamName) {
 		return httpPost(context, urlString, params, file, fileParamName, AccountModel.getCookie(context));
 	}

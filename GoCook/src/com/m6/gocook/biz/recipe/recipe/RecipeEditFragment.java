@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.m6.gocook.R;
@@ -13,6 +14,7 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.util.File.ImgUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -85,6 +87,11 @@ public class RecipeEditFragment extends BaseFragment {
 				} else {
 					mCurrentImageView.setImageResource(R.drawable.register_photo);
 				}
+				
+				
+				
+//				File file = ImgUtils.createBitmapFile("aaaaaa", bitmap);
+//				RecipeModel.uploadRecipeCoverImage(mContext, file);
 			}
 			
 		}
@@ -222,6 +229,9 @@ public class RecipeEditFragment extends BaseFragment {
 	
 	private void applyData() {
 		
+		ImageView cover = (ImageView) findViewById(R.id.cover_imageview);
+		mImageFetcher.loadImage(mRecipeEntity.getCoverImgURL(), cover);
+		
 		EditText titleEditText = (EditText) findViewById(R.id.recipe_title_edittext);
 		titleEditText.setText(mRecipeEntity.getName());
 		
@@ -260,6 +270,7 @@ public class RecipeEditFragment extends BaseFragment {
 			View view = mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null);
 			
 			applyDataToMaterialItem(view, material);
+			materialLayout.addView(view);
 		}
 		return null;
 	}
@@ -297,6 +308,7 @@ public class RecipeEditFragment extends BaseFragment {
 			View view = mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null);
 			
 			applyDataToProcedurelItem(view, procedure);
+			procedureLayout.addView(view);
 		}
 		return null;
 	}

@@ -10,6 +10,8 @@ public class Protocol {
 	
 	public static final String URL_REGISTER = URL_ROOT + "/user/register";
 	
+	/* Recipe URL  */
+	
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
 	
 	public static final String URL_RECIPE_COMMENT = URL_ROOT + "/recipe/comments?recipe_id=%s";
@@ -19,6 +21,8 @@ public class Protocol {
 	public static final String URL_RECIPE_COLLECT_ADD = URL_ROOT + "/cook/addmycoll?collid=%s";
 	
 	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/delmycoll?collid=%s";
+	
+	public static final String URL_RECIPE_UPLOAD_COVERIMAGE_STRING = URL_ROOT + "/recipe/uploadCoverPhoto";
 	
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
@@ -80,6 +84,9 @@ public class Protocol {
 	public static final String KEY_POST_RECIPE_COMMENT_RECIPE_ID = "recipe_id";
 	public static final String KEY_POST_RECIPE_COMMENT_CONTENT = "content";
 	
+	/* Upload Image File Protocol */
+	public static final String KEY_RECIPE_UPLOAD_COVERIMAGE = "cover";
+		
 	/* Popular JSON Protocol */
 	public static final String KEY_POPULAR_TOPNEW_IMG = "topnew_img";
 	public static final String KEY_POPULAR_TOPHOT_IMG = "tophot_img";
