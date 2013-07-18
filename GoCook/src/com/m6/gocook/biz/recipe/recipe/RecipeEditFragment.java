@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -77,7 +78,7 @@ public class RecipeEditFragment extends BaseFragment {
 	private OnPhotoPickCallback mPhotoPickCallback = new OnPhotoPickCallback() {
 		
 		@Override
-		public void onPhotoPickResult(Uri uri, Bitmap bitmap) {
+		public void onPhotoPickResult(Uri uri, final Bitmap bitmap) {
 			if(mCurrentImageView != null) {
 				mCurrentImageView.setImageBitmap(bitmap);
 				if(bitmap != null) {
@@ -89,9 +90,15 @@ public class RecipeEditFragment extends BaseFragment {
 				}
 				
 				
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						File file = ImgUtils.createBitmapFile("aaaaaa", bitmap);
+						RecipeModel.uploadRecipeCoverImage(mContext, file);
+					}
+				}).start();
 				
-//				File file = ImgUtils.createBitmapFile("aaaaaa", bitmap);
-//				RecipeModel.uploadRecipeCoverImage(mContext, file);
 			}
 			
 		}

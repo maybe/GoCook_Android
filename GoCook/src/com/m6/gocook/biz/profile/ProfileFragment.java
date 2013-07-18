@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
@@ -41,11 +42,38 @@ import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {
 	
+	public static final String PROFILE_FOLLOW_ID = "profile_follow_id";
 	public static final String PROFILE_TYPE = "profile_type";
 	public static final int PROFILE_MYSELF = 0;
 	public static final int PROFILE_OTHERS = 1;
 	
 	private int mProfileType = 0;
+	
+	/**
+	 * 启动个人信息页面
+	 * 
+	 * @param context
+	 * @param profileType PROFILE_MYSELF代表进入我的页面； PROFILE_OTHERS进入别人的页面
+	 * @param followId
+	 */
+	public static void startProfileFragment(Context context, int profileType, String followId) {
+		Bundle bundle = new Bundle();
+		bundle.putInt(PROFILE_TYPE, ProfileFragment.PROFILE_OTHERS);
+		bundle.putString(PROFILE_FOLLOW_ID, followId);
+		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+				ProfileFragment.class.getName(), ProfileFragment.class.getName(), bundle);
+		context.startActivity(intent);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		Bundle args = getArguments();
+		if(args != null) {
+			mProfileType = args.getInt(PROFILE_TYPE);
+		}
+	}
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater, ViewGroup container,
@@ -65,9 +93,11 @@ public class ProfileFragment extends BaseFragment {
 							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
 					startActivity(intent);
 				} else {
-					
+					String followId = getArguments() == null ? null : getArguments().getString(PROFILE_FOLLOW_ID);
+					if (!TextUtils.isEmpty(followId)) {
+						new FollowTask(getActivity(), followId).execute((Void) null); 
+					}
 				}
-				
 			}
 		});
 		
@@ -133,14 +163,7 @@ public class ProfileFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		Bundle args = getArguments();
-		if(args != null) {
-			mProfileType = args.getInt(PROFILE_TYPE);
-		}
-		
 		final FragmentActivity activity = getActivity();
-		View view = getView();
-		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
 		// 取本地数据
 		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
@@ -200,6 +223,11 @@ public class ProfileFragment extends BaseFragment {
 		ProfileModel.saveIntro(getActivity(), intro);
 	}
 	
+	private void updateFollow() {
+		Button edit = (Button) getView().findViewById(R.id.edit);
+		edit.setText(R.string.biz_profile_add_followd);
+	}
+	
 	
 	private class BasicInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
@@ -224,6 +252,7 @@ public class ProfileFragment extends BaseFragment {
 			}
 		}
 	}
+	
 	private class RecipeTask extends AsyncTask<Void, Void, RecipeList> {
 
 		private FragmentActivity mActivity;
@@ -244,6 +273,34 @@ public class ProfileFragment extends BaseFragment {
 				grid.setAdapter(new ProfileRecipeAdapter(mActivity, mImageFetcher, result));
 			}
 		}
+	}
+	
+	private class FollowTask extends AsyncTask<Void, Void, Map<String, Object>> {
 		
+		private Context mContext;
+		private String mFollowId;
+		
+		public FollowTask(Context context, String followId) {
+			mContext = context.getApplicationContext();
+			mFollowId = followId;
+		}
+		
+		@Override
+		protected Map<String, Object> doInBackground(Void... params) {
+			return ProfileModel.addFollow(mContext, mFollowId);
+		}
+		
+		@Override
+		protected void onPostExecute(Map<String, Object> result) {
+			if (!isAdded()) {
+				return;
+			}
+			
+			if (result != null && ModelUtils.getIntValue(result, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+				updateFollow();
+			} else {
+				Toast.makeText(mContext, R.string.biz_profile_add_follow_fail, Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 }

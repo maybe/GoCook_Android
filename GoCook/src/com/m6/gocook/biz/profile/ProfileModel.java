@@ -180,6 +180,24 @@ public class ProfileModel {
 		return null;
 	}
 	
+	public static Map<String, Object> addFollow(Context context, String followId) {
+		String result = NetUtils.httpGet(Protocol.URL_PROFILE_ADD_FOLLOW + followId, AccountModel.getCookie(context));
+		if (TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject jsonObject = new JSONObject(result);
+			if(jsonObject != null) {
+				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
+				return resultMap;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+ 	
 	public static ArrayList<People> getPeoples() {
 		ArrayList<People> peoples = new ArrayList<People>();
 		for (int i = 0; i < 10; i++) {

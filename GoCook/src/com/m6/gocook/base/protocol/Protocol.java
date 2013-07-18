@@ -33,6 +33,8 @@ public class Protocol {
 	
 	public static final String URL_PROFILE_MY_COLLECTION = URL_ROOT + "/cook/mycoll?page=";
 	
+	public static final String URL_PROFILE_ADD_FOLLOW = URL_ROOT + "/cook/watch?watchid=";
+	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	
