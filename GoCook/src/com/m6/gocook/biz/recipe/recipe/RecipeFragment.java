@@ -10,6 +10,7 @@ import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
+import com.m6.gocook.biz.profile.ProfileFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentAdapter;
@@ -154,7 +155,17 @@ public class RecipeFragment extends BaseFragment {
 		recipeIntructionTextView.setText(mRecipeEntity.getDesc());
 
 		TextView recipeAuthorTextView = (TextView) findViewById(R.id.recipe_author_textview);
-		recipeAuthorTextView.setText(mRecipeEntity.getAuthor());
+		recipeAuthorTextView.setText(mRecipeEntity.getAuthorName());
+		recipeAuthorTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ProfileFragment.startProfileFragment(mContext, 
+						ProfileFragment.PROFILE_OTHERS,
+						mRecipeEntity.getAuthorId());
+				
+			}
+		});
 
 		TextView recipeAboutTextView = (TextView) findViewById(R.id.recipe_about_textview);
 		recipeAboutTextView.setText(String.format(

@@ -101,7 +101,9 @@ public class RecipeEntity implements IParseable<JSONObject> {
 
 	private String desc;
 
-	private String author;
+	private String authorId;
+	
+	private String authorName;
 
 	private int dishCount;
 
@@ -150,13 +152,21 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
-	public String getAuthor() {
-		return author;
+	
+	public String getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 	public int getDishCount() {
@@ -241,7 +251,8 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			}
 			this.id = recipe.optInt(Protocol.KEY_RECIPE_ID);
 			this.name = recipe.optString(Protocol.KEY_RECIPE_NAME);
-			this.author = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_NAME);
+			this.authorId = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_ID);
+			this.authorName = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_NAME);
 			this.desc = recipe.optString(Protocol.KEY_RECIPE_INTRO);
 			this.coverImgURL = Protocol.URL_ROOT + "/" + recipe.optString(Protocol.KEY_RECIPE_COVER_IMAGE);
 			this.dishCount = recipe.optInt(Protocol.KEY_RECIPE_DISH_COUNT);
