@@ -13,7 +13,8 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1.1"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginRight="5dp"
@@ -21,15 +22,17 @@
 
         <ImageView
             android:id="@+id/image1"
-            android:layout_width="@dimen/biz_popular_item_image_size"
             android:layout_height="@dimen/biz_popular_item_image_size"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_marginRight="5dp"
             android:scaleType="fitXY"
             android:src="@drawable/register_photo" />
 
         <ImageView
             android:id="@+id/image2"
-            android:layout_width="@dimen/biz_popular_item_image_size"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
             android:layout_marginRight="5dp"
             android:scaleType="fitXY"
@@ -37,7 +40,8 @@
 
         <ImageView
             android:id="@+id/image3"
-            android:layout_width="@dimen/biz_popular_item_image_size"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
             android:layout_marginRight="5dp"
             android:scaleType="fitXY"
@@ -45,7 +49,8 @@
 
         <ImageView
             android:id="@+id/image4"
-            android:layout_width="@dimen/biz_popular_item_image_size"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
             android:scaleType="fitXY"
             android:src="@drawable/register_photo" />
