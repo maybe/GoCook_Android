@@ -180,8 +180,14 @@ public class ProfileModel {
 		return null;
 	}
 	
-	public static Map<String, Object> addFollow(Context context, String followId) {
-		String result = NetUtils.httpGet(Protocol.URL_PROFILE_ADD_FOLLOW + followId, AccountModel.getCookie(context));
+	public static Map<String, Object> follow(Context context, String followId, boolean follow) {
+		String url;
+		if (follow) {
+			url = Protocol.URL_PROFILE_FOLLOW + followId;
+		} else {
+			url = Protocol.URL_PROFILE_UNFOLLOW + followId;
+		}
+		String result = NetUtils.httpGet(url, AccountModel.getCookie(context));
 		if (TextUtils.isEmpty(result)) {
 			return null;
 		}

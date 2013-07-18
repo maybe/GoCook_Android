@@ -71,6 +71,7 @@
     <string name="biz_profile_add_follow">关注</string>
     <string name="biz_profile_add_followd">已关注</string>
     <string name="biz_profile_add_follow_fail">关注失败，请重试</string>
+    <string name="biz_profile_unfollow_fail">取消关注失败，请重试</string>
     
     <!-- myaccount -->
     <string name="biz_profile_myaccount_follow">我的关注</string>

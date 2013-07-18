@@ -223,9 +223,13 @@ public class ProfileFragment extends BaseFragment {
 		ProfileModel.saveIntro(getActivity(), intro);
 	}
 	
-	private void updateFollow() {
+	private void updateFollow(boolean followed) {
 		Button edit = (Button) getView().findViewById(R.id.edit);
-		edit.setText(R.string.biz_profile_add_followd);
+		if (followed) {
+			edit.setText(R.string.biz_profile_add_followd);
+		} else {
+			edit.setText(R.string.biz_profile_add_follow);
+		}
 	}
 	
 	
@@ -287,7 +291,7 @@ public class ProfileFragment extends BaseFragment {
 		
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
-			return ProfileModel.addFollow(mContext, mFollowId);
+			return ProfileModel.follow(mContext, mFollowId, true);
 		}
 		
 		@Override
@@ -297,9 +301,38 @@ public class ProfileFragment extends BaseFragment {
 			}
 			
 			if (result != null && ModelUtils.getIntValue(result, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
-				updateFollow();
+				updateFollow(true);
 			} else {
 				Toast.makeText(mContext, R.string.biz_profile_add_follow_fail, Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+	
+	private class UnFollowTask extends AsyncTask<Void, Void, Map<String, Object>> {
+		
+		private Context mContext;
+		private String mFollowId;
+		
+		public UnFollowTask(Context context, String followId) {
+			mContext = context.getApplicationContext();
+			mFollowId = followId;
+		}
+		
+		@Override
+		protected Map<String, Object> doInBackground(Void... params) {
+			return ProfileModel.follow(mContext, mFollowId, false);
+		}
+		
+		@Override
+		protected void onPostExecute(Map<String, Object> result) {
+			if (!isAdded()) {
+				return;
+			}
+			
+			if (result != null && ModelUtils.getIntValue(result, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+				updateFollow(false);
+			} else {
+				Toast.makeText(mContext, R.string.biz_profile_unfollow_fail, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
