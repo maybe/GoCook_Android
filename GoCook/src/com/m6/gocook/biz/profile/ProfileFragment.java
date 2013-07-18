@@ -1,10 +1,7 @@
 package com.m6.gocook.biz.profile;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;

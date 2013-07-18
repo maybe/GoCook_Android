@@ -86,7 +86,7 @@ public class ImgUtils {
 						matrix, true);// 直接按照矩阵的比例把源文件画入进行
 
 				if (src != null && !src.isRecycled()) {
-					src.recycle();
+//					src.recycle();
 					src = null;
 				}
 

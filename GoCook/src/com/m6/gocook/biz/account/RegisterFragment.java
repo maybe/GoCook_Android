@@ -250,6 +250,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 						// 保存邮件、用户名和头像的本地路径
 						AccountModel.saveAccount(context, mEmail);
 						AccountModel.saveUsername(context, username);
+						AccountModel.savePassword(context, mPassword);
 						AccountModel.saveAvatarPath(context, avatarFile != null ? avatarFile.getPath() : "");
 						
 					} else {
@@ -266,11 +267,8 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		@Override
 		protected void onPostExecute(Map<String, Object> result) {
 			mRegisterTask = null;
-			if(mAvatarBitmap != null) {
-				mAvatarBitmap.recycle();
-				mAvatarBitmap = null;
-			}
 			showProgress(false);
+			
 			Context context  = getActivity();
 			if (result != null && !result.isEmpty() && !result.containsKey(AccountModel.RETURN_ERRORCODE)) {
 				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
@@ -313,10 +311,6 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		@Override
 		protected void onCancelled() {
 			mRegisterTask = null;
-			if(mAvatarBitmap != null) {
-				mAvatarBitmap.recycle();
-				mAvatarBitmap = null;
-			}
 			showProgress(false);
 		}
 	}
@@ -335,13 +329,21 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		mAvatarBitmap = null;
-		mAvatarImageView = null;
 		mEmailView = null;
 		mPasswordView = null;
 		mPasswordRepeatView = null;
 		mUsernameView = null;
 		mStatusMessageView = null;
+		mAvatarImageView = null;
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mAvatarBitmap != null) {
+			mAvatarBitmap.recycle();
+			mAvatarBitmap = null;
+		}
 		mAvatarImageView = null;
 	}
 

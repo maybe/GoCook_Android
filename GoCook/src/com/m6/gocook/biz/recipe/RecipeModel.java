@@ -239,17 +239,15 @@ public class RecipeModel {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(result);
+			if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+				return result;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-			return result;
-		} else {
-			return null;
-		}
+		return null;
 	}
 	
 }

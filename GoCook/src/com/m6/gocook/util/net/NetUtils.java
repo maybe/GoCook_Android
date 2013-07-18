@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.m6.gocook.biz.account.AccountModel;
@@ -255,8 +256,8 @@ public class NetUtils {
 			conn.setDoOutput(true);
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			conn.setRequestProperty("Connection", "Keep-Alive");
-			if(!TextUtils.isEmpty(cookie)) {
+			System.setProperty("http.keepAlive", "false"); // android bug
+			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 				System.out.println("setCookie : " + cookie);
 			}
@@ -389,6 +390,7 @@ public class NetUtils {
 					conn.getInputStream());
 			saveCookie(context, conn);
 			result = readStream(in);
+			System.out.println("file :" + file.getPath());
 			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
