@@ -48,7 +48,7 @@
     
     <!-- profile -->
     <string name="biz_profile_edit_btn">编辑</string>
-    <string name="biz_profile_more_btn">查看全部%d个菜谱</string>
+    <string name="biz_profile_more_btn">查看全部%s个菜谱</string>
     <string name="biz_profile_myrecipe_title">%s的菜谱</string>
     <string name="biz_profile_introduction">个人简介\n %s</string>
     <string name="biz_profile_introduction_title">%s的介绍</string>
@@ -69,7 +69,7 @@
     <string name="biz_profile_edit_sex_female">女</string>
     
     <string name="biz_profile_add_follow">关注</string>
-    <string name="biz_profile_add_followd">已关注</string>
+    <string name="biz_profile_add_followd">取消关注</string>
     <string name="biz_profile_add_follow_fail">关注失败，请重试</string>
     <string name="biz_profile_unfollow_fail">取消关注失败，请重试</string>
     

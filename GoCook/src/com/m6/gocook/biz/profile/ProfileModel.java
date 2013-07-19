@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.People;
+import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.File.ImgUtils;
@@ -35,6 +36,9 @@ public class ProfileModel {
 	public static final String PROVINCE = "province";
 	public static final String TELEPHONE = "tel";
 	public static final String INTRO = "intro";
+	public static final String FOLLOW = "watch";
+	public static final String RECIPES_COUNT = "totalrecipecount";
+	public static final String RECIPES = "recipes";
 	
 	public static void saveAge(Context context, String age) {
 		PrefHelper.putString(context, PrefKeys.PROFILE_AGE, age);
@@ -180,6 +184,26 @@ public class ProfileModel {
 		return null;
 	}
 	
+	public static Map<String, Object> getOtherInfo(Context context, String userId) {
+		String result = NetUtils.httpGet(Protocol.URL_PROFILE_OTHER + userId, AccountModel.getCookie(context));
+		if (TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject jsonObject = new JSONObject(result);
+			if(jsonObject != null) {
+				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
+				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+					return ModelUtils.getMapValue(resultMap, "result_kitchen_info");
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static Map<String, Object> follow(Context context, String followId, boolean follow) {
 		String url;
 		if (follow) {
@@ -204,17 +228,46 @@ public class ProfileModel {
 		return null;
 	}
  	
-	public static ArrayList<People> getPeoples() {
-		ArrayList<People> peoples = new ArrayList<People>();
-		for (int i = 0; i < 10; i++) {
-			People people = new People();
-			people.setFans(23);
-			people.setFollows(30);
-			people.setName("卖萌蜀黎喵呜桑");
-			people.setImage("images/recipe/140/23403.1.jpg");
-			peoples.add(people);
+	public static ArrayList<People> getPeoples(Context context, int type) {
+		String result;
+		if (type == PeopleFragment.FOLLOWS) {
+			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_FOLLOWS, AccountModel.getCookie(context));
+		} else {
+			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_FANS, AccountModel.getCookie(context));
 		}
-		return peoples;
+		if (TextUtils.isEmpty(result)) {
+			return null;
+		}
+		
+		try {
+			JSONObject jsonObject = new JSONObject(result);
+			if(jsonObject != null) {
+				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
+				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+					ArrayList<People> peoples = new ArrayList<People>();
+					List<Map<String, Object>> list = ModelUtils.getListMapValue(resultMap, "result_users");
+					if (list != null && !list.isEmpty()) {
+						int size = list.size();
+						for (int i = 0; i < size; i++) {
+							People people = new People();
+//							people.setFans(ModelUtils.getStringValue(list.get(i), ""));
+//							people.setFollows(30);
+							people.setId(ModelUtils.getStringValue(list.get(i), "user_id"));
+							people.setName(ModelUtils.getStringValue(list.get(i), "name"));
+							people.setImage(ModelUtils.getStringValue(list.get(i), "portrait"));
+							peoples.add(people);
+						}
+						return peoples;
+					}
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+		
 	}
 	
 	private static Bitmap getAvatarBitmap(Context context, Bitmap bitmap, Uri uri) {

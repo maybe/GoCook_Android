@@ -84,8 +84,10 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putInt(PeopleFragment.TYPE, PeopleFragment.FOLLOWS);
 				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
-						PeopleFragment.class.getName(), PeopleFragment.class.getName(), null);
+						PeopleFragment.class.getName(), PeopleFragment.class.getName(), bundle);
 				startActivity(intent);
 				
 			}
@@ -95,8 +97,10 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putInt(PeopleFragment.TYPE, PeopleFragment.FANS);
 				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
-						PeopleFragment.class.getName(), PeopleFragment.class.getName(), null);
+						PeopleFragment.class.getName(), PeopleFragment.class.getName(), bundle);
 				startActivity(intent);
 				
 			}

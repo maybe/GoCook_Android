@@ -37,6 +37,14 @@ public class Protocol {
 	
 	public static final String URL_PROFILE_UNFOLLOW = URL_ROOT + "/cook/unwatch?watchid=";
 	
+	public static final String URL_PROFILE_OTHER = URL_ROOT + "/cook/kitchen?userid=";
+	
+	public static final String URL_PROFILE_OTHER_RECIPES = URL_ROOT + "/cook/usersrecipes?userid=%s&page=";
+	
+	public static final String URL_PROFILE_MY_FOLLOWS = URL_ROOT + "/cook/mywatch?page=";
+	
+	public static final String URL_PROFILE_MY_FANS = URL_ROOT + "/cook/myfans?page=";
+	
 	/** Popular URL */
 	public static final String URL_POPULAR = URL_ROOT + "/index/ios_main";
 	

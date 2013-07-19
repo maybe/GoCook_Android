@@ -2,6 +2,7 @@ package com.m6.gocook.biz.profile;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.ListView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.People;
 import com.m6.gocook.base.fragment.BaseListFragment;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.account.AccountModel;
 
 public class PeopleFragment extends BaseListFragment {
 
@@ -21,6 +24,21 @@ public class PeopleFragment extends BaseListFragment {
 	private PeopleAdapter mAdapter;
 	private ArrayList<People> mPeoples;
 	
+	public static int FANS = 0;
+	public static int FOLLOWS = 1;
+	public static String TYPE = "type";
+	
+	private int mPeopleListType;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			mPeopleListType = bundle.getInt(TYPE);
+		}
+	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -28,9 +46,13 @@ public class PeopleFragment extends BaseListFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		ActionBar actionBar = getActionBar();
-		actionBar.setTitle(getString(R.string.biz_profile_myaccount_fans_title, "卖萌蜀黎喵呜桑"));
+		if (mPeopleListType == FOLLOWS) {
+			actionBar.setTitle(getString(R.string.biz_profile_myaccount_follows_title, AccountModel.getUsername(getActivity())));
+		} else {
+			actionBar.setTitle(getString(R.string.biz_profile_myaccount_fans_title, AccountModel.getUsername(getActivity())));
+		}
 		
-		ListView listView = getListView();
+		final ListView listView = getListView();
 		if(listView != null) {
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -38,25 +60,28 @@ public class PeopleFragment extends BaseListFragment {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					
+					if (mAdapter != null) {
+						ProfileFragment.startProfileFragment(getActivity(), 
+								ProfileFragment.PROFILE_OTHERS, mAdapter.getItem(position).getId());
+					}
 				}
 				
 			});
 		}
 	}
+	
 	@Override
 	protected String getURL() {
-		// TODO Auto-generated method stub
-		return null;
+		return Protocol.URL_PROFILE_MY_FOLLOWS;
 	}
 
 	@Override
 	protected void executeTask() {
 		if(mPeopleListTask == null) {
-			mPeopleListTask = new PeopleListTask(getURLWithPageNum());
+			mPeopleListTask = new PeopleListTask(getActivity(), mPeopleListType);
 			mPeopleListTask.execute((Void) null); 
 		}
 	}
-
 
 	@Override
 	protected BaseAdapter getAdapter() {
@@ -65,20 +90,26 @@ public class PeopleFragment extends BaseListFragment {
 
 	private class PeopleListTask extends AsyncTask<Void, Void, ArrayList<People>> {
 
-		private String mUrl;
+		private Context mContext;
+		private int mPeopleType;
 		
-		public PeopleListTask(String url) {
-			mUrl = url;
+		public PeopleListTask(Context context, int type) {
+			mContext = context.getApplicationContext();
+			mPeopleType = type;
 		}
 		
 		@Override
 		protected ArrayList<People> doInBackground(Void... params) {
-			return ProfileModel.getPeoples();
+			return ProfileModel.getPeoples(mContext, mPeopleType);
 		}
 		
 		@Override
 		protected void onPostExecute(ArrayList<People> result) {
 			mPeopleListTask = null;
+			if (!isAdded()) {
+				return;
+			}
+			
 			showProgress(false);
 			mFooterView.setVisibility(View.GONE);
 			

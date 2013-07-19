@@ -28,7 +28,7 @@ public class RecipeList implements IParseable<JSONObject> {
 		this.recipes = recipes;
 	}
 	
-	public class RecipeItem {
+	public static class RecipeItem {
 		
 		private String id;
 		private String name;
