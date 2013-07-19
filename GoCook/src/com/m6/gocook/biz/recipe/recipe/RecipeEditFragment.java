@@ -13,6 +13,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
+import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.util.File.ImgUtils;
 
@@ -38,7 +39,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class RecipeEditFragment extends BaseFragment {
+public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnPhotoPickCallback {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
@@ -75,51 +76,13 @@ public class RecipeEditFragment extends BaseFragment {
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 	}
 	
-	private OnPhotoPickCallback mPhotoPickCallback = new OnPhotoPickCallback() {
-		
-		@Override
-		public void onPhotoPickResult(Uri uri, final Bitmap bitmap) {
-			if(mCurrentImageView != null) {
-				mCurrentImageView.setImageBitmap(bitmap);
-				if(bitmap != null) {
-					mCurrentImageView.setImageBitmap(bitmap);
-				} else if (uri != null) {
-					mCurrentImageView.setImageURI(uri);
-				} else {
-					mCurrentImageView.setImageResource(R.drawable.register_photo);
-				}
-				
-				
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						File file = ImgUtils.createBitmapFile("aaaaaa", bitmap);
-						RecipeModel.uploadRecipeCoverImage(mContext, file);
-					}
-				}).start();
-				
-			}
-			
-		}
-	};
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		mInflater = inflater;
 		mRootView = inflater.inflate(R.layout.fragment_recipe_edit, null, false);
-		
-		mRootView.findViewById(R.id.cover_imageview).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mCurrentImageView = (ImageView) v;
-				PhotoPickDialogFragment.startForResult(getChildFragmentManager(), mPhotoPickCallback);
-			}
-		});
-		
-		
+		mRootView.findViewById(R.id.cover_imageview).setOnClickListener(this);
 		return mRootView;
 	}
 	
@@ -196,12 +159,15 @@ public class RecipeEditFragment extends BaseFragment {
 			new AchieveRecipeTask().execute();
 		}
 
+		final EditText descEditText = (EditText) findViewById(R.id.recipe_introduction_edittext);
+		descEditText.setOnTouchListener(new MyEditTextOnTouchListener(8));
+		
 		final EditText tipsEditText = (EditText) findViewById(R.id.recipe_tips_edittext);
 		tipsEditText.setOnTouchListener(new MyEditTextOnTouchListener(8));
 
 		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
 		for (int i = 0; i < 5; i++) {
-			materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null));
+			materialLayout.addView(createMaterialView());
 		}
 
 		((Button) findViewById(R.id.material_addmore_button))
@@ -209,16 +175,13 @@ public class RecipeEditFragment extends BaseFragment {
 
 					@Override
 					public void onClick(View v) {
-						materialLayout.addView(mInflater.inflate(R.layout.adapter_recipe_edit_material_item,
-								null));
-
+						materialLayout.addView(createMaterialView());
 					}
 				});
 
 		final LinearLayout procedureLayout = (LinearLayout) findViewById(R.id.procedure_layout);
 		for (int i = 0; i < 5; i++) {
-			procedureLayout.addView(mInflater.inflate(
-					R.layout.adapter_recipe_edit_procedure_item, null));
+			procedureLayout.addView(createProcedureView());
 		}
 
 		((Button) findViewById(R.id.procedure_addmore_button))
@@ -226,9 +189,7 @@ public class RecipeEditFragment extends BaseFragment {
 
 					@Override
 					public void onClick(View v) {
-						procedureLayout.addView(mInflater.inflate(
-								R.layout.adapter_recipe_edit_procedure_item,
-								null));
+						procedureLayout.addView(createProcedureView());
 					}
 				});
 		
@@ -253,6 +214,22 @@ public class RecipeEditFragment extends BaseFragment {
 		
 	}
 	
+	private View createMaterialView() {
+		return mInflater.inflate(R.layout.adapter_recipe_edit_material_item,
+				null);
+	}
+	
+	private View createProcedureView() {
+
+		View view = mInflater.inflate(
+				R.layout.adapter_recipe_edit_procedure_item,
+				null);
+		
+		View imageView = view.findViewById(R.id.image);
+		imageView.setOnClickListener(this);
+		return view;
+	}
+	
 	private View applyMaterial() {
 		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
 		
@@ -274,7 +251,7 @@ public class RecipeEditFragment extends BaseFragment {
 		for (; materialFlag < materialCount; materialFlag++) {
 			
 			Material material = materials.get(materialFlag);
-			View view = mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null);
+			View view = createMaterialView();
 			
 			applyDataToMaterialItem(view, material);
 			materialLayout.addView(view);
@@ -312,7 +289,7 @@ public class RecipeEditFragment extends BaseFragment {
 		for (; procedureFlag < procedureCount; procedureFlag++) {
 			
 			Procedure procedure = procedures.get(procedureFlag);
-			View view = mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null);
+			View view = createProcedureView();
 			
 			applyDataToProcedurelItem(view, procedure);
 			procedureLayout.addView(view);
@@ -357,5 +334,37 @@ public class RecipeEditFragment extends BaseFragment {
 			super.onPostExecute(result);
 		}
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		mCurrentImageView = (ImageView) v;
+		PhotoPickDialogFragment.startForResult(getChildFragmentManager(), this);
+	}
+
+	@Override
+	public void onPhotoPickResult(final Uri uri, final Bitmap bitmap) {
+		if(mCurrentImageView != null) {
+			mCurrentImageView.setImageBitmap(bitmap);
+			if(bitmap != null) {
+				mCurrentImageView.setImageBitmap(bitmap);
+			} else if (uri != null) {
+				mCurrentImageView.setImageURI(uri);
+			} else {
+				mCurrentImageView.setImageResource(R.drawable.register_photo);
+			}
+			
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					
+					File file = ProfileModel.getAvatarFile(mContext, bitmap, uri);
+					RecipeModel.uploadRecipeCoverImage(mContext, file);
+				}
+			}).start();
+			
+		}
 	}
 }

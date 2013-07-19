@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="2dp" >
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal" >
 
     <EditText
         android:id="@+id/desc"
@@ -11,24 +11,44 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
         android:layout_weight="2"
-        android:padding="10dp"
         android:background="@android:color/white"
         android:ems="10"
         android:gravity="top|left"
         android:lineSpacingMultiplier="1"
-        android:lines="8"
+        android:lines="6"
+        android:padding="10dp"
         android:scrollbars="vertical"
         android:singleLine="false"
         android:textColor="#3B272D"
         android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/image"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
         android:layout_weight="1"
-        android:src="@drawable/landscape_photo"
-        android:background="@android:color/white" />
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/image"
+            android:background="@android:color/white"
+            android:src="@drawable/landscape_photo"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+        
+        <!-- <Button 
+            android:id="@+id/button_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:padding="3dp"
+            android:text="upload"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:background="@drawable/recipe_comments_commit_button_selector"
+            /> -->
+    </LinearLayout>
 
 </LinearLayout>
