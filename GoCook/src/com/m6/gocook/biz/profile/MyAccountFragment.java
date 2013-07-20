@@ -19,6 +19,8 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
@@ -143,23 +145,23 @@ public class MyAccountFragment extends Fragment {
 		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
 		// 取本地数据
-		String avatarPath = AccountModel.getAvatarPath(activity);
-		if(!TextUtils.isEmpty(avatarPath)) {
-			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
-		}
-		((TextView) view.findViewById(R.id.name)).setText(AccountModel.getUsername(activity));
+//		String avatarPath = AccountModel.getAvatarPath(activity);
+//		if(!TextUtils.isEmpty(avatarPath)) {
+//			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
+//		}
+//		((TextView) view.findViewById(R.id.name)).setText(AccountModel.getUsername(activity));
 		
 		
 		// 从网络取数据
-//		Bundle args = getArguments();
-//		if(args != null) {
-//			String url = args.getString(AccountModel.RETURN_ICON);
-//			if(!TextUtils.isEmpty(url)) {
-//				mImageFetcher.loadImage(url, avatar);
-//			}
-//			String userName = args.getString(AccountModel.RETURN_USERNAME);
-//			setTitle(userName);
-//		}
+		Bundle args = getArguments();
+		if(args != null) {
+			String url = args.getString(AccountModel.RETURN_ICON);
+			if(!TextUtils.isEmpty(url)) {
+				mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
+			}
+			String userName = args.getString(AccountModel.RETURN_USERNAME);
+			((TextView) activity.findViewById(R.id.name)).setText(userName);
+		}
 	}
 	
 	@Override

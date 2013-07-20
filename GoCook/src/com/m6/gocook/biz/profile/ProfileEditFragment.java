@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
@@ -317,12 +318,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 				try {
 					JSONObject json = new JSONObject(result);
 					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-					if (responseCode == AccountModel.SUCCESS) {
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						// 保存邮件、用户名和头像的本地路径
 						if (!TextUtils.isEmpty(mParamUsername)) {
 							AccountModel.saveUsername(mContext, mParamUsername);
 						}
-						AccountModel.saveAvatarPath(mContext, avatarFile != null ? avatarFile.getPath() : "");
+						AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
 						// 保存个人信息
 						if (mParamBirth != null) {
 							ProfileModel.saveAge(mContext, mParamBirth);

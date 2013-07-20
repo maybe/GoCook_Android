@@ -26,6 +26,7 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.profile.ProfileEditFragment;
 import com.m6.gocook.util.preference.PrefHelper;
@@ -202,15 +203,17 @@ public class LoginFragment extends BaseFragment {
 				try {
 					JSONObject json = new JSONObject(result);
 					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-					if (responseCode == AccountModel.SUCCESS) {
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
 						String userName = json.optString(AccountModel.RETURN_USERNAME);
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
+						
 						AccountModel.saveAccount(mContext, mEmail);
 						AccountModel.saveUsername(mContext, userName);
 						AccountModel.savePassword(mContext, mPassword);
+						AccountModel.saveAvatarPath(mContext, icon);
 						return map;
 					}
 				} catch (JSONException e) {
