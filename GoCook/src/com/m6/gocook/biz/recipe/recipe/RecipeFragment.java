@@ -381,7 +381,6 @@ public class RecipeFragment extends BaseFragment {
 		
 		@Override
 		protected void onPreExecute() {
-			showProgress(true);
 		}
 		
 		@Override
@@ -410,7 +409,6 @@ public class RecipeFragment extends BaseFragment {
 							.show();
 				}
 			}
-			showProgress(false);
 			
 		}
 		
