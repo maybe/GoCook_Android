@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 
 import android.os.Bundle;
 
+import com.m6.gocook.R;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.recipe.list.RecipeListFragment;
@@ -40,6 +41,11 @@ public class SearchFragment extends RecipeListFragment {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	protected String getEmptyMessage() {
+		return getString(R.string.biz_search_empty_message, mKeyWords);
 	}
 
 }

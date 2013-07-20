@@ -27,6 +27,7 @@
     <string name="biz_search_box_hint">搜索菜谱</string>
     <string name="biz_search_error_tip">点击获取菜谱</string>
     <string name="biz_search_clean">清除历史记录</string>
+    <string name="biz_search_empty_message">没有找到与\"%s\"相关的菜谱</string>
     
     <!-- account -->
     <string name="biz_account_tab_login">登录</string>
