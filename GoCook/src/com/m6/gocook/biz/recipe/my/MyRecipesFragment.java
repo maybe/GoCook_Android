@@ -18,29 +18,33 @@ public class MyRecipesFragment extends RecipeListFragment {
 
 	public static final String PARAM_FROM_PROFILE = "param_from_profile";
 	
-	private boolean mFromProfile = false; // 从我的个人资料页面跳转而来就从本地取数据，否则取网络数据
+	private boolean mFromPersonnalProfile = false; // 从我的个人资料页面跳转而来就从本地取数据，否则取网络数据
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		if(args != null) {
-			mFromProfile = args.getBoolean(PARAM_FROM_PROFILE);
+			mFromPersonnalProfile = args.getBoolean(PARAM_FROM_PROFILE);
 		}
 	}
 	
 	@Override
 	public View onCreateHeaderView(LayoutInflater inflater, ViewGroup container) {
-		View view = inflater.inflate(R.layout.fragment_myrecipes_header, container, false);
-		view.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				RecipeEditFragment.startInActivity(getActivity(),
-						RecipeEditFragment.Mode.RECIPE_NEW, "");
-			}
-		});
-		return view;
+		if (mFromPersonnalProfile) {
+			View view = inflater.inflate(R.layout.fragment_myrecipes_header, container, false);
+			view.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					RecipeEditFragment.startInActivity(getActivity(),
+							RecipeEditFragment.Mode.RECIPE_NEW, "");
+				}
+			});
+			return view;
+		} else {
+			return null;
+		}
 	}
 	
 	@Override
@@ -64,7 +68,7 @@ public class MyRecipesFragment extends RecipeListFragment {
 	
 	@Override
 	protected RecipeList getListData(String url) {
-		return RecipeModel.getMyRecipes(getActivity(), mFromProfile);
+		return RecipeModel.getMyRecipes(getActivity(), mFromPersonnalProfile);
 	}
 	
 	@Override
