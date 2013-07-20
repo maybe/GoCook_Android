@@ -34,6 +34,7 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
@@ -95,10 +96,10 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		setOnListeners();
 		initIntro();
 		
-		// 取本地数据
-		String avatarPath = PrefHelper.getString(activity, PrefKeys.ACCOUNT_AVATAR, "");
-		if(!TextUtils.isEmpty(avatarPath)) {
-			mAvatarImageView.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
+		ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
+		String url = AccountModel.getAvatarPath(getActivity());
+		if(!TextUtils.isEmpty(url)) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
 		}
 		
 	}
