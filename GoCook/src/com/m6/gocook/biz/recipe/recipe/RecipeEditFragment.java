@@ -41,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnPhotoPickCallback {
 
@@ -326,8 +327,18 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		EditText desc = (EditText) view.findViewById(R.id.desc);
 		desc.setText(procedure.getDesc());
 
-		ImageView image = (ImageView) view.findViewById(R.id.image);
-		mImageFetcher.loadImage(procedure.getImageURL(), image);
+		if(!TextUtils.isEmpty(procedure.getImageURL())) {
+			ImageView image = (ImageView) view.findViewById(R.id.image);
+			mImageFetcher.loadImage(procedure.getImageURL(), image);
+			
+			view.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.button_upload).setEnabled(false);
+		}
+	}
+	
+	private void showUploadingProgressBar(boolean show) {
+		findViewById(R.id.progressbar_layout).setVisibility(
+				show ? View.VISIBLE : View.GONE);
 	}
 	
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
@@ -383,6 +394,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			
 			LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
 			parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
+			parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -396,7 +408,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showProgress(true);
+			showUploadingProgressBar(true);
 		}
 		
 		@Override
@@ -422,11 +434,21 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			if(mCurrentImageView != null) {
-				mCurrentImageView.setTag(result);
-			}
 			if(isAdded()){
-				showProgress(false);
+				if(mCurrentImageView != null) {
+					mCurrentImageView.setTag(result);
+				}
+				showUploadingProgressBar(false);
+				LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
+				
+				if(TextUtils.isEmpty(result)) {
+					parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
+					Toast.makeText(mContext, R.string.biz_recipe_edit_upload_failed, Toast.LENGTH_SHORT).show();
+				} else {
+					parent.findViewById(R.id.button_upload).setVisibility(View.GONE);
+					Toast.makeText(mContext, R.string.biz_recipe_edit_upload_ok, Toast.LENGTH_SHORT).show();
+				}
+				
 			}
 			
 		}
@@ -435,7 +457,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		protected void onCancelled() {
 			super.onCancelled();
 			if(isAdded()){
-				showProgress(false);
+				showUploadingProgressBar(false);
 			}
 		}
 		

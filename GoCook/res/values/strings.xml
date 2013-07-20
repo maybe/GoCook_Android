@@ -125,6 +125,10 @@
     <string name="biz_recipe_edit_actionbar_opt">操作</string>
     <string name="biz_recipe_edit_actionbar_edit">编辑这个菜谱</string>
     <string name="biz_recipe_edit_actionbar_delete">删除这个菜谱</string>
+    <string name="biz_recipe_edit_progressbar">上传中...</string>
+    <string name="biz_recipe_edit_upload_ok">上传成功</string>
+    <string name="biz_recipe_edit_upload_failed">长传失败</string>
+    
     
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>
@@ -134,6 +138,7 @@
     <string name="biz_recipe_comment_button_commit">提交</string>
     <string name="biz_recipe_comment_addfailed">评论失败</string>
     <string name="biz_recipe_comment_input_null">请输入评论内容</string>
+    <string name="biz_recipe_comment_input_less">输入内容太少了哦</string>
     
     <!-- purchase list -->
     <string name="biz_recipe_purchase_material">做%s道菜所需的材料</string>

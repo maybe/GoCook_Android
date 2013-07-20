@@ -122,6 +122,8 @@ public class RecipeCommentFragment extends BaseFragment {
 				String content = mInputText.getText().toString().trim();
 				if(TextUtils.isEmpty(content)) {
 					Toast.makeText(mContext, R.string.biz_recipe_comment_input_null, Toast.LENGTH_SHORT).show();
+				} else if(content.length() < 2) {
+					Toast.makeText(mContext, R.string.biz_recipe_comment_input_less, Toast.LENGTH_SHORT).show();
 				} else {
 					if(mPostTask == null) {
 						mPostTask = new PostCommentTask();
