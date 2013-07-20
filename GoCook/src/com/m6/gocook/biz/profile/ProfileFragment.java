@@ -54,6 +54,7 @@ public class ProfileFragment extends BaseFragment {
 	
 	private static final int FOLLOWED = 0; // 已关注
 	private static final int FOLLOW = 1; // 未关注
+	private static final int FOLLOW_DEFAULT = -1;
 	
 	private int mProfileType = 0;
 	private String mUserId;
@@ -205,7 +206,11 @@ public class ProfileFragment extends BaseFragment {
 			edit.setText(R.string.biz_profile_edit_btn);
 		} else {
 			mFollowStatus = ModelUtils.getIntValue(info, ProfileModel.FOLLOW, 1);
-			edit.setText(mFollowStatus == FOLLOW ? R.string.biz_profile_add_follow : R.string.biz_profile_add_followd);
+			if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
+				edit.setText(R.string.biz_profile_add_follow);
+			} else if(mFollowStatus == FOLLOWED) {
+				edit.setText(R.string.biz_profile_add_followd);
+			}
 		}
 		edit.setOnClickListener(new OnClickListener() {
 			
@@ -218,7 +223,7 @@ public class ProfileFragment extends BaseFragment {
 				} else {
 					String followId = getArguments() == null ? null : getArguments().getString(PROFILE_FOLLOW_ID);
 					if (!TextUtils.isEmpty(followId)) {
-						if (mFollowStatus == FOLLOW) {
+						if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
 							new FollowTask(getActivity(), followId).execute((Void) null); 
 						} else if(mFollowStatus == FOLLOWED) {
 							new UnFollowTask(getActivity(), followId).execute((Void) null); 

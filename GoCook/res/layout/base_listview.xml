@@ -3,5 +3,6 @@
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:listSelector="@android:color/transparent"
     android:cacheColorHint="@android:color/transparent"
     android:divider="@android:color/transparent" />
