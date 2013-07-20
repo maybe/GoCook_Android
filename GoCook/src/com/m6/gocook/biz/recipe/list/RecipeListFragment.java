@@ -90,6 +90,11 @@ public abstract class RecipeListFragment extends BaseListFragment {
 		return false;
 	}
 	
+	/**
+	 * 没有数据时的文字提示,返回null不显示提示
+	 * 
+	 * @return
+	 */
 	protected String getEmptyMessage() {
 		return getString(R.string.base_empty_text);
 	}

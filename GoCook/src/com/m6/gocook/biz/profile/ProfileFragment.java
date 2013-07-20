@@ -141,7 +141,8 @@ public class ProfileFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				Bundle bundle = new Bundle();
-				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, true);
+				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, 
+						mProfileType == PROFILE_MYSELF ? true : false);
 				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
 				startActivity(intent);
