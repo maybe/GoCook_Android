@@ -360,6 +360,10 @@ public class ProfileFragment extends BaseFragment {
 		
 		@Override
 		protected void onPostExecute(RecipeList result) {
+			if (!isAdded()) {
+				return;
+			}
+			
 			GridView grid = (GridView) mActivity.findViewById(R.id.recipe_grid);
 			if (grid != null && result != null && !result.getRecipes().isEmpty()) {
 				grid.setAdapter(new ProfileRecipeAdapter(mActivity, mImageFetcher, result));

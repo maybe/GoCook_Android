@@ -144,24 +144,12 @@ public class MyAccountFragment extends Fragment {
 		
 		
 		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
-		// 取本地数据
-//		String avatarPath = AccountModel.getAvatarPath(activity);
-//		if(!TextUtils.isEmpty(avatarPath)) {
-//			avatar.setImageBitmap(BitmapFactory.decodeFile(avatarPath));
-//		}
-//		((TextView) view.findViewById(R.id.name)).setText(AccountModel.getUsername(activity));
-		
-		
-		// 从网络取数据
-		Bundle args = getArguments();
-		if(args != null) {
-			String url = args.getString(AccountModel.RETURN_ICON);
-			if(!TextUtils.isEmpty(url)) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
-			}
-			String userName = args.getString(AccountModel.RETURN_USERNAME);
-			((TextView) activity.findViewById(R.id.name)).setText(userName);
+		String url = AccountModel.getAvatarPath(activity);
+		if(!TextUtils.isEmpty(url)) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
 		}
+		String userName = AccountModel.getUsername(activity);
+		((TextView) activity.findViewById(R.id.name)).setText(userName);
 	}
 	
 	@Override
