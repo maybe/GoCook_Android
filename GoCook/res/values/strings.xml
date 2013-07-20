@@ -21,7 +21,7 @@
     <string name="base_empty_text">数据加载失败，请重试</string>
     
     <!-- progress -->
-    <string name="base_progress_message">正在加载&#8230;</string>
+    <string name="base_progress_message">&#160;&#160;正在加载&#8230;</string>
     
     <!-- 搜索 -->
     <string name="biz_search_box_hint">搜索菜谱</string>
@@ -85,6 +85,10 @@
     <string name="biz_profile_myaccount_fans_title">%s的粉丝</string>
     <string name="biz_profile_myaccount_follows_title">%s关注的人</string>
     
+    <string name="biz_profile_fans_empty_message">您还没有粉丝哦~</string>
+    <string name="biz_profile_follows_empty_message">暂时还没有关注的人哦~</string>
+    <string name="biz_profile_mycollection_empty_message">您目前没有收藏的菜谱，快去看看吧！</string>
+    <string name="biz_profile_myrecipe_empty_message">您没有创建过菜谱，动手去做！</string>
     
     <!-- recipe -->
     <string name="biz_recipe_about" formatted="false">%s人做过 %s人收藏</string>

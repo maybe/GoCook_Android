@@ -114,6 +114,16 @@ public class PeopleFragment extends BaseListFragment {
 			mFooterView.setVisibility(View.GONE);
 			
 			if (result != null) {
+				if (result.isEmpty()) {
+					if (mPeopleListType == FOLLOWS) {
+						setEmptyMessage(getString(R.string.biz_profile_follows_empty_message));
+					} else if (mPeopleListType == FANS) {
+						setEmptyMessage(getString(R.string.biz_profile_fans_empty_message));
+					}
+					showEmpty(true);
+					return;
+				}
+				
 				if(mAdapter != null) {
 					if(mPeoples == null) { // 第一页
 						mPeoples = result;

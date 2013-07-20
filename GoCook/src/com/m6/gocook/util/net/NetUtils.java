@@ -39,9 +39,9 @@ public class NetUtils {
 	
 	public static final String GET = "GET";
 	
-	private static final int HTTP_READ_TIMEOUT = 60000;
+	private static final int HTTP_READ_TIMEOUT = 90000;
 	
-	private static final int HTTP_CONNECT_TIMEOUT = 60000;
+	private static final int HTTP_CONNECT_TIMEOUT = 90000;
 
 	/**
 	 * Check network connection status
@@ -256,7 +256,7 @@ public class NetUtils {
 			conn.setDoOutput(true);
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			System.setProperty("http.keepAlive", "false"); // android bug
+			System.setProperty("http.keepAlive", "false"); // maybe android bug
 			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 				System.out.println("setCookie : " + cookie);

@@ -5,12 +5,13 @@
     android:background="@color/main_bg" >
 
     <TextView
+        android:id="@+id/empty_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
+        android:textColor="#aea8a4"
  		android:fontFamily="sans-serif-light"
-        android:textColor="@android:color/black"
         android:text="@string/base_empty_text"
         android:textSize="16sp" />
 

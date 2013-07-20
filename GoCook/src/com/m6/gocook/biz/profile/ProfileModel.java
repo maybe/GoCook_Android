@@ -257,8 +257,8 @@ public class ProfileModel {
 							people.setImage(ModelUtils.getStringValue(list.get(i), "portrait"));
 							peoples.add(people);
 						}
-						return peoples;
 					}
+					return peoples;
 				}
 			}
 		} catch (JSONException e) {
