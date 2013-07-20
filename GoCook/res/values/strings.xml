@@ -120,6 +120,8 @@
     <string name="biz_recipe_edit_procedure_tip">左：步骤说明（必填）   右：步骤示意图</string>
     <string name="biz_recipe_edit_procedure_addmore">再加一项</string>
     <string name="biz_recipe_edit_tip_tip">做好这道菜的小诀窍</string>
+    <string name="biz_recipe_edit_upload_photo">上传</string>
+    <string name="biz_recipe_edit_remove_photo">移除</string>
     
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>

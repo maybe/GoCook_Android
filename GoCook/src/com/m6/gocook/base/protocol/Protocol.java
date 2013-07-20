@@ -23,6 +23,8 @@ public class Protocol {
 	public static final String URL_RECIPE_COLLECT_DELETE = URL_ROOT + "/cook/delmycoll?collid=%s";
 	
 	public static final String URL_RECIPE_UPLOAD_COVERIMAGE_STRING = URL_ROOT + "/recipe/uploadCoverPhoto";
+
+	public static final String URL_RECIPE_UPLOAD_STEPIMAGE_STRING = URL_ROOT + "/recipe/uploadStepPhoto";
 	
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
@@ -98,6 +100,7 @@ public class Protocol {
 	
 	/* Upload Image File Protocol */
 	public static final String KEY_RECIPE_UPLOAD_COVERIMAGE = "cover";
+	public static final String KEY_RECIPE_UPLOAD_STEPIMAGE = "step";
 		
 	/* Popular JSON Protocol */
 	public static final String KEY_POPULAR_TOPNEW_IMG = "topnew_img";

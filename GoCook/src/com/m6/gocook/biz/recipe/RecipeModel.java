@@ -240,7 +240,27 @@ public class RecipeModel {
 		try {
 			jsonObject = new JSONObject(result);
 			if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-				return result;
+				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_COVERIMAGE);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static String uploadRecipeStepImage(Context context, File imageFile) {
+		String result = NetUtils.httpPost(context,
+				Protocol.URL_RECIPE_UPLOAD_STEPIMAGE_STRING,
+				imageFile,
+				Protocol.KEY_RECIPE_UPLOAD_STEPIMAGE);
+		
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+			if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_COVERIMAGE);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

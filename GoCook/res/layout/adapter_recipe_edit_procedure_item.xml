@@ -31,24 +31,46 @@
 
         <ImageView
             android:id="@+id/image"
-            android:background="@android:color/white"
-            android:src="@drawable/landscape_photo"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
-        
-        <!-- <Button 
-            android:id="@+id/button_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:padding="3dp"
-            android:text="upload"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:background="@drawable/recipe_comments_commit_button_selector"
-            /> -->
+            android:layout_height="80dp"
+            android:background="@android:color/white"
+            android:scaleType="centerCrop"
+            android:src="@drawable/landscape_photo" />
+
+        <LinearLayout
+            android:id="@+id/button_layout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+            <Button
+                android:id="@+id/button_upload"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+				android:layout_margin="3dp"
+                android:padding="5dp"
+                android:background="@drawable/recipe_edit_button_selector"
+                android:text="@string/biz_recipe_edit_upload_photo"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/button_remove"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+				android:layout_margin="3dp"
+                android:padding="5dp"
+                android:background="@drawable/recipe_edit_button_selector"
+				android:text="@string/biz_recipe_edit_remove_photo"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -15,11 +15,14 @@ import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.recipe.UploadImageLayout.UploadAsyncTask;
 import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.log.Logger;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,8 +54,11 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	private String mRecipeId;
 	private RecipeEntity mRecipeEntity;
 	private LayoutInflater mInflater;
-	private ImageView mCurrentImageView;
 	private Mode mMode;
+	
+	private ImageView mCurrentImageView;
+	private Uri mCurrentSelectedUri;
+	private Bitmap mCurrentSelectedBitmap;
 	
 	public enum Mode {
 		RECIPE_NEW, RECIPE_EDIT
@@ -221,12 +227,30 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	
 	private View createProcedureView() {
 
-		View view = mInflater.inflate(
+		final View view = mInflater.inflate(
 				R.layout.adapter_recipe_edit_procedure_item,
 				null);
 		
-		View imageView = view.findViewById(R.id.image);
+		final ImageView imageView = (ImageView) view.findViewById(R.id.image);
 		imageView.setOnClickListener(this);
+		
+		view.findViewById(R.id.button_upload).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new UploadAsyncTask(imageView).execute();
+			}
+		});
+		
+		view.findViewById(R.id.button_remove).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				view.findViewById(R.id.button_layout).setVisibility(View.GONE);
+				imageView.setImageResource(R.drawable.landscape_photo);
+				}
+		});
+		
 		return view;
 	}
 	
@@ -354,17 +378,73 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 				mCurrentImageView.setImageResource(R.drawable.register_photo);
 			}
 			
+			// After select new picture, set ImageView tag to null
+			mCurrentImageView.setTag(null);
 			
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					
-					File file = ProfileModel.getAvatarFile(mContext, bitmap, uri);
-					RecipeModel.uploadRecipeCoverImage(mContext, file);
-				}
-			}).start();
-			
+			LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
+			parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
 		}
 	}
+	
+	public class UploadAsyncTask extends AsyncTask<Void, Void, String> {
+
+		private ImageView mImageView;
+		public UploadAsyncTask(ImageView imageView) {
+			mImageView = imageView;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgress(true);
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			if(mImageView == null) {
+				Logger.e(TAG, "mImageView is null");
+				return null;
+			}
+			
+			File file = ImgUtils.createBitmapFile("pic" + System.currentTimeMillis(),
+					((BitmapDrawable)mImageView.getDrawable()).getBitmap());
+			
+			if(file != null) {
+				if(mImageView.getId() == R.id.cover_imageview) {
+					return RecipeModel.uploadRecipeCoverImage(mContext, file);
+				} else {
+					return RecipeModel.uploadRecipeStepImage(mContext, file);
+				}
+			}
+			return null;
+		}		
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			if(mCurrentImageView != null) {
+				mCurrentImageView.setTag(result);
+			}
+			if(isAdded()){
+				showProgress(false);
+			}
+			
+		}
+		
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+			if(isAdded()){
+				showProgress(false);
+			}
+		}
+		
+	}
+	
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
 }

@@ -18,6 +18,9 @@
     <color name="recipe_comments_commit_button_bg">#6f0706</color>
     <color name="recipe_comments_commit_button_bg_pressed">#ef5321</color>
     
+    <color name="recipe_edit_button_bg">#b81e26</color>
+    <color name="recipe_edit_button_bg_pressed">#ef5321</color>
+    
     <color name="purchase_recipe_list_item_title_bg">#ffffff</color>
     <color name="purchase_recipe_list_item_title_bg_pressed">#f9f6f4</color>
     
