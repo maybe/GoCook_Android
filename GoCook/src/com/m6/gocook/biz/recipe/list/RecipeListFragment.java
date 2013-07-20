@@ -119,25 +119,23 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			showProgress(false);
 			mFooterView.setVisibility(View.GONE);
 			
-			if (result != null && mActivity != null) {
-				if (result.getRecipes().isEmpty()) {
+			if (result != null && mActivity != null && mAdapter != null) {
+				if (mAdapter.getCount() == 0 && result.getRecipes().isEmpty()) {
 					setEmptyMessage(getEmptyMessage());
 					showEmpty(true);
 					return;
 				}
 				
-				if(mAdapter != null) {
-					if(mRecipeList == null) { // 第一页
-						mRecipeList = result;
-					} else {
-						List<RecipeItem> list = mRecipeList.getRecipes();
-						if(list != null) {
-							list.addAll(result.getRecipes());
-						}
+				if(mRecipeList == null) { // 第一页
+					mRecipeList = result;
+				} else {
+					List<RecipeItem> list = mRecipeList.getRecipes();
+					if(list != null) {
+						list.addAll(result.getRecipes());
 					}
-					mAdapter.setRecipeList(mRecipeList);
-					mAdapter.notifyDataSetChanged();
 				}
+				mAdapter.setRecipeList(mRecipeList);
+				mAdapter.notifyDataSetChanged();
 			}
 		}
 		

@@ -26,6 +26,7 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.profile.ProfileEditFragment;
 import com.m6.gocook.util.preference.PrefHelper;
 import com.m6.gocook.util.util.Base64;
@@ -66,6 +67,21 @@ public class LoginFragment extends BaseFragment {
 			mJumpLogin = bundle.getBoolean(PARAM_JUMP_LOGIN, false);
 		}
 	}
+	
+	@Override
+	public View onCreateFragmentView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_login, container, false);
+	}
+	
+	@Override
+	protected View onCreateActionBarView(LayoutInflater inflater,
+			ViewGroup container) {
+		if(mJumpLogin) {
+			return super.onCreateActionBarView(inflater, container);
+		}
+		return null;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -97,21 +113,11 @@ public class LoginFragment extends BaseFragment {
 						attemptLogin();
 					}
 				});
-	}
-	
-	@Override
-	public View onCreateFragmentView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_login, container, false);
-	}
-	
-	@Override
-	protected View onCreateActionBarView(LayoutInflater inflater,
-			ViewGroup container) {
-		if(mJumpLogin) {
-			return super.onCreateActionBarView(inflater, container);
+		
+		if (mJumpLogin) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setTitle(R.string.biz_account_tab_login);
 		}
-		return null;
 	}
 	
 	/**

@@ -113,8 +113,8 @@ public class PeopleFragment extends BaseListFragment {
 			showProgress(false);
 			mFooterView.setVisibility(View.GONE);
 			
-			if (result != null) {
-				if (result.isEmpty()) {
+			if (result != null && mAdapter != null) {
+				if (result.isEmpty() && mAdapter.getCount() == 0) {
 					if (mPeopleListType == FOLLOWS) {
 						setEmptyMessage(getString(R.string.biz_profile_follows_empty_message));
 					} else if (mPeopleListType == FANS) {
@@ -124,17 +124,15 @@ public class PeopleFragment extends BaseListFragment {
 					return;
 				}
 				
-				if(mAdapter != null) {
-					if(mPeoples == null) { // 第一页
-						mPeoples = result;
-					} else {
-						if(mPeoples != null) {
-							mPeoples.addAll(result);
-						}
+				if(mPeoples == null) { // 第一页
+					mPeoples = result;
+				} else {
+					if(mPeoples != null) {
+						mPeoples.addAll(result);
 					}
-					mAdapter.setPeoples(mPeoples);
-					mAdapter.notifyDataSetChanged();
 				}
+				mAdapter.setPeoples(mPeoples);
+				mAdapter.notifyDataSetChanged();
 			}
 		}
 		
