@@ -90,6 +90,10 @@ public abstract class RecipeListFragment extends BaseListFragment {
 		return false;
 	}
 	
+	protected String getEmptyMessage() {
+		return getString(R.string.base_empty_text);
+	}
+	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeList> {
 
     	private FragmentActivity mActivity;
@@ -116,6 +120,12 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			mFooterView.setVisibility(View.GONE);
 			
 			if (result != null && mActivity != null) {
+				if (result.getRecipes().isEmpty()) {
+					setEmptyMessage(getEmptyMessage());
+					showEmpty(true);
+					return;
+				}
+				
 				if(mAdapter != null) {
 					if(mRecipeList == null) { // 第一页
 						mRecipeList = result;

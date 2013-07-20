@@ -26,4 +26,9 @@ public class MyCollectionsFragment extends RecipeListFragment {
 	protected boolean needCookie() {
 		return true;
 	}
+	
+	@Override
+	protected String getEmptyMessage() {
+		return getString(R.string.biz_profile_mycollection_empty_message);
+	}
 }

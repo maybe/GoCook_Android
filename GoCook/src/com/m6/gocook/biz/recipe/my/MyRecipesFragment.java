@@ -67,4 +67,9 @@ public class MyRecipesFragment extends RecipeListFragment {
 		return RecipeModel.getMyRecipes(getActivity(), mFromProfile);
 	}
 	
+	@Override
+	protected String getEmptyMessage() {
+		return getString(R.string.biz_profile_myrecipe_empty_message);
+	}
+	
 }
