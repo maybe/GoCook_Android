@@ -113,9 +113,7 @@ public class PopularAdapter extends BaseAdapter {
 		}
 
 		if(type == VIEW_TYPE_HEADER) {
-			String s = ProtocolUtils.getURL(mPopular.getTopHotImg());
-			Logger.i("xxx : " + s);
-			mImageFetcher.loadImage(s, headerHolder.image1);
+			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
 			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
 			
 			headerHolder.image1.setOnClickListener(new OnClickListener() {
