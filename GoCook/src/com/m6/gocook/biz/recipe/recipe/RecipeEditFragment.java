@@ -3,6 +3,9 @@ package com.m6.gocook.biz.recipe.recipe;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeEntity;
@@ -10,6 +13,7 @@ import com.m6.gocook.base.entity.RecipeEntity.Material;
 import com.m6.gocook.base.entity.RecipeEntity.Procedure;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
@@ -41,6 +45,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnPhotoPickCallback {
@@ -149,6 +154,8 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	private void doCreate() {
 		
 		ActionBar action = getActionBar();
+		
+		action.setRightButton(R.string.biz_recipe_edit_post, R.drawable.edit);
 		
 		Bundle arg = getArguments();
 		if(arg != null) {
@@ -392,10 +399,137 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			// After select new picture, set ImageView tag to null
 			mCurrentImageView.setTag(null);
 			
-			LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
-			parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
-			parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
+			if(mCurrentImageView.getId() == R.id.cover_imageview) {
+				new UploadAsyncTask(mCurrentImageView).execute();
+			} else {
+				LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
+				parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
+				parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
+			}
+			
 		}
+	}
+	
+	@Override
+	public void onActionBarRightButtonClick(View v) {
+		postRecipe();
+	}
+	
+	private void postRecipe() {
+		if(mRecipeEntity == null) {
+			mRecipeEntity = new RecipeEntity();
+		}
+		
+		if(findViewById(R.id.cover_imageview).getTag() != null) {
+			mRecipeEntity.setCoverImgURL(findViewById(R.id.cover_imageview).getTag().toString());
+		} else {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_nocover, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		EditText title = (EditText) findViewById(R.id.recipe_title_edittext);
+		if(!TextUtils.isEmpty(title.getText().toString().trim())) {
+			mRecipeEntity.setName(title.getText().toString().trim());
+		} else {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_nocover, Toast.LENGTH_SHORT).show();
+			title.setSelected(true);
+			return;
+		}
+		
+		EditText desc = (EditText) findViewById(R.id.desc);
+		mRecipeEntity.setDesc(desc.getText().toString().trim());
+		
+		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
+
+		for (int i = 0; i < materialLayout.getChildCount(); i++) {
+
+			View view = materialLayout.getChildAt(i);
+			EditText name = (EditText) view.findViewById(R.id.name);
+			if(!TextUtils.isEmpty(name.getText().toString().trim())) {
+				EditText remark = (EditText) view.findViewById(R.id.remark);
+				Material material = new Material(name.getText().toString().trim(),
+						remark.getText().toString().trim(), false);
+				mRecipeEntity.getMaterials().add(material);
+			}
+		}
+		if(mRecipeEntity.getMaterials().size() == 0) {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_nomaterial, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		final LinearLayout procedureLayout = (LinearLayout) findViewById(R.id.procedure_layout);
+		
+		for (int i = 0; i < procedureLayout.getChildCount(); i++) {
+			
+			View view = procedureLayout.getChildAt(i);
+			
+			EditText proceduDesc = (EditText) view.findViewById(R.id.desc);
+			if(!TextUtils.isEmpty(proceduDesc.getText().toString().trim())) {
+				
+				String imageURL = "";
+				if(view.findViewById(R.id.image).getTag() != null) {
+					imageURL = view.findViewById(R.id.image).getTag().toString();
+				}
+				
+				Procedure procedure = new Procedure(proceduDesc.getText().toString().trim(), imageURL);
+				mRecipeEntity.getProcedures().add(procedure);
+			}
+		}
+		
+		if(mRecipeEntity.getProcedures().size() == 0) {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_noprocedure, Toast.LENGTH_SHORT).show();
+		}
+		
+		EditText tips = (EditText) findViewById(R.id.recipe_tips_edittext);
+		if(!TextUtils.isEmpty(tips.getText().toString().trim())) {
+			mRecipeEntity.setTips(tips.getText().toString().trim());
+		}
+		
+	
+		new PostAsyncTast().execute();
+	}
+	
+	public class PostAsyncTast extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			showUploadingProgressBar(true);
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			String result = RecipeModel.postRecipe(mContext, mRecipeEntity);
+			
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(Protocol.KEY_RESULT);
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
+						return true;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			
+			super.onPostExecute(result);
+			if(isAdded()) {
+				showUploadingProgressBar(false);
+			}
+			
+			if(result) {
+				
+			} else {
+				Toast.makeText(mContext, R.string.biz_recipe_edit_post_failed, Toast.LENGTH_SHORT).show();
+			}
+		}
+		
 	}
 	
 	public class UploadAsyncTask extends AsyncTask<Void, Void, String> {
@@ -439,13 +573,20 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 					mCurrentImageView.setTag(result);
 				}
 				showUploadingProgressBar(false);
-				LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
+				
+				if(mImageView.getId() != R.id.cover_imageview) {
+					LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
+					
+					if(TextUtils.isEmpty(result)) {
+						parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
+					} else {
+						parent.findViewById(R.id.button_upload).setVisibility(View.GONE);
+					}
+				}
 				
 				if(TextUtils.isEmpty(result)) {
-					parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
 					Toast.makeText(mContext, R.string.biz_recipe_edit_upload_failed, Toast.LENGTH_SHORT).show();
 				} else {
-					parent.findViewById(R.id.button_upload).setVisibility(View.GONE);
 					Toast.makeText(mContext, R.string.biz_recipe_edit_upload_ok, Toast.LENGTH_SHORT).show();
 				}
 				
@@ -461,12 +602,6 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			}
 		}
 		
-	}
-	
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
 	}
 	
 }

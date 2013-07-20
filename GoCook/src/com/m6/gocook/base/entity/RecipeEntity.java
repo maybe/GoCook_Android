@@ -3,13 +3,16 @@ package com.m6.gocook.base.entity;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 public class RecipeEntity implements IParseable<JSONObject> {
 
@@ -186,7 +189,27 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	}
 
 	public ArrayList<Material> getMaterials() {
+		if(materials == null) {
+			materials = new ArrayList<RecipeEntity.Material>();
+		}
 		return materials;
+	}
+	
+	public String getMaterialsString() {
+		if(materials != null) {
+			StringBuilder materialStr = new StringBuilder();
+			for(Material material:materials) {
+				materialStr.append(material.getName());
+				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG);
+				materialStr.append(material.getRemark());
+				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG);
+			}
+			String result = materialStr.toString();
+			if(!TextUtils.isEmpty(result)) {
+				return result.substring(0, result.length() - 2);
+			}
+		}
+		return null;
 	}
 
 	public void setMaterials(ArrayList<Material> materials) {
@@ -194,7 +217,31 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	}
 
 	public ArrayList<Procedure> getProcedures() {
+		if(procedures == null) {
+			procedures = new ArrayList<RecipeEntity.Procedure>();
+		}
 		return procedures;
+	}
+	
+	public String getProcedureString() {
+		if(procedures != null) {
+			JSONArray array = new JSONArray();
+			int index = 1;
+			for(Procedure procedure:procedures) {
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put(Protocol.KEY_RECIPE_STEPS_IMG, ProtocolUtils.getURL(procedure.getImageURL()));
+					obj.put(Protocol.KEY_RECIPE_STEPS_CONTENT, procedure.getDesc());
+					obj.put(Protocol.KEY_RECIPE_STEPS_NO, index);
+					array.put(obj);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			return array.toString();
+		}
+		
+		return null;
 	}
 
 	public void setProcedures(ArrayList<Procedure> procedures) {

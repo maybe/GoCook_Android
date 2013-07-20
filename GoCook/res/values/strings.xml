@@ -112,6 +112,7 @@
     <!-- recipe edit -->    
     <string name="biz_recipe_edit_title_new">添加菜谱</string>
     <string name="biz_recipe_edit_title_edit">修改菜谱</string>
+    <string name="biz_recipe_edit_post">发布菜谱</string>
     <string name="biz_recipe_edit_required">（必填）</string>
     <string name="biz_recipe_edit_cover">菜谱封面</string>
     <string name="biz_recipe_edit_title">菜谱标题</string>
@@ -129,6 +130,11 @@
     <string name="biz_recipe_edit_progressbar">上传中...</string>
     <string name="biz_recipe_edit_upload_ok">上传成功</string>
     <string name="biz_recipe_edit_upload_failed">长传失败</string>
+    <string name="biz_recipe_edit_nocover">请添加封面</string>
+    <string name="biz_recipe_edit_notitle">请添加标题</string>
+    <string name="biz_recipe_edit_nomaterial">请添加用料</string>
+    <string name="biz_recipe_edit_noprocedure">请添加步骤</string>
+    <string name="biz_recipe_edit_post_failed">发布失败</string>
     
     
     <!-- recipe hot -->

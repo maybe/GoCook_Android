@@ -13,6 +13,8 @@ public class Protocol {
 	/* Recipe URL  */
 	
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
+
+	public static final String URL_RECIPE_CREATE = URL_ROOT + "/recipe/create";
 	
 	public static final String URL_RECIPE_COMMENT = URL_ROOT + "/recipe/comments?recipe_id=%s";
 	
@@ -86,6 +88,15 @@ public class Protocol {
 	public static final String KEY_RECIPE_STEPS_IMG = "img";
 	public static final String KEY_RECIPE_TIPS = "tips";
 	
+	/* Post Recipe JSON Protocol */
+	public static final String KEY_RECIPE_POST_ID = "recipe_id";
+	public static final String KEY_RECIPE_POST_NAME = "name";
+	public static final String KEY_RECIPE_POST_DESC = "desc";
+	public static final String KEY_RECIPE_POST_CATEGORY = "category";
+	public static final String KEY_RECIPE_POST_MATERIALS = "materials";
+	public static final String KEY_RECIPE_POST_STEPS = "steps";
+	public static final String KEY_RECIPE_POST_TIPS = "tips";
+	
 	/* Recipe Comments JSON Protocol */
 	public static final String KEY_RECIPE_COMMENT = "result_recipe_comments";
 	public static final String KEY_RECIPE_COMMENT_USER_ID = "user_id";
@@ -101,6 +112,7 @@ public class Protocol {
 	/* Upload Image File Protocol */
 	public static final String KEY_RECIPE_UPLOAD_COVERIMAGE = "cover";
 	public static final String KEY_RECIPE_UPLOAD_STEPIMAGE = "step";
+	public static final String KEY_RECIPE_UPLOAD_AVATAR = "avatar";
 		
 	/* Popular JSON Protocol */
 	public static final String KEY_POPULAR_TOPNEW_IMG = "topnew_img";

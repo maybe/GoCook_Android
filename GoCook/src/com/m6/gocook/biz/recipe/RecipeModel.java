@@ -79,6 +79,19 @@ public class RecipeModel {
 		return null;
 	}
 	
+	public static String postRecipe(Context context, RecipeEntity recipeEntity) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_ID, ""));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_NAME, recipeEntity.getName()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_DESC, recipeEntity.getDesc()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_CATEGORY, ""));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_MATERIALS, recipeEntity.getMaterialsString()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_STEPS, recipeEntity.getProcedureString()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_TIPS, recipeEntity.getTips()));
+		return NetUtils.httpPost(context, Protocol.URL_RECIPE_CREATE, params);
+
+	}
+	
 	public static RecipeList getRecipeData(String url, String cookie) {
 		String result = NetUtils.httpGet(url, cookie);
 		if(TextUtils.isEmpty(result)) {
@@ -240,7 +253,7 @@ public class RecipeModel {
 		try {
 			jsonObject = new JSONObject(result);
 			if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_COVERIMAGE);
+				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_AVATAR);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -260,7 +273,7 @@ public class RecipeModel {
 		try {
 			jsonObject = new JSONObject(result);
 			if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_COVERIMAGE);
+				return jsonObject.optString(Protocol.KEY_RECIPE_UPLOAD_AVATAR);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
