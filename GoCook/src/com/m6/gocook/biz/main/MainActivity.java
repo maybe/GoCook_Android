@@ -1,5 +1,10 @@
 package com.m6.gocook.biz.main;
 
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +26,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountFragment;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.TabHelper.Tab;
@@ -201,10 +207,21 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 			String usr = AccountModel.getAccount(mContext);
 			String pwd = AccountModel.getPassword(mContext);
 			if(!TextUtils.isEmpty(pwd)) {
-				AccountModel.login(mContext, usr, pwd);
+				String result = AccountModel.login(mContext, usr, pwd);
+				if (!TextUtils.isEmpty(result)) {
+					try {
+						JSONObject json = new JSONObject(result);
+						int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+						if (responseCode == Protocol.VALUE_RESULT_OK) {
+							AccountModel.saveUsername(mContext, json.optString(AccountModel.RETURN_USERNAME));
+							AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			return null;
 		}
-		
 	}
 }
