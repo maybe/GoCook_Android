@@ -324,7 +324,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 						if (!TextUtils.isEmpty(mParamUsername)) {
 							AccountModel.saveUsername(mContext, mParamUsername);
 						}
-						AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
+						// TODO  返回的结果没有icon等信息
+//						AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
 						// 保存个人信息
 						if (mParamBirth != null) {
 							ProfileModel.saveAge(mContext, mParamBirth);

@@ -59,7 +59,7 @@
     <string name="biz_profile_edit_save">保存</string>
     <string name="biz_profile_edit_title">编辑个人资料</string>
     <string name="biz_profile_edit_hint_name">姓名</string>
-    <string name="biz_profile_edit_hint_birth">生日</string>
+    <string name="biz_profile_edit_hint_birth">年龄</string>
     <string name="biz_profile_edit_hint_profession">职业</string>
     <string name="biz_profile_edit_hint_sex">性别</string>
     <string name="biz_profile_edit_hint_city">居住城市</string>
