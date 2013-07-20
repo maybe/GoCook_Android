@@ -121,7 +121,11 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			
 			if (result != null && mActivity != null && mAdapter != null) {
 				if (mAdapter.getCount() == 0 && result.getRecipes().isEmpty()) {
-					setEmptyMessage(getEmptyMessage());
+					String emptyMessage = getEmptyMessage();
+					if (emptyMessage == null) {
+						return;
+					}
+					setEmptyMessage(emptyMessage);
 					showEmpty(true);
 					return;
 				}

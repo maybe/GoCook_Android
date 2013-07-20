@@ -69,7 +69,7 @@ public class MyRecipesFragment extends RecipeListFragment {
 	
 	@Override
 	protected String getEmptyMessage() {
-		return getString(R.string.biz_profile_myrecipe_empty_message);
+		return null;
 	}
 	
 }
