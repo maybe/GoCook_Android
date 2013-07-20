@@ -286,9 +286,11 @@ public class ProfileFragment extends BaseFragment {
 	
 	private void hideRecipesView(boolean hide) {
 		if (hide) {
-			getView().findViewById(R.id.myrecipe).setVisibility(View.GONE);
+			getView().findViewById(R.id.recipe_grid).setVisibility(View.GONE);
+			getView().findViewById(R.id.more).setVisibility(View.GONE);
 		} else {
-			getView().findViewById(R.id.myrecipe).setVisibility(View.VISIBLE);
+			getView().findViewById(R.id.recipe_grid).setVisibility(View.VISIBLE);
+			getView().findViewById(R.id.more).setVisibility(View.VISIBLE);
 		}
 	}
 	

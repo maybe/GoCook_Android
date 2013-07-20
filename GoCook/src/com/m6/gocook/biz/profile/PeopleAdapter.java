@@ -68,6 +68,9 @@ public class PeopleAdapter extends BaseAdapter {
 		holder.follows.setText(mContext.getString(R.string.biz_profile_myaccount_follows_count, mData.get(position).getFollows()));
 		mImageFetcher.loadImage(ProtocolUtils.getURL(mData.get(position).getImage()), holder.image);
 		
+		holder.fans.setVisibility(View.GONE);
+		holder.follows.setVisibility(View.GONE);
+		
 		return convertView;
 	}
 	

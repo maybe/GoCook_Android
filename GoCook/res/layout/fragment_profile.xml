@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -49,7 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/name"
             android:layout_below="@id/follow"
-            android:text="@string/biz_profile_edit_btn"/>
+            android:background="@drawable/edit"
+            android:text="@string/biz_profile_edit_btn"
+            android:textColor="#ffffff" />
     </RelativeLayout>
 
     <TextView
@@ -65,7 +68,7 @@
     <LinearLayout
         android:id="@+id/myrecipe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:background="@color/profile_myrecipe_bg"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -82,7 +85,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:listSelector="@android:color/transparent"
-            android:numColumns="3" >
+            android:numColumns="3"
+            android:visibility="gone" >
         </GridView>
 
         <Button
@@ -93,7 +97,8 @@
             android:background="@color/profile_more_btn_bg"
             android:padding="5dp"
             android:text="@string/biz_profile_more_btn"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>
