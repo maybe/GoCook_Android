@@ -252,7 +252,7 @@ public class RecipeFragment extends BaseFragment {
 
 	private void initView() {
 		
-		getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
+//		getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
 
 		// Tabbar Event Listener
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
