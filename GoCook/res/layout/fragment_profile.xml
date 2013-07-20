@@ -51,6 +51,7 @@
             android:layout_alignLeft="@id/name"
             android:layout_below="@id/follow"
             android:background="@drawable/edit"
+            android:padding="5dp"
             android:text="@string/biz_profile_edit_btn"
             android:textColor="#ffffff" />
     </RelativeLayout>
@@ -84,6 +85,7 @@
             android:id="@+id/recipe_grid"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:listSelector="@android:color/transparent"
             android:numColumns="3"
             android:visibility="gone" >

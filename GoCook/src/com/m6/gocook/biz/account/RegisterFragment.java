@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.biz.profile.ProfileEditFragment;
@@ -241,7 +242,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 				try {
 					JSONObject json = new JSONObject(result);
 					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-					if (responseCode == AccountModel.SUCCESS) {
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
 						String username = json.optString(AccountModel.RETURN_USERNAME);
 						map.put(AccountModel.RETURN_ICON, icon);
@@ -251,7 +252,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 						AccountModel.saveAccount(context, mEmail);
 						AccountModel.saveUsername(context, username);
 						AccountModel.savePassword(context, mPassword);
-						AccountModel.saveAvatarPath(context, avatarFile != null ? avatarFile.getPath() : "");
+						AccountModel.saveAvatarPath(context, icon);
 						
 					} else {
 						map.put(AccountModel.RETURN_ERRORCODE, json.optInt(AccountModel.RETURN_ERRORCODE));

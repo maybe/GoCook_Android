@@ -146,6 +146,8 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 				mTask = new PopularTask(getActivity());
 				mTask.execute((Void) null);
 			}
+		} else {
+			updateView(mPopular);
 		}
 	}
 	
@@ -191,6 +193,18 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
         startActivity(intent);
 	}
 	
+	/**
+	 * 取得数据更新view
+	 * 
+	 * @param popular
+	 */
+	private void updateView(Popular popular) {
+		if(mAdapter != null) {
+			mAdapter.setPopularData(popular);
+			mAdapter.notifyDataSetChanged();
+		}
+	}
+	
     private class PopularTask extends AsyncTask<Void, Void, Popular> {
 
     	private Context mContext;
@@ -213,10 +227,7 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 			
 			if(mContext != null && result != null) {
 				mPopular = result;
-				if(mAdapter != null) {
-					mAdapter.setPopularData(result);
-					mAdapter.notifyDataSetChanged();
-				}
+				updateView(result);
 			}
 		}
 		

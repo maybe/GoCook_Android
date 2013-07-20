@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -94,6 +96,12 @@ public class RecipeFragment extends BaseFragment {
 		if(mRefreshComments) {
 			mRefreshComments = false;
 			achieveComments();
+		}
+		Fragment f = getChildFragmentManager().findFragmentByTag(ActionSelectDialogFragment.class.getName());
+		if (f != null) {
+			DialogFragment df = (DialogFragment) f;
+			df.dismiss();
+			getFragmentManager().beginTransaction().remove(f).commit();
 		}
 	}
 	
@@ -244,7 +252,7 @@ public class RecipeFragment extends BaseFragment {
 
 	private void initView() {
 		
-		getActionBar().setRightButton("修改", R.drawable.bar_delete_normal);
+		getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
 
 		// Tabbar Event Listener
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
@@ -459,7 +467,9 @@ public class RecipeFragment extends BaseFragment {
 
 	@Override
 	public void onActionBarRightButtonClick(View v) {
-		RecipeEditFragment.startInActivity(mContext, Mode.RECIPE_EDIT, mRecipeId);
+		ActionSelectDialogFragment.startFragment(getChildFragmentManager(), mRecipeId);
 	}
+	
+	
 
 }

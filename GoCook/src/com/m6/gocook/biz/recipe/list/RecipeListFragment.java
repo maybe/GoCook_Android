@@ -90,6 +90,15 @@ public abstract class RecipeListFragment extends BaseListFragment {
 		return false;
 	}
 	
+	/**
+	 * 没有数据时的文字提示,返回null不显示提示
+	 * 
+	 * @return
+	 */
+	protected String getEmptyMessage() {
+		return getString(R.string.base_empty_text);
+	}
+	
 	private class RecipeListTask extends AsyncTask<Void, Void, RecipeList> {
 
     	private FragmentActivity mActivity;
@@ -115,19 +124,27 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			showProgress(false);
 			mFooterView.setVisibility(View.GONE);
 			
-			if (result != null && mActivity != null) {
-				if(mAdapter != null) {
-					if(mRecipeList == null) { // 第一页
-						mRecipeList = result;
-					} else {
-						List<RecipeItem> list = mRecipeList.getRecipes();
-						if(list != null) {
-							list.addAll(result.getRecipes());
-						}
+			if (result != null && mActivity != null && mAdapter != null) {
+				if (mAdapter.getCount() == 0 && result.getRecipes().isEmpty()) {
+					String emptyMessage = getEmptyMessage();
+					if (emptyMessage == null) {
+						return;
 					}
-					mAdapter.setRecipeList(mRecipeList);
-					mAdapter.notifyDataSetChanged();
+					setEmptyMessage(emptyMessage);
+					showEmpty(true);
+					return;
 				}
+				
+				if(mRecipeList == null) { // 第一页
+					mRecipeList = result;
+				} else {
+					List<RecipeItem> list = mRecipeList.getRecipes();
+					if(list != null) {
+						list.addAll(result.getRecipes());
+					}
+				}
+				mAdapter.setRecipeList(mRecipeList);
+				mAdapter.notifyDataSetChanged();
 			}
 		}
 		

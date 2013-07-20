@@ -122,6 +122,9 @@
     <string name="biz_recipe_edit_tip_tip">做好这道菜的小诀窍</string>
     <string name="biz_recipe_edit_upload_photo">上传</string>
     <string name="biz_recipe_edit_remove_photo">移除</string>
+    <string name="biz_recipe_edit_actionbar_opt">操作</string>
+    <string name="biz_recipe_edit_actionbar_edit">编辑这个菜谱</string>
+    <string name="biz_recipe_edit_actionbar_delete">删除这个菜谱</string>
     
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>

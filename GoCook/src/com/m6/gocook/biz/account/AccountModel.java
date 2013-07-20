@@ -44,8 +44,6 @@ public class AccountModel {
 	/** 其它 */
 	public static final int ERRORCODE_OTHERS = 5;
 			
-	public static final int SUCCESS = 0;
-	public static final int FAILURE = 1;
 	
 	private static ArrayList<OnAccountChangedListener> mAccountChangedListeners = new ArrayList<OnAccountChangedListener>();
 	

@@ -154,8 +154,8 @@ public class ProfileModel {
 		if (intro != null) {
 			params.add(new BasicNameValuePair(INTRO, intro));
 		}
-		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params);
-//		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
+//		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params);
+		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
 	}
 	
 	/**
