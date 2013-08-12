@@ -24,4 +24,7 @@
 	<!-- popular -->
     <dimen name="biz_popular_item_image_size">55dp</dimen>
     
+    <dimen name="biz_popular_item_header_image_width">155dp</dimen>
+    <dimen name="biz_popular_item_header_image_height">88dp</dimen>
+    
 </resources>

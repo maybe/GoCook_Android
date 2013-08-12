@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.image.HeaderImageFetcher;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.recipe.top.RecipeTopFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
+import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
 import com.m6.gocook.util.log.Logger;
 
 public class PopularAdapter extends BaseAdapter {
@@ -33,6 +36,8 @@ public class PopularAdapter extends BaseAdapter {
 	private FragmentActivity mActivity;
 	
 	private ImageFetcher mImageFetcher;
+	
+	private ImageFetcher mHeaderImageFetcher;
 
 	private Popular mPopular;
 	
@@ -41,6 +46,7 @@ public class PopularAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(activity);
 		mImageFetcher = imageFetcher;
 		mPopular = popular;
+		mHeaderImageFetcher = HeaderImageFetcher.getInstance(activity);
 	}
 
 	public void setPopularData(Popular popular) {
@@ -113,8 +119,8 @@ public class PopularAdapter extends BaseAdapter {
 		}
 
 		if(type == VIEW_TYPE_HEADER) {
-			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
-			mImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
+			mHeaderImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
+			mHeaderImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
 			
 			headerHolder.image1.setOnClickListener(new OnClickListener() {
 				
