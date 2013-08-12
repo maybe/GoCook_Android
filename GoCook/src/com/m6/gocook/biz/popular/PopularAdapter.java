@@ -10,20 +10,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.Popular;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.image.HeaderImageFetcher;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.recipe.top.RecipeTopFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
-import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
-import com.m6.gocook.util.log.Logger;
 
 public class PopularAdapter extends BaseAdapter {
 	
