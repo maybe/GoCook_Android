@@ -416,9 +416,9 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	}
 	
 	private void postRecipe() {
-		if(mRecipeEntity == null) {
-			mRecipeEntity = new RecipeEntity();
-		}
+
+		mRecipeEntity = new RecipeEntity();
+		
 		
 		if(findViewById(R.id.cover_imageview).getTag() != null) {
 			mRecipeEntity.setCoverImgURL(findViewById(R.id.cover_imageview).getTag().toString());
@@ -527,7 +527,8 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			}
 			
 			if(result) {
-				
+				Toast.makeText(mContext, R.string.biz_recipe_edit_post_ok, Toast.LENGTH_SHORT).show();
+				getActivity().finish();
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_failed, Toast.LENGTH_SHORT).show();
 			}

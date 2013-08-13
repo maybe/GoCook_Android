@@ -134,6 +134,7 @@
     <string name="biz_recipe_edit_notitle">请添加标题</string>
     <string name="biz_recipe_edit_nomaterial">请添加用料</string>
     <string name="biz_recipe_edit_noprocedure">请添加步骤</string>
+    <string name="biz_recipe_edit_post_ok">发布成功</string>
     <string name="biz_recipe_edit_post_failed">发布失败</string>
     
     
