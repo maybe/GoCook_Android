@@ -25,7 +25,7 @@ public class MyRecipesFragment extends RecipeListFragment {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		if(args != null) {
-			mFromPersonnalProfile = args.getBoolean(PARAM_FROM_PROFILE);
+			mFromPersonnalProfile = args.getBoolean(PARAM_FROM_PROFILE, false);
 		}
 	}
 	
