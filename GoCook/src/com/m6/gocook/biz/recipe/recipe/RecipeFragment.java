@@ -168,9 +168,18 @@ public class RecipeFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				ProfileFragment.startProfileFragment(mContext, 
-						ProfileFragment.PROFILE_OTHERS,
-						mRecipeEntity.getAuthorId());
+				String nickName = mRecipeEntity.getAuthorName();
+				if (!TextUtils.isEmpty(nickName)) {
+					if (nickName.equals(AccountModel.getUsername(getActivity()))) {
+						ProfileFragment.startProfileFragment(mContext, 
+								ProfileFragment.PROFILE_MYSELF,
+								mRecipeEntity.getAuthorId());
+					} else {
+						ProfileFragment.startProfileFragment(mContext, 
+								ProfileFragment.PROFILE_OTHERS,
+								mRecipeEntity.getAuthorId());
+					}
+				}
 				
 			}
 		});

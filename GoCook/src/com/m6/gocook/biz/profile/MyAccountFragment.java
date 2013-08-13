@@ -113,7 +113,7 @@ public class MyAccountFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Bundle bundle = new Bundle();
-				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, false);
+				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, true);
 				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
 				startActivity(intent);

@@ -69,7 +69,7 @@ public class ProfileFragment extends BaseFragment {
 	 */
 	public static void startProfileFragment(Context context, int profileType, String followId) {
 		Bundle bundle = new Bundle();
-		bundle.putInt(PROFILE_TYPE, ProfileFragment.PROFILE_OTHERS);
+		bundle.putInt(PROFILE_TYPE, profileType);
 		bundle.putString(PROFILE_FOLLOW_ID, followId);
 		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
 				ProfileFragment.class.getName(), ProfileFragment.class.getName(), bundle);

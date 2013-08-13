@@ -122,11 +122,11 @@ public class RecipeModel {
 	}
 	public static RecipeList getMyRecipes(Context context, boolean fromLocal) {
 		String result;
-		if (fromLocal) {
-			result = ProfileModel.getMyRecipesText(context);
-		} else {
-			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
-		}
+//		if (fromLocal) {
+//			result = ProfileModel.getMyRecipesText(context);
+//		} else {
+//		}
+		result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
 		if(TextUtils.isEmpty(result)) {
 			return null;
 		}
