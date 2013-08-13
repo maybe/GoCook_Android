@@ -31,20 +31,16 @@ public class MyRecipesFragment extends RecipeListFragment {
 	
 	@Override
 	public View onCreateHeaderView(LayoutInflater inflater, ViewGroup container) {
-		if (mFromPersonnalProfile) {
-			View view = inflater.inflate(R.layout.fragment_myrecipes_header, container, false);
-			view.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					RecipeEditFragment.startInActivity(getActivity(),
-							RecipeEditFragment.Mode.RECIPE_NEW, "");
-				}
-			});
-			return view;
-		} else {
-			return null;
-		}
+		View view = inflater.inflate(R.layout.fragment_myrecipes_header, container, false);
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RecipeEditFragment.startInActivity(getActivity(),
+						RecipeEditFragment.Mode.RECIPE_NEW, "");
+			}
+		});
+		return view;
 	}
 	
 	@Override
