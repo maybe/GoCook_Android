@@ -436,7 +436,10 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			return;
 		}
 		
-		EditText desc = (EditText) findViewById(R.id.desc);
+		ImageView coverImage = (ImageView) findViewById(R.id.cover_imageview);
+		mRecipeEntity.setCoverImgURL(coverImage.getTag().toString());
+		
+		EditText desc = (EditText) findViewById(R.id.recipe_introduction_edittext);
 		mRecipeEntity.setDesc(desc.getText().toString().trim());
 		
 		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);

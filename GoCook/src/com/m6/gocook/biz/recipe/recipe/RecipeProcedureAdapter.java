@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeEntity.Procedure;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class RecipeProcedureAdapter extends BaseAdapter {
@@ -66,7 +67,7 @@ public class RecipeProcedureAdapter extends BaseAdapter {
 		if(TextUtils.isEmpty(procedure.getImageURL())) {
 			holder.image.setVisibility(View.GONE);
 		} else {
-			mImageFetcher.loadImage(procedure.getImageURL(), holder.image);
+			mImageFetcher.loadImage(ProtocolUtils.getStepImageURL(procedure.getImageURL()), holder.image);
 			holder.image.setVisibility(View.VISIBLE);
 		}
 		

@@ -83,6 +83,7 @@ public class RecipeModel {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_ID, ""));
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_NAME, recipeEntity.getName()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_COVER_IMG, recipeEntity.getCoverImgURL()));
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_DESC, recipeEntity.getDesc()));
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_CATEGORY, ""));
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_MATERIALS, recipeEntity.getMaterialsString()));

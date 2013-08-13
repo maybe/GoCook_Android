@@ -200,13 +200,13 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			StringBuilder materialStr = new StringBuilder();
 			for(Material material:materials) {
 				materialStr.append(material.getName());
-				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG);
+				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG2);
 				materialStr.append(material.getRemark());
-				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG);
+				materialStr.append(Protocol.VALUE_RECIPE_MATERIALS_FLAG2);
 			}
 			String result = materialStr.toString();
 			if(!TextUtils.isEmpty(result)) {
-				return result.substring(0, result.length() - 2);
+				return result.substring(0, result.length() - 1);
 			}
 		}
 		return null;
@@ -225,20 +225,24 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	
 	public String getProcedureString() {
 		if(procedures != null) {
+			JSONObject procedureObj = new JSONObject();
 			JSONArray array = new JSONArray();
-			int index = 1;
-			for(Procedure procedure:procedures) {
-				JSONObject obj = new JSONObject();
-				try {
-					obj.put(Protocol.KEY_RECIPE_STEPS_IMG, ProtocolUtils.getURL(procedure.getImageURL()));
-					obj.put(Protocol.KEY_RECIPE_STEPS_CONTENT, procedure.getDesc());
-					obj.put(Protocol.KEY_RECIPE_STEPS_NO, index);
-					array.put(obj);
-				} catch (JSONException e) {
-					e.printStackTrace();
+			try {
+				int index = 1;
+				for(Procedure procedure:procedures) {
+					JSONObject obj = new JSONObject();
+					
+						obj.put(Protocol.KEY_RECIPE_STEPS_IMG, procedure.getImageURL());
+						obj.put(Protocol.KEY_RECIPE_STEPS_CONTENT, procedure.getDesc());
+						obj.put(Protocol.KEY_RECIPE_STEPS_NO, index++);
+						array.put(obj);
+				
 				}
+				procedureObj.put("steps", array);
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-			return array.toString();
+			return procedureObj.toString();
 		}
 		
 		return null;

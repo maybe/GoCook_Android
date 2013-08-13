@@ -3,8 +3,8 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
-//	public static final String URL_ROOT = "http://verypanda.com";
-	public static final String URL_ROOT = "http://192.168.1.108";
+	public static final String URL_ROOT = "http://verypanda.com";
+//	public static final String URL_ROOT = "http://192.168.1.108";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
@@ -82,6 +82,7 @@ public class Protocol {
 	public static final String KEY_RECIPE_COVER_IMAGE = "cover_image";
 	public static final String KEY_RECIPE_MATERIALS = "materials";
 	public static final String VALUE_RECIPE_MATERIALS_FLAG = "\\|";
+	public static final String VALUE_RECIPE_MATERIALS_FLAG2 = "|";
 	public static final String KEY_RECIPE_STEPS = "steps";
 	public static final String KEY_RECIPE_STEPS_NO = "no";
 	public static final String KEY_RECIPE_STEPS_CONTENT = "content";
@@ -91,6 +92,7 @@ public class Protocol {
 	/* Post Recipe JSON Protocol */
 	public static final String KEY_RECIPE_POST_ID = "recipe_id";
 	public static final String KEY_RECIPE_POST_NAME = "name";
+	public static final String KEY_RECIPE_POST_COVER_IMG = "cover_img";
 	public static final String KEY_RECIPE_POST_DESC = "desc";
 	public static final String KEY_RECIPE_POST_CATEGORY = "category";
 	public static final String KEY_RECIPE_POST_MATERIALS = "materials";
