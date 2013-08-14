@@ -215,6 +215,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 						if (responseCode == Protocol.VALUE_RESULT_OK) {
 							AccountModel.saveUsername(mContext, json.optString(AccountModel.RETURN_USERNAME));
 							AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
+							AccountModel.saveUserId(mContext, json.optString(AccountModel.RETURN_USERID));
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

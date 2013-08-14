@@ -206,6 +206,7 @@ public class LoginFragment extends BaseFragment {
 					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
 						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						String userId = json.optString(AccountModel.RETURN_USERID);
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
@@ -214,6 +215,7 @@ public class LoginFragment extends BaseFragment {
 						AccountModel.saveUsername(mContext, userName);
 						AccountModel.savePassword(mContext, mPassword);
 						AccountModel.saveAvatarPath(mContext, icon);
+						AccountModel.saveUserId(mContext, userId);
 						return map;
 					}
 				} catch (JSONException e) {

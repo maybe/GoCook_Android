@@ -32,6 +32,7 @@ public class AccountModel {
 	public static final String RETURN_ERRORCODE = "errorcode";	
 	public static final String RETURN_USERNAME = "username";	
 	public static final String RETURN_ICON = "icon";
+	public static final String RETURN_USERID = "user_id";
 	
 	/** 注册失败 */
 	public static final int ERRORCODE_FAILURE = 1;
@@ -128,6 +129,14 @@ public class AccountModel {
 	
 	public static String getAvatarPath(Context context) {
 		return PrefHelper.getString(context, PrefKeys.ACCOUNT_AVATAR, "");
+	}
+	
+	public static void saveUserId(Context context, String userId) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERID, userId);
+	}
+	
+	public static String getUserId(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_USERID, "");
 	}
 	
 	public static boolean isLogon(Context context) {
