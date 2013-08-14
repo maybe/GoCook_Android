@@ -149,6 +149,11 @@ public class RecipeFragment extends BaseFragment {
 
 		achieveComments();
 		
+		if(AccountModel.isLogon(mContext) 
+				&& TextUtils.equals(AccountModel.getUserId(mContext), mRecipeEntity.getAuthorId())) {
+			getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
+		}
+		
 		// Set Recipe Properties Values
 
 		setTitle(mRecipeEntity.getName());
@@ -260,8 +265,6 @@ public class RecipeFragment extends BaseFragment {
 	}
 
 	private void initView() {
-		
-		getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
 
 		// Tabbar Event Listener
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
