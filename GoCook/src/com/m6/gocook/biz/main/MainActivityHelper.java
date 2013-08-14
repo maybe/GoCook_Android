@@ -12,6 +12,10 @@ import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.fragment.OnKeyDown;
 
 public class MainActivityHelper {
+	
+	public static int RESULT_OK = 1;
+	
+	public static int RESULT_NO = 2;
 
 	public static ArrayList<OnActivityAction> mOnActivityActions = new ArrayList<OnActivityAction>();
 	

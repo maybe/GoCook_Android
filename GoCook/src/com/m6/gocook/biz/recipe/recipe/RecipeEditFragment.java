@@ -6,23 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.entity.RecipeEntity.Material;
-import com.m6.gocook.base.entity.RecipeEntity.Procedure;
-import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.biz.common.PhotoPickDialogFragment;
-import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
-import com.m6.gocook.biz.profile.ProfileModel;
-import com.m6.gocook.biz.recipe.RecipeModel;
-import com.m6.gocook.biz.recipe.recipe.UploadImageLayout.UploadAsyncTask;
-import com.m6.gocook.util.File.ImgUtils;
-import com.m6.gocook.util.log.Logger;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,7 +14,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -45,8 +28,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.entity.RecipeEntity.Material;
+import com.m6.gocook.base.entity.RecipeEntity.Procedure;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment;
+import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.log.Logger;
 
 public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnPhotoPickCallback {
 
@@ -79,6 +77,17 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
         		RecipeEditFragment.class.getName(), 
         		RecipeEditFragment.class.getName(), argument);
         context.startActivity(intent);
+	}
+	
+	public static void startInActivityForResult(Activity context, Mode mode, String recipeId, int requestCode) {
+		Bundle argument = new Bundle();
+		argument.putSerializable(RecipeEditFragment.ARGUMENT_KEY_ACTION,
+				mode);
+		argument.putString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
+        Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+        		RecipeEditFragment.class.getName(), 
+        		RecipeEditFragment.class.getName(), argument);
+        context.startActivityForResult(intent, requestCode);
 	}
 	
 	@Override
@@ -416,7 +425,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	}
 	
 	private void postRecipe() {
-
+		
 		mRecipeEntity = new RecipeEntity();
 		
 		
@@ -528,6 +537,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			
 			if(result) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_ok, Toast.LENGTH_SHORT).show();
+				getActivity().setResult(MainActivityHelper.RESULT_OK);
 				getActivity().finish();
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_failed, Toast.LENGTH_SHORT).show();

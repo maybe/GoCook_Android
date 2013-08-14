@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.recipe.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +9,24 @@ import android.view.ViewGroup;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeList;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.list.RecipeListFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
+import com.m6.gocook.util.log.Logger;
 
-public class MyRecipesFragment extends RecipeListFragment {
+public class MyRecipesFragment extends RecipeListFragment implements OnActivityAction {
 
 	public static final String PARAM_FROM_PROFILE = "param_from_profile";
 	
+	private static final int REQUEST_CODE = 11;
+	
 	private boolean mFromPersonnalProfile = false; // 从我的个人资料页面跳转而来就从本地取数据，否则取网络数据
+	
+	private boolean mIsFreshData = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +45,11 @@ public class MyRecipesFragment extends RecipeListFragment {
 				
 				@Override
 				public void onClick(View v) {
+//					RecipeEditFragment.startInActivityForResult(getActivity(),
+//							RecipeEditFragment.Mode.RECIPE_NEW, "", REQUEST_CODE);
 					RecipeEditFragment.startInActivity(getActivity(),
 							RecipeEditFragment.Mode.RECIPE_NEW, "");
+					mIsFreshData = true;
 				}
 			});
 			return view;
@@ -74,6 +85,24 @@ public class MyRecipesFragment extends RecipeListFragment {
 	@Override
 	protected String getEmptyMessage() {
 		return null;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mIsFreshData) {
+			executeTask();
+			mIsFreshData = false;
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == REQUEST_CODE
+				&& resultCode == MainActivityHelper.RESULT_OK) {
+			executeTask();
+			Logger.i("achieve my recipe list again");
+		}
 	}
 	
 }
