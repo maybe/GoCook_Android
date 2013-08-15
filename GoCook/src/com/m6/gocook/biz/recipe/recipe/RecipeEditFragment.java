@@ -438,15 +438,16 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		EditText title = (EditText) findViewById(R.id.recipe_title_edittext);
 		if(!TextUtils.isEmpty(title.getText().toString().trim())) {
+			if(title.getText().toString().trim().length() < 4) {
+				Toast.makeText(mContext, R.string.biz_recipe_edit_titleshort, Toast.LENGTH_SHORT).show();
+				return;
+			}
 			mRecipeEntity.setName(title.getText().toString().trim());
 		} else {
-			Toast.makeText(mContext, R.string.biz_recipe_edit_nocover, Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, R.string.biz_recipe_edit_notitle, Toast.LENGTH_SHORT).show();
 			title.setSelected(true);
 			return;
 		}
-		
-		ImageView coverImage = (ImageView) findViewById(R.id.cover_imageview);
-		mRecipeEntity.setCoverImgURL(coverImage.getTag().toString());
 		
 		EditText desc = (EditText) findViewById(R.id.recipe_introduction_edittext);
 		mRecipeEntity.setDesc(desc.getText().toString().trim());
@@ -490,12 +491,11 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		if(mRecipeEntity.getProcedures().size() == 0) {
 			Toast.makeText(mContext, R.string.biz_recipe_edit_noprocedure, Toast.LENGTH_SHORT).show();
+			return;
 		}
 		
 		EditText tips = (EditText) findViewById(R.id.recipe_tips_edittext);
-		if(!TextUtils.isEmpty(tips.getText().toString().trim())) {
-			mRecipeEntity.setTips(tips.getText().toString().trim());
-		}
+		mRecipeEntity.setTips(tips.getText().toString().trim());
 		
 	
 		new PostAsyncTast().execute();
