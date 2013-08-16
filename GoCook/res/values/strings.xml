@@ -135,9 +135,13 @@
     <string name="biz_recipe_edit_titleshort">菜谱名字太短</string>
     <string name="biz_recipe_edit_nomaterial">请添加用料</string>
     <string name="biz_recipe_edit_noprocedure">请添加步骤</string>
+    <string name="biz_recipe_edit_posting">正在发布...</string>
     <string name="biz_recipe_edit_post_ok">发布成功</string>
     <string name="biz_recipe_edit_post_failed">发布失败</string>
     
+    <string name="biz_recipe_edit_title_isdelete">确认删除该菜谱?</string>
+    <string name="biz_recipe_edit_title_deleteok">删除</string>
+    <string name="biz_recipe_edit_title_deleteno">取消</string>
     
     <!-- recipe hot -->
     <string name="biz_recipe_collect_count">%d收藏</string>

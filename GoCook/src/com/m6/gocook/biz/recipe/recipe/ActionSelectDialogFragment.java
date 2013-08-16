@@ -1,6 +1,8 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -93,7 +95,22 @@ public class ActionSelectDialogFragment extends DialogFragment {
 			
 			@Override
 			public void onClick(View v) {
-
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage(getResources().getString(R.string.biz_recipe_edit_title_isdelete))
+				       .setCancelable(false)
+				       .setPositiveButton(R.string.biz_recipe_edit_title_deleteok, new DialogInterface.OnClickListener() {
+				           public void onClick(DialogInterface dialog, int id) {
+				                
+				           }
+				       })
+				       .setNegativeButton(R.string.biz_recipe_edit_title_deleteno, new DialogInterface.OnClickListener() {
+				           public void onClick(DialogInterface dialog, int id) {
+				                dialog.cancel();
+				           }
+				       });
+				AlertDialog alert = builder.create();
+				alert.show();
+				
 			}
 		});
 		return view;

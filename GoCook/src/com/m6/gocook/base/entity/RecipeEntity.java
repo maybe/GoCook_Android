@@ -96,7 +96,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 		}
 	}
 
-	private int id;
+	private String id = "";
 
 	private String name;
 
@@ -124,11 +124,11 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	
 	private boolean isCollected;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -300,7 +300,7 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			if(recipe == null) {
 				return false;
 			}
-			this.id = recipe.optInt(Protocol.KEY_RECIPE_ID);
+			this.id = String.valueOf(recipe.optInt(Protocol.KEY_RECIPE_ID));
 			this.name = recipe.optString(Protocol.KEY_RECIPE_NAME);
 			this.authorId = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_ID);
 			this.authorName = recipe.optString(Protocol.KEY_RECIPE_AUTHOR_NAME);

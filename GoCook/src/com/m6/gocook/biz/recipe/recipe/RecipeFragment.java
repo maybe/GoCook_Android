@@ -19,7 +19,9 @@ import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
 import com.m6.gocook.util.log.Logger;
 
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -477,7 +479,41 @@ public class RecipeFragment extends BaseFragment {
 
 	@Override
 	public void onActionBarRightButtonClick(View v) {
-		ActionSelectDialogFragment.startFragment(getChildFragmentManager(), mRecipeId);
+		
+		final CharSequence[] items = {getResources().getString(R.string.biz_recipe_edit_actionbar_edit),
+				getResources().getString(R.string.biz_recipe_edit_actionbar_delete)}; 
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		        switch (item) {
+				case 0:
+					RecipeEditFragment.startInActivity(getActivity(), Mode.RECIPE_EDIT, mRecipeId);
+					break;
+				case 1:
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage(getResources().getString(R.string.biz_recipe_edit_title_isdelete))
+					       .setCancelable(false)
+					       .setPositiveButton(R.string.biz_recipe_edit_title_deleteok, new DialogInterface.OnClickListener() {
+					           public void onClick(DialogInterface dialog, int id) {
+					                
+					           }
+					       })
+					       .setNegativeButton(R.string.biz_recipe_edit_title_deleteno, new DialogInterface.OnClickListener() {
+					           public void onClick(DialogInterface dialog, int id) {
+					                dialog.cancel();
+					           }
+					       });
+					AlertDialog alert = builder.create();
+					alert.show();
+					break;
+				default:
+					break;
+				}
+		    }
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+
 	}
 	
 	

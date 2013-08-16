@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -38,6 +40,7 @@ import com.m6.gocook.base.entity.RecipeEntity.Procedure;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
@@ -61,8 +64,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	private Mode mMode;
 	
 	private ImageView mCurrentImageView;
-	private Uri mCurrentSelectedUri;
-	private Bitmap mCurrentSelectedBitmap;
+	private ProgressDialog mProgressDialog;
 	
 	public enum Mode {
 		RECIPE_NEW, RECIPE_EDIT
@@ -173,7 +175,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			if(mMode == Mode.RECIPE_NEW) {
 				action.setTitle(R.string.biz_recipe_edit_title_new);
 			} else if (mMode == Mode.RECIPE_EDIT) {
-				action.setTitle(R.string.biz_recipe_edit_title_edit);
+				action.setRightButton(R.string.biz_recipe_edit_title_edit, R.drawable.edit);
 				mRecipeId = arg.getString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID);
 			}
 		}
@@ -222,6 +224,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		ImageView cover = (ImageView) findViewById(R.id.cover_imageview);
 		mImageFetcher.loadImage(mRecipeEntity.getCoverImgURL(), cover);
+		cover.setTag(ProtocolUtils.getImageFileNameFromURL(mRecipeEntity.getCoverImgURL()));
 		
 		EditText titleEditText = (EditText) findViewById(R.id.recipe_title_edittext);
 		titleEditText.setText(mRecipeEntity.getName());
@@ -345,16 +348,32 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 
 		if(!TextUtils.isEmpty(procedure.getImageURL())) {
 			ImageView image = (ImageView) view.findViewById(R.id.image);
-			mImageFetcher.loadImage(procedure.getImageURL(), image);
-			
+			mImageFetcher.loadImage(ProtocolUtils.getStepImageURL(procedure.getImageURL()), image);
+			image.setTag(procedure.getImageURL());
 			view.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.button_upload).setEnabled(false);
+			view.findViewById(R.id.button_upload).setVisibility(View.INVISIBLE);
 		}
 	}
 	
 	private void showUploadingProgressBar(boolean show) {
-		findViewById(R.id.progressbar_layout).setVisibility(
-				show ? View.VISIBLE : View.GONE);
+		showUploadingProgressBar(show, null);
+	}
+	private void showUploadingProgressBar(boolean show, String message) {
+		
+		if(mProgressDialog == null) {
+			mProgressDialog = new ProgressDialog(getActivity());  
+			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		}
+		
+		if(message != null) {
+			mProgressDialog.setMessage(message);
+		}
+			
+		if(show) {
+			mProgressDialog.show();
+		} else {
+			mProgressDialog.hide();
+		}
 	}
 	
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
@@ -428,6 +447,9 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		mRecipeEntity = new RecipeEntity();
 		
+		if(mMode == Mode.RECIPE_EDIT) {
+			mRecipeEntity.setId(mRecipeId);
+		}
 		
 		if(findViewById(R.id.cover_imageview).getTag() != null) {
 			mRecipeEntity.setCoverImgURL(findViewById(R.id.cover_imageview).getTag().toString());
@@ -505,7 +527,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 
 		@Override
 		protected void onPreExecute() {
-			showUploadingProgressBar(true);
+			showUploadingProgressBar(true, getResources().getString(R.string.biz_recipe_edit_posting));
 			super.onPreExecute();
 		}
 		
@@ -556,7 +578,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showUploadingProgressBar(true);
+			showUploadingProgressBar(true, getResources().getString(R.string.biz_recipe_edit_progressbar));
 		}
 		
 		@Override
