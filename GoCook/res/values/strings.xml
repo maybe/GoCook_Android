@@ -111,7 +111,8 @@
     
     <!-- recipe edit -->    
     <string name="biz_recipe_edit_title_new">添加菜谱</string>
-    <string name="biz_recipe_edit_title_edit">修改菜谱</string>
+    <string name="biz_recipe_edit_title_edit">编辑菜谱</string>
+    <string name="biz_recipe_edit_title_edit_post">发布修改</string>
     <string name="biz_recipe_edit_post">发布菜谱</string>
     <string name="biz_recipe_edit_required">（必填）</string>
     <string name="biz_recipe_edit_cover">菜谱封面</string>
@@ -138,6 +139,11 @@
     <string name="biz_recipe_edit_posting">正在发布...</string>
     <string name="biz_recipe_edit_post_ok">发布成功</string>
     <string name="biz_recipe_edit_post_failed">发布失败</string>
+    <string name="biz_recipe_edit_edit_ok">更新成功</string>
+    <string name="biz_recipe_edit_edit_failed">更新失败</string>
+    <string name="biz_recipe_edit_delete_ok">删除成功</string>
+    <string name="biz_recipe_edit_delete_failed">删除失败</string>
+    <string name="biz_recipe_edit_deleteing">正在删除...</string>
     
     <string name="biz_recipe_edit_title_isdelete">确认删除该菜谱?</string>
     <string name="biz_recipe_edit_title_deleteok">删除</string>

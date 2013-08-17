@@ -20,6 +20,7 @@ import com.m6.gocook.util.log.Logger;
 
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,6 +61,9 @@ public class RecipeFragment extends BaseFragment {
 	private boolean mCollected = false;
 	
 	private boolean mRefreshComments = false;
+	private boolean mRefreshRecipe = false;
+	
+	private ProgressDialog mProgressDialog;
 	
 	private AchieveRecipeTask mAchieveRecipeTask;
 	private RecipeCollectTask mRecipeCollectTask;
@@ -354,6 +358,29 @@ public class RecipeFragment extends BaseFragment {
 				R.string.biz_recipe_tabbar_menu_removecollecting :
 				R.string.biz_recipe_tabbar_menu_addcollecting);
 	}
+	
+	private void showProgressBar(boolean show) {
+		showProgressBar(show, null);
+	}
+	private void showProgressBar(boolean show, String message) {
+		
+		if(mProgressDialog == null) {
+			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setCanceledOnTouchOutside(false);
+			mProgressDialog.setCancelable(false);
+			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		}
+		
+		if(message != null) {
+			mProgressDialog.setMessage(message);
+		}
+			
+		if(show) {
+			mProgressDialog.show();
+		} else {
+			mProgressDialog.hide();
+		}
+	}
 
 	private class AchieveRecipeTask extends AsyncTask<Void, Void, Void> {
 
@@ -476,6 +503,33 @@ public class RecipeFragment extends BaseFragment {
 		}
 		
 	}
+	
+	public class DeleteRecipeTast extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			return RecipeModel.deleteRecipe(mContext, mRecipeId);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			if(result) {
+				Toast.makeText(mContext, R.string.biz_recipe_edit_delete_ok, Toast.LENGTH_SHORT).show();
+				getActivity().finish();
+			} else {
+				Toast.makeText(mContext, R.string.biz_recipe_edit_delete_failed, Toast.LENGTH_SHORT).show();
+			}
+			showProgressBar(false);
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgressBar(true, getActivity().getResources().getString(R.string.biz_recipe_edit_deleteing));
+		}
+		
+	}
 
 	@Override
 	public void onActionBarRightButtonClick(View v) {
@@ -495,7 +549,7 @@ public class RecipeFragment extends BaseFragment {
 					       .setCancelable(false)
 					       .setPositiveButton(R.string.biz_recipe_edit_title_deleteok, new DialogInterface.OnClickListener() {
 					           public void onClick(DialogInterface dialog, int id) {
-					                
+					                new DeleteRecipeTast().execute();
 					           }
 					       })
 					       .setNegativeButton(R.string.biz_recipe_edit_title_deleteno, new DialogInterface.OnClickListener() {

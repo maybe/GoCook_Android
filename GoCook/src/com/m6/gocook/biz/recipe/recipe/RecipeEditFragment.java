@@ -175,7 +175,8 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			if(mMode == Mode.RECIPE_NEW) {
 				action.setTitle(R.string.biz_recipe_edit_title_new);
 			} else if (mMode == Mode.RECIPE_EDIT) {
-				action.setRightButton(R.string.biz_recipe_edit_title_edit, R.drawable.edit);
+				action.setTitle(R.string.biz_recipe_edit_title_edit);
+				action.setRightButton(R.string.biz_recipe_edit_title_edit_post, R.drawable.edit);
 				mRecipeId = arg.getString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID);
 			}
 		}
@@ -351,7 +352,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			mImageFetcher.loadImage(ProtocolUtils.getStepImageURL(procedure.getImageURL()), image);
 			image.setTag(procedure.getImageURL());
 			view.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.button_upload).setVisibility(View.INVISIBLE);
+			view.findViewById(R.id.button_upload).setVisibility(View.GONE);
 		}
 	}
 	
@@ -362,6 +363,8 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		if(mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(getActivity());  
+			mProgressDialog.setCanceledOnTouchOutside(false);
+			mProgressDialog.setCancelable(false);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		}
 		
@@ -533,7 +536,9 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			String result = RecipeModel.postRecipe(mContext, mRecipeEntity);
+			String result = (mMode == Mode.RECIPE_NEW) ?
+					RecipeModel.postRecipe(mContext, mRecipeEntity) :
+					RecipeModel.editRecipe(mContext, mRecipeEntity);
 			
 			if (!TextUtils.isEmpty(result)) {
 				try {

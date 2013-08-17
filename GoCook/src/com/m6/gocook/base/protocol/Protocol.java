@@ -16,6 +16,10 @@ public class Protocol {
 
 	public static final String URL_RECIPE_CREATE = URL_ROOT + "/recipe/create";
 	
+	public static final String URL_RECIPE_EDIT = URL_ROOT + "/recipe/edit";
+
+	public static final String URL_RECIPE_DELETE = URL_ROOT + "/recipe/delete?recipe_id=%s";
+
 	public static final String URL_RECIPE_COMMENT = URL_ROOT + "/recipe/comments?recipe_id=%s";
 	
 	public static final String URL_RECIPE_COMMENT_POST = URL_ROOT + "/recipe/comment";

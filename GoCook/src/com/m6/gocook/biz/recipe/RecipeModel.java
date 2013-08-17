@@ -70,7 +70,7 @@ public class RecipeModel {
 			e.printStackTrace();
 		}
 		
-		if(jsonObject != null) {
+		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
 			RecipeEntity entity = new RecipeEntity();
 			entity.parse(jsonObject);
 			return entity;
@@ -90,7 +90,38 @@ public class RecipeModel {
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_STEPS, recipeEntity.getProcedureString()));
 		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_TIPS, recipeEntity.getTips()));
 		return NetUtils.httpPost(context, Protocol.URL_RECIPE_CREATE, params);
-
+	}
+	
+	public static String editRecipe(Context context, RecipeEntity recipeEntity) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_ID, recipeEntity.getId()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_NAME, recipeEntity.getName()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_COVER_IMG, recipeEntity.getCoverImgURL()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_DESC, recipeEntity.getDesc()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_CATEGORY, ""));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_MATERIALS, recipeEntity.getMaterialsString()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_STEPS, recipeEntity.getProcedureString()));
+		params.add(new BasicNameValuePair(Protocol.KEY_RECIPE_POST_TIPS, recipeEntity.getTips()));
+		return NetUtils.httpPost(context, Protocol.URL_RECIPE_EDIT, params);
+	}
+	
+	public static Boolean deleteRecipe(Context context, String recipeId) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_DELETE, recipeId), AccountModel.getCookie(context));
+		
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(result);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static RecipeList getRecipeData(String url, String cookie) {
