@@ -112,6 +112,15 @@ public class ProfileModel {
 		PrefHelper.putString(context, PrefKeys.PROFILE_MYRECIPES, myRecipesText);
 	}
 	
+	public static String getOtherInfo(Context context) {
+		return PrefHelper.getString(context, PrefKeys.PROFILE_OTHERINFO, "");
+	}
+	
+	public static void saveOtherInfo(Context context, String otherInfo) {
+		PrefHelper.putString(context, PrefKeys.PROFILE_OTHERINFO, otherInfo);
+	}
+	
+	
 	/**
 	 * 修改个人信息
 	 * 
@@ -184,8 +193,31 @@ public class ProfileModel {
 		return null;
 	}
 	
+	/**
+	 * 获取其他用户的信息
+	 * 
+	 * @param context
+	 * @param userId
+	 * @return
+	 */
 	public static Map<String, Object> getOtherInfo(Context context, String userId) {
-		String result = NetUtils.httpGet(Protocol.URL_PROFILE_OTHER + userId, AccountModel.getCookie(context));
+		return getOtherInfo(context, userId, false);
+	}
+	
+	/**
+	 * 获取其他用户的信息
+	 * 
+	 * @param context
+	 * @param userId
+	 * @return
+	 */
+	public static Map<String, Object> getOtherInfo(Context context, String userId, boolean fromLocal) {
+		String result;
+		if (fromLocal) {
+			result = ProfileModel.getOtherInfo(context);
+		} else {
+			result = NetUtils.httpGet(Protocol.URL_PROFILE_OTHER + userId, AccountModel.getCookie(context));
+		}
 		if (TextUtils.isEmpty(result)) {
 			return null;
 		}
@@ -195,6 +227,7 @@ public class ProfileModel {
 			if(jsonObject != null) {
 				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
 				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+					ProfileModel.saveOtherInfo(context, result);
 					return ModelUtils.getMapValue(resultMap, "result_kitchen_info");
 				}
 			}

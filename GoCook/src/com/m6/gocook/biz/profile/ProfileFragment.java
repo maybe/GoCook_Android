@@ -6,7 +6,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +28,6 @@ import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.fragment.BaseFragment;
@@ -38,11 +36,11 @@ import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.model.ModelUtils;
-import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileFragment extends BaseFragment {
 	
@@ -60,6 +58,18 @@ public class ProfileFragment extends BaseFragment {
 	private String mUserId;
 	private int mFollowStatus = -1;
 	
+	private String mUsername;
+	
+	/**
+	 * 启动个人信息页面
+	 * 
+	 * @param context
+	 * @param profileType
+	 * @param followId
+	 */
+	public static void startProfileFragment(Context context, int profileType, String followId) {
+		startProfileFragment(context, profileType, followId, false);
+	}
 	/**
 	 * 启动个人信息页面
 	 * 
@@ -67,13 +77,17 @@ public class ProfileFragment extends BaseFragment {
 	 * @param profileType PROFILE_MYSELF代表进入我的页面； PROFILE_OTHERS进入别人的页面
 	 * @param followId
 	 */
-	public static void startProfileFragment(Context context, int profileType, String followId) {
+	public static void startProfileFragment(Context context, int profileType, String followId, boolean startForResult) {
 		Bundle bundle = new Bundle();
 		bundle.putInt(PROFILE_TYPE, profileType);
 		bundle.putString(PROFILE_FOLLOW_ID, followId);
 		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
 				ProfileFragment.class.getName(), ProfileFragment.class.getName(), bundle);
-		context.startActivity(intent);
+		if (startForResult) {
+			((FragmentActivity) context).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_FOLLOW);
+		} else {
+			context.startActivity(intent);
+		}
 	}
 	
 	@Override
@@ -145,6 +159,7 @@ public class ProfileFragment extends BaseFragment {
 				Bundle bundle = new Bundle();
 				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, 
 						mProfileType == PROFILE_MYSELF ? true : false);
+				bundle.putString(MyRecipesFragment.PARAM_USERNAME, mUsername);
 				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
 				startActivity(intent);
@@ -178,14 +193,16 @@ public class ProfileFragment extends BaseFragment {
 	public void onResume() {
 		super.onResume();
 		
-		View view = getView();
-		ActionBar action = getActionBar();
-		String username = AccountModel.getUsername(getActivity());
-		action.setTitle(username);
-		((TextView) view.findViewById(R.id.name)).setText(username);
-		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
-		((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction,
-				ProfileModel.getIntro(getActivity())));
+		if(mProfileType == PROFILE_MYSELF) {
+			View view = getView();
+			ActionBar action = getActionBar();
+			String username = AccountModel.getUsername(getActivity());
+			action.setTitle(username);
+			((TextView) view.findViewById(R.id.name)).setText(username);
+			((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+			((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction,
+					ProfileModel.getIntro(getActivity())));
+		}
 	}
 	
 	private void updateInfo(Map<String, Object> info) {
@@ -196,10 +213,10 @@ public class ProfileFragment extends BaseFragment {
 		}
 		
 		ActionBar action = getActionBar();
-		String username = ModelUtils.getStringValue(info, ProfileModel.NICKNAME);
-		action.setTitle(username);
-		((TextView) view.findViewById(R.id.name)).setText(username);
-		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
+		mUsername = ModelUtils.getStringValue(info, ProfileModel.NICKNAME);
+		action.setTitle(mUsername);
+		((TextView) view.findViewById(R.id.name)).setText(mUsername);
+		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), mUsername));
 		
 		Button edit  = (Button) view.findViewById(R.id.edit);
 		if (mProfileType == PROFILE_MYSELF) {
@@ -228,6 +245,7 @@ public class ProfileFragment extends BaseFragment {
 						} else if(mFollowStatus == FOLLOWED) {
 							new UnFollowTask(getActivity(), followId).execute((Void) null); 
 						}
+						getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
 					}
 				}
 			}
@@ -258,7 +276,7 @@ public class ProfileFragment extends BaseFragment {
 			GridView grid = (GridView) view.findViewById(R.id.recipe_grid);
 			grid.setAdapter(new ProfileRecipeAdapter(getActivity(), mImageFetcher, recipeList));
 			hideRecipesView(false);
-		} else if (recipes != null && !recipes.isEmpty() && mProfileType == PROFILE_OTHERS) {
+		} else if (recipes != null && recipes.isEmpty() && mProfileType == PROFILE_OTHERS) {
 			hideRecipesView(true);
 		}
 		
@@ -360,7 +378,7 @@ public class ProfileFragment extends BaseFragment {
 		
 		@Override
 		protected RecipeList doInBackground(Void... params) {
-			return RecipeModel.getMyRecipes(mActivity);
+			return RecipeModel.getMyRecipes(mActivity, mProfileType == PROFILE_MYSELF);
 		}
 		
 		@Override

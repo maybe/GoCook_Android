@@ -143,20 +143,14 @@ public class RecipeModel {
 	}
 	
 	/**
-	 * 获取我的菜谱(默认加载网络数据) 
+	 * 获取我的菜谱
 	 * 
 	 * @param context
+	 * @param myself true获取我的菜谱，false获取别人的菜谱
 	 * @return
 	 */
-	public static RecipeList getMyRecipes(Context context) {
-		return getMyRecipes(context, false);
-	}
-	public static RecipeList getMyRecipes(Context context, boolean fromLocal) {
+	public static RecipeList getMyRecipes(Context context, boolean myself) {
 		String result;
-//		if (fromLocal) {
-//			result = ProfileModel.getMyRecipesText(context);
-//		} else {
-//		}
 		result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
 		if(TextUtils.isEmpty(result)) {
 			return null;
@@ -166,7 +160,7 @@ public class RecipeModel {
 			JSONObject json = new JSONObject(result);
 			RecipeList recipeListItem = new RecipeList();
 			if(recipeListItem.parse(json)) {
-				if (!fromLocal) {
+				if (myself) {
 					ProfileModel.saveMyRecipesText(context, result);
 				}
 				return recipeListItem;

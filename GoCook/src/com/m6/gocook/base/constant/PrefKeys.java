@@ -40,6 +40,8 @@ public class PrefKeys {
 	
 	public static final String PROFILE_MYRECIPES = "profile_myrecipes";
 	
+	public static final String PROFILE_OTHERINFO = "profile_otherrecipes";
+	
 	public static final String RECIPE_COMMENTS = "recipe_comments";
 	
 	public static final String RECIPE_ENTITY = "recipe_entity";

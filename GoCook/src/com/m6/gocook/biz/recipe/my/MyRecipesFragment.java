@@ -1,5 +1,9 @@
 package com.m6.gocook.biz.recipe.my;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +13,24 @@ import android.view.ViewGroup;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeList;
+import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.list.RecipeListFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
 import com.m6.gocook.util.log.Logger;
+import com.m6.gocook.util.model.ModelUtils;
 
 public class MyRecipesFragment extends RecipeListFragment implements OnActivityAction {
 
 	public static final String PARAM_FROM_PROFILE = "param_from_profile";
+	
+	public static final String PARAM_USERNAME = "param_username";
 	
 	private static final int REQUEST_CODE = 11;
 	
@@ -28,12 +38,19 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	
 	private boolean mIsFreshData = false;
 	
+	private String mUsername;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		if(args != null) {
 			mFromPersonnalProfile = args.getBoolean(PARAM_FROM_PROFILE, false);
+			if (mFromPersonnalProfile) {
+				mUsername = AccountModel.getUsername(getActivity());
+			} else {
+				mUsername = args.getString(PARAM_USERNAME);;
+			}
 		}
 	}
 	
@@ -59,12 +76,10 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	}
 	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		ActionBar action = getActionBar();
-		String username = AccountModel.getUsername(getActivity());
-		action.setTitle(getString(R.string.biz_profile_myrecipes_title, username));
+		action.setTitle(getString(R.string.biz_profile_myrecipes_title, mUsername));
 	}
 
 	@Override
@@ -79,7 +94,28 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	
 	@Override
 	protected RecipeList getListData(String url) {
-		return RecipeModel.getMyRecipes(getActivity(), mFromPersonnalProfile);
+		if (mFromPersonnalProfile) {
+			return RecipeModel.getMyRecipes(getActivity(), mFromPersonnalProfile);
+		} else {
+			List<Map<String, Object>> recipes = ModelUtils.getListMapValue(ProfileModel.getOtherInfo(getActivity(), "", true), ProfileModel.RECIPES);
+			if (recipes != null) {
+				int size = recipes.size();
+				ArrayList<RecipeItem> recipeItems = new ArrayList<RecipeList.RecipeItem>(); 
+				for (int i = 0; i < size; i++) {
+					RecipeItem item = new RecipeItem();
+					item.setId(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_ID));
+					item.setName(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_NAME));
+					item.setImage(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_IMAGE));
+					item.setMaterial(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_MATERIALS));
+					item.setCollectCount(ModelUtils.getIntValue(recipes.get(i), Protocol.KEY_RECIPE_DISH_COUNT, 0));
+					recipeItems.add(item);
+				}
+				RecipeList recipeList = new RecipeList();
+				recipeList.setRecipes(recipeItems);
+				return recipeList;
+			}
+			return null;
+		}
 	}
 	
 	@Override

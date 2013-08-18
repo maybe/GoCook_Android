@@ -3,6 +3,7 @@ package com.m6.gocook.biz.profile;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +15,13 @@ import android.widget.ListView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.People;
 import com.m6.gocook.base.fragment.BaseListFragment;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class PeopleFragment extends BaseListFragment {
+public class PeopleFragment extends BaseListFragment implements OnActivityAction {
 
 	private PeopleListTask mPeopleListTask;
 	private PeopleAdapter mAdapter;
@@ -30,14 +33,21 @@ public class PeopleFragment extends BaseListFragment {
 	
 	private int mPeopleListType;
 	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		MainActivityHelper.registerOnActivityActionListener(this);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
 			mPeopleListType = bundle.getInt(TYPE);
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -62,7 +72,7 @@ public class PeopleFragment extends BaseListFragment {
 					
 					if (mAdapter != null) {
 						ProfileFragment.startProfileFragment(getActivity(), 
-								ProfileFragment.PROFILE_OTHERS, mAdapter.getItem(position).getId());
+								ProfileFragment.PROFILE_OTHERS, mAdapter.getItem(position).getId(), true);
 					}
 				}
 				
@@ -86,6 +96,22 @@ public class PeopleFragment extends BaseListFragment {
 	@Override
 	protected BaseAdapter getAdapter() {
 		return mAdapter;
+	}
+	
+	@Override
+	protected void refresh() {
+		if (mPeoples != null) {
+			mPeoples.clear();
+			mPeoples = null;
+		}
+		executeTask();
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == MainActivityHelper.REQUEST_CODE_FOLLOW && resultCode == MainActivityHelper.RESULT_CODE_FOLLOW) {
+			refresh();
+		}
 	}
 
 	private class PeopleListTask extends AsyncTask<Void, Void, ArrayList<People>> {

@@ -115,6 +115,13 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	}
 	
 	/**
+	 * 刷新
+	 */
+	protected void refresh() {
+		
+	}
+	
+	/**
 	 * 子类实现此方法返回业务的URL
 	 * 
 	 * @return
