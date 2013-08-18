@@ -82,7 +82,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
         context.startActivity(intent);
 	}
 	
-	public static void startInActivityForResult(Activity context, Mode mode, String recipeId, int requestCode) {
+	public static void startInActivityForResult(Activity context, Mode mode, String recipeId) {
 		Bundle argument = new Bundle();
 		argument.putSerializable(RecipeEditFragment.ARGUMENT_KEY_ACTION,
 				mode);
@@ -90,21 +90,14 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
         Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
         		RecipeEditFragment.class.getName(), 
         		RecipeEditFragment.class.getName(), argument);
-        context.startActivityForResult(intent, requestCode);
+        context.startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_RECIPE_EDIT);
 	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MainActivityHelper.registerOnActivityActionListener(this);
 		// set softinputmode for activity
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -473,6 +466,9 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			if(title.getText().toString().trim().length() < 4) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_titleshort, Toast.LENGTH_SHORT).show();
 				return;
+			} else if (title.getText().toString().trim().length() > 12) {
+				Toast.makeText(mContext, R.string.biz_recipe_edit_titlelong, Toast.LENGTH_SHORT).show();
+				return;
 			}
 			mRecipeEntity.setName(title.getText().toString().trim());
 		} else {
@@ -482,6 +478,10 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		}
 		
 		EditText desc = (EditText) findViewById(R.id.recipe_introduction_edittext);
+		if(desc.getText().toString().trim().length() > 0 && desc.getText().toString().trim().length() < 5) {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_descshort, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mRecipeEntity.setDesc(desc.getText().toString().trim());
 		
 		final LinearLayout materialLayout = (LinearLayout) findViewById(R.id.material_layout);
@@ -527,6 +527,10 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		}
 		
 		EditText tips = (EditText) findViewById(R.id.recipe_tips_edittext);
+		if(tips.getText().toString().trim().length() > 0 && tips.getText().toString().trim().length() < 5) {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_tipsshort, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mRecipeEntity.setTips(tips.getText().toString().trim());
 		
 	
@@ -571,7 +575,9 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			
 			if(result) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_ok, Toast.LENGTH_SHORT).show();
-				getActivity().setResult(MainActivityHelper.RESULT_CODE_CREATERECIPE_OK);
+				getActivity().setResult((mMode == Mode.RECIPE_NEW) ?
+						MainActivityHelper.RESULT_CODE_RECIPE_EDIT_CREATED :
+						MainActivityHelper.RESULT_CODE_RECIPE_EDIT_UPDATED);
 				getActivity().finish();
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_failed, Toast.LENGTH_SHORT).show();
@@ -612,12 +618,14 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 				}
 			}
 			return null;
-		}		
+		}
+		
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			if(isAdded()){
-				if(mCurrentImageView != null) {
+				mCurrentImageView.setTag(null);
+				if(mCurrentImageView != null && result != null) {
 					mCurrentImageView.setTag(result);
 				}
 				showUploadingProgressBar(false);
@@ -629,6 +637,10 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 						parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
 					} else {
 						parent.findViewById(R.id.button_upload).setVisibility(View.GONE);
+					}
+				} else {
+					if(result == null) {
+						mCurrentImageView.setImageResource(R.drawable.landscape_photo);
 					}
 				}
 				

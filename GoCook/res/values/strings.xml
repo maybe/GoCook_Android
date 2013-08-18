@@ -134,8 +134,11 @@
     <string name="biz_recipe_edit_nocover">请添加封面</string>
     <string name="biz_recipe_edit_notitle">请添加菜谱名字</string>
     <string name="biz_recipe_edit_titleshort">菜谱名字太短</string>
+    <string name="biz_recipe_edit_titlelong">菜谱名字太长</string>
     <string name="biz_recipe_edit_nomaterial">请添加用料</string>
     <string name="biz_recipe_edit_noprocedure">请添加步骤</string>
+    <string name="biz_recipe_edit_descshort">菜谱介绍内容太少</string>
+    <string name="biz_recipe_edit_tipsshort">小贴士内容太少</string>
     <string name="biz_recipe_edit_posting">正在发布...</string>
     <string name="biz_recipe_edit_post_ok">发布成功</string>
     <string name="biz_recipe_edit_post_failed">发布失败</string>

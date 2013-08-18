@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,7 +49,16 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 				mUsername = args.getString(PARAM_USERNAME);;
 			}
 		}
+		
+		MainActivityHelper.registerOnActivityActionListener(this);
 	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+	}
+	
 	
 	@Override
 	public View onCreateHeaderView(LayoutInflater inflater, ViewGroup container) {
@@ -59,9 +69,7 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 				@Override
 				public void onClick(View v) {
 					RecipeEditFragment.startInActivityForResult(getActivity(),
-							RecipeEditFragment.Mode.RECIPE_NEW, "", MainActivityHelper.REQUEST_CODE_CREATERECIPE);
-//					RecipeEditFragment.startInActivity(getActivity(),
-//							RecipeEditFragment.Mode.RECIPE_NEW, "");
+							RecipeEditFragment.Mode.RECIPE_NEW, "");
 				}
 			});
 			return view;
@@ -120,10 +128,19 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == MainActivityHelper.REQUEST_CODE_CREATERECIPE
-				&& resultCode == MainActivityHelper.RESULT_CODE_CREATERECIPE_OK) {
-			executeTask();
-			Logger.i("achieve my recipe list again");
+		Log.i("MyRecipesFragment", String.format("onActivityResult: requesCode:%d, resultCode:%d", requestCode, resultCode));
+		
+		if(requestCode == MainActivityHelper.REQUEST_CODE_RECIPE_EDIT) {
+			if(resultCode == MainActivityHelper.RESULT_CODE_RECIPE_EDIT_CREATED) {
+				refresh();
+			}
+		}
+		
+		if(requestCode == MainActivityHelper.REQUEST_CODE_RECIPE) {
+			if(resultCode == MainActivityHelper.RESULT_CODE_RECIPE_DELETED ||
+					resultCode == MainActivityHelper.RESULT_CODE_RECIPE_UPDATED) {
+				refresh();
+			}
 		}
 	}
 	

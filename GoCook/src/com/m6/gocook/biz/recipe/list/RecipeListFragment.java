@@ -41,7 +41,7 @@ public abstract class RecipeListFragment extends BaseListFragment {
 					if(item != null) {
 						String recipeId = item.getId();
 						String recipeName = item.getName();
-						RecipeFragment.startInActivity(getActivity(), recipeId, recipeName);
+						RecipeFragment.startInActivityForResult(getActivity(), recipeId, recipeName);
 					}
 				}
 			});
@@ -157,4 +157,13 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			showProgress(false);
 		}
     }
+	
+	@Override
+	protected void refresh() {
+		if (mRecipeList != null) {
+			mRecipeList.getRecipes().clear();
+			mRecipeList = null;
+		}
+		executeTask();
+	}
 }

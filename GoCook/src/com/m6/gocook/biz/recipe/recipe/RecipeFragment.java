@@ -1,24 +1,6 @@
 package com.m6.gocook.biz.recipe.recipe;
 
-import com.m6.gocook.R;
-import com.m6.gocook.R.string;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.entity.RecipeCommentList;
-import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
-import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.account.LoginFragment;
-import com.m6.gocook.biz.profile.ProfileFragment;
-import com.m6.gocook.biz.purchase.PurchaseListModel;
-import com.m6.gocook.biz.recipe.RecipeModel;
-import com.m6.gocook.biz.recipe.comment.RecipeCommentAdapter;
-import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
-import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
-import com.m6.gocook.util.log.Logger;
-
-import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -30,10 +12,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,7 +24,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RecipeFragment extends BaseFragment {
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.entity.RecipeCommentList;
+import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
+import com.m6.gocook.base.entity.RecipeEntity;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.LoginFragment;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.profile.ProfileFragment;
+import com.m6.gocook.biz.purchase.PurchaseListModel;
+import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
+import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
+import com.m6.gocook.util.log.Logger;
+
+public class RecipeFragment extends BaseFragment implements OnActivityAction{
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
@@ -78,6 +79,32 @@ public class RecipeFragment extends BaseFragment {
         		RecipeFragment.class.getName(), argument);
         context.startActivity(intent);
 	}
+	
+	public static void startInActivityForResult(Activity context, String recipeId, String recipeName) {
+		Bundle argument = new Bundle();
+		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
+		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_NAME, recipeName);
+        Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+        		RecipeFragment.class.getName(), 
+        		RecipeFragment.class.getName(), argument);
+        context.startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_RECIPE);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		MainActivityHelper.registerOnActivityActionListener(this);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+        mContext = null;
+        mRootView = null;
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+	}
+	
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -129,17 +156,9 @@ public class RecipeFragment extends BaseFragment {
 		initView();
 
 		mAchieveRecipeTask = new AchieveRecipeTask();
-		mAchieveRecipeTask.execute((Void) null);
+		mAchieveRecipeTask.execute();
 		
 	}
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mContext = null;
-        mRootView = null;
-    }
 
 	private void setTitle(String title) {
 		getActionBar().setTitle(title);
@@ -516,6 +535,7 @@ public class RecipeFragment extends BaseFragment {
 			super.onPostExecute(result);
 			if(result) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_delete_ok, Toast.LENGTH_SHORT).show();
+				getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_DELETED);
 				getActivity().finish();
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_delete_failed, Toast.LENGTH_SHORT).show();
@@ -541,7 +561,7 @@ public class RecipeFragment extends BaseFragment {
 		    public void onClick(DialogInterface dialog, int item) {
 		        switch (item) {
 				case 0:
-					RecipeEditFragment.startInActivity(getActivity(), Mode.RECIPE_EDIT, mRecipeId);
+					RecipeEditFragment.startInActivityForResult(getActivity(), Mode.RECIPE_EDIT, mRecipeId);
 					break;
 				case 1:
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -570,6 +590,18 @@ public class RecipeFragment extends BaseFragment {
 
 	}
 	
-	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.i("RecipeFragment", String.format("onActivityResult: requesCode:%d, resultCode:%d", requestCode, resultCode));
+		
+		if(requestCode == MainActivityHelper.REQUEST_CODE_RECIPE_EDIT) {
+			if(resultCode == MainActivityHelper.RESULT_CODE_RECIPE_EDIT_UPDATED) {
+				mAchieveRecipeTask = new AchieveRecipeTask();
+				mAchieveRecipeTask.execute();
+				
+				getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_UPDATED);
+			}
+		}
+	}
 
 }
