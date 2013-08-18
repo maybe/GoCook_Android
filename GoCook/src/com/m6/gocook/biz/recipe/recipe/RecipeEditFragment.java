@@ -39,6 +39,7 @@ import com.m6.gocook.base.entity.RecipeEntity.Material;
 import com.m6.gocook.base.entity.RecipeEntity.Procedure;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
@@ -49,7 +50,7 @@ import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.util.File.ImgUtils;
 import com.m6.gocook.util.log.Logger;
 
-public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnPhotoPickCallback {
+public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnActivityAction, OnPhotoPickCallback {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
@@ -95,10 +96,16 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnActivityActionListener(this);
 		// set softinputmode for activity
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+	}
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -564,7 +571,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			
 			if(result) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_ok, Toast.LENGTH_SHORT).show();
-				getActivity().setResult(MainActivityHelper.RESULT_OK);
+				getActivity().setResult(MainActivityHelper.RESULT_CODE_CREATERECIPE_OK);
 				getActivity().finish();
 			} else {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_post_failed, Toast.LENGTH_SHORT).show();

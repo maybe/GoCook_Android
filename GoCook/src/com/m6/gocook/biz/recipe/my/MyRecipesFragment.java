@@ -31,13 +31,9 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	public static final String PARAM_FROM_PROFILE = "param_from_profile";
 	
 	public static final String PARAM_USERNAME = "param_username";
-	
-	private static final int REQUEST_CODE = 11;
-	
+
 	private boolean mFromPersonnalProfile = false; // 从我的个人资料页面跳转而来就从本地取数据，否则取网络数据
-	
-	private boolean mIsFreshData = false;
-	
+
 	private String mUsername;
 	
 	@Override
@@ -62,11 +58,10 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 				
 				@Override
 				public void onClick(View v) {
-//					RecipeEditFragment.startInActivityForResult(getActivity(),
-//							RecipeEditFragment.Mode.RECIPE_NEW, "", REQUEST_CODE);
-					RecipeEditFragment.startInActivity(getActivity(),
-							RecipeEditFragment.Mode.RECIPE_NEW, "");
-					mIsFreshData = true;
+					RecipeEditFragment.startInActivityForResult(getActivity(),
+							RecipeEditFragment.Mode.RECIPE_NEW, "", MainActivityHelper.REQUEST_CODE_CREATERECIPE);
+//					RecipeEditFragment.startInActivity(getActivity(),
+//							RecipeEditFragment.Mode.RECIPE_NEW, "");
 				}
 			});
 			return view;
@@ -124,18 +119,9 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
-		if(mIsFreshData) {
-			executeTask();
-			mIsFreshData = false;
-		}
-	}
-	
-	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == REQUEST_CODE
-				&& resultCode == MainActivityHelper.RESULT_OK) {
+		if(requestCode == MainActivityHelper.REQUEST_CODE_CREATERECIPE
+				&& resultCode == MainActivityHelper.RESULT_CODE_CREATERECIPE_OK) {
 			executeTask();
 			Logger.i("achieve my recipe list again");
 		}
