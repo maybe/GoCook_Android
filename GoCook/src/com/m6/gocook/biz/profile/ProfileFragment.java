@@ -171,14 +171,11 @@ public class ProfileFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		final FragmentActivity activity = getActivity();
-		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
-		String url = AccountModel.getAvatarPath(getActivity());
-		if(!TextUtils.isEmpty(url)) {
-			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
-		}
-		
 		if(mProfileType == PROFILE_MYSELF) {
+			String url = AccountModel.getAvatarPath(getActivity());
+			if(!TextUtils.isEmpty(url)) {
+				mImageFetcher.loadImage(ProtocolUtils.getURL(url), (ImageView) getView().findViewById(R.id.avatar));
+			}
 			new BasicInfoTask(getActivity()).execute((Void) null);
 			new RecipeTask(getActivity()).execute((Void) null);
 		} else {
@@ -217,6 +214,12 @@ public class ProfileFragment extends BaseFragment {
 		action.setTitle(mUsername);
 		((TextView) view.findViewById(R.id.name)).setText(mUsername);
 		((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), mUsername));
+		
+		// 更新头像
+		String avatarUrl = ModelUtils.getStringValue(info, ProfileModel.AVATAR);
+		if (!TextUtils.isEmpty(avatarUrl)) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(avatarUrl), (ImageView) getView().findViewById(R.id.avatar));
+		}
 		
 		Button edit  = (Button) view.findViewById(R.id.edit);
 		if (mProfileType == PROFILE_MYSELF) {

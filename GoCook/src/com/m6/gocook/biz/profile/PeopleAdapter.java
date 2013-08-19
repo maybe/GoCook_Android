@@ -8,6 +8,7 @@ import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,10 @@ public class PeopleAdapter extends BaseAdapter {
 		holder.name.setText(mData.get(position).getName());
 		holder.fans.setText(mContext.getString(R.string.biz_profile_myaccount_fans_count, mData.get(position).getFans()));
 		holder.follows.setText(mContext.getString(R.string.biz_profile_myaccount_follows_count, mData.get(position).getFollows()));
-		mImageFetcher.loadImage(ProtocolUtils.getURL(mData.get(position).getImage()), holder.image);
+		String url = mData.get(position).getImage();
+		if (!TextUtils.isEmpty(url)) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(url), holder.image);
+		}
 		
 		holder.fans.setVisibility(View.GONE);
 		holder.follows.setVisibility(View.GONE);

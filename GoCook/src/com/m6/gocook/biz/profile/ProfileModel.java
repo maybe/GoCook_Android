@@ -29,6 +29,7 @@ import android.text.TextUtils;
 public class ProfileModel {
 	
 	public static final String NICKNAME = "nickname";
+	public static final String AVATAR = "avatar";
 	public static final String SEX = "gender";
 	public static final String AGE = "age";
 	public static final String CAREER = "career";
