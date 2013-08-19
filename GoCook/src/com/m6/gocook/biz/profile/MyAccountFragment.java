@@ -148,14 +148,15 @@ public class MyAccountFragment extends Fragment {
 		if(!TextUtils.isEmpty(url)) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
 		}
-		String userName = AccountModel.getUsername(activity);
-		((TextView) activity.findViewById(R.id.name)).setText(userName);
 	}
 	
 	@Override
     public void onResume() {
         super.onResume();
         mImageFetcher.setExitTasksEarly(false);
+        
+        String userName = AccountModel.getUsername(getActivity());
+        ((TextView) getView().findViewById(R.id.name)).setText(userName);
     }
 
     @Override

@@ -24,6 +24,7 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:singleLine="true"
         android:focusableInTouchMode="true"
 		android:focusable="true" />
 

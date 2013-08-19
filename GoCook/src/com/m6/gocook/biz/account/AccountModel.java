@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.util.File.StringUtils;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 import com.m6.gocook.util.util.Base64;
@@ -120,7 +121,9 @@ public class AccountModel {
 	}
 	
 	public static void saveUsername(Context context, String username) {
-		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, username);
+		if (!TextUtils.isEmpty(username)) {
+			PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, StringUtils.trimLineFeed(username.trim()));
+		}
 	}
 	
 	public static void saveAvatarPath(Context context, String avatar) {
