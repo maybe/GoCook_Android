@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sex">
-        <item>性别</item>
+        <item>保密</item>
         <item>男</item>
         <item>女</item>
     </string-array>

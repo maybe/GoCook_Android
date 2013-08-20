@@ -236,8 +236,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			String career = mProfessionEditText.getText().toString();
 			String intro = mIntroEditText.getText().toString();
 			String sex = (String) mSexSpinner.getSelectedItem();
-			if (!TextUtils.isEmpty(sex) && sex.equals("性别")) {
-				sex = "2"; // 0：男，1：女，2：性别
+			if (!TextUtils.isEmpty(sex) && sex.equals("保密")) {
+				sex = "2"; // 0：男，1：女，2：保密
 			}
 			
 			UpdateProfileTask task = new UpdateProfileTask(getActivity(), 
@@ -248,7 +248,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 					changedValue(mCareer, career),
 					changedValue(mIntro, intro));
 			
-			if (mIsAnythingChanged) {
+			if (isAnythingChanged()) {
 				showProgress(true);
 				task.execute((Void) null);
 			}
@@ -256,6 +256,16 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 	}
 	
 	private boolean mIsAnythingChanged = false;
+	
+	/**
+	 * 执行更新个人信息的任务前判断是否有信息发生变化
+	 * 
+	 * @return
+	 */
+	private boolean isAnythingChanged() {
+		return mIsAnythingChanged || mAvatarBitmap != null || mAvatartUri != null;
+	}
+	
 	private String changedValue(String oldString, String newString) {
 		if (TextUtils.isEmpty(oldString) && TextUtils.isEmpty(newString)) {
 			return null;

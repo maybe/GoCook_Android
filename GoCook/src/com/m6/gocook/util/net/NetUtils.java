@@ -272,6 +272,12 @@ public class NetUtils {
 		return null;
 	}
 	
+	/**
+	 * 保存Cookie
+	 * 
+	 * @param context
+	 * @param conn
+	 */
 	private static void saveCookie(Context context, HttpURLConnection conn) {
 		String cookie = conn.getHeaderField("Set-Cookie");
 		if(!TextUtils.isEmpty(cookie)) {
