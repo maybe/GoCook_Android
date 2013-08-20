@@ -74,6 +74,11 @@
     <string name="biz_profile_add_follow_fail">关注失败，请重试</string>
     <string name="biz_profile_unfollow_fail">取消关注失败，请重试</string>
     
+    <string name="biz_profile_update_avatar_success">头像更新成功！</string>
+    <string name="biz_profile_upload_avatar">上传头像</string>
+    <string name="biz_profile_uploading">正在上传...</string>
+    <string name="biz_profile_updating">个人信息更新中...</string>
+    
     <!-- myaccount -->
     <string name="biz_profile_myaccount_follow">我的关注</string>
     <string name="biz_profile_myaccount_fans">我的粉丝</string>

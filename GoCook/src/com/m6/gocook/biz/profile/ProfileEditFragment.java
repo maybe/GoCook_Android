@@ -47,6 +47,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 	private Uri mAvatartUri;
 	private Bitmap mAvatarBitmap;
 	
+	private UpdateAvatarTask mAvatarTask;
+	
 	// UI references
 	private ImageView mAvatarImageView;
 	private EditText mNameEditText;
@@ -158,6 +160,22 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 				dialog.show(ft, PhotoPickDialogFragment.class.getName());
 			}
 		});
+		
+		getView().findViewById(R.id.upload_avatar).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (mAvatarBitmap != null || mAvatartUri != null) {
+					if (mAvatarTask == null) {
+						mAvatarTask = new UpdateAvatarTask(getActivity());
+						mAvatarTask.execute((Void) null);
+						
+						setProgressMessage(R.string.biz_profile_uploading);
+						showProgress(true);
+					}
+				}
+			}
+		});
 
 //		mBirthEditText.setOnClickListener(new OnClickListener() {
 //			
@@ -249,6 +267,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 					changedValue(mIntro, intro));
 			
 			if (isAnythingChanged()) {
+				setProgressMessage(R.string.biz_profile_updating);
 				showProgress(true);
 				task.execute((Void) null);
 			}
@@ -263,7 +282,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 	 * @return
 	 */
 	private boolean isAnythingChanged() {
-		return mIsAnythingChanged || mAvatarBitmap != null || mAvatartUri != null;
+		return mIsAnythingChanged;
 	}
 	
 	private String changedValue(String oldString, String newString) {
@@ -322,8 +341,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		
 		@Override
 		protected String doInBackground(Void... params) {
-			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
-			String result = ProfileModel.updateInfo(mContext, avatarFile, mParamUsername, mParamSex, mParamBirth, 
+			String result = ProfileModel.updateInfo(mContext, mParamUsername, mParamSex, mParamBirth, 
 					mParamCareer, null, mParamCity, null, mParamIntro);
 			if(!TextUtils.isEmpty(result)) {
 				try {
@@ -367,10 +385,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		protected void onPostExecute(String result) {
 			showProgress(false);
 			
-			if(TextUtils.isEmpty(result)) {
-				Toast.makeText(mContext, R.string.biz_profile_edit_fail_tip, Toast.LENGTH_SHORT).show();
-			} else {
-				getActivity().finish();
+			if (isAdded()) {
+				if(TextUtils.isEmpty(result)) {
+					Toast.makeText(mContext, R.string.biz_profile_edit_fail_tip, Toast.LENGTH_SHORT).show();
+				} else {
+					getActivity().finish();
+				}
 			}
 		}
 		
@@ -379,6 +399,51 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			super.onCancelled();
 			showProgress(false);
 		}
+	}
+	
+	private class UpdateAvatarTask extends AsyncTask<Void, Void, String> {
 		
+		private Context mContext;
+		
+		public UpdateAvatarTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
+			return ProfileModel.updateAvatar(mContext, avatarFile);
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			mAvatarTask = null;
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
+						AccountModel.saveAvatarPath(mContext, ProtocolUtils.getAvatarURL(json.optString(AccountModel.RETURN_AVATAR)));
+						if (isAdded()) {
+							showProgress(false);
+							Toast.makeText(mContext, R.string.biz_profile_update_avatar_success, Toast.LENGTH_SHORT).show();
+						}
+						
+						mAvatarBitmap = null;
+						mAvatartUri = null;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		@Override
+		protected void onCancelled() {
+			mAvatarTask = null;
+			if (isAdded()) {
+				showProgress(false);
+			}
+		}
 	}
 }

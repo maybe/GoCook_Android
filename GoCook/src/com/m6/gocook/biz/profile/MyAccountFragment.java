@@ -142,12 +142,6 @@ public class MyAccountFragment extends Fragment {
 			}
 		});
 		
-		
-		ImageView avatar = (ImageView) activity.findViewById(R.id.avatar);
-		String url = AccountModel.getAvatarPath(activity);
-		if(!TextUtils.isEmpty(url)) {
-			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
-		}
 	}
 	
 	@Override
@@ -157,6 +151,12 @@ public class MyAccountFragment extends Fragment {
         
         String userName = AccountModel.getUsername(getActivity());
         ((TextView) getView().findViewById(R.id.name)).setText(userName);
+        
+        ImageView avatar = (ImageView) getActivity().findViewById(R.id.avatar);
+		String url = AccountModel.getAvatarPath(getActivity());
+		if(!TextUtils.isEmpty(url)) {
+			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
+		}
     }
 
     @Override

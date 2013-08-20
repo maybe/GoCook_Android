@@ -137,7 +137,7 @@ public class ProfileModel {
 	 * @param intro
 	 * @return
 	 */
-	public static String updateInfo(Context context, File avatart, String name, String sex, String age, String career, 
+	public static String updateInfo(Context context, String name, String sex, String age, String career, 
 			String province, String city, String telephone, String intro) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		if (name != null) {
@@ -164,7 +164,21 @@ public class ProfileModel {
 		if (intro != null) {
 			params.add(new BasicNameValuePair(INTRO, intro));
 		}
-		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params, avatart, "avatar");
+		return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE, params);
+	}
+	
+	/**
+	 * 更新头像
+	 * 
+	 * @param context
+	 * @param avatar
+	 * @return
+	 */
+	public static String updateAvatar(Context context, File avatar) {
+		if (avatar != null && avatar.exists()) {
+			return NetUtils.httpPost(context, Protocol.URL_PROFILE_UPDATE_AVATAR, avatar, "avatar");
+		}
+		return null;
 	}
 	
 	/**

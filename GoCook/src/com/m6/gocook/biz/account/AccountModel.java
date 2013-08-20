@@ -33,6 +33,7 @@ public class AccountModel {
 	public static final String RETURN_ERRORCODE = "errorcode";	
 	public static final String RETURN_USERNAME = "username";	
 	public static final String RETURN_ICON = "icon";
+	public static final String RETURN_AVATAR = "avatar";
 	public static final String RETURN_USERID = "user_id";
 	
 	/** 注册失败 */

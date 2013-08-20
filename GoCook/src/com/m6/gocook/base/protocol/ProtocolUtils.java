@@ -1,5 +1,7 @@
 package com.m6.gocook.base.protocol;
 
+import android.text.TextUtils;
+
 public class ProtocolUtils {
 
 	public static String getURL(String url) {
@@ -23,6 +25,14 @@ public class ProtocolUtils {
 			return url.substring(url.lastIndexOf("/") + 1, url.length());
 		} else {
 			return url;
+		}
+	}
+	
+	public static String getAvatarURL(String url) {
+		if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
+			return url;
+		} else {
+			return Protocol.URL_ROOT + "/images/avatars/" + url;
 		}
 	}
 }

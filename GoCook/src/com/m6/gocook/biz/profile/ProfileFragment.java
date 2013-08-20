@@ -172,10 +172,6 @@ public class ProfileFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		if(mProfileType == PROFILE_MYSELF) {
-			String url = AccountModel.getAvatarPath(getActivity());
-			if(!TextUtils.isEmpty(url)) {
-				mImageFetcher.loadImage(ProtocolUtils.getURL(url), (ImageView) getView().findViewById(R.id.avatar));
-			}
 			new BasicInfoTask(getActivity()).execute((Void) null);
 			new RecipeTask(getActivity()).execute((Void) null);
 		} else {
@@ -199,6 +195,11 @@ public class ProfileFragment extends BaseFragment {
 			((TextView) view.findViewById(R.id.title)).setText(String.format(getString(R.string.biz_profile_myrecipe_title), username));
 			((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction,
 					ProfileModel.getIntro(getActivity())));
+			// 更新头像
+			String url = AccountModel.getAvatarPath(getActivity());
+			if(!TextUtils.isEmpty(url)) {
+				mImageFetcher.loadImage(ProtocolUtils.getURL(url), (ImageView) getView().findViewById(R.id.avatar));
+			}
 		}
 	}
 	

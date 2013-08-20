@@ -35,6 +35,8 @@ public class Protocol {
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
 	
+	public static final String URL_PROFILE_UPDATE_AVATAR = URL_ROOT + "/user/changeavatar";
+	
 	public static final String URL_PROFILE_BASIC_INFO = URL_ROOT + "/user/basicinfo";
 	
 	public static final String URL_PROFILE_MY_RECIPE = URL_ROOT + "/cook/myrecipes";
