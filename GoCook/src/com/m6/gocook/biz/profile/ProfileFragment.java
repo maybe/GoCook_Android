@@ -391,9 +391,10 @@ public class ProfileFragment extends BaseFragment {
 				return;
 			}
 			
-			GridView grid = (GridView) mActivity.findViewById(R.id.recipe_grid);
+			GridView grid = (GridView) getView().findViewById(R.id.recipe_grid);
 			if (grid != null && result != null && !result.getRecipes().isEmpty()) {
 				grid.setAdapter(new ProfileRecipeAdapter(mActivity, mImageFetcher, result));
+				((Button) getView().findViewById(R.id.more)).setText(getString(R.string.biz_profile_more_btn, result.getRecipes().size()));
 				hideRecipesView(false);
 			} else {
 				hideRecipesView(true);
