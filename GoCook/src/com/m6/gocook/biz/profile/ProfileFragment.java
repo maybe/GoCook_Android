@@ -36,6 +36,7 @@ import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
@@ -242,14 +243,18 @@ public class ProfileFragment extends BaseFragment {
 							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
 					startActivity(intent);
 				} else {
-					String followId = getArguments() == null ? null : getArguments().getString(PROFILE_FOLLOW_ID);
-					if (!TextUtils.isEmpty(followId)) {
-						if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
-							new FollowTask(getActivity(), followId).execute((Void) null); 
-						} else if(mFollowStatus == FOLLOWED) {
-							new UnFollowTask(getActivity(), followId).execute((Void) null); 
+					if (AccountModel.isLogon(getActivity())) {
+						String followId = getArguments() == null ? null : getArguments().getString(PROFILE_FOLLOW_ID);
+						if (!TextUtils.isEmpty(followId)) {
+							if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
+								new FollowTask(getActivity(), followId).execute((Void) null); 
+							} else if(mFollowStatus == FOLLOWED) {
+								new UnFollowTask(getActivity(), followId).execute((Void) null); 
+							}
+							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
 						}
-						getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
+					} else {
+						LoginFragment.JumpToLoginFragment(getActivity());
 					}
 				}
 			}

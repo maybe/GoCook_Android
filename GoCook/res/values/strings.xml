@@ -17,7 +17,8 @@
     <string name="biz_main_exit_message">您确定要退出么？</string>
     
     <!-- Base -->
-    <string name="base_loading_more">%d条载入中&#8230;</string>
+    <string name="base_loading_more">载入中&#8230;</string>
+<!--     <string name="base_loading_more">%d条载入中&#8230;</string> -->
     <string name="base_empty_text">数据加载失败，请重试</string>
     
     <!-- progress -->
@@ -78,6 +79,7 @@
     <string name="biz_profile_upload_avatar">上传头像</string>
     <string name="biz_profile_uploading">正在上传...</string>
     <string name="biz_profile_updating">个人信息更新中...</string>
+    <string name="biz_profile_avatar_tip">点击头像拍照或选择照片</string>
     
     <!-- myaccount -->
     <string name="biz_profile_myaccount_follow">我的关注</string>

@@ -331,13 +331,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 							}
 							
 						} else {
-							Bundle bundle = new Bundle();
-							bundle.putBoolean(LoginFragment.PARAM_JUMP_LOGIN, true);
-							Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class,
-									LoginFragment.class.getName(), 
-									LoginFragment.class.getName()
-									,bundle);
-							mContext.startActivity(intent);
+							LoginFragment.JumpToLoginFragment(mContext);
 						}
 						
 					}

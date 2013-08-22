@@ -59,6 +59,22 @@ public class LoginFragment extends BaseFragment {
 	public static final String PARAM_JUMP_LOGIN = "param_jump_login";
 	private boolean mJumpLogin = false;
 	
+	
+	/**
+	 * 跳转到登录页面
+	 * 
+	 * @param context
+	 */
+	public static void JumpToLoginFragment(Context context) {
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(LoginFragment.PARAM_JUMP_LOGIN, true);
+		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class,
+				LoginFragment.class.getName(), 
+				LoginFragment.class.getName()
+				,bundle);
+		context.startActivity(intent);
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

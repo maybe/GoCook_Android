@@ -66,7 +66,7 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 		
 		mFooterView = LayoutInflater.from(getActivity()).inflate(R.layout.base_more_footer, null);
 		TextView loadingMoreFooter = (TextView) mFooterView.findViewById(R.id.text);
-		loadingMoreFooter.setText(getString(R.string.base_loading_more, COUNT_PER_PAGE));
+		loadingMoreFooter.setText(getString(R.string.base_loading_more));
 		
 		mAdapter = getAdapter();
 		mListView.addFooterView(mFooterView);

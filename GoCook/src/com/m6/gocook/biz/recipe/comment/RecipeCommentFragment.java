@@ -15,6 +15,7 @@ import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.cache.util.AsyncTask;
@@ -125,9 +126,13 @@ public class RecipeCommentFragment extends BaseFragment {
 				} else if(content.length() < 2) {
 					Toast.makeText(mContext, R.string.biz_recipe_comment_input_less, Toast.LENGTH_SHORT).show();
 				} else {
-					if(mPostTask == null) {
-						mPostTask = new PostCommentTask();
-						mPostTask.execute(content);
+					if (AccountModel.isLogon(mContext)) {
+						if(mPostTask == null) {
+							mPostTask = new PostCommentTask();
+							mPostTask.execute(content);
+						}
+					} else {
+						LoginFragment.JumpToLoginFragment(mContext);
 					}
 				}
 			}

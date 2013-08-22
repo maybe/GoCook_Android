@@ -13,19 +13,29 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/register_photo" />
-    
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/avatar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/avatar"
+        android:singleLine="true"
+        android:text="@string/biz_profile_avatar_tip" />
+
     <Button
         android:id="@+id/upload_avatar"
-        android:layout_toRightOf="@id/avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@id/avatar"
         android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/avatar"
         android:background="@drawable/edit"
-        android:textColor="#ffffff"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="@string/biz_profile_upload_avatar"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        android:textColor="#ffffff" />
 
     <EditText
         android:id="@+id/name"
@@ -49,9 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="1dp"
-            android:inputType="number"
             android:layout_weight="1"
-            android:hint="@string/biz_profile_edit_hint_birth" />
+            android:hint="@string/biz_profile_edit_hint_birth"
+            android:inputType="number" />
 
         <Spinner
             android:id="@+id/sex"
@@ -85,8 +95,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/city"
         android:gravity="left|top"
-        android:maxLines="5"
         android:hint="@string/biz_profile_edit_hint_intro"
+        android:maxLines="5"
         android:minHeight="100dp" />
 
 </RelativeLayout>

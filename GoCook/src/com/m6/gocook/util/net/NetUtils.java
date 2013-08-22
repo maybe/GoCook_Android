@@ -259,7 +259,7 @@ public class NetUtils {
 			System.setProperty("http.keepAlive", "false"); // maybe android bug
 			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
-				System.out.println("setCookie : " + cookie);
+//				System.out.println("setCookie : " + cookie);
 			}
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
@@ -284,7 +284,7 @@ public class NetUtils {
 			String[] cookies = cookie.split(";");
 			if (cookies != null && cookies.length > 0) {
 				AccountModel.saveCookie(context, cookies[0]);
-				System.out.println("saveCookie : " + cookies[0]);
+//				System.out.println("saveCookie : " + cookies[0]);
 			}
 		}
 	}
@@ -326,10 +326,10 @@ public class NetUtils {
 			saveCookie(context, conn);
 			result = readStream(in);
 			
-			for(BasicNameValuePair pair : params) {
-				System.out.println(pair.getName() + ":" + pair.getValue() + "\n");
-			}
-			System.out.println("result : " + result);
+//			for(BasicNameValuePair pair : params) {
+//				System.out.println(pair.getName() + ":" + pair.getValue() + "\n");
+//			}
+//			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -361,7 +361,7 @@ public class NetUtils {
 					conn.getInputStream());
 			saveCookie(context, conn);
 			result = readStream(in);
-			System.out.println("result : " + result);
+//			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -397,7 +397,7 @@ public class NetUtils {
 			saveCookie(context, conn);
 			result = readStream(in);
 //			System.out.println("file :" + file.getPath());
-			System.out.println("result : " + result);
+//			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -437,14 +437,14 @@ public class NetUtils {
 			conn.setRequestProperty("x-client-identifier", "Mobile");
 			if(!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);			
-				System.out.println("getCookie : " + cookie);
+//				System.out.println("getCookie : " + cookie);
 			}
 			conn.setDoInput(true);
 			conn.connect();
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
 			result = readStream(in);
-			System.out.println("result : " + result);
+//			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
