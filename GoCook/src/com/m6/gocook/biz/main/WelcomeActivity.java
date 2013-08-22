@@ -36,6 +36,7 @@ public class WelcomeActivity extends FragmentActivity {
 			@Override
 			public void run() {
 				startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+				WelcomeActivity.this.finish();
 			}
 		}, 4000);
 	}
