@@ -3,6 +3,7 @@ package com.m6.gocook.base.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	private View mProgressView;
 	private TextView mProgressMessageView;
 	private View mEmptyView;
+	private ProgressDialog mProgressDialog;
 	
 	protected ImageFetcher mImageFetcher;
 	
@@ -238,6 +240,50 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		return mProgressView.getVisibility() == View.VISIBLE ? true : false;
 	}
 	
+	/**
+	 * Show progress dialog
+	 * 
+	 * @param message
+	 */
+	public void showProgressDialog(String message) {
+		if (mProgressDialog == null) {
+			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setIndeterminate(true);
+			mProgressDialog.setCancelable(true);
+		}
+		mProgressDialog.setMessage(message);
+		mProgressDialog.show();
+	}
+	
+	/**
+	 * Show progress dialog
+	 * 
+	 * @param resId
+	 */
+	public void showProgressDialog(int resId) {
+		if (mProgressDialog == null) {
+			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setIndeterminate(true);
+			mProgressDialog.setCancelable(true);
+		}
+		mProgressDialog.setMessage(getString(resId));
+		mProgressDialog.show();
+	}
+	
+	/**
+	 * Dismiss progress dialog
+	 */
+	public void dismissProgressDialog() {
+		if (mProgressDialog != null && mProgressDialog.isShowing()) {
+			mProgressDialog.dismiss();
+		}
+	}
+	
+	/**
+	 * 是否正在显示空View
+	 * 
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return mEmptyView.getVisibility() == View.VISIBLE ? true : false;
 	}
@@ -246,6 +292,10 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	public void onDestroyView() {
 		super.onDestroyView();
 		
+		if (mProgressDialog != null && mProgressDialog.isShowing()) {
+			mProgressDialog.dismiss();
+			mProgressDialog = null;
+		}
 //		mProgressMessageView = null;
 //		mProgressView = null;
 	}

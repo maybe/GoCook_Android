@@ -170,8 +170,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 						mAvatarTask = new UpdateAvatarTask(getActivity());
 						mAvatarTask.execute((Void) null);
 						
-						setProgressMessage(R.string.biz_profile_uploading);
-						showProgress(true);
+						showProgressDialog(R.string.biz_profile_uploading);
 					}
 				}
 			}
@@ -267,8 +266,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 					changedValue(mIntro, intro));
 			
 			if (isAnythingChanged()) {
-				setProgressMessage(R.string.biz_profile_updating);
-				showProgress(true);
+				showProgressDialog(R.string.biz_profile_updating);
 				task.execute((Void) null);
 			}
 		}
@@ -383,9 +381,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		
 		@Override
 		protected void onPostExecute(String result) {
-			showProgress(false);
-			
 			if (isAdded()) {
+				dismissProgressDialog();
 				if(TextUtils.isEmpty(result)) {
 					Toast.makeText(mContext, R.string.biz_profile_edit_fail_tip, Toast.LENGTH_SHORT).show();
 				} else {
@@ -397,7 +394,9 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
-			showProgress(false);
+			if (isAdded()) {
+				dismissProgressDialog();
+			}
 		}
 	}
 	
@@ -418,6 +417,9 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		@Override
 		protected void onPostExecute(String result) {
 			mAvatarTask = null;
+			if (isAdded()) {
+				dismissProgressDialog();
+			}
 			if (!TextUtils.isEmpty(result)) {
 				try {
 					JSONObject json = new JSONObject(result);
@@ -425,7 +427,6 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						AccountModel.saveAvatarPath(mContext, ProtocolUtils.getAvatarURL(json.optString(AccountModel.RETURN_AVATAR)));
 						if (isAdded()) {
-							showProgress(false);
 							Toast.makeText(mContext, R.string.biz_profile_update_avatar_success, Toast.LENGTH_SHORT).show();
 						}
 						
@@ -442,7 +443,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		protected void onCancelled() {
 			mAvatarTask = null;
 			if (isAdded()) {
-				showProgress(false);
+				dismissProgressDialog();
 			}
 		}
 	}
