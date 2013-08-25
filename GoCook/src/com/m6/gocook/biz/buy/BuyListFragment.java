@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.buy;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.m6.gocook.R;
@@ -21,6 +22,10 @@ public class BuyListFragment extends BaseFragment {
 		Bundle args = getArguments();
 		if (args != null) {
 			mRecipeId = args.getString(PARAM_RECIPE_ID);
+		}
+		
+		if (!TextUtils.isEmpty(mRecipeId)) {
+			
 		}
 	}
 	@Override
