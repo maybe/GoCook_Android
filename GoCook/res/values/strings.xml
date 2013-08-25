@@ -177,6 +177,14 @@
     <string name="biz_recipe_purchase_clear_tip_content">你确定要清除购买清单吗？</string>
     <string name="biz_recipe_purchase_clear_positivebutton">确定</string>
     <string name="biz_recipe_purchase_clear_nagetivebutton">取消</string>
+    <string name="biz_recipe_purchase_delete_btn">删除</string>
+    <string name="biz_recipe_purchase_buy_btn">购买</string>
+    
+    <!-- buy -->
+    <string name="biz_buy_title">选购商品</string>
+    <string name="biz_buy_list_adapter_status">尚未选购商品</string>
+    <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
+    <string name="biz_buy_list_adapter_target">目标食材:%s</string>
     
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>

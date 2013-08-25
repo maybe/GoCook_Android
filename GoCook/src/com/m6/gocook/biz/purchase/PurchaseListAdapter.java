@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.purchase;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,12 +18,9 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
-import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.base.entity.RecipeEntity.Material;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.buy.BuyListFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
-import com.m6.gocook.biz.recipe.search.SearchFragment;
-import com.m6.gocook.util.log.Logger;
 
 public class PurchaseListAdapter extends CursorAdapter {
 
@@ -64,6 +58,8 @@ public class PurchaseListAdapter extends CursorAdapter {
 			holder = new ViewHold();
 			holder.name = (TextView) convertView.findViewById(R.id.recipe_name);
 			holder.materialGroup = (LinearLayout) convertView.findViewById(R.id.material_group_layout);
+			holder.delete = (Button) convertView.findViewById(R.id.delete);
+			holder.buy = (Button) convertView.findViewById(R.id.buy);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHold) convertView.getTag();
@@ -126,6 +122,25 @@ public class PurchaseListAdapter extends CursorAdapter {
 			}
 		});
 		
+		holder.delete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				PurchaseListModel.removeRecipeFromPurchaseList(mContext, recipeId);
+			}
+		});
+		
+		holder.buy.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putString(BuyListFragment.PARAM_RECIPE_ID, recipeId);
+				mContext.startActivity(FragmentHelper.getIntent(mContext, BaseActivity.class,
+						BuyListFragment.class.getName(), BuyListFragment.class.getName(), bundle));
+			}
+		});
+		
 		return convertView;
 	}
 	
@@ -165,6 +180,8 @@ public class PurchaseListAdapter extends CursorAdapter {
 	private class ViewHold {
 		private TextView name;
 		private LinearLayout materialGroup;
+		private Button delete;
+		private Button buy;
 	}
 
 	@Override
