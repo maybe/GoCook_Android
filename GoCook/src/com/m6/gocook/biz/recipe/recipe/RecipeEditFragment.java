@@ -463,7 +463,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		EditText title = (EditText) findViewById(R.id.recipe_title_edittext);
 		if(!TextUtils.isEmpty(title.getText().toString().trim())) {
-			if(title.getText().toString().trim().length() < 4) {
+			if(title.getText().toString().trim().length() < 3) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_titleshort, Toast.LENGTH_SHORT).show();
 				return;
 			} else if (title.getText().toString().trim().length() > 12) {

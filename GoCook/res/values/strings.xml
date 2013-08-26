@@ -137,7 +137,7 @@
     <string name="biz_recipe_edit_actionbar_delete">删除这个菜谱</string>
     <string name="biz_recipe_edit_progressbar">上传中...</string>
     <string name="biz_recipe_edit_upload_ok">上传成功</string>
-    <string name="biz_recipe_edit_upload_failed">长传失败</string>
+    <string name="biz_recipe_edit_upload_failed">上传失败</string>
     <string name="biz_recipe_edit_nocover">请添加封面</string>
     <string name="biz_recipe_edit_notitle">请添加菜谱名字</string>
     <string name="biz_recipe_edit_titleshort">菜谱名字太短</string>

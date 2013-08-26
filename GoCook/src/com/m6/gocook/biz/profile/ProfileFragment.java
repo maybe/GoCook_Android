@@ -60,6 +60,7 @@ public class ProfileFragment extends BaseFragment {
 	private int mFollowStatus = -1;
 	
 	private String mUsername;
+	private String mFollowId;
 	
 	/**
 	 * 启动个人信息页面
@@ -99,6 +100,7 @@ public class ProfileFragment extends BaseFragment {
 		if(args != null) {
 			mProfileType = args.getInt(PROFILE_TYPE);
 			mUserId = args.getString(PROFILE_FOLLOW_ID);
+			mFollowId = args.getString(PROFILE_FOLLOW_ID);
 		}
 	}
 	
@@ -166,6 +168,31 @@ public class ProfileFragment extends BaseFragment {
 				startActivity(intent);
 			}
 		});
+		
+		view.findViewById(R.id.edit).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(mProfileType == PROFILE_MYSELF) {
+					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
+					startActivity(intent);
+				} else {
+					if (AccountModel.isLogon(getActivity())) {
+						if (!TextUtils.isEmpty(mFollowId)) {
+							if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
+								new FollowTask(getActivity(), mFollowId).execute((Void) null); 
+							} else if(mFollowStatus == FOLLOWED) {
+								new UnFollowTask(getActivity(), mFollowId).execute((Void) null); 
+							}
+							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
+						}
+					} else {
+						LoginFragment.JumpToLoginFragment(getActivity());
+					}
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -223,6 +250,7 @@ public class ProfileFragment extends BaseFragment {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(avatarUrl), (ImageView) getView().findViewById(R.id.avatar));
 		}
 		
+		// 关注、取消关注状态
 		Button edit  = (Button) view.findViewById(R.id.edit);
 		if (mProfileType == PROFILE_MYSELF) {
 			edit.setText(R.string.biz_profile_edit_btn);
@@ -234,35 +262,12 @@ public class ProfileFragment extends BaseFragment {
 				edit.setText(R.string.biz_profile_add_followd);
 			}
 		}
-		edit.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(mProfileType == PROFILE_MYSELF) {
-					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-							ProfileEditFragment.class.getName(), ProfileEditFragment.class.getName(), null);
-					startActivity(intent);
-				} else {
-					if (AccountModel.isLogon(getActivity())) {
-						String followId = getArguments() == null ? null : getArguments().getString(PROFILE_FOLLOW_ID);
-						if (!TextUtils.isEmpty(followId)) {
-							if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
-								new FollowTask(getActivity(), followId).execute((Void) null); 
-							} else if(mFollowStatus == FOLLOWED) {
-								new UnFollowTask(getActivity(), followId).execute((Void) null); 
-							}
-							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
-						}
-					} else {
-						LoginFragment.JumpToLoginFragment(getActivity());
-					}
-				}
-			}
-		});
 		
+		// 个人简介
 		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);
 		((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction, intro));
 		
+		// 个人菜谱
 		String recipesCount = ModelUtils.getStringValue(info, ProfileModel.RECIPES_COUNT);
 		((Button) view.findViewById(R.id.more)).setText(getString(R.string.biz_profile_more_btn, recipesCount));
 		
@@ -289,6 +294,7 @@ public class ProfileFragment extends BaseFragment {
 			hideRecipesView(true);
 		}
 		
+		// 保存个人信息
 		if(mProfileType == PROFILE_MYSELF) {
 			AccountModel.saveUsername(getActivity(), ModelUtils.getStringValue(info, ProfileModel.NICKNAME));
 			ProfileModel.saveAge(getActivity(), ModelUtils.getStringValue(info, ProfileModel.AGE));
@@ -311,8 +317,10 @@ public class ProfileFragment extends BaseFragment {
 	private void updateFollow(boolean followed) {
 		Button edit = (Button) getView().findViewById(R.id.edit);
 		if (followed) {
+			mFollowStatus = FOLLOWED;
 			edit.setText(R.string.biz_profile_add_followd);
 		} else {
+			mFollowStatus = FOLLOW;
 			edit.setText(R.string.biz_profile_add_follow);
 		}
 	}
