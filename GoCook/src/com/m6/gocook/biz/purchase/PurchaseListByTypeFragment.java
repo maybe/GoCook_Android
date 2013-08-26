@@ -1,7 +1,11 @@
 package com.m6.gocook.biz.purchase;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.buy.BuyListFragment;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -11,6 +15,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,6 +69,15 @@ public class PurchaseListByTypeFragment extends Fragment {
 //						String.valueOf(recipePurchasedCount)));
 //		nMainMaterialTitleTextView.setTypeface(Typeface.MONOSPACE,Typeface.ITALIC);
 		
+		view.findViewById(R.id.buy).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				mContext.startActivity(FragmentHelper.getIntent(mContext, BaseActivity.class,
+						BuyListFragment.class.getName(), BuyListFragment.class.getName(), bundle));
+			}
+		});
 		return view;
 
 	}

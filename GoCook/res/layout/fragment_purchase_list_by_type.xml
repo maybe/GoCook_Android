@@ -10,48 +10,43 @@
         android:orientation="vertical"
         android:padding="30dp" >
 
-        <TextView
-            android:id="@+id/main_material_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
             android:background="@android:color/white"
-            android:gravity="center_horizontal"
-            android:textColor="#a9a4a0"
-            android:textSize="12sp"
-            android:textStyle="italic|bold" />
+            android:orientation="vertical" >
 
-        <com.m6.gocook.base.view.ExpandedListView
-            android:id="@+id/purchase_main_material_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_disbleScroll="true"
-            android:background="@android:color/white"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent" />
-<!-- 
-        <TextView
-            android:id="@+id/nmain_material_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
-            android:background="@android:color/white"
-            android:gravity="center_horizontal"
-            android:text="sdfsdfdfdsfs"
-            android:textColor="#a9a4a0"
-            android:textSize="12sp"
-            android:textStyle="italic|bold" />
+            <TextView
+                android:id="@+id/main_material_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:textColor="#a9a4a0"
+                android:textSize="12sp"
+                android:textStyle="italic|bold" />
 
-        <com.m6.gocook.base.view.ExpandedListView
-            android:id="@+id/purchase_nmain_material_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_disbleScroll="true"
-            android:background="@android:color/white"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent" /> -->
+            <Button
+                android:id="@+id/buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/edit"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/biz_recipe_purchase_buy_btn"
+                android:textColor="@android:color/white" />
+
+            <com.m6.gocook.base.view.ExpandedListView
+                android:id="@+id/purchase_main_material_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_disbleScroll="true"
+                android:layout_marginTop="5dp"
+                android:divider="@android:color/transparent"
+                android:listSelector="@android:color/transparent" />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"

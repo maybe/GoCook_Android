@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.util.model.ModelUtils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ public class BuyListAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private LayoutInflater mInflater;
+	private Resources mResources;
 	
 	private List<Map<String, Object>> mData;
 	
@@ -24,6 +28,7 @@ public class BuyListAdapter extends BaseAdapter {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mData = data;
+		mResources = context.getResources();
 	}
 	
 	@Override
@@ -62,7 +67,7 @@ public class BuyListAdapter extends BaseAdapter {
 		
 		// bind data
 		Map<String, Object> map = mData.get(position);
-		
+		holder.target.setText(mResources.getString(R.string.biz_buy_list_adapter_target, ModelUtils.getStringValue(map, RecipeMaterialPurchaseList.MATERIAL_NAME)));
 		
 		return convertView;
 	}
