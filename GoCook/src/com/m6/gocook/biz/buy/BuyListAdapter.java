@@ -11,10 +11,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BuyListAdapter extends BaseAdapter {
 
@@ -69,6 +71,13 @@ public class BuyListAdapter extends BaseAdapter {
 		Map<String, Object> map = mData.get(position);
 		holder.target.setText(mResources.getString(R.string.biz_buy_list_adapter_target, ModelUtils.getStringValue(map, RecipeMaterialPurchaseList.MATERIAL_NAME)));
 		
+		holder.gotoShop.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(mContext, R.string.biz_buy_incompleted, Toast.LENGTH_SHORT).show();
+			}
+		});
 		return convertView;
 	}
 	

@@ -186,6 +186,8 @@
     <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
     
+    <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
+    
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>
     <string name="biz_popular_topnew">本周最新菜谱</string>
