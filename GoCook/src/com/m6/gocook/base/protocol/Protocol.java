@@ -66,6 +66,9 @@ public class Protocol {
 //	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
 	
 	
+	/* Buy */
+	public static final String  URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
+	
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";

@@ -126,7 +126,9 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	 * 
 	 * @return
 	 */
-	abstract protected String getURL();
+	protected String getURL() {
+		return null;
+	}
 	
 	/**
 	 * 子类实现此方法执行业务所需的任务

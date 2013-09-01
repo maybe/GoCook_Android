@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.util.File.StringUtils;
 import com.m6.gocook.util.model.ModelUtils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,13 +74,20 @@ public class BuyListAdapter extends BaseAdapter {
 		
 		// bind data
 		Map<String, Object> map = mData.get(position);
-		holder.target.setText(mResources.getString(R.string.biz_buy_list_adapter_target, ModelUtils.getStringValue(map, RecipeMaterialPurchaseList.MATERIAL_NAME)));
+		final String name = ModelUtils.getStringValue(map, RecipeMaterialPurchaseList.MATERIAL_NAME);
+		holder.target.setText(mResources.getString(R.string.biz_buy_list_adapter_target, name));
 		
 		holder.gotoShop.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(mContext, R.string.biz_buy_incompleted, Toast.LENGTH_SHORT).show();
+				Bundle args = new Bundle();
+				args.putString(BuySearchFragment.PARAM_KEYWORD, name);
+				args.putInt(BuySearchFragment.PARAM_PAGEINDEX, 1);
+				args.putInt(BuySearchFragment.PARAM_PAGEROWS, 10);
+				Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
+						BuySearchFragment.class.getName(), BuySearchFragment.class.getName(), args);
+				mContext.startActivity(intent);
 			}
 		});
 		return convertView;

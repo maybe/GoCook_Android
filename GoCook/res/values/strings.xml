@@ -188,6 +188,11 @@
     <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
     
+    <string name="biz_buy_search_fragment_title">搜索：%s</string>
+    <string name="biz_buy_search_adapter_norm">规格：%s</string>
+    <string name="biz_buy_search_adapter_unit">单位：%s</string>
+    <string name="biz_buy_search_adapter_price">价格：%s</string>
+    
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
     
     <!-- popular -->

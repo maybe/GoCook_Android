@@ -12,6 +12,12 @@ import android.text.TextUtils;
 
 import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.base.entity.response.CKeywordQueryResult;
+import com.m6.gocook.base.model.Cmd;
+import com.m6.gocook.base.model.RequestData;
+import com.m6.gocook.base.model.biz.CKeywordQueryInfo;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.util.net.NetUtils;
 
 public class BuyModel {
 
@@ -47,5 +53,14 @@ public class BuyModel {
 			cursor.close();
 		}
 		return null;
+	}
+	
+	public static CKeywordQueryResult getBuySearchResult(String keyword, int pageIndex, int pageRows) {
+		CKeywordQueryInfo cKeywordQueryInfo = new CKeywordQueryInfo(keyword, pageIndex, pageRows);
+		RequestData requestData = new RequestData(Cmd.SEARCH, cKeywordQueryInfo);
+		String result  = NetUtils.httpPost(Protocol.URL_BUY, requestData.getPostData());
+		CKeywordQueryResult cKeywordQueryResult = new CKeywordQueryResult();
+		cKeywordQueryResult.parse(result);
+		return cKeywordQueryResult;
 	}
 }

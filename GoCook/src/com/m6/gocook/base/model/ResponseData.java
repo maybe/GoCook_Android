@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 public class ResponseData {
 
-	private int flag;
+	private int flag = -1;
 	
 	private String msg;
 	
@@ -57,5 +57,7 @@ public class ResponseData {
 		this.data = data;
 	}
 	
-	
+	public boolean isSuccessful() {
+		return flag == Flag.SUCCESS;
+	}
 }

@@ -14,6 +14,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -287,6 +289,37 @@ public class NetUtils {
 //				System.out.println("saveCookie : " + cookies[0]);
 			}
 		}
+	}
+	
+	public static String httpPost(String urlString, String data) {
+		String result = null;
+		HttpURLConnection conn = null;
+		try {
+			conn = getHttpURLConnection(urlString, POST, null);
+			conn.connect();
+			OutputStream out = new BufferedOutputStream(
+					conn.getOutputStream());
+			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+			params.add(new BasicNameValuePair("data", URLEncoder.encode(data, "UTF-8")));
+			writeStream(out, params);
+			out.flush();
+			out.close();
+			InputStream in = new BufferedInputStream(
+					conn.getInputStream());
+			result = readStream(in);
+			
+			for(BasicNameValuePair pair : params) {
+				System.out.println(pair.getName() + ":" + pair.getValue() + "\n");
+			}
+			System.out.println("result : " + result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				conn.disconnect();
+			}
+		}
+		return result;
 	}
 	
 	/**
