@@ -13,8 +13,8 @@ import com.m6.gocook.base.view.ActionBar;
 public class BuySearchFragment extends BaseListFragment {
 
 	public static final String PARAM_KEYWORD = "param_keyword";
-	public static final String PARAM_PAGEINDEX = "param_pageindex";
-	public static final String PARAM_PAGEROWS = "param_pagerows";
+	
+	private static final int ROWS_PER_PAGE = 10;
 	
 	private BuySearchTask mBuySearchTask;
 	private BuySearchAdapter mAdapter;
@@ -24,14 +24,16 @@ public class BuySearchFragment extends BaseListFragment {
 	private int mPageIndex;
 	private int mPageRows;
 	
+	private boolean mHaveNext = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		if (args != null) {
 			mKeyword = args.getString(PARAM_KEYWORD);
-			mPageIndex = args.getInt(PARAM_PAGEINDEX);
-			mPageRows = args.getInt(PARAM_PAGEROWS);
+			mPageIndex = 1;
+			mPageRows = ROWS_PER_PAGE;
 		}
 		mAdapter = new BuySearchAdapter(getActivity(), mCKeywordQueryResult);
 	}
@@ -51,6 +53,11 @@ public class BuySearchFragment extends BaseListFragment {
 			mBuySearchTask.execute((Void) null); 
 		}
 		
+	}
+	
+	@Override
+	protected boolean haveNext() {
+		return mHaveNext;
 	}
 
 	@Override
@@ -78,15 +85,18 @@ public class BuySearchFragment extends BaseListFragment {
 		@Override
 		protected void onPostExecute(CKeywordQueryResult result) {
 			mBuySearchTask = null;
-			if (mCKeywordQueryResult == null) {
-				mCKeywordQueryResult = result;
-				
-				if (isAdded()) {
-					showProgress(false);
-					if (mAdapter != null) {
-						mAdapter.setData(result);
-						mAdapter.notifyDataSetChanged();
+			if (isAdded()) {
+				showProgress(false);
+				if (result != null && result.getRows() != null && !result.getRows().isEmpty() && mAdapter != null) {
+					mAdapter.setData(result);
+					mAdapter.notifyDataSetChanged();
+					
+					if (result.getRows().size() >= ROWS_PER_PAGE) {
+						mHaveNext = true;
 					}
+				} else {
+					setEmptyMessage(R.string.biz_buy_search_fragment_empty);
+					showEmpty(true);
 				}
 			}
 		}

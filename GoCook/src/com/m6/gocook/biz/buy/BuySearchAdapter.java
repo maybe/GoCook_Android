@@ -25,7 +25,10 @@ public class BuySearchAdapter extends BaseAdapter {
 	}
 	
 	public void setData(CKeywordQueryResult cKeywordQueryResult) {
-		mCKeywordQueryResult = cKeywordQueryResult;
+		if (mCKeywordQueryResult == null) {
+			mCKeywordQueryResult = cKeywordQueryResult;
+		}
+		mCKeywordQueryResult.getRows().addAll(cKeywordQueryResult.getRows());
 	}
 	
 	@Override

@@ -83,8 +83,6 @@ public class BuyListAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				Bundle args = new Bundle();
 				args.putString(BuySearchFragment.PARAM_KEYWORD, name);
-				args.putInt(BuySearchFragment.PARAM_PAGEINDEX, 1);
-				args.putInt(BuySearchFragment.PARAM_PAGEROWS, 10);
 				Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
 						BuySearchFragment.class.getName(), BuySearchFragment.class.getName(), args);
 				mContext.startActivity(intent);

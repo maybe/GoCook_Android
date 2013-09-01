@@ -82,7 +82,8 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		// 滑到底部后自动加载，判断listview已经停止滚动并且最后可视的条目等于adapter的条目  
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && mLastVisibleIndex == mAdapter.getCount() && doPaginate()) {  
+        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && mLastVisibleIndex == mAdapter.getCount() 
+        		&& doPaginate() && haveNext()) {  
         	mPage++;
         	mFooterView.setVisibility(View.VISIBLE);
         	executeTask();
@@ -111,6 +112,15 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	 * @return
 	 */
 	protected boolean doPaginate() {
+		return true;
+	}
+	
+	/**
+	 * 是否还有下一页
+	 * 
+	 * @return
+	 */
+	protected boolean haveNext() {
 		return true;
 	}
 	

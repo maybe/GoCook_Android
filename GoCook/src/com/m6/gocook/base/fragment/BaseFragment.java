@@ -197,6 +197,17 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	}
 	
 	/**
+	 * 设置显示空view的提示信息
+	 * 
+	 * @param message
+	 */
+	public void setEmptyMessage(int resId) {
+		if (mEmptyView != null) {
+			((TextView) mEmptyView.findViewById(R.id.empty_tip)).setText(resId);
+		}
+	}
+	
+	/**
 	 * Shows or hides the empty UI.
 	 */
 	public void showEmpty(boolean show) {

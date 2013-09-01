@@ -191,7 +191,8 @@
     <string name="biz_buy_search_fragment_title">搜索：%s</string>
     <string name="biz_buy_search_adapter_norm">规格：%s</string>
     <string name="biz_buy_search_adapter_unit">单位：%s</string>
-    <string name="biz_buy_search_adapter_price">价格：%s</string>
+    <string name="biz_buy_search_adapter_price">价格：%s元</string>
+    <string name="biz_buy_search_fragment_empty">没有找到食材</string>
     
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
     
