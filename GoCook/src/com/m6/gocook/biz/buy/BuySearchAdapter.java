@@ -40,7 +40,10 @@ public class BuySearchAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public CWareItem getItem(int position) {
+		if (mCKeywordQueryResult != null && mCKeywordQueryResult.getRows() != null) {
+			return mCKeywordQueryResult.getRows().get(position);
+		}
 		return null;
 	}
 

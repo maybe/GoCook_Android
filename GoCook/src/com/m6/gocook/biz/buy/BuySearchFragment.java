@@ -1,13 +1,17 @@
 package com.m6.gocook.biz.buy;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.CKeywordQueryResult;
 import com.m6.gocook.base.fragment.BaseListFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 
 public class BuySearchFragment extends BaseListFragment {
@@ -63,6 +67,17 @@ public class BuySearchFragment extends BaseListFragment {
 	@Override
 	protected BaseAdapter getAdapter() {
 		return mAdapter;
+	}
+	
+	@Override
+	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		if (mAdapter != null) {
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT, mAdapter.getItem(arg2));
+			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class,
+					BuyDetailsFragment.class.getName(), BuyDetailsFragment.class.getName(), bundle);
+			startActivity(intent);
+		}
 	}
 	
 	private class BuySearchTask extends AsyncTask<Void, Void, CKeywordQueryResult> {

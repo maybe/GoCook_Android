@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -71,6 +73,15 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 		mAdapter = getAdapter();
 		mListView.addFooterView(mFooterView);
 		mListView.setAdapter(mAdapter);
+		
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				onListItemClick(arg0, arg1, arg2, arg3);
+			}
+		});
     }
     
     @Override
@@ -88,6 +99,10 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
         	mFooterView.setVisibility(View.VISIBLE);
         	executeTask();
         }
+	}
+	
+	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
 	}
 	
 	@Override

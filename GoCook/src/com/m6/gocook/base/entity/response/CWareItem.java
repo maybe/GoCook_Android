@@ -1,9 +1,16 @@
 package com.m6.gocook.base.entity.response;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CWareItem {
+public class CWareItem implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private int id;
 	private String name;
 	private String code;
@@ -13,6 +20,7 @@ public class CWareItem {
 	private double price;
 	private String imageUrl;
 	private int totalCount;
+	
 	public int getTotalCount() {
 		return totalCount;
 	}
