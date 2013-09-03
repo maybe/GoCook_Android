@@ -1,7 +1,8 @@
 <resources>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">邮件地址</string>
+    <string name="prompt_phone">手机号</string>
+    <string name="prompt_email">邮件地址(可选)</string>
     <string name="prompt_password">密码</string>
     <string name="prompt_password_repeat">重复密码</string>
     <string name="prompt_username">用户名</string>
@@ -18,5 +19,6 @@
     <string name="error_password_required">请填写密码</string>
     <string name="error_repeat_password_required">请确认密码</string>
     <string name="error_username_required">请填写用户名</string>
+    <string name="error_phone_required">请填写手机号</string>
     
 </resources>

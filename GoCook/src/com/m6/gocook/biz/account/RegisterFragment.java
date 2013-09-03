@@ -48,6 +48,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 	private RegisterTask mRegisterTask;
 	
 	// Values for email and password at the time of the login attempt.
+	private String mPhone;
 	private String mEmail;
 	private String mPassword;
 	private String mRePassword;
@@ -56,6 +57,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 	private Bitmap mAvatarBitmap;
 
 	// UI references.
+	private EditText mPhoneView;
 	private EditText mEmailView;
 	private EditText mPasswordView;
 	private EditText mPasswordRepeatView;
@@ -76,6 +78,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		
 		mAvatarImageView = (ImageView) root.findViewById(R.id.avatar);
 		mUsernameView = (EditText) root.findViewById(R.id.username);
+		mPhoneView = (EditText) root.findViewById(R.id.phone);
 		mEmailView = (EditText) root.findViewById(R.id.email);
 		mPasswordView = (EditText) root.findViewById(R.id.password);
 		mPasswordRepeatView = (EditText) root.findViewById(R.id.password_repeat);
@@ -118,11 +121,13 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		}
 
 		// Reset errors.
+		mPhoneView.setError(null);
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
 		mPasswordRepeatView.setError(null);
 
 		// Store values at the time of the login attempt.
+		mPhone = mPhoneView.getText().toString();
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 		mRePassword = mPasswordRepeatView.getText().toString();
@@ -154,13 +159,21 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_email_required));
-			focusView = mEmailView;
-			cancel = true;
-		} else if (!mEmail.contains("@")) {
+//		if (TextUtils.isEmpty(mEmail)) {
+//			mEmailView.setError(getString(R.string.error_email_required));
+//			focusView = mEmailView;
+//			cancel = true;
+//		}
+		if (!TextUtils.isEmpty(mEmail) && !mEmail.contains("@")) {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
+			cancel = true;
+		}
+		
+		// Check for a valid phone.
+		if(TextUtils.isEmpty(mPhone)) {
+			mPhoneView.setError(getString(R.string.error_phone_required));
+			focusView = mPhoneView;
 			cancel = true;
 		}
 		
@@ -235,7 +248,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 		protected Map<String, Object> doInBackground(Void... params) {
         	FragmentActivity context = getActivity();
         	File avatarFile = ProfileModel.getAvatarFile(context, mAvatarBitmap, mAvatartUri);
-			String result = AccountModel.register(context, mEmail, mPassword, mRePassword, mNickname, avatarFile);
+			String result = AccountModel.register(context, mPhone, mEmail, mPassword, mRePassword, mNickname, avatarFile);
 			
 			if(!TextUtils.isEmpty(result)) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -330,6 +343,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		mPhoneView = null;
 		mEmailView = null;
 		mPasswordView = null;
 		mPasswordRepeatView = null;

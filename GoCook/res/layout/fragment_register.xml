@@ -30,11 +30,23 @@
             android:singleLine="true" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/username"
             android:layout_below="@id/username"
+            android:hint="@string/prompt_phone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:minWidth="@dimen/biz_account_register_edittext_minWidth"
+            android:singleLine="true" />
+        
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/username"
+            android:layout_below="@id/phone"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"

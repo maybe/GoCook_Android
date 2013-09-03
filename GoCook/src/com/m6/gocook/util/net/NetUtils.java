@@ -430,7 +430,7 @@ public class NetUtils {
 			saveCookie(context, conn);
 			result = readStream(in);
 //			System.out.println("file :" + file.getPath());
-//			System.out.println("result : " + result);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

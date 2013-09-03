@@ -1,4 +1,4 @@
-package com.m6.gocook.base.model.biz;
+package com.m6.gocook.base.entity.request;
 
 import java.util.List;
 
@@ -10,23 +10,20 @@ import com.m6.gocook.base.model.BaseData;
 
 public class CShopcartInfo extends BaseData {
 	
-	private int custId;
 	private List<CShopcartWareInfo> wares;
 	
-	public CShopcartInfo(int custId, List<CShopcartWareInfo> wares) {
-		this.custId = custId;
+	public CShopcartInfo(List<CShopcartWareInfo> wares) {
 		this.wares = wares;
 	}
 	
 	@Override
 	public String getJsonData() {
 		try {
-			JSONObject postJsonObject = new JSONObject();
-			postJsonObject.put("CustId", custId);
 			JSONArray wareArray = new JSONArray();
 			for (CShopcartWareInfo ware : wares) {
 				wareArray.put(ware.getJsonObject());
 			}
+			JSONObject postJsonObject = new JSONObject();
 			postJsonObject.put("Wares", wareArray.toString());
 			return postJsonObject.toString();
 		} catch (JSONException e) {

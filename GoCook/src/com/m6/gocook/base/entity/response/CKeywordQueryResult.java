@@ -10,10 +10,11 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 
 import com.m6.gocook.base.entity.IParseable;
-import com.m6.gocook.base.model.ResponseData;
+import com.m6.gocook.base.protocol.Protocol;
 
-public class CKeywordQueryResult implements IParseable<String> {
+public class CKeywordQueryResult extends BaseResponse implements IParseable<String> {
 
+	private int result;
 	private int pageIndex;
 	private int pageRows;
 	private int totalCount;
@@ -58,13 +59,14 @@ public class CKeywordQueryResult implements IParseable<String> {
 		}
 		
 		try {
-			ResponseData responseData = new ResponseData(value);
-			if (responseData.isSuccessful()) {
-				JSONObject jsonObject = new JSONObject(responseData.getData());
-				if (jsonObject != null) {
-					pageIndex = jsonObject.optInt("PageIndex");
-					pageRows = jsonObject.optInt("PageRows");
-					JSONArray rowArray = jsonObject.optJSONArray("Rows");
+			JSONObject jsonObject = new JSONObject(value);
+			if (jsonObject != null) {
+				result = jsonObject.optInt(BaseResponse.RESULT);
+				errorCode = jsonObject.optInt(BaseResponse.ERROR);
+				if (result == Protocol.VALUE_RESULT_OK) {
+					pageIndex = jsonObject.optInt("page");
+					pageRows = jsonObject.optInt("total_count");
+					JSONArray rowArray = jsonObject.optJSONArray("wares");
 					if (rowArray != null) {
 						int size  = rowArray.length();
 						rows = new ArrayList<CWareItem>();
@@ -72,16 +74,15 @@ public class CKeywordQueryResult implements IParseable<String> {
 							JSONObject rowObject = rowArray.optJSONObject(i);
 							if (rowObject != null) {
 								CWareItem item = new CWareItem();
-								item.setCode(rowObject.optString("Code"));
-								item.setId(rowObject.optInt("Id"));
-								item.setImageUrl(rowObject.optString("ImageUrl"));
-								item.setName(rowObject.optString("Name"));
-								item.setNorm(rowObject.optString("Norm"));
-								item.setPrice(rowObject.optDouble("Price"));
-								item.setRemark(rowObject.optString("Remark"));
-								item.setUnit(rowObject.optString("Unit"));
-								item.setTotalCount(rowObject.optInt("TotalCount"));
-								JSONArray dealMethods = rowObject.optJSONArray("DealMethod");
+								item.setCode(rowObject.optString("code"));
+								item.setId(rowObject.optInt("id"));
+								item.setImageUrl(rowObject.optString("image_url"));
+								item.setName(rowObject.optString("name"));
+								item.setNorm(rowObject.optString("norm"));
+								item.setPrice(rowObject.optDouble("price"));
+								item.setRemark(rowObject.optString("remark"));
+								item.setUnit(rowObject.optString("unit"));
+								JSONArray dealMethods = rowObject.optJSONArray("deal_method");
 								if (dealMethods != null) {
 									int length = dealMethods.length();
 									List<String> methods = new ArrayList<String>();
@@ -93,7 +94,6 @@ public class CKeywordQueryResult implements IParseable<String> {
 								rows.add(item);
 							}
 						}
-						
 					}
 				}
 			}

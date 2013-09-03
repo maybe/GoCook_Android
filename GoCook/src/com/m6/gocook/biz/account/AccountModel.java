@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.SecretKey;
+
 import org.apache.http.impl.conn.DefaultClientConnection;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import com.m6.gocook.util.File.StringUtils;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;
 import com.m6.gocook.util.util.Base64;
+import com.m6.gocook.util.util.SecurityUtils;
 
 public class AccountModel {
 	
@@ -64,9 +67,9 @@ public class AccountModel {
 		mAccountChangedListeners.remove(listener);
 	}
 	
-	public static void onLogin(String email, String avatarUrl, String userName) {
+	public static void onLogin(String phone, String email, String avatarUrl, String userName) {
 		for(OnAccountChangedListener listener : mAccountChangedListeners) {
-			listener.onLogin(email, avatarUrl, userName);
+			listener.onLogin(phone, email, avatarUrl, userName);
 		}
 	}
 	
@@ -82,15 +85,14 @@ public class AccountModel {
 		}
 	}
 	
-	public static String login(Context context, String username, String password) {
+	public static String login(Context context, String phone, String password) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("login", username));
-		params.add(new BasicNameValuePair("password", password));
+		params.add(new BasicNameValuePair("login", phone));
+		params.add(new BasicNameValuePair("password", SecurityUtils.encryptMode(password)));
 		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params, null);
 	}
 	
 	public static void logout(Context context) {
-		// TODO all personal info put null
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
@@ -100,12 +102,13 @@ public class AccountModel {
 		onLogout();
 	}
 	
-	public static String register(Context context, String email, String password, String rePassword, String nickname, File avatart) {
+	public static String register(Context context, String phone, String email, String password, String rePassword, String nickname, File avatart) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("tel", phone));
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("nickname", nickname));
-		params.add(new BasicNameValuePair("password", password));
-		params.add(new BasicNameValuePair("repassword", password));
+		params.add(new BasicNameValuePair("password", SecurityUtils.encryptMode(password)));
+		params.add(new BasicNameValuePair("repassword", SecurityUtils.encryptMode(rePassword)));
 		return NetUtils.httpPost(context, Protocol.URL_REGISTER, params, avatart, "avatar", null);
 	}
 	
@@ -115,6 +118,16 @@ public class AccountModel {
 	
 	public static void saveCookie(Context context, String cookie) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, cookie);
+	}
+	
+	public static String getPhone(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_PHONE, "");
+	}
+	
+	public static void savePhone(Context context, String phone) {
+		if (!TextUtils.isEmpty(phone)) {
+			PrefHelper.putString(context, PrefKeys.ACCOUNT_PHONE, StringUtils.trimLineFeed(phone.trim()));
+		}
 	}
 	
 	public static String getUsername(Context context) {

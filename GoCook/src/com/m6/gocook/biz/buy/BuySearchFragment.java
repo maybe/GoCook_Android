@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.buy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ public class BuySearchFragment extends BaseListFragment {
 	@Override
 	protected void executeTask() {
 		if (mBuySearchTask == null) {
-			mBuySearchTask = new BuySearchTask(mKeyword, mPageIndex, mPageRows);
+			mBuySearchTask = new BuySearchTask(getActivity(), mKeyword, mPageIndex, mPageRows);
 			mBuySearchTask.execute((Void) null); 
 		}
 		
@@ -86,7 +87,10 @@ public class BuySearchFragment extends BaseListFragment {
 		private int mPageIndex;
 		private int mPageRows;
 		
-		public BuySearchTask(String keyword, int pageIndex, int pageRows) {
+		private Context mContext;
+		
+		public BuySearchTask(Context context, String keyword, int pageIndex, int pageRows) {
+			mContext = context.getApplicationContext();
 			mKeyword = keyword;
 			mPageIndex = pageIndex;
 			mPageRows = pageRows;
@@ -94,7 +98,7 @@ public class BuySearchFragment extends BaseListFragment {
 
 		@Override
 		protected CKeywordQueryResult doInBackground(Void... params) {
-			return BuyModel.getBuySearchResult(mKeyword, mPageIndex, mPageRows);
+			return BuyModel.getBuySearchResult(mContext, mKeyword, mPageIndex, mPageRows);
 		}
 		
 		@Override

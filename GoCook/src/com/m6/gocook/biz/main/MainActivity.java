@@ -204,7 +204,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			String usr = AccountModel.getAccount(mContext);
+			String usr = AccountModel.getPhone(mContext);
 			String pwd = AccountModel.getPassword(mContext);
 			if(!TextUtils.isEmpty(pwd)) {
 				String result = AccountModel.login(mContext, usr, pwd);

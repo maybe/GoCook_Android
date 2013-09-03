@@ -63,7 +63,7 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 	}
 	
 	@Override
-	public void onLogin(String email, String avatarUrl, String userName) {
+	public void onLogin(String phone, String email, String avatarUrl, String userName) {
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		

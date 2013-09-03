@@ -1,4 +1,4 @@
-package com.m6.gocook.base.model.biz;
+package com.m6.gocook.base.entity.request;
 
 import org.json.JSONException;
 import org.json.JSONObject;

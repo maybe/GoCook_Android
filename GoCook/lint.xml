@@ -3,6 +3,9 @@
     <issue id="CommitTransaction">
         <ignore path="src/com/m6/gocook/biz/account/RegisterFragment.java" />
     </issue>
+    <issue id="DefaultLocale">
+        <ignore path="src\com\m6\gocook\biz\buy\BuyModel.java" />
+    </issue>
     <issue id="NewApi">
         <ignore path="src/com/m6/gocook/biz/recipe/recipe/RecipeEditFragment.java" />
         <ignore path="src/com/m6/gocook/biz/search/SearchFragment.java" />

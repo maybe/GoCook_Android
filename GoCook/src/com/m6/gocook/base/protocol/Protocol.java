@@ -69,6 +69,12 @@ public class Protocol {
 	/* Buy */
 	public static final String  URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
 	
+	public static final String  URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%d";
+	
+	public static final String  URL_BUY_ORDER = URL_ROOT + "/cook/order";
+	
+	public static final String  URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
+	
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";

@@ -49,11 +49,13 @@ public class LoginFragment extends BaseFragment {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
+	private String mPhone;
+//	private String mEmail;
 	private String mPassword;
 
 	// UI references.
-	private EditText mEmailView;
+	private EditText mPhoneView;
+//	private EditText mEmailView;
 	private EditText mPasswordView;
 	
 	public static final String PARAM_JUMP_LOGIN = "param_jump_login";
@@ -105,9 +107,11 @@ public class LoginFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		FragmentActivity activity = getActivity();
-		// Set up the login form.
-		mEmailView = (EditText) activity.findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		// Set up the login form.\
+		mPhoneView = (EditText) activity.findViewById(R.id.phone);
+		mPhoneView.setText(mPhone);
+//		mEmailView = (EditText) activity.findViewById(R.id.email);
+//		mEmailView.setText(mEmail);
 
 		mPasswordView = (EditText) activity.findViewById(R.id.password);
 		mPasswordView
@@ -149,11 +153,13 @@ public class LoginFragment extends BaseFragment {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mPhoneView.setError(null);
+//		mEmailView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		mPhone = mPhoneView.getText().toString();
+//		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -171,13 +177,19 @@ public class LoginFragment extends BaseFragment {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_email_required));
-			focusView = mEmailView;
-			cancel = true;
-		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
+//		if (TextUtils.isEmpty(mEmail)) {
+//			mEmailView.setError(getString(R.string.error_email_required));
+//			focusView = mEmailView;
+//			cancel = true;
+//		} else if (!mEmail.contains("@")) {
+//			mEmailView.setError(getString(R.string.error_invalid_email));
+//			focusView = mEmailView;
+//			cancel = true;
+//		}
+		
+		if (TextUtils.isEmpty(mPhone)) {
+			mPhoneView.setError(getString(R.string.error_phone_required));
+			focusView = mPhoneView;
 			cancel = true;
 		}
 
@@ -214,7 +226,7 @@ public class LoginFragment extends BaseFragment {
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
 			
-			String result = AccountModel.login(mContext, mEmail, mPassword);
+			String result = AccountModel.login(mContext, mPhone, mPassword);
 			if (!TextUtils.isEmpty(result)) {
 				try {
 					JSONObject json = new JSONObject(result);
@@ -227,7 +239,8 @@ public class LoginFragment extends BaseFragment {
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
 						
-						AccountModel.saveAccount(mContext, mEmail);
+//						AccountModel.saveAccount(mContext, mEmail);
+						AccountModel.savePhone(mContext, mPhone);
 						AccountModel.saveUsername(mContext, userName);
 						AccountModel.savePassword(mContext, mPassword);
 						AccountModel.saveAvatarPath(mContext, icon);
@@ -253,7 +266,7 @@ public class LoginFragment extends BaseFragment {
 				if(mJumpLogin) {
 					getActivity().getSupportFragmentManager().popBackStackImmediate();
 				} else {
-					AccountModel.onLogin(mEmail, avatarUrl, userName);
+					AccountModel.onLogin(mPhone, null, avatarUrl, userName);
 				}
 			} else {
 				Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
