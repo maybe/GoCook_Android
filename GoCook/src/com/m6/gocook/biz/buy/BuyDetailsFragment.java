@@ -2,6 +2,7 @@ package com.m6.gocook.biz.buy;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class BuyDetailsFragment extends BaseFragment {
+public class BuyDetailsFragment extends BaseFragment implements OnActivityAction {
 	
 	public static final String PARAM_RESULT = "param_result";
+	public static final String PARAM_RESULT_COUNT = "param_result_count";
+	public static final String PARAM_RESULT_METHOD = "param_result_method";
 	
 	private CWareItem mWareItem;
 	
@@ -44,7 +51,8 @@ public class BuyDetailsFragment extends BaseFragment {
 		if (mWareItem != null) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setTitle(mWareItem.getName());
-			((TextView) view.findViewById(R.id.title)).setText(mWareItem.getName());
+			
+			((TextView) view.findViewById(R.id.name)).setText(mWareItem.getName());
 			((TextView) view.findViewById(R.id.price)).setText(getString(R.string.biz_buy_search_adapter_price, String.valueOf(mWareItem.getPrice())));
 			((TextView) view.findViewById(R.id.unit)).setText(getString(R.string.biz_buy_search_adapter_unit, mWareItem.getUnit()));
 			((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
@@ -67,8 +75,22 @@ public class BuyDetailsFragment extends BaseFragment {
 		
 		@Override
 		public void onClick(View v) {
-			
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT, mWareItem);
+			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class,
+					BuyDetailsInputFragment.class.getName(), BuyDetailsInputFragment.class.getName(), bundle);
+			startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
 		}
 	};
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
+			
+		}
+	}
+	
+	
 
 }

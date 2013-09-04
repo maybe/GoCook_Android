@@ -13,18 +13,21 @@ import com.m6.gocook.base.fragment.OnKeyDown;
 
 public class MainActivityHelper {
 	
-	public static int REQUEST_CODE_FOLLOW = 101;
-	public static int REQUEST_CODE_RECIPE_EDIT = 102;
-	public static int REQUEST_CODE_RECIPE = 103;
-	
-	public static int RESULT_CODE_FOLLOW = 201;
+	/** request */
+	public static final int REQUEST_CODE_FOLLOW = 101;
+	public static final int REQUEST_CODE_RECIPE_EDIT = 102;
+	public static final int REQUEST_CODE_RECIPE = 103;
+	public static final int REQUEST_CODE_INPUT = 104;
 
-	public static int RESULT_CODE_RECIPE_EDIT_CREATED = 202;
-	public static int RESULT_CODE_RECIPE_EDIT_UPDATED = 203;
+	/** result */
+	public static final int RESULT_CODE_FOLLOW = 201;
+	public static final int RESULT_CODE_RECIPE_EDIT_CREATED = 202;
+	public static final int RESULT_CODE_RECIPE_EDIT_UPDATED = 203;
+	public static final int RESULT_CODE_RECIPE_DELETED = 204;
+	public static final int RESULT_CODE_RECIPE_UPDATED = 205;
+	public static final int RESULT_CODE_INPUT = 206;
 	
-	public static int RESULT_CODE_RECIPE_DELETED = 204;
-	public static int RESULT_CODE_RECIPE_UPDATED = 205;
-
+	
 	public static ArrayList<OnActivityAction> mOnActivityActions = new ArrayList<OnActivityAction>();
 	
 	public static void registerOnActivityActionListener(OnActivityAction listener) {
@@ -43,7 +46,7 @@ public class MainActivityHelper {
 	
 	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
 		for(OnActivityAction listener : mOnActivityActions) {
-			listener.onActivityResult(requestCode, resultCode, data);
+			listener.onCustomActivityResult(requestCode, resultCode, data);
 		}
 	}
 	

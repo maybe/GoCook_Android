@@ -112,7 +112,7 @@ public class PhotoPickDialogFragment extends DialogFragment implements OnActivit
 	}
 	
 	@Override
-	public void onActivityResult(int requestCode, int resultCode,
+	public void onCustomActivityResult(int requestCode, int resultCode,
 			Intent data) {
 		if(requestCode == REQ_CAMERA) {
 			if (resultCode != Activity.RESULT_OK) {

@@ -663,5 +663,11 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		}
 		
 	}
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		
+	}
 	
 }

@@ -108,7 +108,7 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 	}
 	
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == MainActivityHelper.REQUEST_CODE_FOLLOW && resultCode == MainActivityHelper.RESULT_CODE_FOLLOW) {
 			refresh();
 		}

@@ -585,7 +585,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 	}
 	
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.i("RecipeFragment", String.format("onActivityResult: requesCode:%d, resultCode:%d", requestCode, resultCode));
 		
 		if(requestCode == MainActivityHelper.REQUEST_CODE_RECIPE_EDIT) {

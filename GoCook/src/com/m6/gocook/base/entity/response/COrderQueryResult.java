@@ -126,7 +126,6 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 		public void setOrderWares(List<COrderWareItem> orderWares) {
 			this.orderWares = orderWares;
 		}
-		
 	}
 	
 	public class COrderWareItem {
@@ -208,8 +207,6 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 		public void setDealMethod(String dealMethod) {
 			this.dealMethod = dealMethod;
 		}
-		
-		
 	}
 
 	@Override
