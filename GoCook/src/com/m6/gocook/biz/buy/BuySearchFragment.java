@@ -13,9 +13,11 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.CKeywordQueryResult;
 import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class BuySearchFragment extends BaseListFragment {
+public class BuySearchFragment extends BaseListFragment implements OnActivityAction {
 
 	public static final String PARAM_KEYWORD = "param_keyword";
 	
@@ -77,7 +79,15 @@ public class BuySearchFragment extends BaseListFragment {
 			bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT, mAdapter.getItem(arg2));
 			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class,
 					BuyDetailsFragment.class.getName(), BuyDetailsFragment.class.getName(), bundle);
-			startActivity(intent);
+			startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
+		}
+	}
+	
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
+			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
+			getActivity().finish();
 		}
 	}
 	

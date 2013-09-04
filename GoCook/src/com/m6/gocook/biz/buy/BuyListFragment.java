@@ -3,6 +3,7 @@ package com.m6.gocook.biz.buy;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import android.widget.ListView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class BuyListFragment extends BaseFragment {
+public class BuyListFragment extends BaseFragment implements OnActivityAction {
 
 	public static final String PARAM_RECIPE_ID = "param_recipe_id";
 	
@@ -49,6 +52,24 @@ public class BuyListFragment extends BaseFragment {
 		
 		mAdapter = new BuyListAdapter(getActivity(), mData);
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);
+	}
+	
+	private void saveData(int wareId, int count, String method) {
+		
+	}
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
+			if (data != null) {
+				int wareId = data.getIntExtra(BuyDetailsFragment.PARAM_RESULT_ID, -1);
+				int count = data.getIntExtra(BuyDetailsFragment.PARAM_RESULT_COUNT, 0);
+				String method = data.getStringExtra(BuyDetailsFragment.PARAM_RESULT_METHOD);
+				
+				saveData(wareId, count, method);
+			}
+		}
 	}
 
 }

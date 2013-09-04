@@ -79,10 +79,11 @@ public class BuyDetailsInputFragment extends BaseFragment {
 				String method = ((Button) getView().findViewById(methodView.getCheckedRadioButtonId())).getText().toString();
 				
 				Intent intent = new Intent();
+				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_ID, mWareItem.getId());
 				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_COUNT, count);
 				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_METHOD, method);
-				getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT);
-				
+				getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, intent);
+				getActivity().finish();
 			}
 		});
 	}

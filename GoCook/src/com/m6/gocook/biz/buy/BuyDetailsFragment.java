@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +23,7 @@ import com.m6.gocook.biz.main.MainActivityHelper;
 public class BuyDetailsFragment extends BaseFragment implements OnActivityAction {
 	
 	public static final String PARAM_RESULT = "param_result";
+	public static final String PARAM_RESULT_ID = "param_result_id";
 	public static final String PARAM_RESULT_COUNT = "param_result_count";
 	public static final String PARAM_RESULT_METHOD = "param_result_method";
 	
@@ -87,7 +88,8 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 	public void onCustomActivityResult(int requestCode, int resultCode,
 			Intent data) {
 		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
-			
+			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
+			getActivity().finish();
 		}
 	}
 	

@@ -7,6 +7,7 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.util.File.StringUtils;
 import com.m6.gocook.util.model.ModelUtils;
 
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,7 +87,7 @@ public class BuyListAdapter extends BaseAdapter {
 				args.putString(BuySearchFragment.PARAM_KEYWORD, name);
 				Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
 						BuySearchFragment.class.getName(), BuySearchFragment.class.getName(), args);
-				mContext.startActivity(intent);
+				((FragmentActivity) mContext).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
 			}
 		});
 		return convertView;
