@@ -88,6 +88,7 @@
     <string name="biz_profile_myaccount_fans">我的粉丝</string>
     <string name="biz_profile_myaccount_collection">我的收藏</string>
     <string name="biz_profile_myaccount_recipe">我的菜谱</string>
+    <string name="biz_profile_myaccount_order">我的购买</string>
     <string name="biz_profile_myaccount_logout">登出</string>
     
     <string name="biz_profile_myaccount_fans_count">%d粉丝</string>
@@ -200,6 +201,8 @@
     <string name="biz_buy_details_input_method_prefix">加工方式：</string>
     <string name="biz_buy_details_input_submit">确定</string>
     <string name="biz_buy_details_input_title">输入购买信息</string>
+    
+    <string name="biz_buy_order_list_title">%s的购买</string>
     
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
     

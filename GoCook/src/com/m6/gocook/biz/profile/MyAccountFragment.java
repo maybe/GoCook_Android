@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.profile;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.buy.OrderListFragment;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
@@ -138,6 +140,16 @@ public class MyAccountFragment extends Fragment {
 				args.putInt(ProfileFragment.PROFILE_TYPE, ProfileFragment.PROFILE_MYSELF);
 				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
 						ProfileFragment.class.getName(), ProfileFragment.class.getName(), args);
+				startActivity(intent);
+			}
+		});
+		
+		view.findViewById(R.id.myorder).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+						OrderListFragment.class.getName(), OrderListFragment.class.getName(), null);
 				startActivity(intent);
 			}
 		});

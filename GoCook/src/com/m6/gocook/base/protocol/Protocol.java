@@ -63,13 +63,11 @@ public class Protocol {
 	public static final String URL_RECIPE_HOT = URL_ROOT + "/recipe/tophot?page=";
 	
 	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
-//	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
-	
 	
 	/* Buy */
 	public static final String  URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
 	
-	public static final String  URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%d";
+	public static final String  URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%s";
 	
 	public static final String  URL_BUY_ORDER = URL_ROOT + "/cook/order";
 	

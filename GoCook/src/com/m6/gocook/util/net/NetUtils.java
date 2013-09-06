@@ -41,9 +41,9 @@ public class NetUtils {
 	
 	public static final String GET = "GET";
 	
-	private static final int HTTP_READ_TIMEOUT = 90000;
+	private static final int HTTP_READ_TIMEOUT = 180000;
 	
-	private static final int HTTP_CONNECT_TIMEOUT = 90000;
+	private static final int HTTP_CONNECT_TIMEOUT = 180000;
 
 	/**
 	 * Check network connection status

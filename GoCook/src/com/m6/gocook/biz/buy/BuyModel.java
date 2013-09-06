@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.buy;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,33 +64,42 @@ public class BuyModel {
 	}
 	
 	public static CKeywordQueryResult getBuySearchResult(Context context, String keyword, int pageIndex, int pageRows) {
-//		CKeywordQueryInfo cKeywordQueryInfo = new CKeywordQueryInfo(keyword, pageIndex, pageRows);
-//		RequestData requestData = new RequestData(Cmd.SEARCH, cKeywordQueryInfo);
-//		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-//		params.add(new BasicNameValuePair("keyword", keyword));
-//		params.add(new BasicNameValuePair("page", String.valueOf(pageIndex)));
-//		String result  = NetUtils.httpPost(context, Protocol.URL_BUY_SEARCH, params);
-		String result = NetUtils.httpGet(String.format(Protocol.URL_BUY_SEARCH, keyword, pageIndex));
-		CKeywordQueryResult cKeywordQueryResult = new CKeywordQueryResult();
-		cKeywordQueryResult.parse(result);
-		return cKeywordQueryResult;
+		try {
+			String result = NetUtils.httpGet(String.format(Protocol.URL_BUY_SEARCH, URLEncoder.encode(keyword, "UTF-8"), URLEncoder.encode(String.valueOf(pageIndex), "UTF-8")));
+			CKeywordQueryResult cKeywordQueryResult = new CKeywordQueryResult();
+			cKeywordQueryResult.parse(result);
+			return cKeywordQueryResult;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static CShopCartResult getOrderResult(Context context, CShopcartInfo cShopcartInfo) {
-		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("wares", cShopcartInfo.getJsonData()));
-		String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
-		CShopCartResult cShopCartResult = new CShopCartResult(result);
-		return cShopCartResult;
+		try {
+			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+			params.add(new BasicNameValuePair("wares", URLEncoder.encode(cShopcartInfo.getJsonData(), "UTF-8")));
+			String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
+			CShopCartResult cShopCartResult = new CShopCartResult(result);
+			return cShopCartResult;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static COrderQueryResult getOrderQueryResult(Context context, String startDay, String endDay, int page) {
-		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("start_day", startDay));
-		params.add(new BasicNameValuePair("end_day", endDay));
-		params.add(new BasicNameValuePair("page", String.valueOf(page)));
-		String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER_QUERY, params);
-		COrderQueryResult cOrderQueryResult = new COrderQueryResult(result);
-		return cOrderQueryResult;
+		try {
+			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+			params.add(new BasicNameValuePair("start_day", URLEncoder.encode(startDay, "UTF-8")));
+			params.add(new BasicNameValuePair("end_day", URLEncoder.encode(endDay, "UTF-8")));
+			params.add(new BasicNameValuePair("page", URLEncoder.encode(String.valueOf(page), "UTF-8")));
+			String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER_QUERY, params);
+			COrderQueryResult cOrderQueryResult = new COrderQueryResult(result);
+			return cOrderQueryResult;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
