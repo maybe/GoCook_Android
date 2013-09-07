@@ -1,5 +1,6 @@
 package com.m6.gocook.base.entity.response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,12 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 		this.rows = rows;
 	}
 
-	public class COrderItem {
+	public class COrderItem implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 45035044987020401L;
+		
 		private int id; //编号
 		private int custId; //客户编号
 		private String custName; //客户名称

@@ -34,7 +34,7 @@ public class OrderListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public COrderItem getItem(int position) {
 		if (mCOrderQueryResult == null || mCOrderQueryResult.getRows() == null) {
 			return null;
 		}

@@ -75,7 +75,7 @@ public class BuyModel {
 		return null;
 	}
 	
-	public static CShopCartResult getOrderResult(Context context, CShopcartInfo cShopcartInfo) {
+	public static CShopCartResult orderRequest(Context context, CShopcartInfo cShopcartInfo) {
 		try {
 			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 			params.add(new BasicNameValuePair("wares", URLEncoder.encode(cShopcartInfo.getJsonData(), "UTF-8")));

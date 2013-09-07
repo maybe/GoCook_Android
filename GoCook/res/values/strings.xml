@@ -203,6 +203,15 @@
     
     <string name="biz_buy_order_list_title">%s的购买</string>
     
+    <string name="biz_buy_order_details_createtime">创建时间：%s</string>
+    <string name="biz_buy_order_details_orderid">订单号：%s</string>
+    <string name="biz_buy_order_details_name">收货人：%s</string>
+    <string name="biz_buy_order_details_phone">手机号：%s</string>
+    <string name="biz_buy_order_details_deliverytime">配送时间：%s</string>
+    <string name="biz_buy_order_details_deliverytype">配送类型：%s</string>
+    <string name="biz_buy_order_details_cost">金额：%s</string>
+    <string name="biz_buy_order_details_title">商品明细</string>
+    
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
     
     <!-- popular -->

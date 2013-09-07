@@ -101,6 +101,14 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
         }
 	}
 	
+	/**
+	 * 列表项点击事件
+	 * 
+	 * @param arg0
+	 * @param arg1
+	 * @param arg2
+	 * @param arg3
+	 */
 	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 	}
