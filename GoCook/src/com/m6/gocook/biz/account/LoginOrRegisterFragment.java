@@ -24,7 +24,6 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		return inflater.inflate(R.layout.fragment_loginorregister_tabcontent, container, false);
 	}
 	
-	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -55,6 +54,11 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		// TODO  fragment重叠问题
+	}
 
 	@Override
 	public void onClick(View v) {

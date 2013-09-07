@@ -19,6 +19,7 @@
     <string name="error_password_required">请填写密码</string>
     <string name="error_repeat_password_required">请确认密码</string>
     <string name="error_username_required">请填写用户名</string>
+    <string name="error_username_minlength">用户名至少3个字</string>
     <string name="error_phone_required">请填写手机号</string>
     
 </resources>

@@ -41,11 +41,10 @@
     <string name="biz_account_avatar_photo">从本地图库选择</string>
     <string name="biz_account_login_failure">登录失败，请重试</string>
     
+    <string name="biz_account_register_errorcode_phone_repeat">电话号码重复</string>
+    <string name="biz_account_register_errorcode_nickname_repeat">昵称重复</string>
+    <string name="biz_account_register_errorcode_account_exists">账号已存在</string>
     <string name="biz_account_register_errorcode_failure">注册失败</string>
-    <string name="biz_account_register_errorcode_email">email不可用</string>
-    <string name="biz_account_register_errorcode_nickname">昵称不可用</string>
-    <string name="biz_account_register_errorcode_password">密码格式不对</string>
-    <string name="biz_account_register_errorcode_others">其它</string>
     
     <string name="biz_account_logout_dialog_title">退出提示</string>
     <string name="biz_account_logout_dialog_message">您确定要退出该账号么？</string>

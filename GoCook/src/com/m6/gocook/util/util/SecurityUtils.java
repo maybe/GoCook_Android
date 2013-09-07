@@ -35,7 +35,7 @@ public class SecurityUtils {
 			IvParameterSpec iv = new IvParameterSpec(getEncryIV(PASSWORD_CRYPT_IV));
 			Cipher c1 = Cipher.getInstance(Algorithm); // 实例化负责加密/解密的Cipher工具类
 			c1.init(Cipher.ENCRYPT_MODE, securekey, iv); // 初始化为加密模式
-			return Base64.encodeToString(c1.doFinal(src.getBytes()), Base64.DEFAULT);
+			return trimLineFeed(Base64.encodeToString(c1.doFinal(src.getBytes()), Base64.DEFAULT));
 		} catch (java.security.NoSuchAlgorithmException e1) {
 			e1.printStackTrace();
 		} catch (javax.crypto.NoSuchPaddingException e2) {

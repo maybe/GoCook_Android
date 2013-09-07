@@ -182,6 +182,10 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 			mUsernameView.setError(getString(R.string.error_username_required));
 			focusView = mUsernameView;
 			cancel = true;
+		} else if (mNickname.length() < 3) {
+			mUsernameView.setError(getString(R.string.error_username_minlength));
+			focusView = mUsernameView;
+			cancel = true;
 		}
 
 		if (cancel) {
@@ -298,7 +302,7 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 				if(isAdded()) {
 					startActivity(intent);
 				}
-			} else {
+			} else if (result != null && result.containsKey(AccountModel.RETURN_ERRORCODE)){
 				int errorCode = -1;
 				try {
 					errorCode = (Integer) result.get(AccountModel.RETURN_ERRORCODE);
@@ -307,17 +311,17 @@ public class RegisterFragment extends Fragment implements OnPhotoPickCallback {
 					return;
 				}
 				
-				if(errorCode == AccountModel.ERRORCODE_FAILURE) {
-					Toast.makeText(context, R.string.biz_account_register_errorcode_failure, Toast.LENGTH_LONG).show();
-				} else if(errorCode == AccountModel.ERRORCODE_EMAIL) {
-					Toast.makeText(context, R.string.biz_account_register_errorcode_email, Toast.LENGTH_LONG).show();
-				} else if(errorCode == AccountModel.ERRORCODE_NICKNAME) {
-					Toast.makeText(context, R.string.biz_account_register_errorcode_nickname, Toast.LENGTH_LONG).show();
-				} else if(errorCode == AccountModel.ERRORCODE_PASSWORD) {
-					Toast.makeText(context, R.string.biz_account_register_errorcode_password, Toast.LENGTH_LONG).show();
+				if(errorCode == AccountModel.ERRORCODE_PHONE_REPEAT) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_phone_repeat, Toast.LENGTH_LONG).show();
+				} else if(errorCode == AccountModel.ERRORCODE_NICKNAME_REPEAT) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_nickname_repeat, Toast.LENGTH_LONG).show();
+				} else if(errorCode == AccountModel.ERRORCODE_ACCOUNT_EXISTS) {
+					Toast.makeText(context, R.string.biz_account_register_errorcode_account_exists, Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(context, R.string.biz_account_register_errorcode_others, Toast.LENGTH_LONG).show();
+					Toast.makeText(context, R.string.biz_account_register_errorcode_failure, Toast.LENGTH_LONG).show();
 				}
+			} else {
+				Toast.makeText(context, R.string.biz_account_register_errorcode_failure, Toast.LENGTH_LONG).show();
 			}
 			
 		}

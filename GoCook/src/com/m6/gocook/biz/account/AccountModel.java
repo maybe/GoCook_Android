@@ -39,16 +39,18 @@ public class AccountModel {
 	public static final String RETURN_AVATAR = "avatar";
 	public static final String RETURN_USERID = "user_id";
 	
-	/** 注册失败 */
-	public static final int ERRORCODE_FAILURE = 1;
-	/** email不可用 */
-	public static final int ERRORCODE_EMAIL = 2;
-	/** nickname不可用 */
-	public static final int ERRORCODE_NICKNAME = 3;
-	/** 密码格式不对 */
-	public static final int ERRORCODE_PASSWORD = 4;
-	/** 其它 */
-	public static final int ERRORCODE_OTHERS = 5;
+	/** 电话号码重复 */
+	public static final int ERRORCODE_PHONE_REPEAT = 201;
+	/** 昵称重复 */
+	public static final int ERRORCODE_NICKNAME_REPEAT = 202;
+	/** 甲方服务器错误 */
+	public static final int ERRORCODE_NICKNAME = 203;
+	/** 甲方服务器错误(逻辑错误，go_cook校验服务器返回结果错误) */
+	public static final int ERRORCODE_LOGIC_ERROR = 204;
+	/** 注册失败(甲方服务器未响应或错误) */
+	public static final int ERRORCODE_NO_RESPONSE = 205;
+	/** 账号已存在 */
+	public static final int ERRORCODE_ACCOUNT_EXISTS = 206;
 			
 	
 	private static ArrayList<OnAccountChangedListener> mAccountChangedListeners = new ArrayList<OnAccountChangedListener>();
