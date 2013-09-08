@@ -19,14 +19,14 @@ public class CWareItem implements Serializable {
 	private String unit;
 	private double price;
 	private String imageUrl;
-	private int totalCount;
+	private double quantity;
 	
-	public int getTotalCount() {
-		return totalCount;
+	public double getQuantity() {
+		return quantity;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
 	}
 
 	private List<String> dealMethod;

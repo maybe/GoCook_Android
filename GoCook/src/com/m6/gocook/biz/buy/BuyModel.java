@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.http.message.BasicNameValuePair;
 
-import android.R.integer;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,18 +16,25 @@ import android.text.TextUtils;
 
 import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-import com.m6.gocook.base.entity.request.CKeywordQueryInfo;
 import com.m6.gocook.base.entity.request.CShopcartInfo;
 import com.m6.gocook.base.entity.response.CKeywordQueryResult;
 import com.m6.gocook.base.entity.response.COrderQueryResult;
 import com.m6.gocook.base.entity.response.CShopCartResult;
-import com.m6.gocook.base.model.Cmd;
-import com.m6.gocook.base.model.RequestData;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.net.NetUtils;
 
 public class BuyModel {
 
+	public static final String NAME = "name";
+	public static final String NORM = "norm";
+	public static final String QUANTITY = "count";
+	public static final String PRICE = "price";
+	public static final String METHOD = "method";
+	public static final String UNIT = "unit";
+	public static final String REMARK = "remark";
+	public static final String WAREID = "wareid";
+	
+	
 	public static List<Map<String, Object>> getBuyList(Context context, String recipeId) {
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
 		Cursor cursor;
@@ -76,16 +82,12 @@ public class BuyModel {
 	}
 	
 	public static CShopCartResult orderRequest(Context context, CShopcartInfo cShopcartInfo) {
-		try {
-			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("wares", URLEncoder.encode(cShopcartInfo.getJsonData(), "UTF-8")));
-			String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
-			CShopCartResult cShopCartResult = new CShopCartResult(result);
-			return cShopCartResult;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("wares", cShopcartInfo.getJsonData()));
+//			params.add(new BasicNameValuePair("wares", URLEncoder.encode(cShopcartInfo.getJsonData(), "UTF-8")));
+		String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
+		CShopCartResult cShopCartResult = new CShopCartResult(result);
+		return cShopCartResult;
 	}
 	
 	public static COrderQueryResult getOrderQueryResult(Context context, String startDay, String endDay, int page) {

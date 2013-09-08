@@ -1,9 +1,11 @@
 package com.m6.gocook.biz.buy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.response.CWareItem;
@@ -24,6 +27,7 @@ import com.m6.gocook.biz.main.MainActivityHelper;
 public class BuyDetailsInputFragment extends BaseFragment {
 
 	private CWareItem mWareItem;
+	private String mRecordId;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		Bundle args = getArguments();
 		if (args != null) {
 			mWareItem = (CWareItem) args.getSerializable(BuyDetailsFragment.PARAM_RESULT);
+			mRecordId = args.getString(BuySearchFragment.PARAM_RECORD_ID);
 		}
 	}
 	
@@ -50,19 +55,27 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		((TextView) view.findViewById(R.id.price)).setText(getString(R.string.biz_buy_search_adapter_price, String.valueOf(mWareItem.getPrice())));
 		((TextView) view.findViewById(R.id.unit)).setText(getString(R.string.biz_buy_search_adapter_unit, mWareItem.getUnit()));
 		((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
+		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + mWareItem.getUnit());
 		
 		List<String> methods = mWareItem.getDealMethod();
-		if (methods != null) {
-			RadioGroup methodView = (RadioGroup) view.findViewById(R.id.method);
-			LinearLayout.LayoutParams layoutParams = new RadioGroup.LayoutParams(
-					RadioGroup.LayoutParams.WRAP_CONTENT,
-					RadioGroup.LayoutParams.WRAP_CONTENT);
+		RadioGroup methodView = (RadioGroup) view.findViewById(R.id.method);
+		LinearLayout.LayoutParams layoutParams = new RadioGroup.LayoutParams(
+				RadioGroup.LayoutParams.WRAP_CONTENT,
+				RadioGroup.LayoutParams.WRAP_CONTENT);
+		if (methods != null && !methods.isEmpty()) {
 			for (int i = 0; i < methods.size(); i++) {
 				RadioButton newRadioButton = new RadioButton(getActivity());
 				newRadioButton.setText(methods.get(i));
 				newRadioButton.setId(newRadioButton.getId());
-				methodView.addView(newRadioButton, 0, layoutParams);
+				methodView.addView(newRadioButton, layoutParams);
 			}
+		} else {
+			RadioButton newRadioButton = new RadioButton(getActivity());
+			newRadioButton.setText(getString(R.string.biz_buy_details_input_method_none));
+			newRadioButton.setTextColor(getResources().getColor(android.R.color.black));
+			newRadioButton.setId(0);
+			methodView.addView(newRadioButton, layoutParams);
+			methodView.check(0);
 		}
 		
 		view.findViewById(R.id.submit).setOnClickListener(new OnClickListener() {
@@ -70,18 +83,34 @@ public class BuyDetailsInputFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				EditText countView = (EditText) getView().findViewById(R.id.count);
-				int count = 0;
-				if (countView.getText() != null) {
-					count = Integer.valueOf(countView.getText().toString());
+				if (TextUtils.isEmpty(countView.getText())) {
+					Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_empty, Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				double count;
+				try {
+					count = Double.valueOf(countView.getText().toString());
+				} catch (NumberFormatException e) {
+					Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_illegal, Toast.LENGTH_SHORT).show();
+					return;
 				}
 				
 				RadioGroup methodView = (RadioGroup) getView().findViewById(R.id.method);
 				String method = ((Button) getView().findViewById(methodView.getCheckedRadioButtonId())).getText().toString();
 				
+				List<String> methods = new ArrayList<String>();
+				methods.add(method);
+				mWareItem.setDealMethod(methods);
+				mWareItem.setQuantity(count);
+				//  TODO  remark
+				mWareItem.setRemark(method);
+				
 				Intent intent = new Intent();
-				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_ID, mWareItem.getId());
-				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_COUNT, count);
-				intent.putExtra(BuyDetailsFragment.PARAM_RESULT_METHOD, method);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT_DATA, mWareItem);
+				intent.putExtras(bundle);
+				intent.putExtra(BuySearchFragment.PARAM_RECORD_ID, mRecordId);
 				getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, intent);
 				getActivity().finish();
 			}

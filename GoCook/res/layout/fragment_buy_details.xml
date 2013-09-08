@@ -23,16 +23,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="left"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/title"
+            android:layout_below="@id/name"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buy"
@@ -52,15 +54,18 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/price"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/norm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/unit"
+            android:layout_marginLeft="35dp"
             android:layout_toRightOf="@id/unit"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/method"
@@ -68,7 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/unit"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/intro"
@@ -77,7 +84,8 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/method"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </LinearLayout>

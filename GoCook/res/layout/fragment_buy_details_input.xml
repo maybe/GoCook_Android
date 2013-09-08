@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/name"
-        android:layout_below="@id/name" />
+        android:layout_below="@id/name"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/name"
-        android:layout_below="@id/price" />
+        android:layout_below="@id/price"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/norm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/unit"
-        android:layout_toRightOf="@id/unit" />
+        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@id/unit"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/count_prefix"
@@ -37,7 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/name"
         android:layout_below="@id/unit"
-        android:text="@string/biz_buy_details_input_count_prefix" />
+        android:layout_marginTop="25dp"
+        android:text="@string/biz_buy_details_input_count_prefix"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/count"
@@ -45,29 +61,37 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/count_prefix"
         android:layout_toRightOf="@id/count_prefix"
-        android:inputType="number" />
+        android:inputType="numberDecimal"
+        android:maxHeight="20dp"
+        android:minWidth="80dp"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/count_suffix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/count_prefix"
-        android:layout_toRightOf="@id/count" />
+        android:layout_toRightOf="@id/count"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/method_suffix"
+        android:id="@+id/method_prefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/name"
         android:layout_below="@id/count_prefix"
-        android:text="@string/biz_buy_details_input_method_prefix" />
+        android:layout_marginTop="30dp"
+        android:text="@string/biz_buy_details_input_method_prefix"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <RadioGroup
         android:id="@+id/method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/method_suffix"
-        android:layout_toRightOf="@id/method_suffix"
+        android:layout_alignTop="@id/method_prefix"
+        android:layout_toRightOf="@id/method_prefix"
         android:orientation="vertical" >
     </RadioGroup>
 
@@ -76,10 +100,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/method"
-        android:textColor="@android:color/white"
-        android:background="@drawable/edit"
-        android:text="@string/biz_buy_details_input_submit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:text="@string/biz_buy_details_input_submit"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

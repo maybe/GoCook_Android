@@ -23,20 +23,27 @@ import com.m6.gocook.biz.main.MainActivityHelper;
 public class BuyDetailsFragment extends BaseFragment implements OnActivityAction {
 	
 	public static final String PARAM_RESULT = "param_result";
-	public static final String PARAM_RESULT_ID = "param_result_id";
-	public static final String PARAM_RESULT_COUNT = "param_result_count";
-	public static final String PARAM_RESULT_METHOD = "param_result_method";
+	public static final String PARAM_RESULT_DATA = "param_result_data";
 	
 	private CWareItem mWareItem;
+	private String mRecordId;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnActivityActionListener(this);
 		
 		Bundle args = getArguments();
 		if (args != null) {
 			mWareItem = (CWareItem) args.getSerializable(PARAM_RESULT);
+			mRecordId = args.getString(BuySearchFragment.PARAM_RECORD_ID);
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -64,6 +71,8 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 					methodBuilder.append(methods.get(i));
 					methodBuilder.append("\n");
 				}
+			} else {
+				methodBuilder.append(getString(R.string.biz_buy_details_input_method_none));
 			}
 			((TextView) view.findViewById(R.id.method)).setText(getString(R.string.biz_buy_search_adapter_method, methodBuilder));
 //			((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_buy_search_adapter_intro, mWareItem.get));
@@ -78,6 +87,7 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 		public void onClick(View v) {
 			Bundle bundle = new Bundle();
 			bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT, mWareItem);
+			bundle.putString(BuySearchFragment.PARAM_RECORD_ID, mRecordId);
 			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class,
 					BuyDetailsInputFragment.class.getName(), BuyDetailsInputFragment.class.getName(), bundle);
 			startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
@@ -87,7 +97,7 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 	@Override
 	public void onCustomActivityResult(int requestCode, int resultCode,
 			Intent data) {
-		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
+		if (resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
 			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
 			getActivity().finish();
 		}

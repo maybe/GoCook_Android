@@ -20,6 +20,7 @@ import com.m6.gocook.biz.main.MainActivityHelper;
 public class BuySearchFragment extends BaseListFragment implements OnActivityAction {
 
 	public static final String PARAM_KEYWORD = "param_keyword";
+	public static final String PARAM_RECORD_ID = "param_record_id";
 	
 	private static final int ROWS_PER_PAGE = 10;
 	
@@ -30,19 +31,29 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	private String mKeyword;
 	private int mPageIndex;
 	private int mPageRows;
+	private String mRecordId;
 	
 	private boolean mHaveNext = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnActivityActionListener(this);
+		
 		Bundle args = getArguments();
 		if (args != null) {
 			mKeyword = args.getString(PARAM_KEYWORD);
+			mRecordId = args.getString(PARAM_RECORD_ID);
 			mPageIndex = 1;
 			mPageRows = ROWS_PER_PAGE;
 		}
 		mAdapter = new BuySearchAdapter(getActivity(), mCKeywordQueryResult);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -77,6 +88,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 		if (mAdapter != null) {
 			Bundle bundle = new Bundle();
 			bundle.putSerializable(BuyDetailsFragment.PARAM_RESULT, mAdapter.getItem(arg2));
+			bundle.putString(PARAM_RECORD_ID, mRecordId);
 			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class,
 					BuyDetailsFragment.class.getName(), BuyDetailsFragment.class.getName(), bundle);
 			startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
@@ -85,7 +97,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	
 	@Override
 	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == MainActivityHelper.REQUEST_CODE_INPUT && resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
+		if (resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
 			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
 			getActivity().finish();
 		}

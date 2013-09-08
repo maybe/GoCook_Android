@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.main;
 
-import java.util.HashMap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

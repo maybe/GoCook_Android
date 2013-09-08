@@ -159,7 +159,7 @@ public class AccountModel {
 	}
 	
 	public static boolean isLogon(Context context) {
-		return !TextUtils.isEmpty(PrefHelper.getString(context, PrefKeys.ACCOUNT_EMAIL, ""));
+		return !TextUtils.isEmpty(PrefHelper.getString(context, PrefKeys.ACCOUNT_PHONE, ""));
 	}
 	
 	public static String getAccount(Context context) {

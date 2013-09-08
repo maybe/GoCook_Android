@@ -184,6 +184,10 @@
     
     <!-- buy -->
     <string name="biz_buy_title">选购商品</string>
+    <string name="biz_buy_list_actionbar_right">下单</string>
+    <string name="biz_buy_list_progress_message">正在下单，请稍后...</string>
+    <string name="biz_buy_list_order_failure">订购失败</string>
+    <string name="biz_buy_list_order_success">订购成功！</string>
     <string name="biz_buy_list_adapter_status">尚未选购商品</string>
     <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
@@ -200,6 +204,9 @@
     <string name="biz_buy_details_input_method_prefix">加工方式：</string>
     <string name="biz_buy_details_input_submit">确定</string>
     <string name="biz_buy_details_input_title">输入购买信息</string>
+    <string name="biz_buy_details_input_count_empty">请输入购买数量</string>
+    <string name="biz_buy_details_input_count_illegal">请输入正确的数量</string>
+    <string name="biz_buy_details_input_method_none">无</string>
     
     <string name="biz_buy_order_list_title">%s的购买</string>
     

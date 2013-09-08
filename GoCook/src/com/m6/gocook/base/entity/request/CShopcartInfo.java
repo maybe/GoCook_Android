@@ -32,10 +32,16 @@ public class CShopcartInfo extends BaseData {
 		return null;
 	}
 
-	public class CShopcartWareInfo {
+	public static class CShopcartWareInfo {
 		private int wareId; //商品编号
 		private double quantity; //商品数量
 		private String remark; //加工说明
+		
+		public CShopcartWareInfo(int wareId, double quantity, String remark) {
+			this.wareId = wareId;
+			this.quantity = quantity;
+			this.remark = remark;
+		}
 		
 		public JSONObject getJsonObject() {
 			try {
