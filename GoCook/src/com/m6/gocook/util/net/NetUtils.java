@@ -282,12 +282,18 @@ public class NetUtils {
 	 * @param conn
 	 */
 	private static void saveCookie(Context context, HttpURLConnection conn) {
-		String cookie = conn.getHeaderField("Set-Cookie");
-		if(!TextUtils.isEmpty(cookie)) {
-			String[] cookies = cookie.split(";");
-			if (cookies != null && cookies.length > 0) {
-				AccountModel.saveCookie(context, cookies[0]);
-//				System.out.println("saveCookie : " + cookies[0]);
+		Map<String, List<String>> headers = conn.getHeaderFields();
+		if (headers != null) {
+			List<String> cookies = headers.get("Set-Cookie");
+			if (cookies != null) {
+				for (String cookie : cookies) {
+					if (!TextUtils.isEmpty(cookie) && cookie.contains("expires")) {
+						String[] cookieArray = cookie.split(";");
+						if (cookieArray != null && cookieArray.length > 0) {
+							AccountModel.saveCookie(context, cookieArray[0]);
+						}
+					}
+				}
 			}
 		}
 	}

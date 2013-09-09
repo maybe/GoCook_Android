@@ -6,7 +6,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.ClipData.Item;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,8 +23,8 @@ import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.util.model.ModelUtils;
 
@@ -168,10 +167,9 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 			
 			if (isAdded()) {
 				showProgress(false);
-				if (result != null) {
-					if (!TextUtils.isEmpty(result.getOrderId())) {
-						Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
-					}
+				if (result != null && result.getResult() == Protocol.VALUE_RESULT_OK
+						&& !TextUtils.isEmpty(result.getOrderId())) {
+					Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getActivity(), R.string.biz_buy_list_order_failure, Toast.LENGTH_SHORT).show();
 				}
