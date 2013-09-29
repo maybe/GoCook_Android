@@ -259,7 +259,9 @@ public class NetUtils {
 			conn.setDoOutput(true);
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			System.setProperty("http.keepAlive", "false"); // maybe android bug
+			// Workaround for bug pre-Froyo, see here for more info:
+			// http://android-developers.blogspot.com/2011/09/androids-http-clients.html
+			System.setProperty("http.keepAlive", "false"); 
 			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 //				System.out.println("setCookie : " + cookie);
