@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.buy;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,10 @@ public class BuyListAdapter extends BaseAdapter {
 		if (!TextUtils.isEmpty(unit) && quantity > 0) {
 			String num = "￥" + price + "/" + unit + " x " + quantity + unit;
 			holder.num.setText(num);
-			String cost = "=￥" + quantity * price;
+			double totalCost = quantity * price;
+			//  TODO  计算保留多少位，是否四舍五入
+			BigDecimal bd = new BigDecimal(totalCost);
+			String cost = "=￥" + bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 			holder.cost.setText(cost);
 			
 			holder.num.setVisibility(View.VISIBLE);

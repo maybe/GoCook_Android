@@ -371,7 +371,7 @@ public class NetUtils {
 //			for(BasicNameValuePair pair : params) {
 //				System.out.println(pair.getName() + ":" + pair.getValue() + "\n");
 //			}
-//			System.out.println("result : " + result);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
