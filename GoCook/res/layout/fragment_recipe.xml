@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res/com.m6.gocook"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0E9E5"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
 
     <!-- Tabbar -->
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/recipe_intruction_textview"
-                    android:textColor="#ae1e12"
+                    android:textColor="#798f39"
                     android:textSize="11sp" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/recipe_intruction_textview"
-                    android:textColor="#d77d61"
+                    android:textColor="#798f39"
                     android:textSize="11sp" />
             </RelativeLayout>
 
@@ -125,7 +125,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/biz_recipe_material"
-                android:textColor="#999999"
+                android:textColor="#6c6c6c"
                 android:textSize="14sp" />
 
             <com.m6.gocook.base.view.ExpandedGridView

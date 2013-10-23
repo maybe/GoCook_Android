@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="#3B272D"
+        android:textColor="#68a42e"
         android:textSize="12sp" />
 
     <TextView

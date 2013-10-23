@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <color name="actionbar_bg">#6bae2a</color>
+    
     <color name="base_divider_gray">#e3e3e3</color>
     
     <color name="button_background_pressed">#a52226</color>
     <color name="button_background_normal">#b31e24</color>
     
-    <color name="main_bg">#f0e9e5</color>
+    <color name="main_bg">#eaeaea</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>
     <color name="profile_more_btn_bg">#79c7d1</color>
