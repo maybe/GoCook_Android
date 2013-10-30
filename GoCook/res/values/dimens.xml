@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- actionbar -->
+    <dimen name="actionbar_button_padding_top">3dp</dimen>
+    <dimen name="actionbar_button_padding_left">10dp</dimen>
+    
     <!-- search -->
     <dimen name="biz_search_box_padding_left">40dp</dimen>
     

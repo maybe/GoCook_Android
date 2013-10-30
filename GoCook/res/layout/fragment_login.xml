@@ -52,9 +52,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/account_login_selector"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp" />
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:text="@string/biz_account_login"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_selector" />
         </LinearLayout>
     </ScrollView>
 

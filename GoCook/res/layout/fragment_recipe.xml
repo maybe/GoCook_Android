@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/recipe_tabbar_buy"
+            android:drawableTop="@drawable/tab_buy_alpha"
             android:gravity="center"
             android:text="@string/biz_recipe_tabbar_menu_addshoppinglist"
             android:textColor="#999999"

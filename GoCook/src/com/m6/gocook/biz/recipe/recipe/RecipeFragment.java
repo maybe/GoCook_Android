@@ -176,7 +176,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 		
 		if(AccountModel.isLogon(mContext) 
 				&& TextUtils.equals(AccountModel.getUserId(mContext), mRecipeEntity.getAuthorId())) {
-			getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.edit);
+			getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.btn_selector);
 		}
 		
 		// Set Recipe Properties Values
@@ -272,7 +272,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 			tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 					null,
 					getResources().getDrawable(
-							R.drawable.recipe_tabbar_bought), null,
+							R.drawable.tab_buy), null,
 					null);
 			tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
 		}
@@ -303,7 +303,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 									null,
 									getResources().getDrawable(
-											R.drawable.recipe_tabbar_buy), null,
+											R.drawable.tab_buy_alpha), null,
 									null);
 							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_addshoppinglist));
 						} else {
@@ -311,7 +311,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
 									null,
 									getResources().getDrawable(
-											R.drawable.recipe_tabbar_bought), null,
+											R.drawable.tab_buy), null,
 									null);
 							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
 						}

@@ -52,6 +52,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 			ft.hide(ff);
 			ft.commit();
 		}
+		onTabChange(R.id.login);
 	}
 
 	@Override
@@ -109,10 +110,13 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		FragmentActivity activity = getActivity();
 		Resources resources = activity.getResources();
 		for(int id : tabIds) {
+			View view = activity.findViewById(id);
 			if(viewId == id) {
-				activity.findViewById(id).setBackgroundColor(resources.getColor(R.color.account_loginorregister_tab_bg_pressed));
+				view.setBackgroundColor(resources.getColor(R.color.account_loginorregister_tab_bg_pressed));
+				view.setSelected(true);
 			} else {
-				activity.findViewById(id).setBackgroundColor(resources.getColor(android.R.color.white));
+				view.setBackgroundColor(resources.getColor(android.R.color.white));
+				view.setSelected(false);
 			}
 		}
 		

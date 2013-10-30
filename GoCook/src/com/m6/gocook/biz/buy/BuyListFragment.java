@@ -63,7 +63,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(R.string.biz_buy_title);
-		actionBar.setRightButton(R.string.biz_buy_list_actionbar_right, R.drawable.edit);
+		actionBar.setRightButton(R.string.biz_buy_list_actionbar_right, R.drawable.btn_selector);
 		
 		mAdapter = new BuyListAdapter(getActivity(), mData);
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);

@@ -72,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:background="@drawable/edit"
+            android:padding="5dp"
+            android:background="@drawable/btn_selector"
             android:gravity="center"
             android:text="@string/biz_buy_list_adapter_gotoshop"
             android:textColor="@android:color/white" />

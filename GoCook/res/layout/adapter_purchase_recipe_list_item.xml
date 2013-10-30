@@ -44,49 +44,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:gravity="center"
-            android:orientation="horizontal" >
-            
-			<Button 
-			    android:id="@+id/delete"
-			    android:layout_marginRight="15dp"
-			    android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:background="@drawable/edit"
-            	android:paddingLeft="20dp"
-            	android:paddingRight="20dp"
-            	android:textColor="@android:color/white"
-            	android:text="@string/biz_recipe_purchase_delete_btn" />            
-            
-			<Button 
-			    android:id="@+id/buy"
-			    android:layout_marginRight="15dp"
-			    android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:background="@drawable/edit"
-            	android:paddingLeft="20dp"
-            	android:paddingRight="20dp"
-            	android:textColor="@android:color/white"
-            	android:text="@string/biz_recipe_purchase_buy_btn" />            
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_selector"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:text="@string/biz_recipe_purchase_delete_btn"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_selector"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:text="@string/biz_recipe_purchase_buy_btn"
+                android:textColor="@android:color/white" />
         </LinearLayout>
-        
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:scaleType="fitXY"
             android:src="@drawable/line_dot" />
-        
+
         <LinearLayout
             android:id="@+id/material_group_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp" >
+            android:paddingBottom="15dp"
+            android:paddingTop="10dp" >
         </LinearLayout>
 
         <ImageView

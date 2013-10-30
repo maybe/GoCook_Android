@@ -52,8 +52,11 @@ public class ActionBar {
 	
 	public void setRightButton(int textRes, int backgroundRes) {
 		Button button = (Button) mRoot.findViewById(R.id.actionbar_right_button);
+		int paddingTop = button.getContext().getResources().getDimensionPixelSize(R.dimen.actionbar_button_padding_top);
+		int paddingLeft = button.getContext().getResources().getDimensionPixelSize(R.dimen.actionbar_button_padding_left);
 		button.setText(textRes);
 		button.setBackgroundResource(backgroundRes);
+		button.setPadding(paddingLeft, paddingTop, paddingLeft, paddingTop);
 		button.setVisibility(View.VISIBLE);
 
 		button.setOnClickListener(new OnClickListener() {

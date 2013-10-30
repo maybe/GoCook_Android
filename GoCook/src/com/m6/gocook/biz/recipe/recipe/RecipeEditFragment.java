@@ -166,7 +166,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		
 		ActionBar action = getActionBar();
 		
-		action.setRightButton(R.string.biz_recipe_edit_post, R.drawable.edit);
+		action.setRightButton(R.string.biz_recipe_edit_post, R.drawable.btn_selector);
 		
 		Bundle arg = getArguments();
 		if(arg != null) {
@@ -176,7 +176,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 				action.setTitle(R.string.biz_recipe_edit_title_new);
 			} else if (mMode == Mode.RECIPE_EDIT) {
 				action.setTitle(R.string.biz_recipe_edit_title_edit);
-				action.setRightButton(R.string.biz_recipe_edit_title_edit_post, R.drawable.edit);
+				action.setRightButton(R.string.biz_recipe_edit_title_edit_post, R.drawable.btn_selector);
 				mRecipeId = arg.getString(RecipeEditFragment.ARGUMENT_KEY_RECIPE_ID);
 			}
 		}

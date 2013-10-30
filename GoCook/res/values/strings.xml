@@ -34,7 +34,9 @@
     
     <!-- account -->
     <string name="biz_account_tab_login">登录</string>
-    <string name="biz_account_tab_register">注册</string>
+    <string name="biz_account_tab_register">注册M6分享厨房</string>
+    <string name="biz_account_login">登  录</string>
+    <string name="biz_account_register">注  册</string>
     <string name="biz_account_login_success">登录成功！</string>
     <string name="biz_account_register_success">注册成功！</string>
     <string name="biz_account_avatar_camera">通过拍照上传</string>

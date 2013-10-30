@@ -31,7 +31,7 @@
         android:layout_alignBottom="@id/avatar"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@id/avatar"
-        android:background="@drawable/edit"
+        android:background="@drawable/btn_selector"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="@string/biz_profile_upload_avatar"

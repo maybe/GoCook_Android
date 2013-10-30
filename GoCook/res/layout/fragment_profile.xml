@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/name"
             android:layout_below="@id/follow"
-            android:background="@drawable/edit"
+            android:background="@drawable/btn_selector"
             android:padding="5dp"
             android:text="@string/biz_profile_edit_btn"
             android:textColor="#ffffff" />

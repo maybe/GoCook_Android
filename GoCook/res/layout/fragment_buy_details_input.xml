@@ -102,7 +102,7 @@
         android:layout_below="@id/method"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/edit"
+        android:background="@drawable/btn_selector"
         android:paddingBottom="5dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
