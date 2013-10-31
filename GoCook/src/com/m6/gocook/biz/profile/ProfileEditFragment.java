@@ -83,7 +83,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(R.string.biz_profile_edit_title);
-		actionBar.setRightButton(null, R.drawable.actionbar_save_selector);
+		actionBar.setRightButton(R.string.biz_profile_edit_save, R.drawable.actionbar_btn_selector);
 		
 		View view = getView();
 		FragmentActivity activity =  getActivity();

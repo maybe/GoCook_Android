@@ -2,7 +2,7 @@
 <resources>
     
     <!-- actionbar -->
-    <dimen name="actionbar_button_padding_top">3dp</dimen>
+    <dimen name="actionbar_button_padding_top">5dp</dimen>
     <dimen name="actionbar_button_padding_left">10dp</dimen>
     
     <!-- search -->

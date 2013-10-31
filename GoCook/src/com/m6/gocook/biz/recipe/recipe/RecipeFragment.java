@@ -176,7 +176,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 		
 		if(AccountModel.isLogon(mContext) 
 				&& TextUtils.equals(AccountModel.getUserId(mContext), mRecipeEntity.getAuthorId())) {
-			getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.btn_selector);
+			getActionBar().setRightButton(R.string.biz_recipe_edit_actionbar_opt, R.drawable.actionbar_btn_selector);
 		}
 		
 		// Set Recipe Properties Values

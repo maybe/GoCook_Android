@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
-    android:background="#F0E9E5" >
+    android:background="@color/main_bg" >
 
     <ImageView
         android:id="@+id/avatar"

@@ -11,14 +11,13 @@
     <string name="biz_main_tab_search">热门菜谱</string>
     <string name="biz_main_tab_hot">最近流行</string>
     <string name="biz_main_tab_shopping">购买清单</string>
-    <string name="biz_main_tab_account">我的账户</string>
+    <string name="biz_main_tab_account">我</string>
     
     <string name="biz_main_exit_title">退出提示</string>
     <string name="biz_main_exit_message">您确定要退出么？</string>
     
     <!-- Base -->
     <string name="base_loading_more">载入中&#8230;</string>
-<!--     <string name="base_loading_more">%d条载入中&#8230;</string> -->
     <string name="base_empty_text">数据加载失败，请重试</string>
     
     <string name="base_network_error_tip">请检查网络连接状况</string>

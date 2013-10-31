@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.m6.gocook"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0E9E5"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -29,7 +28,7 @@
             android:layout_height="40dp"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@drawable/recipe_comments_commit_button_selector"
+            android:background="@drawable/btn_selector"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:text="@string/biz_recipe_comment_button_commit" />

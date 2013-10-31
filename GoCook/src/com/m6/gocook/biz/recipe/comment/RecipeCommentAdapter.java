@@ -1,14 +1,11 @@
 package com.m6.gocook.biz.recipe.comment;
 
-import java.util.List;
-
 import android.content.Context;
-import android.net.wifi.WifiConfiguration.Protocol;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +14,6 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
 import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.profile.ProfileFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
