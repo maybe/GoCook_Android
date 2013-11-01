@@ -43,12 +43,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/price"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@drawable/buy_btn_selector"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
-            android:text="@string/biz_recipe_purchase_buy_btn"
             android:textColor="@android:color/white" />
 
         <TextView

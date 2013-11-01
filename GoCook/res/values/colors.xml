@@ -14,6 +14,9 @@
     <color name="recipe_edit_button_bg">#a1bb1c</color>
     <color name="recipe_edit_button_bg_pressed">#615f5f</color>
     
+    <color name="follow_btn_normal">#7cc23b</color>
+    <color name="follow_btn_pressed">#4f4f4f</color>
+    
     <color name="main_bg">#eaeaea</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>
