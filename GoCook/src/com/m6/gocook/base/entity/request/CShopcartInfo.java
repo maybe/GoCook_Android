@@ -18,18 +18,11 @@ public class CShopcartInfo extends BaseData {
 	
 	@Override
 	public String getJsonData() {
-		try {
-			JSONArray wareArray = new JSONArray();
-			for (CShopcartWareInfo ware : wares) {
-				wareArray.put(ware.getJsonObject());
-			}
-			JSONObject postJsonObject = new JSONObject();
-			postJsonObject.put("Wares", wareArray.toString());
-			return postJsonObject.toString();
-		} catch (JSONException e) {
-			e.printStackTrace();
+		JSONArray wareArray = new JSONArray();
+		for (CShopcartWareInfo ware : wares) {
+			wareArray.put(ware.getJsonObject());
 		}
-		return null;
+		return "\"Wares\":" + wareArray.toString();
 	}
 
 	public static class CShopcartWareInfo {

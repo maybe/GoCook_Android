@@ -95,6 +95,7 @@ public class AccountModel {
 	}
 	
 	public static void logout(Context context) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_PHONE, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_AVATAR, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");

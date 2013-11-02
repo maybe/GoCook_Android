@@ -84,7 +84,6 @@ public class BuyModel {
 	public static CShopCartResult orderRequest(Context context, CShopcartInfo cShopcartInfo) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("wares", cShopcartInfo.getJsonData()));
-//			params.add(new BasicNameValuePair("wares", URLEncoder.encode(cShopcartInfo.getJsonData(), "UTF-8")));
 		String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
 		CShopCartResult cShopCartResult = new CShopCartResult(result);
 		return cShopCartResult;
