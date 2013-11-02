@@ -219,10 +219,22 @@
     <string name="biz_buy_order_details_phone">手机号：%s</string>
     <string name="biz_buy_order_details_deliverytime">配送时间：%s</string>
     <string name="biz_buy_order_details_deliverytype">配送类型：%s</string>
-    <string name="biz_buy_order_details_cost">金额：%s</string>
-    <string name="biz_buy_order_details_title">商品明细</string>
+    <string name="biz_buy_order_details_cost">金额：￥%s</string>
+    <string name="biz_buy_order_details_title">商品明细：</string>
+    
+    <string name="biz_buy_order_details_item_name">名称：%s</string>
+    <string name="biz_buy_order_details_item_norm">规格：%s</string>
+    <string name="biz_buy_order_details_item_unit">单位：%s</string>
+    <string name="biz_buy_order_details_item_price">价格：%s</string>
+    <string name="biz_buy_order_details_item_count">数量：%s</string>
+    <string name="biz_buy_order_details_item_cost">金额：%s</string>
+    <string name="biz_buy_order_details_item_method">加工方式：%s</string>
     
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>
+    
+    <!-- order -->
+    <string name="biz_buy_order_empty_message">您最近三个月没有购买过商品</string>
+    <string name="biz_buy_order_title">电子小票</string>
     
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>

@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.buy;
+package com.m6.gocook.biz.order;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.view.ActionBar;
 
 public class OrderDetailsFragment extends BaseFragment {
 	
@@ -31,19 +32,22 @@ public class OrderDetailsFragment extends BaseFragment {
 		if (args != null) {
 			mData = (COrderItem) args.getSerializable(PARAM_DATA);
 		}
-		mAdapter = new OrderDetailsAdapter(getActivity(), mImageFetcher);
+		mAdapter = new OrderDetailsAdapter(getActivity(), mImageFetcher, mData.getOrderWares());
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.biz_buy_order_title);
 		
 		if (mData == null) {
 			return;
 		}
 		
 		((TextView) view.findViewById(R.id.create_time)).setText(getString(R.string.biz_buy_order_details_createtime, mData.getCreateTime()));
-		((TextView) view.findViewById(R.id.id)).setText(getString(R.string.biz_buy_order_details_orderid, mData.getCustId()));
+		((TextView) view.findViewById(R.id.id)).setText(getString(R.string.biz_buy_order_details_orderid, mData.getCode()));
 		((TextView) view.findViewById(R.id.name)).setText(getString(R.string.biz_buy_order_details_name, mData.getCustName()));
 		((TextView) view.findViewById(R.id.phone)).setText(getString(R.string.biz_buy_order_details_phone, mData.getRecvMobile()));
 		((TextView) view.findViewById(R.id.delivery_time)).setText(getString(R.string.biz_buy_order_details_deliverytime, mData.getDeliveryTimeType()));

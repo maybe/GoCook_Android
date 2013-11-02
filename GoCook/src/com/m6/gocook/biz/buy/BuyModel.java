@@ -81,26 +81,4 @@ public class BuyModel {
 		return null;
 	}
 	
-	public static CShopCartResult orderRequest(Context context, CShopcartInfo cShopcartInfo) {
-		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("wares", cShopcartInfo.getJsonData()));
-		String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER, params);
-		CShopCartResult cShopCartResult = new CShopCartResult(result);
-		return cShopCartResult;
-	}
-	
-	public static COrderQueryResult getOrderQueryResult(Context context, String startDay, String endDay, int page) {
-		try {
-			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("start_day", URLEncoder.encode(startDay, "UTF-8")));
-			params.add(new BasicNameValuePair("end_day", URLEncoder.encode(endDay, "UTF-8")));
-			params.add(new BasicNameValuePair("page", URLEncoder.encode(String.valueOf(page), "UTF-8")));
-			String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER_QUERY, params);
-			COrderQueryResult cOrderQueryResult = new COrderQueryResult(result);
-			return cOrderQueryResult;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }

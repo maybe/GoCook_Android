@@ -23,7 +23,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.buy.OrderListFragment;
+import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;

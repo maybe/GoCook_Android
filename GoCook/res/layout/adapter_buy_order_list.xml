@@ -16,27 +16,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
-
-        <TextView
-            android:id="@+id/order_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/time"
-            android:layout_toRightOf="@id/time" />
+            android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/materials"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/time" />
-        
+            android:layout_below="@id/time"
+            android:singleLine="true" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_dark" />
     </RelativeLayout>
 
 </LinearLayout>

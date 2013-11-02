@@ -13,8 +13,13 @@ import android.text.TextUtils;
 import com.m6.gocook.base.entity.IParseable;
 import com.m6.gocook.base.protocol.Protocol;
 
-public class COrderQueryResult extends BaseResponse implements IParseable<String> {
+public class COrderQueryResult extends BaseResponse implements IParseable<String>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int pageIndex;  //页索引
 	private int pageRows;  //每页记录数
 	private int totalCount; //总记录数
@@ -72,6 +77,7 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 		private double cost; //订单金额
 		private String createTime; //”yyyy-MM-dd HH:mm:ss”格式的创建时间
 		private List<COrderWareItem> orderWares; //订单商品明细
+		
 		public int getId() {
 			return id;
 		}
@@ -132,9 +138,24 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 		public void setOrderWares(List<COrderWareItem> orderWares) {
 			this.orderWares = orderWares;
 		}
+		public String getOrderWaresInfo() {
+			if (orderWares != null && !orderWares.isEmpty()) {
+				StringBuilder sb = new StringBuilder();
+				for (COrderWareItem item : orderWares) {
+					sb.append(item.getName() + " ");
+				}
+				return sb.toString();
+			}
+			return null;
+		}
 	}
 	
-	public class COrderWareItem {
+	public class COrderWareItem implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		private int id; //商品编号
 		private String name; //商品名称
 		private String code; //商品编码
@@ -234,7 +255,7 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 							JSONObject orderItemJson = orders.optJSONObject(i);
 							COrderItem orderItem = new COrderItem();
 							orderItem.id = orderItemJson.optInt("id");
-							orderItem.custName = orderItemJson.optString("name");
+							orderItem.custName = orderItemJson.optString("cust_name");
 							orderItem.code = orderItemJson.optString("code");
 							orderItem.deliveryType = orderItemJson.optString("delivery_type");
 							orderItem.deliveryTimeType = orderItemJson.optString("delivery_time_type");

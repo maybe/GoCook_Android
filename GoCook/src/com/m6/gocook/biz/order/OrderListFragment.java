@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.buy;
+package com.m6.gocook.biz.order;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +20,7 @@ import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.buy.BuyModel;
 
 public class OrderListFragment extends BaseListFragment {
 
@@ -44,6 +44,8 @@ public class OrderListFragment extends BaseListFragment {
 		calendar.add(Calendar.MONTH, -5);
 		calendar.set(Calendar.DATE, 1);
 		mStartDate = df.format(calendar.getTime());
+		
+		setEmptyMessage(R.string.biz_buy_order_empty_message);
 	}
 	
 	@Override
@@ -92,17 +94,19 @@ public class OrderListFragment extends BaseListFragment {
 		
 		@Override
 		protected COrderQueryResult doInBackground(Void... params) {
-			BuyModel.getOrderQueryResult(mContext, mStartDate, mEndDate, mPage);
-			return null;
+			return OrderModel.getOrderQueryResult(mContext, mStartDate, mEndDate, mPage);
 		}
 		
 		@Override
 		protected void onPostExecute(COrderQueryResult result) {
 			mOrdersTask = null;
 			if (isAdded()) {
+				if (mAdapter != null && result != null) {
+					mAdapter.setData(result);
+				} else {
+					showEmpty(true);
+				}
 				showProgress(false);
-				
-				
 			}
 		}
 		

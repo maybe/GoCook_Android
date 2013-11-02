@@ -1,6 +1,8 @@
 package com.m6.gocook.biz.buy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,11 +23,14 @@ import com.m6.gocook.base.entity.request.CShopcartInfo;
 import com.m6.gocook.base.entity.request.CShopcartInfo.CShopcartWareInfo;
 import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
+import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
 
 public class BuyListFragment extends BaseFragment implements OnActivityAction {
@@ -155,7 +160,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 					}
 				}
 				
-				CShopCartResult resutl = BuyModel.orderRequest(mContext, new CShopcartInfo(cart));
+				CShopCartResult resutl = OrderModel.orderRequest(mContext, new CShopcartInfo(cart));
 				return resutl;
 			}
 			return null;
@@ -170,6 +175,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 				if (result != null && result.getResult() == Protocol.VALUE_RESULT_OK
 						&& !TextUtils.isEmpty(result.getOrderId())) {
 					Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
+					getActivity().finish();
 				} else {
 					Toast.makeText(getActivity(), R.string.biz_buy_list_order_failure, Toast.LENGTH_SHORT).show();
 				}

@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.buy;
+package com.m6.gocook.biz.order;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.response.COrderQueryResult;
@@ -53,7 +53,6 @@ public class OrderListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.adapter_buy_order_list, parent, false);
 			holder.time = (TextView) convertView.findViewById(R.id.time);
-			holder.orderId = (TextView) convertView.findViewById(R.id.order_id);
 			holder.materials = (TextView) convertView.findViewById(R.id.materials);
 			convertView.setTag(holder);
 		} else {
@@ -62,14 +61,12 @@ public class OrderListAdapter extends BaseAdapter {
 		
 		COrderItem orderItem = mCOrderQueryResult.getRows().get(position);
 		holder.time.setText(orderItem.getCreateTime());
-		holder.orderId.setText(String.valueOf(orderItem.getCustId()));
-		holder.materials.setText("");
+		holder.materials.setText(orderItem.getOrderWaresInfo());
 		return convertView;
 	}
 	
 	class ViewHolder {
 		private TextView time;
-		private TextView orderId;
 		private TextView materials;
 	}
 

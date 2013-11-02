@@ -1,4 +1,4 @@
-package com.m6.gocook.biz.buy;
+package com.m6.gocook.biz.order;
 
 import java.util.List;
 
@@ -18,31 +18,32 @@ public class OrderDetailsAdapter extends BaseAdapter {
 	
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private List<COrderWareItem> rows;
+	private List<COrderWareItem> mRows;
 	private ImageFetcher mImageFetcher;
 	
-	public OrderDetailsAdapter(Context context, ImageFetcher imageFetcher) {
+	public OrderDetailsAdapter(Context context, ImageFetcher imageFetcher, List<COrderWareItem> rows) {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mImageFetcher = imageFetcher;
+		mRows = rows;
 	}
 
 	@Override
 	public int getCount() {
-		return rows == null ? 0 : rows.size();
+		return mRows == null ? 0 : mRows.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return rows == null ? null : rows.get(position);
+		return mRows == null ? null : mRows.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		if (rows == null || rows.get(position) == null) {
+		if (mRows == null || mRows.get(position) == null) {
 			return 0;
 		}
-		return rows.get(position).getId();
+		return mRows.get(position).getId();
 	}
 
 	@Override
@@ -64,14 +65,14 @@ public class OrderDetailsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		COrderWareItem item = rows.get(position);
-		holder.name.setText(item.getName());
-		holder.norm.setText(item.getNorm());
-		holder.unit.setText(item.getUnit());
-		holder.price.setText(String.valueOf(item.getPrice()));
-		holder.count.setText(String.valueOf(item.getQuantity()));
-		holder.cost.setText(String.valueOf(item.getCost()));
-		holder.method.setText(item.getDealMethod());
+		COrderWareItem item = mRows.get(position);
+		holder.name.setText(mContext.getString(R.string.biz_buy_order_details_item_name, item.getName()));
+		holder.norm.setText(mContext.getString(R.string.biz_buy_order_details_item_norm, item.getNorm()));
+		holder.unit.setText(mContext.getString(R.string.biz_buy_order_details_item_unit, item.getUnit()));
+		holder.price.setText(mContext.getString(R.string.biz_buy_order_details_item_price, String.valueOf(item.getPrice())));
+		holder.count.setText(mContext.getString(R.string.biz_buy_order_details_item_count, String.valueOf(item.getQuantity())));
+		holder.cost.setText(mContext.getString(R.string.biz_buy_order_details_item_cost, String.valueOf(item.getCost())));
+		holder.method.setText(mContext.getString(R.string.biz_buy_order_details_item_method, item.getDealMethod()));
 		mImageFetcher.loadImage(item.getImageUrl(), holder.cover);
 		return convertView;
 	}
