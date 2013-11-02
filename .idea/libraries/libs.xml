@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/GoCook/libs/android-support-v4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GoCook/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GoCook/libs/CWAC-SackOfViewsAdapter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

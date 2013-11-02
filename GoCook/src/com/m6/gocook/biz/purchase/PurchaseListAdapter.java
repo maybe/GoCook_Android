@@ -93,16 +93,16 @@ public class PurchaseListAdapter extends CursorAdapter {
 		
 		// Event Listener Setting
 		View bgView = convertView.findViewById(R.id.recipe_title_bg);
-		final View deleteButtonView = convertView.findViewById(R.id.delete_item_image);
-		deleteButtonView.setVisibility(View.INVISIBLE);
-		bgView.setOnLongClickListener(new OnLongClickListener() {
-			
-			@Override
-			public boolean onLongClick(View v) {
-				deleteButtonView.setVisibility(View.VISIBLE);
-				return true;
-			}
-		});
+//		final View deleteButtonView = convertView.findViewById(R.id.delete_item_image);
+//		deleteButtonView.setVisibility(View.INVISIBLE);
+//		bgView.setOnLongClickListener(new OnLongClickListener() {
+//			
+//			@Override
+//			public boolean onLongClick(View v) {
+//				deleteButtonView.setVisibility(View.VISIBLE);
+//				return true;
+//			}
+//		});
 		
 		final String recipeId = holder.name.getTag().toString();
 		final String recipeName = holder.name.getText().toString();
@@ -114,13 +114,13 @@ public class PurchaseListAdapter extends CursorAdapter {
 			}
 		});
 		
-		deleteButtonView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				PurchaseListModel.removeRecipeFromPurchaseList(mContext, recipeId);
-			}
-		});
+//		deleteButtonView.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				PurchaseListModel.removeRecipeFromPurchaseList(mContext, recipeId);
+//			}
+//		});
 		
 		holder.delete.setOnClickListener(new OnClickListener() {
 			

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/GoCook/bin/dexedLibs/android-support-v4-a73a8fd68f7a4702abb8cbcf38c685d9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GoCook/bin/dexedLibs/android-support-v4-sources-544f36baad8f5963da44c14ca7745ade.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GoCook/bin/dexedLibs/CWAC-SackOfViewsAdapter-0241ac2c4a7fcc1bccb5e999cc617aee.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

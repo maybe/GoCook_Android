@@ -96,8 +96,8 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 			mAdapter.notifyDataSetChanged();
 		}
 	}
-	
-	@Override
+
+    @Override
 	public void onDestroy() {
 		super.onDestroy();
 		MainActivityHelper.unRegisterOnActivityActionListener(this);
