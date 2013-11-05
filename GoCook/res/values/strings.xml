@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1101</string>
+    <string name="build_version">build 1104</string>
     
     <string name="app_name">M6生鲜分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -51,6 +51,8 @@
     
     <string name="biz_account_logout_dialog_title">退出提示</string>
     <string name="biz_account_logout_dialog_message">您确定要退出该账号么？</string>
+    
+    <string name="bhiz_account_loginorregister_slogan">分享新鲜   分享美味   分享幸福</string>
     
     <!-- profile -->
     <string name="biz_profile_edit_btn">编辑</string>

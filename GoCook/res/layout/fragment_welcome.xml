@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
+    <!-- <ImageView
         android:id="@+id/splash_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/wel_2"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY" /> -->
 
     <ImageView
         android:id="@+id/splash_1"

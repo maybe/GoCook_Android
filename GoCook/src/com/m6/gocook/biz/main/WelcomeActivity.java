@@ -19,26 +19,29 @@ public class WelcomeActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_welcome);
 		
-		final ImageView splashView1 = (ImageView) findViewById(R.id.splash_1);
+//		final ImageView splashView1 = (ImageView) findViewById(R.id.splash_1);
 		
 		mHandler.postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
-				Animation animation = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fade_out_slow);
-				animation.setFillAfter(true);
-				splashView1.startAnimation(animation);
-			}
-		}, 2000);
-		
-		mHandler.postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
+//				Animation animation = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fade_out_slow);
+//				animation.setFillAfter(true);
+//				splashView1.startAnimation(animation);
+				
 				startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
 				WelcomeActivity.this.finish();
 			}
-		}, 4000);
+		}, 2000);
+		
+//		mHandler.postDelayed(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+//				WelcomeActivity.this.finish();
+//			}
+//		}, 4000);
 	}
 	
 
