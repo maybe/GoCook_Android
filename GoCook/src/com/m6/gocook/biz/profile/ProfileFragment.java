@@ -387,15 +387,15 @@ public class ProfileFragment extends BaseFragment {
 	
 	private class RecipeTask extends AsyncTask<Void, Void, RecipeList> {
 
-		private FragmentActivity mActivity;
+		private Context mContext;
 		
 		public RecipeTask(FragmentActivity activity) {
-			mActivity = activity;
+			mContext = activity.getApplicationContext();
 		}
 		
 		@Override
 		protected RecipeList doInBackground(Void... params) {
-			return RecipeModel.getMyRecipes(mActivity, mProfileType == PROFILE_MYSELF);
+			return RecipeModel.getMyRecipes(mContext, mProfileType == PROFILE_MYSELF);
 		}
 		
 		@Override
@@ -406,7 +406,7 @@ public class ProfileFragment extends BaseFragment {
 			
 			GridView grid = (GridView) getView().findViewById(R.id.recipe_grid);
 			if (grid != null && result != null && !result.getRecipes().isEmpty()) {
-				grid.setAdapter(new ProfileRecipeAdapter(mActivity, mImageFetcher, result));
+				grid.setAdapter(new ProfileRecipeAdapter(mContext, mImageFetcher, result));
 				((Button) getView().findViewById(R.id.more)).setText(getString(R.string.biz_profile_more_btn, result.getRecipes().size()));
 				hideRecipesView(false);
 			} else {
