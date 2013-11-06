@@ -5,8 +5,23 @@
     android:background="@color/main_bg" >
 
     <ImageView
+        android:id="@+id/shake_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/coupon_shake" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shake_img"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/biz_coupon_shake_message"
+        android:textColor="#515151"
+        android:textSize="16sp" />
 
 </RelativeLayout>

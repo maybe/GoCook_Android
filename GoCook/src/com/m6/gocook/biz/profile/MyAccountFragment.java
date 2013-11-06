@@ -23,6 +23,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.coupon.CouponListFragment;
 import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
@@ -81,6 +82,16 @@ public class MyAccountFragment extends Fragment {
 				});
 				builder.setNegativeButton(android.R.string.cancel, null);
 				builder.create().show();
+			}
+		});
+		
+		view.findViewById(R.id.coupon).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
+						CouponListFragment.class.getName(), CouponListFragment.class.getName(), null);
+				startActivity(intent);
 			}
 		});
 		

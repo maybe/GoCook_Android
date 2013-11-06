@@ -88,6 +88,7 @@
     <string name="biz_profile_avatar_tip">点击头像拍照或选择照片</string>
     
     <!-- myaccount -->
+    <string name="biz_profile_myaccount_coupon">摇一摇·我的优惠券</string>
     <string name="biz_profile_myaccount_follow">我的关注</string>
     <string name="biz_profile_myaccount_fans">我的粉丝</string>
     <string name="biz_profile_myaccount_collection">我的收藏</string>
@@ -239,7 +240,10 @@
     <string name="biz_buy_order_title">电子小票</string>
     
     <!-- coupon -->
+    <string name="biz_coupon_shake_title">摇一摇</string>
+    <string name="biz_coupon_list_title">我的优惠券</string>
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
+    <string name="biz_coupon_shake_message">摇一摇/点击屏幕抽取优惠券</string>
     
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>

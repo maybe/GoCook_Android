@@ -2,10 +2,12 @@ package com.m6.gocook.biz.coupon;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -13,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.view.ActionBar;
 
 public class ShakeFragment extends BaseFragment implements SensorEventListener {
 
@@ -37,6 +42,14 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         //震动
         vibrator = (Vibrator) getActivity().getSystemService(Service.VIBRATOR_SERVICE);
+    }
+    
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+    	super.onViewCreated(view, savedInstanceState);
+    	
+    	ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.biz_coupon_shake_title);
     }
     
     @Override
@@ -70,7 +83,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 			 */
 			if ((Math.abs(values[0]) > 14 || Math.abs(values[1]) > 14 || Math
 					.abs(values[2]) > 14)) {
-
+				showProgress(true);
 				// 摇动手机后，再伴随震动提示
 				vibrator.vibrate(500);
 			}
@@ -82,6 +95,28 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private void onTaskFinished() {
+		showProgress(false);
+		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+				ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), null);
+		startActivity(intent);
+		getActivity().finish();
+	}
 
+	public static class SaleTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+		}
+	}
 	
 }

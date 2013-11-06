@@ -20,6 +20,12 @@ public class BaseActivity extends FragmentActivity {
 	}
 	
 	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.base_stay_orig, R.anim.base_slide_right_out);
+	}
+	
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		MainActivityHelper.onActivityResult(requestCode, resultCode, data);

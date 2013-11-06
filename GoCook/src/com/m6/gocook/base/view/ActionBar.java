@@ -58,7 +58,7 @@ public class ActionBar {
 		button.setBackgroundResource(backgroundRes);
 		button.setPadding(paddingLeft, paddingTop, paddingLeft, paddingTop);
 		button.setVisibility(View.VISIBLE);
-
+		
 		button.setOnClickListener(new OnClickListener() {
 			
 			@Override

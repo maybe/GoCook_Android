@@ -33,6 +33,31 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#7b8951"
+            android:text="@string/biz_profile_myaccount_coupon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp" />
+    </LinearLayout>
+    
+    <LinearLayout
         android:id="@+id/follow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
