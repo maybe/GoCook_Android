@@ -238,6 +238,9 @@
     <string name="biz_buy_order_empty_message">您最近三个月没有购买过商品</string>
     <string name="biz_buy_order_title">电子小票</string>
     
+    <!-- coupon -->
+    <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
+    
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>
     <string name="biz_popular_topnew">本周最新菜谱</string>
