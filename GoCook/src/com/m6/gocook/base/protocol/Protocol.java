@@ -4,14 +4,12 @@ public class Protocol {
 
 	/* URL */
 	public static final String URL_ROOT = "http://verypanda.com";
-//	public static final String URL_ROOT = "http://192.168.1.108";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
 	public static final String URL_REGISTER = URL_ROOT + "/user/register";
 	
 	/* Recipe URL  */
-	
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
 
 	public static final String URL_RECIPE_CREATE = URL_ROOT + "/recipe/create";
@@ -65,14 +63,16 @@ public class Protocol {
 	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
 	
 	/* Buy */
-	public static final String  URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
+	public static final String URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
 	
-	public static final String  URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%s";
+	public static final String URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%s";
 	
-	public static final String  URL_BUY_ORDER = URL_ROOT + "/cook/order";
+	public static final String URL_BUY_ORDER = URL_ROOT + "/cook/order";
 	
-	public static final String  URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
+	public static final String URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
 	
+	/* coupon */
+	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales";
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
@@ -83,7 +84,10 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 			 */
 			if ((Math.abs(values[0]) > 14 || Math.abs(values[1]) > 14 || Math
 					.abs(values[2]) > 14)) {
+				
 				showProgress(true);
+				new SaleTask(getActivity()).execute((Void) null);
+				
 				// 摇动手机后，再伴随震动提示
 				vibrator.vibrate(500);
 			}
@@ -93,29 +97,30 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub
+	}
+
+	public class SaleTask extends AsyncTask<Void, Void, Sale> {
+
+		private Context mContext;
 		
-	}
-	
-	private void onTaskFinished() {
-		showProgress(false);
-		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-				ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), null);
-		startActivity(intent);
-		getActivity().finish();
-	}
-
-	public static class SaleTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return null;
+		public SaleTask(Context context) {
+			mContext = context.getApplicationContext();
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
+		protected Sale doInBackground(Void... params) {
+			return CouponModel.getSale(mContext);
+		}
+		
+		@Override
+		protected void onPostExecute(Sale result) {
+			showProgress(false);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
+			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+					ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
+			startActivity(intent);
+			getActivity().finish();
 		}
 	}
 	

@@ -2,7 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp" >
+    android:background="@color/main_bg"
+    android:padding="20dp" >
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sale_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/time"
+        android:layout_below="@id/time"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sale_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/time"
+        android:layout_below="@id/sale_fee"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/time"
+        android:layout_below="@id/sale_count"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/cancel"
