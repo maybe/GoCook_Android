@@ -56,7 +56,7 @@ public class OrderListFragment extends BaseListFragment {
 	}
 	
 	@Override
-	protected void executeTask() {
+	protected void executeTask(int pageIndex) {
 		if (mOrdersTask == null) {
 			mOrdersTask = new OrdersTask(getActivity(), mStartDate, mEndDate, mPageIndex);
 			mOrdersTask.execute((Void) null); 

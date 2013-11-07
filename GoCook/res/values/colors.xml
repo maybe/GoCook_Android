@@ -37,4 +37,9 @@
     
     <!-- buy -->
     <color name="biz_buy_text">#3B272D</color>
+    
+    <!-- coupon -->
+    <color name="biz_coupon_invalid">#b7b5b1</color>
+    <color name="biz_coupon_delay">#fca581</color>
+    <color name="biz_coupon_normal">#9eca73</color>
 </resources>

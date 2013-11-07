@@ -49,7 +49,7 @@ public abstract class RecipeListFragment extends BaseListFragment {
 	}
 	
 	@Override
-	protected final void executeTask() {
+	protected final void executeTask(int pageIndex) {
 		if(mRecipeListTask == null) {
 //			if (mRecipeList != null && mRecipeList.getRecipes() != null) {
 //				mRecipeList.getRecipes().clear();
@@ -164,6 +164,6 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			mRecipeList.getRecipes().clear();
 			mRecipeList = null;
 		}
-		executeTask();
+		executeTask(1);
 	}
 }

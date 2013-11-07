@@ -486,7 +486,7 @@ public class NetUtils {
 			InputStream in = new BufferedInputStream(
 					conn.getInputStream());
 			result = readStream(in);
-//			System.out.println("result : " + result);
+			System.out.println("result : " + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

@@ -44,7 +44,7 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 			root.addView(headerView, params);
 		}
 		
-		ListView listView = (ListView) inflater.inflate(R.layout.base_listview, root, false);
+		ListView listView = (ListView) onCreateListView(inflater, root);
 		root.addView(listView, params);
 		
 		return root;
@@ -54,13 +54,17 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
     	return null;
     }
     
+    public View onCreateListView(LayoutInflater inflater, ViewGroup container) {
+    	return inflater.inflate(R.layout.base_listview, container, false);
+    }
+    
     @Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
 		showProgress(true);
 		
-		executeTask();
+		executeTask(mPage);
 		
 		View view = getView();
 		mListView = (ListView) view.findViewById(R.id.list);
@@ -97,7 +101,7 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
         		&& doPaginate() && haveNext()) {  
         	mPage++;
         	mFooterView.setVisibility(View.VISIBLE);
-        	executeTask();
+        	executeTask(mPage);
         }
 	}
 	
@@ -165,8 +169,10 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	
 	/**
 	 * 子类实现此方法执行业务所需的任务
+	 * 
+	 * @param pageIndex 当前页码
 	 */
-	abstract protected void executeTask();
+	abstract protected void executeTask(int pageIndex);
 	
 	
 	/**

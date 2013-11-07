@@ -86,7 +86,7 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 	}
 
 	@Override
-	protected void executeTask() {
+	protected void executeTask(int pageIndex) {
 		if(mPeopleListTask == null) {
 			mPeopleListTask = new PeopleListTask(getActivity(), mPeopleListType);
 			mPeopleListTask.execute((Void) null); 
@@ -104,7 +104,7 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 			mPeoples.clear();
 			mPeoples = null;
 		}
-		executeTask();
+		executeTask(1);
 	}
 	
 	@Override

@@ -65,7 +65,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	}
 	
 	@Override
-	protected void executeTask() {
+	protected void executeTask(int pageIndex) {
 		if (mBuySearchTask == null) {
 			mBuySearchTask = new BuySearchTask(getActivity(), mKeyword, mPageIndex, mPageRows);
 			mBuySearchTask.execute((Void) null); 

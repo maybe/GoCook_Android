@@ -72,7 +72,13 @@ public class Protocol {
 	public static final String URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
 	
 	/* coupon */
-	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales";
+	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales?test_id=2";
+	
+	public static final String URL_COUPON_COUPONS = URL_ROOT + "/cook/my_coupons?page=%s&test_id=2";
+	
+	public static final String URL_COUPON_COUPON = URL_ROOT + "/cook/get_coupon?coupon_id=%s&test_id=2";
+	
+	public static final String URL_COUPON_DELAY_COUPON = URL_ROOT + "/cook/delay_coupon?test_id=2";
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";

@@ -32,4 +32,7 @@
     <dimen name="biz_popular_item_header_image_width">155dp</dimen>
     <dimen name="biz_popular_item_header_image_height">88dp</dimen>
     
+    <!-- coupon -->
+    <dimen name="biz_coupon_list_padding">20dp</dimen>
+    
 </resources>

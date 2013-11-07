@@ -240,9 +240,11 @@
     <string name="biz_buy_order_title">电子小票</string>
     
     <!-- coupon -->
-    <string name="biz_coupon_shake_title">摇一摇</string>
     <string name="biz_coupon_list_title">我的优惠券</string>
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
+    <string name="biz_coupon_list_content_normal">%1$s，您获得价值%2$d的%3$s，有效期至%4$s。券号%5$s适用门店%6$s/n%7$s</string>
+    
+    <string name="biz_coupon_shake_title">摇一摇</string>
     <string name="biz_coupon_shake_message">摇一摇/点击屏幕抽取优惠券</string>
     <string name="biz_coupon_shake_result_time">销售日期：</string>
     <string name="biz_coupon_shake_result_sale_fee">销售金额：</string>
