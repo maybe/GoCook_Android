@@ -21,7 +21,7 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	private int mPage = 1;
 	
 	/** 每页加载的数据条数 */  
-    private static final int COUNT_PER_PAGE = 10;
+    protected static final int COUNT_PER_PAGE = 10;
     
     /** 最后可见条目的索引  */
     private int mLastVisibleIndex;

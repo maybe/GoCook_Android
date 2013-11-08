@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.Coupon;
+import com.m6.gocook.base.fragment.BaseWebFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 
 public class CouponListAdapter extends BaseAdapter {
 
@@ -58,7 +61,7 @@ public class CouponListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		Coupon coupon = mData.get(position);
+		final Coupon coupon = mData.get(position);
 		
 		if (coupon.getStatus() == Coupon.STATUS_VALID) { // 过期优惠券
 			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
@@ -77,6 +80,14 @@ public class CouponListAdapter extends BaseAdapter {
 			holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
 			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 		}
+		
+		holder.go.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentHelper.startActivity(mContext, BaseWebFragment.newInstance(coupon.getUrl()));
+			}
+		});
 		
 		return convertView;
 	}

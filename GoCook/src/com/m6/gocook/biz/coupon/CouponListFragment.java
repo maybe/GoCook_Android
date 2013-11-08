@@ -28,10 +28,17 @@ public class CouponListFragment extends BaseListFragment {
 	
 	private List<Coupon> mData = new ArrayList<Coupon>();
 	
+	private boolean mHaveNext = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mAdapter = new CouponListAdapter(getActivity(), mData);
+	}
+	
+	@Override
+	public View onCreateListView(LayoutInflater inflater, ViewGroup container) {
+		return inflater.inflate(R.layout.fragment_coupon_listview, container, false);
 	}
 	
 	@Override
@@ -54,7 +61,7 @@ public class CouponListFragment extends BaseListFragment {
 		
 		View root = view.findViewById(R.id.root);
 		int padding = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_padding);
-		root.setPadding(padding, padding, padding, padding);
+		root.setPadding(padding, padding, padding, 0);
 		
 		view.findViewById(R.id.shake).setOnClickListener(new OnClickListener() {
 			
@@ -67,6 +74,11 @@ public class CouponListFragment extends BaseListFragment {
 		});
 	}
 
+	@Override
+	protected boolean haveNext() {
+		return mHaveNext;
+	}
+	
 	@Override
 	protected void executeTask(int pageIndex) {
 		if (mCouponsTask == null) {
@@ -101,6 +113,9 @@ public class CouponListFragment extends BaseListFragment {
 			mCouponsTask = null;
 			if (result != null) {
 				mData.addAll(result);
+				if (result.size() >= COUNT_PER_PAGE) {
+					mHaveNext = true;
+				}
 			}
 			if (isAdded()) {
 				showProgress(false);

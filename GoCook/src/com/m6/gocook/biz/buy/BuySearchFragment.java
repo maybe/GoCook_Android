@@ -22,8 +22,6 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	public static final String PARAM_KEYWORD = "param_keyword";
 	public static final String PARAM_RECORD_ID = "param_record_id";
 	
-	private static final int ROWS_PER_PAGE = 10;
-	
 	private BuySearchTask mBuySearchTask;
 	private BuySearchAdapter mAdapter;
 	private CKeywordQueryResult mCKeywordQueryResult;
@@ -45,7 +43,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 			mKeyword = args.getString(PARAM_KEYWORD);
 			mRecordId = args.getString(PARAM_RECORD_ID);
 			mPageIndex = 1;
-			mPageRows = ROWS_PER_PAGE;
+			mPageRows = COUNT_PER_PAGE;
 		}
 		mAdapter = new BuySearchAdapter(getActivity(), mCKeywordQueryResult);
 	}
@@ -132,7 +130,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 					mAdapter.setData(result);
 					mAdapter.notifyDataSetChanged();
 					
-					if (result.getRows().size() >= ROWS_PER_PAGE) {
+					if (result.getRows().size() >= COUNT_PER_PAGE) {
 						mHaveNext = true;
 					}
 				} else {

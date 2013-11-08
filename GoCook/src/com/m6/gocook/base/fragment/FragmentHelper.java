@@ -1,5 +1,7 @@
 package com.m6.gocook.base.fragment;
 
+import com.m6.gocook.base.activity.BaseActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,16 @@ public class FragmentHelper {
 	
 	public FragmentHelper(FragmentActivity activity) {
 		mActivity = activity;
+	}
+	
+	public static void startActivity(Context context, Fragment fragment) {
+		Intent intent = new Intent(context, BaseActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString(FRAGMENT_NAME, fragment.getClass().getName());
+		bundle.putString(FRAGMENT_TAG, fragment.getClass().getName());
+		bundle.putBundle(FRAGMENT_ARGS, fragment.getArguments());
+		intent.putExtras(bundle);
+		context.startActivity(intent);
 	}
 	
 	/**

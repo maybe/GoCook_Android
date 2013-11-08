@@ -4,5 +4,5 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#fbfbfa"
-    android:padding="10dp"
+    android:padding="15dp"
     android:text="@string/biz_coupon_list_shake" />
