@@ -1,0 +1,622 @@
+
+11-09 22:34:44.739: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_VOLUME_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54452660, downTime=54452660, deviceId=-1, source=0x101 }
+11-09 22:34:45.570: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@4311e5b0 attribute=null, token = android.os.BinderProxy@42e63288
+11-09 22:34:47.712: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:34:47.722: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457274, downTime=54457274, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457274, downTime=54457274, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457275, downTime=54457275, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_MULTIPLE, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=2, eventTime=54457275, downTime=54457275, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457275, downTime=54457275, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457275, downTime=54457275, deviceId=-1, source=0x101 }
+11-09 22:34:48.874: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54457275, downTime=54457275, deviceId=-1, source=0x101 }
+11-09 22:34:48.974: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54457134, downTime=54457134, deviceId=-1, source=0x101 }
+11-09 22:34:52.307: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54459969, downTime=54459969, deviceId=-1, source=0x101 }
+11-09 22:34:52.507: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54460913, downTime=54460913, deviceId=-1, source=0x101 }
+11-09 22:34:52.517: W/ViewRootImpl(15133): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=2.0, y[0]=4.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=5, eventTime=54460902, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:34:52.748: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54461056, downTime=54461056, deviceId=-1, source=0x101 }
+11-09 22:34:52.768: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54461159, downTime=54461159, deviceId=-1, source=0x101 }
+11-09 22:34:53.759: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_BUTTON_11, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54462117, downTime=54462117, deviceId=-1, source=0x101 }
+11-09 22:34:53.839: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@4303ec48 attribute=null, token = android.os.BinderProxy@4329b148
+11-09 22:34:55.160: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:34:55.170: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:34:55.381: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:34:55.381: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:34:55.951: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:34:55.951: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:34:57.683: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54466020, downTime=54466020, deviceId=-1, source=0x101 }
+11-09 22:34:57.683: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54466020, downTime=54466020, deviceId=-1, source=0x101 }
+11-09 22:34:57.763: W/ViewRootImpl(15133): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=4.0, y[0]=-3.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=54465962, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:34:57.783: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54466124, downTime=54466124, deviceId=-1, source=0x101 }
+11-09 22:34:59.265: W/InputManager(526): Input event injection from pid 15441 failed.
+11-09 22:35:00.116: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:00.116: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:01.507: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54469893, downTime=54469893, deviceId=-1, source=0x101 }
+11-09 22:35:01.507: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54469914, downTime=54469914, deviceId=-1, source=0x101 }
+11-09 22:35:01.507: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54469917, downTime=54469917, deviceId=-1, source=0x101 }
+11-09 22:35:01.557: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54469919, downTime=54469919, deviceId=-1, source=0x101 }
+11-09 22:35:04.130: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:04.130: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:05.261: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54473629, downTime=54473629, deviceId=-1, source=0x101 }
+11-09 22:35:05.281: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54473645, downTime=54473645, deviceId=-1, source=0x101 }
+11-09 22:35:05.321: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54473692, downTime=54473692, deviceId=-1, source=0x101 }
+11-09 22:35:06.332: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54474691, downTime=54474691, deviceId=-1, source=0x101 }
+11-09 22:35:06.332: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_CLEAR, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54474743, downTime=54474743, deviceId=-1, source=0x101 }
+11-09 22:35:06.362: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_RIGHT_BRACKET, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54474755, downTime=54474755, deviceId=-1, source=0x101 }
+11-09 22:35:06.372: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54474776, downTime=54474776, deviceId=-1, source=0x101 }
+11-09 22:35:06.372: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_6, scanCode=0, metaState=0, flags=0x6, repeatCount=0, eventTime=54474785, downTime=54474785, deviceId=-1, source=0x0 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_UP, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_UP, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.612: W/ViewRootImpl(641): Dropping event due to root view being removed: KeyEvent { action=ACTION_UP, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54474973, downTime=54474973, deviceId=-1, source=0x101 }
+11-09 22:35:06.823: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54475217, downTime=54475217, deviceId=-1, source=0x101 }
+11-09 22:35:09.095: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:09.095: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:23.340: W/InputManager(526): Input event injection from pid 15441 failed.
+11-09 22:35:24.141: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:24.141: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:24.712: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:24.712: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:26.133: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54494484, downTime=54494484, deviceId=-1, source=0x101 }
+11-09 22:35:26.233: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_SETTINGS, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54494542, downTime=54494542, deviceId=-1, source=0x101 }
+11-09 22:35:27.645: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42f13c58 attribute=android.view.inputmethod.EditorInfo@42ef1788, token = android.os.BinderProxy@432bd8c8
+11-09 22:35:29.727: W/InputMethodManagerService(526): Ignoring setImeWindowStatus of uid 1000 token: android.os.Binder@431db2d8
+11-09 22:35:30.368: W/InputMethodManagerService(526): Ignoring setImeWindowStatus of uid 1000 token: android.os.Binder@42d52888
+11-09 22:35:32.670: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:32.670: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:33.321: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:33.321: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:33.952: W/DefContainer(14424): Failed to parse package
+11-09 22:35:33.952: W/ActivityManager(526): No content provider found for permission revoke: file:///test.apk
+11-09 22:35:34.763: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:34.763: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:35.563: W/ActivityManager(526): Duplicate finish request for ActivityRecord{429755a8 u0 com.wandoujia.phoenix2.usbproxy/com.wandoujia.phoenix2.ui.WelcomeActivity}
+11-09 22:35:35.583: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42d04120 attribute=android.view.inputmethod.EditorInfo@42cd1db0, token = android.os.BinderProxy@432bd8c8
+11-09 22:35:37.315: W/ActivityManager(526): Permission denied: checkComponentPermission() owningUid=10074
+11-09 22:35:37.315: W/ActivityManager(526): Permission denied: checkComponentPermission() owningUid=10074
+11-09 22:35:37.315: W/ActivityManager(526): Permission Denial: opening provider com.wandoujia.phoenix2.providers.PhoenixProvider from ProcessRecord{42d0c7a8 8884:com.wandoujia.phoenix2.usbproxy/u0a10099} (pid=8884, uid=10099) that is not exported from uid 10074
+11-09 22:35:54.183: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:54.183: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:35:57.517: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:35:57.517: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:06.376: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54534740, downTime=54534740, deviceId=-1, source=0x101 }
+11-09 22:36:07.117: W/InputMethodManagerService(526): Ignoring showInputMethodPickerFromClient of uid 1000: com.android.internal.view.IInputMethodClient$Stub$Proxy@433c5760
+11-09 22:36:07.157: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:07.157: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:07.167: W/InputMethodManagerService(526): Ignoring showInputMethodPickerFromClient of uid 1000: com.android.internal.view.IInputMethodClient$Stub$Proxy@437629b0
+11-09 22:36:07.598: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54535999, downTime=54535999, deviceId=-1, source=0x101 }
+11-09 22:36:07.638: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:07.638: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:07.638: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 22:36:07.648: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@4395a0e8 attribute=null, token = android.os.BinderProxy@432bd8c8
+11-09 22:36:07.648: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 22:36:07.648: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 22:36:07.648: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 22:36:07.648: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 22:36:07.648: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 22:36:07.648: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 22:36:07.648: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 22:36:07.648: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 22:36:07.648: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 22:36:07.648: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 22:36:10.791: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54539176, downTime=54539176, deviceId=-1, source=0x101 }
+11-09 22:36:10.811: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54539203, downTime=54539203, deviceId=-1, source=0x101 }
+11-09 22:36:10.811: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54539221, downTime=54539221, deviceId=-1, source=0x101 }
+11-09 22:36:10.901: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54539312, downTime=54539312, deviceId=-1, source=0x101 }
+11-09 22:36:10.901: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54539317, downTime=54539317, deviceId=-1, source=0x101 }
+11-09 22:36:10.921: W/ViewRootImpl(15133): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=-4.0, y[0]=0.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=5, eventTime=54539322, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:36:10.931: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@430ade08 attribute=null, token = android.os.BinderProxy@432bd8c8
+11-09 22:36:25.357: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:25.357: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:32.394: W/InputManager(526): Input event injection from pid 16132 failed.
+11-09 22:36:36.188: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:36.188: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:40.172: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:40.172: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:40.172: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 22:36:40.172: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 22:36:40.172: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 22:36:40.172: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 22:36:40.172: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 22:36:40.172: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 22:36:40.172: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 22:36:40.172: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 22:36:40.172: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 22:36:40.172: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 22:36:40.172: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 22:36:40.232: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:40.242: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:42.455: W/ProcessStats(526): Skipping unknown process pid 16541
+11-09 22:36:42.455: W/ProcessStats(526): Skipping unknown process pid 16543
+11-09 22:36:48.511: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:36:48.521: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:36:48.521: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 22:36:48.521: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 22:36:48.521: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 22:36:48.521: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 22:36:48.521: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 22:36:48.521: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 22:36:48.521: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 22:36:48.521: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 22:36:48.521: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 22:36:48.521: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 22:36:48.521: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 22:37:05.119: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54593493, downTime=54593493, deviceId=-1, source=0x101 }
+11-09 22:37:05.129: W/ViewRootImpl(526): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=2.0, y[0]=-1.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=9, eventTime=54593527, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:37:05.129: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MEDIA_CLOSE, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54593528, downTime=54593528, deviceId=-1, source=0x101 }
+11-09 22:37:05.199: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54593540, downTime=54593540, deviceId=-1, source=0x101 }
+11-09 22:37:05.359: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@433c9148 attribute=android.view.inputmethod.EditorInfo@433c9180, token = android.os.BinderProxy@432bd8c8
+11-09 22:37:11.266: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:11.266: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:11.266: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 22:37:11.266: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 22:37:11.266: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 22:37:11.266: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 22:37:11.266: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 22:37:11.266: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 22:37:11.266: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 22:37:11.266: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 22:37:11.266: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 22:37:11.266: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 22:37:11.266: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 22:37:11.716: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:11.716: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:13.027: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:13.037: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:16.671: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:16.671: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:21.897: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:21.897: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:21.937: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:21.937: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:23.068: W/InputManager(526): Input event injection from pid 16132 failed.
+11-09 22:37:30.136: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:30.136: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:31.127: W/InputMethodManagerService(526): Ignoring setImeWindowStatus of uid 1000 token: android.os.Binder@431f2230
+11-09 22:37:31.127: W/InputMethodManagerService(526): Ignoring setImeWindowStatus of uid 1000 token: android.os.Binder@431f2230
+11-09 22:37:31.127: W/InputMethodManagerService(526): Ignoring setImeWindowStatus of uid 1000 token: android.os.Binder@431f2230
+11-09 22:37:31.317: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54619721, downTime=54619721, deviceId=-1, source=0x101 }
+11-09 22:37:32.468: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54620856, downTime=54620856, deviceId=-1, source=0x101 }
+11-09 22:37:37.554: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54625920, downTime=54625920, deviceId=-1, source=0x101 }
+11-09 22:37:37.634: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_FOCUS, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54625970, downTime=54625970, deviceId=-1, source=0x101 }
+11-09 22:37:37.864: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@43328be0 attribute=android.view.inputmethod.EditorInfo@4332c198, token = android.os.BinderProxy@43778c68
+11-09 22:37:42.409: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:42.409: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:46.813: W/ProcessStats(526): Skipping unknown process pid 17150
+11-09 22:37:46.813: W/ProcessStats(526): Skipping unknown process pid 17152
+11-09 22:37:46.813: W/ProcessStats(526): Skipping unknown process pid 17154
+11-09 22:37:46.813: W/ProcessStats(526): Skipping unknown process pid 17155
+11-09 22:37:48.595: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:48.595: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:50.888: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:50.888: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:50.888: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 22:37:50.888: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 22:37:50.888: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 22:37:50.888: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 22:37:50.888: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 22:37:50.888: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 22:37:50.888: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 22:37:50.888: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 22:37:50.888: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 22:37:50.888: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 22:37:50.888: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 22:37:54.952: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54643365, downTime=54643365, deviceId=-1, source=0x101 }
+11-09 22:37:54.952: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54643365, downTime=54643365, deviceId=-1, source=0x101 }
+11-09 22:37:54.952: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=54643365, downTime=54643365, deviceId=-1, source=0x101 }
+11-09 22:37:54.972: W/ViewRootImpl(15133): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=-1.0, y[0]=-5.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=2, eventTime=54643379, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:37:54.972: W/ViewRootImpl(15133): Dropping event due to no window focus: MotionEvent { action=ACTION_DOWN, id[0]=0, x[0]=0.0, y[0]=0.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=54643380, downTime=54643315, deviceId=0, source=0x10004 }
+11-09 22:37:55.483: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54643885, downTime=54643885, deviceId=-1, source=0x101 }
+11-09 22:37:55.533: W/ViewRootImpl(15133): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54643904, downTime=54643904, deviceId=-1, source=0x101 }
+11-09 22:37:55.953: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:37:55.953: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:37:57.054: W/InputManager(526): Input event injection from pid 16132 failed.
+11-09 22:37:58.136: E/AndroidRuntime(15133): FATAL EXCEPTION: main
+11-09 22:37:58.136: E/AndroidRuntime(15133): java.lang.IllegalStateException: Fragment LoginFragment{43d93ae0} not attached to Activity
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.support.v4.app.Fragment.getResources(Fragment.java:571)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at com.m6.gocook.base.fragment.BaseFragment.showProgress(BaseFragment.java:168)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at com.m6.gocook.biz.account.LoginFragment$UserLoginTask.onPostExecute(LoginFragment.java:260)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at com.m6.gocook.biz.account.LoginFragment$UserLoginTask.onPostExecute(LoginFragment.java:1)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.os.AsyncTask.finish(AsyncTask.java:631)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.os.AsyncTask.access$600(AsyncTask.java:177)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.os.AsyncTask$InternalHandler.handleMessage(AsyncTask.java:644)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.os.Looper.loop(Looper.java:137)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 22:37:58.136: E/AndroidRuntime(15133): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 22:37:58.146: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 22:37:58.646: W/ActivityManager(526): Activity pause timeout for ActivityRecord{4331cf90 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:38:08.156: W/ActivityManager(526): Launch timeout has expired, giving up wake lock!
+11-09 22:38:08.657: W/ActivityManager(526): Activity idle timeout for ActivityRecord{42f71608 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:38:59.491: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 15133 uid 10081
+11-09 22:39:22.355: W/ViewRootImpl(17310): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54730225, downTime=54730225, deviceId=-1, source=0x101 }
+11-09 22:39:23.527: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:24.678: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 22:39:24.678: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 22:39:25.759: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:25.759: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:25.759: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:25.759: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:25.769: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:25.769: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:26.480: W/ViewRootImpl(17310): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_VOLUME_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54734646, downTime=54734646, deviceId=-1, source=0x101 }
+11-09 22:39:28.512: W/ViewRootImpl(17310): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=-3.0, y[0]=-1.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=9, eventTime=54736901, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:39:28.522: W/ViewRootImpl(17310): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54736902, downTime=54736902, deviceId=-1, source=0x101 }
+11-09 22:39:28.662: W/InputManager(526): Input event injection from pid 17409 failed.
+11-09 22:39:30.134: W/ViewRootImpl(17310): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54738352, downTime=54738352, deviceId=-1, source=0x101 }
+11-09 22:39:30.244: W/ViewRootImpl(17310): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=4.0, y[0]=3.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=9, eventTime=54738551, downTime=-1, deviceId=0, source=0x10004 }
+11-09 22:39:30.244: W/ViewRootImpl(17310): Dropping event due to no window focus: MotionEvent { action=ACTION_DOWN, id[0]=0, x[0]=0.0, y[0]=0.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=54738552, downTime=54738544, deviceId=0, source=0x10004 }
+11-09 22:39:30.254: W/ViewRootImpl(17310): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54738560, downTime=54738560, deviceId=-1, source=0x101 }
+11-09 22:39:30.744: E/AndroidRuntime(17310): FATAL EXCEPTION: main
+11-09 22:39:30.744: E/AndroidRuntime(17310): java.lang.NullPointerException
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at com.m6.gocook.biz.recipe.recipe.RecipeFragment$4.onClick(RecipeFragment.java:357)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.view.View.performClick(View.java:4240)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.view.View$PerformClick.run(View.java:17721)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.os.Looper.loop(Looper.java:137)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 22:39:30.744: E/AndroidRuntime(17310): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 22:39:30.744: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 22:39:30.895: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=54739151, downTime=54739151, deviceId=-1, source=0x101 }
+11-09 22:39:31.375: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42fcee80 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:39:40.885: W/ActivityManager(526): Launch timeout has expired, giving up wake lock!
+11-09 22:39:41.386: W/ActivityManager(526): Activity idle timeout for ActivityRecord{42f38b40 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:43:39.910: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 17310 uid 10081
+11-09 22:43:47.318: E/AndroidRuntime(17621): FATAL EXCEPTION: main
+11-09 22:43:47.318: E/AndroidRuntime(17621): java.lang.IndexOutOfBoundsException: Invalid index 7, size is 7
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at java.util.ArrayList.get(ArrayList.java:308)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at com.m6.gocook.biz.recipe.list.RecipeListAdapter.getItem(RecipeListAdapter.java:49)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at com.m6.gocook.biz.recipe.list.RecipeListFragment$1.onItemClick(RecipeListFragment.java:40)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.widget.AdapterView.performItemClick(AdapterView.java:298)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.widget.AbsListView.performItemClick(AbsListView.java:1100)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:2788)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.widget.AbsListView$1.run(AbsListView.java:3463)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.os.Looper.loop(Looper.java:137)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 22:43:47.318: E/AndroidRuntime(17621): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 22:43:47.328: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 22:43:47.839: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42f38b40 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:43:49.581: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 17621 uid 10081
+11-09 22:44:50.085: E/AndroidRuntime(17666): FATAL EXCEPTION: main
+11-09 22:44:50.085: E/AndroidRuntime(17666): java.lang.IndexOutOfBoundsException: Invalid index 21, size is 21
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at java.util.ArrayList.get(ArrayList.java:308)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at com.m6.gocook.biz.recipe.list.RecipeListAdapter.getItem(RecipeListAdapter.java:49)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at com.m6.gocook.biz.recipe.list.RecipeListFragment$1.onItemClick(RecipeListFragment.java:40)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.widget.AdapterView.performItemClick(AdapterView.java:298)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.widget.AbsListView.performItemClick(AbsListView.java:1100)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:2788)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.widget.AbsListView$1.run(AbsListView.java:3463)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.os.Looper.loop(Looper.java:137)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 22:44:50.085: E/AndroidRuntime(17666): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 22:44:50.095: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 22:44:50.606: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42d1a250 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:44:51.627: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 17666 uid 10081
+11-09 22:45:23.451: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 22:45:23.451: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 22:46:22.994: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4322b1d0 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:46:37.800: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4348c6b8 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:46:48.211: W/ProcessStats(526): Skipping unknown process pid 18314
+11-09 22:47:03.638: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@431d3f38 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:48:29.639: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@4329e570 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:50:39.968: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@431990e8 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:53:10.309: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@43219740 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:53:34.224: W/ProcessStats(526): Skipping unknown process pid 18778
+11-09 22:53:36.887: W/CursorWrapperInner(17784): Cursor finalized without prior close()
+11-09 22:53:36.887: W/CursorWrapperInner(17784): Cursor finalized without prior close()
+11-09 22:53:51.903: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42d21850 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:54:04.497: W/CursorWrapperInner(17784): Cursor finalized without prior close()
+11-09 22:54:04.497: W/CursorWrapperInner(17784): Cursor finalized without prior close()
+11-09 22:54:04.507: W/CursorWrapperInner(17784): Cursor finalized without prior close()
+11-09 22:54:30.354: E/ImageFetcher(17784): Error in downloadBitmap - java.io.FileNotFoundException: http://o.m6fresh.com/m6o2o/images/xqc.jpg
+11-09 22:54:34.789: W/ActivityManager(526): Duplicate finish request for ActivityRecord{432d5180 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 22:58:52.124: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@43f5fb50 attribute=android.view.inputmethod.EditorInfo@432c09d8, token = android.os.BinderProxy@43178e70
+11-09 22:59:03.065: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42ea26a8 attribute=null, token = android.os.BinderProxy@432b1a70
+11-09 22:59:43.508: W/ProcessStats(526): Skipping unknown process pid 19175
+11-09 22:59:46.842: E/LocSvc_eng(526): E/void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type&, int, const char*): log_eng state error: instance not initialized
+11-09 22:59:46.902: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 22:59:46.902: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:03:33.764: W/SystemClock(9923): time going backwards: prev 106767130164859(ioctl) vs now 106767129340809(ioctl), tid=9996
+11-09 23:03:34.685: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42cb9d30 attribute=android.view.inputmethod.EditorInfo@436efec0, token = android.os.BinderProxy@43178e70
+11-09 23:03:40.181: E/MP3Extractor(174): Unable to resync. Signalling end of stream.
+11-09 23:03:40.251: E/MP3Extractor(174): Unable to resync. Signalling end of stream.
+11-09 23:03:40.341: E/MP3Extractor(174): Unable to resync. Signalling end of stream.
+11-09 23:03:40.401: E/MP3Extractor(174): Unable to resync. Signalling end of stream.
+11-09 23:03:40.531: E/MP3Extractor(174): Unable to resync. Signalling end of stream.
+11-09 23:03:46.157: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@43331860 attribute=null, token = android.os.BinderProxy@4342da70
+11-09 23:03:54.066: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42f90100 attribute=null, token = android.os.BinderProxy@432f58b0
+11-09 23:04:06.439: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4334cae0 u0 com.tencent.token/.ui.StartPwdGestureDeleteActivity}
+11-09 23:04:06.739: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4306dbd8 u0 com.tencent.token/.ui.IndexActivity}
+11-09 23:04:06.739: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4306dbd8 u0 com.tencent.token/.ui.IndexActivity}
+11-09 23:04:06.739: W/ActivityManager(526): Duplicate finish request for ActivityRecord{4334cae0 u0 com.tencent.token/.ui.StartPwdGestureDeleteActivity}
+11-09 23:06:20.202: W/GAV2(19630): Thread[GAThread,5,main]: Service unavailable (code=1), will retry.
+11-09 23:06:20.202: W/ActivityManager(526): Unable to start service Intent { act=com.google.android.gms.analytics.service.START cmp=com.google.android.gms/.analytics.service.AnalyticsService (has extras) } U=0: not found
+11-09 23:06:25.217: W/GAV2(19630): Thread[Service Reconnect,5,main]: Service unavailable (code=1), using local store.
+11-09 23:06:25.217: W/ActivityManager(526): Unable to start service Intent { act=com.google.android.gms.analytics.service.START cmp=com.google.android.gms/.analytics.service.AnalyticsService (has extras) } U=0: not found
+11-09 23:12:26.243: W/KeyguardViewMediator(526): verifyUnlock called when not externally disabled
+11-09 23:12:26.394: W/Mms/cache(17943): RecipientId 59 not in cache!
+11-09 23:13:39.942: E/kickstart(552): Wrote to /sys/power/wake_lock
+11-09 23:13:40.122: E/kickstart(552): Received file "/dev/block/platform/msm_sdcc.1/by-name/m9kefs1"
+11-09 23:13:40.122: E/kickstart(552): 786432 bytes transferred in 0.167s (4.49 MBps)
+11-09 23:13:40.122: E/kickstart(552): Successfully downloaded files from target 
+11-09 23:13:40.122: E/kickstart(552): Wrote to /sys/power/wake_unlock
+11-09 23:13:40.122: E/kickstart(552): Sahara protocol completed
+11-09 23:14:11.346: E/LocSvc_eng(526): E/void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type&, int, const char*): log_eng state error: instance not initialized
+11-09 23:14:11.416: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:14:11.416: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:15:37.618: W/dalvikvm(17784): threadid=1: thread exiting with uncaught exception (group=0x42076700)
+11-09 23:15:37.618: E/AndroidRuntime(17784): FATAL EXCEPTION: main
+11-09 23:15:37.618: E/AndroidRuntime(17784): java.lang.IndexOutOfBoundsException: Invalid index 10, size is 10
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at java.util.ArrayList.get(ArrayList.java:308)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at com.m6.gocook.biz.recipe.list.RecipeListAdapter.getItem(RecipeListAdapter.java:49)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at com.m6.gocook.biz.recipe.list.RecipeListFragment$1.onItemClick(RecipeListFragment.java:40)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.widget.AdapterView.performItemClick(AdapterView.java:298)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.widget.AbsListView.performItemClick(AbsListView.java:1100)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:2788)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.widget.AbsListView$1.run(AbsListView.java:3463)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.os.Looper.loop(Looper.java:137)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 23:15:37.618: E/AndroidRuntime(17784): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 23:15:37.628: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 23:15:38.148: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42c8fbe0 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 23:15:44.325: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 17784 uid 10081
+11-09 23:15:49.841: W/dalvikvm(20237): threadid=1: thread exiting with uncaught exception (group=0x42076700)
+11-09 23:15:49.841: E/AndroidRuntime(20237): FATAL EXCEPTION: main
+11-09 23:15:49.841: E/AndroidRuntime(20237): java.lang.IndexOutOfBoundsException: Invalid index 7, size is 7
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at java.util.ArrayList.get(ArrayList.java:308)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at com.m6.gocook.biz.recipe.list.RecipeListAdapter.getItem(RecipeListAdapter.java:49)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at com.m6.gocook.biz.recipe.list.RecipeListFragment$1.onItemClick(RecipeListFragment.java:40)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.widget.AdapterView.performItemClick(AdapterView.java:298)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.widget.AbsListView.performItemClick(AbsListView.java:1100)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:2788)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.widget.AbsListView$1.run(AbsListView.java:3463)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.os.Looper.loop(Looper.java:137)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 23:15:49.841: E/AndroidRuntime(20237): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 23:15:49.851: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 23:15:50.361: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42d1a250 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 23:15:54.215: W/InputDispatcher(526): channel '43054098 com.m6.gocook/com.m6.gocook.base.activity.BaseActivity (server)' ~ Consumer closed input channel or an error occurred.  events=0x9
+11-09 23:15:54.215: E/InputDispatcher(526): channel '43054098 com.m6.gocook/com.m6.gocook.base.activity.BaseActivity (server)' ~ Channel is unrecoverably broken and will be disposed!
+11-09 23:15:54.215: W/InputDispatcher(526): Attempted to unregister already unregistered input channel '43054098 com.m6.gocook/com.m6.gocook.base.activity.BaseActivity (server)'
+11-09 23:15:54.646: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 20237 uid 10081
+11-09 23:16:39.140: W/ExifParser(32139): Tag 8827: Invalid data type 8
+11-09 23:19:17.568: E/EsResource(32139): Network exception: {bwf@429df488([g-null, p-0, t-null], http://redirector.googlevideo.com/videoplayback?id=80793400a7975daf&itag=22&source=picasa&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1383814169&sparams=id,itag,source,ip,ipbits,expire&signature=7F7DE8B278C2550A33747D0848CCD8F5EE22E8D8.84E77E6CD01105834F4F76724CF378A11630ABCE&key=lh1) (original) disable-recycling download-only} Connection timed out
+11-09 23:19:17.568: E/EsResource(32139): org.apache.http.conn.ConnectTimeoutException: Connection timed out
+11-09 23:19:17.568: E/EsResource(32139): 	at org.chromium.netjni.UrlRequest.b(PG:188)
+11-09 23:19:17.568: E/EsResource(32139): 	at dnh.b(PG:41)
+11-09 23:19:17.568: E/EsResource(32139): 	at ebe.a(PG:298)
+11-09 23:19:17.568: E/EsResource(32139): 	at dnh.a(PG:33)
+11-09 23:19:17.568: E/EsResource(32139): 	at org.chromium.netjni.UrlRequest.finish(PG:275)
+11-09 23:19:17.568: E/EsResource(32139): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 23:19:17.568: E/MediaSyncManager(32139): Could not download media: https://lh5.googleusercontent.com/ZAeXuwk4DXNIrY9JVBIVOG4LQHIc7Hdfsa0182ZLXy8=s0-d
+11-09 23:19:17.568: E/MediaSyncManager(32139): eci: Error obtaining resource {bwf@429df488([g-null, p-0, t-null], http://redirector.googlevideo.com/videoplayback?id=80793400a7975daf&itag=22&source=picasa&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1383814169&sparams=id,itag,source,ip,ipbits,expire&signature=7F7DE8B278C2550A33747D0848CCD8F5EE22E8D8.84E77E6CD01105834F4F76724CF378A11630ABCE&key=lh1) (original) disable-recycling download-only} status: transient error httpError: 0
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at ece.a(PG:375)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at ebi.a(PG:522)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at cfc.a(PG:868)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at cfc.a(PG:747)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at cfc.a(PG:255)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at cfc.a(PG:202)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at dja.c(PG:322)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at dja.onPerformSync(PG:157)
+11-09 23:19:17.568: E/MediaSyncManager(32139): 	at android.content.AbstractThreadedSyncAdapter$SyncThread.run(AbstractThreadedSyncAdapter.java:254)
+11-09 23:20:57.060: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@43d94960 attribute=android.view.inputmethod.EditorInfo@43d94970, token = android.os.BinderProxy@42d8e900
+11-09 23:20:59.332: W/SystemClock(9923): time going backwards: prev 107812706022356(ioctl) vs now 107812705442473(ioctl), tid=10013
+11-09 23:21:24.880: W/ActivityManager(526): Duplicate finish request for ActivityRecord{42d1a250 u0 com.tencent.token/.ui.IndexActivity}
+11-09 23:21:24.880: W/ActivityManager(526): Duplicate finish request for ActivityRecord{42d1a250 u0 com.tencent.token/.ui.IndexActivity}
+11-09 23:25:12.050: W/Androidesk(20744): [JinShanReceiver] <onReceive> it's so late and it's idle time.
+11-09 23:25:55.000: W/ProcessStats(526): Skipping unknown process pid 20813
+11-09 23:25:55.000: W/ProcessStats(526): Skipping unknown process pid 20814
+11-09 23:25:55.010: W/ProcessStats(526): Skipping unknown process pid 20815
+11-09 23:25:55.010: W/ProcessStats(526): Skipping unknown process pid 20819
+11-09 23:25:55.010: W/ProcessStats(526): Skipping unknown process pid 20846
+11-09 23:30:13.020: E/LocSvc_eng(526): E/void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type&, int, const char*): log_eng state error: instance not initialized
+11-09 23:30:13.110: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:30:13.110: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:32:01.070: W/GCM(9909): Heartbeat timeout, GCM connection reset
+11-09 23:37:00.100: W/BackupManagerService(526): dataChanged but no participant pkg='com.android.providers.settings' uid=10089
+11-09 23:37:00.170: W/BackupManagerService(526): dataChanged but no participant pkg='com.android.providers.settings' uid=10089
+11-09 23:37:38.959: W/PowerUI(641): unknown intent: Intent { act=android.intent.action.ACTION_POWER_CONNECTED flg=0x8000010 }
+11-09 23:37:40.050: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.server.usb.UsbDebuggingManager.showConfirmationDialog:259 com.android.server.usb.UsbDebuggingManager.access$900:46 com.android.server.usb.UsbDebuggingManager$UsbDebuggingHandler.handleMessage:215 android.os.Handler.dispatchMessage:99 
+11-09 23:37:40.060: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.server.usb.UsbDebuggingManager.showConfirmationDialog:259 com.android.server.usb.UsbDebuggingManager.access$900:46 com.android.server.usb.UsbDebuggingManager$UsbDebuggingHandler.handleMessage:215 
+11-09 23:37:43.343: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@431140a0 attribute=android.view.inputmethod.EditorInfo@431a2f70, token = android.os.BinderProxy@43178e70
+11-09 23:37:45.195: W/KeyguardViewMediator(526): verifyUnlock called when not externally disabled
+11-09 23:39:00.786: W/IInputConnectionWrapper(17943): showStatusIcon on inactive InputConnection
+11-09 23:39:06.782: W/Settings(21945): Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+11-09 23:39:07.563: W/LocalImage(19630): failed to get thumbnail from: /storage/emulated/0/Pictures/Screenshots/Screenshot_2013-11-09-22-37-46.png
+11-09 23:39:19.676: W/View(641): requestLayout() improperly called by android.widget.LinearLayout{4292fdc0 V.E..... ......I. 0,0-0,0 #7f07001b app:id/lights_out} during layout: running second layout pass
+11-09 23:40:22.784: W/IInputConnectionWrapper(19630): showStatusIcon on inactive InputConnection
+11-09 23:40:29.331: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MEDIA_PAUSE, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57089539, downTime=57089539, deviceId=-1, source=0x101 }
+11-09 23:40:32.604: W/CursorWrapperInner(20286): Cursor finalized without prior close()
+11-09 23:40:33.986: W/CursorWrapperInner(20286): Cursor finalized without prior close()
+11-09 23:40:33.986: W/CursorWrapperInner(20286): Cursor finalized without prior close()
+11-09 23:40:34.116: W/ViewRootImpl(20286): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=0.0, y[0]=2.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=9, eventTime=57094308, downTime=-1, deviceId=0, source=0x10004 }
+11-09 23:40:34.136: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57094313, downTime=57094313, deviceId=-1, source=0x101 }
+11-09 23:40:35.197: W/ViewRootImpl(20286): Dropping event due to no window focus: MotionEvent { action=ACTION_MOVE, id[0]=0, x[0]=-4.0, y[0]=0.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=9, eventTime=57095427, downTime=-1, deviceId=0, source=0x10004 }
+11-09 23:40:35.207: W/ViewRootImpl(20286): Dropping event due to no window focus: MotionEvent { action=ACTION_DOWN, id[0]=0, x[0]=0.0, y[0]=0.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=57095427, downTime=57095422, deviceId=0, source=0x10004 }
+11-09 23:40:35.207: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_NUMPAD_MULTIPLY, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57095435, downTime=57095435, deviceId=-1, source=0x101 }
+11-09 23:40:35.327: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_MULTIPLE, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=2, eventTime=57095532, downTime=57095532, deviceId=-1, source=0x101 }
+11-09 23:40:35.327: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=57095532, downTime=57095532, deviceId=-1, source=0x101 }
+11-09 23:40:35.327: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=57095532, downTime=57095532, deviceId=-1, source=0x101 }
+11-09 23:40:35.327: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x400, repeatCount=0, eventTime=57095532, downTime=57095532, deviceId=-1, source=0x101 }
+11-09 23:40:35.377: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57095503, downTime=57095503, deviceId=-1, source=0x101 }
+11-09 23:40:35.387: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57095614, downTime=57095614, deviceId=-1, source=0x101 }
+11-09 23:40:35.397: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57095629, downTime=57095629, deviceId=-1, source=0x101 }
+11-09 23:40:36.368: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:36.368: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:37.459: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_VOLUME_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57097523, downTime=57097523, deviceId=-1, source=0x101 }
+11-09 23:40:37.479: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57097690, downTime=57097690, deviceId=-1, source=0x101 }
+11-09 23:40:37.930: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57098154, downTime=57098154, deviceId=-1, source=0x101 }
+11-09 23:40:38.801: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:38.801: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:38.831: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:38.831: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:38.841: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:38.841: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:38.841: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-09 23:40:38.841: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-09 23:40:38.841: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-09 23:40:38.841: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-09 23:40:38.841: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-09 23:40:38.841: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-09 23:40:38.841: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-09 23:40:38.841: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-09 23:40:38.841: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-09 23:40:38.841: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-09 23:40:38.841: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-09 23:40:38.861: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:38.861: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:43.075: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:43.135: W/IInputConnectionWrapper(20286): performEditorAction on inactive InputConnection
+11-09 23:40:43.856: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:45.248: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:46.118: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:46.118: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:48.311: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:48.311: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:48.421: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57108609, downTime=57108609, deviceId=-1, source=0x101 }
+11-09 23:40:48.421: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57108658, downTime=57108658, deviceId=-1, source=0x101 }
+11-09 23:40:48.431: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57108661, downTime=57108661, deviceId=-1, source=0x101 }
+11-09 23:40:48.481: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:48.481: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:48.501: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_F11, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57108669, downTime=57108669, deviceId=-1, source=0x101 }
+11-09 23:40:48.591: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:48.591: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:48.591: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:48.591: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:48.591: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@4303fa98 attribute=null, token = android.os.BinderProxy@436b3ec8
+11-09 23:40:49.142: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:49.142: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:49.142: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:49.192: W/InputManager(526): Input event injection from pid 22185 failed.
+11-09 23:40:49.772: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:49.782: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:52.045: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:52.045: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:52.625: W/GAV2(22432): Thread[main,5,main]: Need to call initialize() and be in fallback mode to start dispatch.
+11-09 23:40:52.725: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57112890, downTime=57112890, deviceId=-1, source=0x101 }
+11-09 23:40:52.746: W/ViewRootImpl(641): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57112970, downTime=57112970, deviceId=-1, source=0x101 }
+11-09 23:40:52.816: W/KeyguardViewMediator(526): verifyUnlock called when not externally disabled
+11-09 23:40:53.316: E/ACDB-LOADER(174): Error: ACDB AudProc vol returned = -8
+11-09 23:40:53.366: W/Sidekick_LocationOracleImpl(22432): Best location was null
+11-09 23:40:53.366: W/KeyguardViewMediator(526): verifyUnlock called when not externally disabled
+11-09 23:40:53.396: W/Sidekick_LocationOracleImpl(22432): Best location was null
+11-09 23:40:53.406: W/KeyguardViewMediator(526): verifyUnlock called when not externally disabled
+11-09 23:40:53.426: W/InputMethodManagerService(526): Ignoring showInputMethodPickerFromClient of uid 1000: com.android.internal.view.IInputMethodClient$Stub$Proxy@43408908
+11-09 23:40:53.466: W/InputMethodManagerService(526): Ignoring showInputMethodPickerFromClient of uid 1000: com.android.internal.view.IInputMethodClient$Stub$Proxy@432c3c38
+11-09 23:40:53.687: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_SOFT_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57113841, downTime=57113841, deviceId=-1, source=0x101 }
+11-09 23:40:53.697: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57113928, downTime=57113928, deviceId=-1, source=0x101 }
+11-09 23:40:53.797: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57114031, downTime=57114031, deviceId=-1, source=0x101 }
+11-09 23:40:53.797: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@42f91348 attribute=android.view.inputmethod.EditorInfo@42aa8f50, token = android.os.BinderProxy@436b3ec8
+11-09 23:40:54.037: W/PairHttpConnection(22432): [Upload] Connection error
+11-09 23:40:54.037: W/PairHttpConnection(22432): java.io.IOException: Timed out / error during connect
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at com.google.android.speech.network.PairHttpConnection.connect(PairHttpConnection.java:132)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at com.google.android.speech.network.NetworkRecognitionRunner.runNetworkLoop(NetworkRecognitionRunner.java:219)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at com.google.android.speech.network.NetworkRecognitionRunner.access$000(NetworkRecognitionRunner.java:54)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at com.google.android.speech.network.NetworkRecognitionRunner$1.run(NetworkRecognitionRunner.java:73)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:390)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.FutureTask.run(FutureTask.java:234)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:153)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:267)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1080)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:573)
+11-09 23:40:54.037: W/PairHttpConnection(22432): 	at com.google.android.searchcommon.util.ConcurrentUtils$1$1.run(ConcurrentUtils.java:91)
+11-09 23:40:55.018: W/IInputConnectionWrapper(20286): finishComposingText on inactive InputConnection
+11-09 23:40:55.018: W/IInputConnectionWrapper(20286): finishComposingText on inactive InputConnection
+11-09 23:40:55.749: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:57.200: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:57.631: W/GAV2(22432): Thread[GAThread,5,main]: Service unavailable (code=1), will retry.
+11-09 23:40:57.631: W/ActivityManager(526): Unable to start service Intent { act=com.google.android.gms.analytics.service.START (has extras) } U=0: not found
+11-09 23:40:57.631: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-09 23:40:57.631: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-09 23:40:57.801: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:40:58.061: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:58.061: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:40:59.212: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57119359, downTime=57119359, deviceId=-1, source=0x101 }
+11-09 23:41:00.614: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_BUTTON_THUMBL, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57120844, downTime=57120844, deviceId=-1, source=0x101 }
+11-09 23:41:00.634: W/ViewRootImpl(20286): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57120844, downTime=57120844, deviceId=-1, source=0x101 }
+11-09 23:41:01.245: W/IInputConnectionWrapper(20286): clearMetaKeyStates on inactive InputConnection
+11-09 23:41:02.616: W/IInputConnectionWrapper(20286): commitText on inactive InputConnection
+11-09 23:41:02.626: W/GAV2(22432): Thread[Service Reconnect,5,main]: Service unavailable (code=1), using local store.
+11-09 23:41:02.626: W/ActivityManager(526): Unable to start service Intent { act=com.google.android.gms.analytics.service.START (has extras) } U=0: not found
+11-09 23:41:02.636: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:41:02.636: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:41:02.786: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:41:02.786: W/IInputConnectionWrapper(20286): sendKeyEvent on inactive InputConnection
+11-09 23:41:04.468: W/dalvikvm(20286): threadid=1: thread exiting with uncaught exception (group=0x42076700)
+11-09 23:41:04.468: E/AndroidRuntime(20286): FATAL EXCEPTION: main
+11-09 23:41:04.468: E/AndroidRuntime(20286): java.lang.IllegalStateException: Fragment LoginFragment{42dd0a40} not attached to Activity
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.support.v4.app.Fragment.getResources(Fragment.java:571)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at com.m6.gocook.base.fragment.BaseFragment.showProgress(BaseFragment.java:168)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at com.m6.gocook.biz.account.LoginFragment$UserLoginTask.onPostExecute(LoginFragment.java:260)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at com.m6.gocook.biz.account.LoginFragment$UserLoginTask.onPostExecute(LoginFragment.java:1)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.os.AsyncTask.finish(AsyncTask.java:631)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.os.AsyncTask.access$600(AsyncTask.java:177)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.os.AsyncTask$InternalHandler.handleMessage(AsyncTask.java:644)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.os.Looper.loop(Looper.java:137)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-09 23:41:04.468: E/AndroidRuntime(20286): 	at dalvik.system.NativeStart.main(Native Method)
+11-09 23:41:04.488: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-09 23:41:04.528: W/ViewRootImpl(526): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_DOWN, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=57124708, downTime=57124708, deviceId=-1, source=0x101 }
+11-09 23:41:05.009: W/ActivityManager(526): Activity pause timeout for ActivityRecord{42955a28 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 23:41:14.509: W/ActivityManager(526): Launch timeout has expired, giving up wake lock!
+11-09 23:41:15.029: W/ActivityManager(526): Activity idle timeout for ActivityRecord{42d58090 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-09 23:43:00.902: E/LocSvc_eng(526): E/void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type&, int, const char*): log_eng state error: instance not initialized
+11-09 23:43:00.942: W/GCM(9909): DIR: /data/data/com.google.android.gms/app_APP /data/data/com.google.android.gsf
+11-09 23:43:01.123: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:43:01.123: W/ActivityManager(526): Unable to start service Intent { cmp=com.sinovatech.unicom.ui/com.sinovatech.unicom.separatemodule.networkcomplaint.PushService } U=0: not found
+11-09 23:43:02.043: W/ActivityManager(526): Scheduling restart of crashed service com.wandoujia.phoenix2.usbproxy/com.wandoujia.phoenix2.services.ConnectionService in 5000ms
+11-09 23:43:02.134: W/dalvikvm(22787): VFY: unable to resolve interface method 519: Lcom/android/internal/telephony/ISms;.sendMultipartText (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+11-09 23:43:05.938: E/GcmManager(32139): Failed to subscribe to GCM group 
+11-09 23:43:05.938: E/GcmManager(32139): java.io.IOException: SERVICE_NOT_AVAILABLE
+11-09 23:43:05.938: E/GcmManager(32139): 	at com.google.android.gms.gcm.GoogleCloudMessaging.register(Unknown Source)
+11-09 23:43:05.938: E/GcmManager(32139): 	at ebd.b(PG:106)
+11-09 23:43:05.938: E/GcmManager(32139): 	at ebd.a(PG:135)
+11-09 23:43:05.938: E/GcmManager(32139): 	at eax.a(PG:477)
+11-09 23:43:05.938: E/GcmManager(32139): 	at eax.onPerformSync(PG:395)
+11-09 23:43:05.938: E/GcmManager(32139): 	at android.content.AbstractThreadedSyncAdapter$SyncThread.run(AbstractThreadedSyncAdapter.java:254)
+11-09 23:43:05.938: E/GcmManager(32139): Failed to subscribe to GCM: The registraion ID is null.
+11-09 23:43:18.391: W/SystemClock(526): time going backwards: prev 109151758835485(ioctl) vs now 109151757523109(ioctl), tid=543
