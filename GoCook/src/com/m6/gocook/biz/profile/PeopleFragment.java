@@ -104,7 +104,7 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 			mPeoples.clear();
 			mPeoples = null;
 		}
-		executeTask(1);
+		super.refresh();
 	}
 	
 	@Override

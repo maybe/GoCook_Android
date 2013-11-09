@@ -19,8 +19,9 @@ import com.m6.gocook.base.entity.Coupon;
 import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 
-public class CouponListFragment extends BaseListFragment {
+public class CouponListFragment extends BaseListFragment implements OnActionBarClick {
 
 	private CouponListAdapter mAdapter;
 	
@@ -47,15 +48,11 @@ public class CouponListFragment extends BaseListFragment {
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
-
-	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
 		ActionBar actionBar = getActionBar();
+		actionBar.setActionBarClickListener(this);
 		actionBar.setTitle(R.string.biz_coupon_list_title);
 		actionBar.setRightButton(null, R.drawable.actionbar_refresh_selector);
 		
@@ -73,7 +70,24 @@ public class CouponListFragment extends BaseListFragment {
 			}
 		});
 	}
-
+	
+	@Override
+	protected void refresh() {
+		mData.clear();
+		super.refresh();
+	}
+	
+	@Override
+	public void onActionBarRightButtonClick(View v) {
+		refresh();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		refresh();
+	}
+	
 	@Override
 	protected boolean haveNext() {
 		return mHaveNext;

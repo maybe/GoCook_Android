@@ -242,7 +242,7 @@
     <!-- coupon -->
     <string name="biz_coupon_list_title">我的优惠券</string>
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
-    <string name="biz_coupon_list_content_normal">%1$s，您获得价值%2$d的%3$s，有效期至%4$s。券号%5$s适用门店%6$s/n%7$s</string>
+    <string name="biz_coupon_list_content_normal">%1$s，您获得价值%2$d元的%3$s，有效期至%4$s。券号%5$s适用门店%6$s。\n%7$s。</string>
     
     <string name="biz_coupon_shake_title">摇一摇</string>
     <string name="biz_coupon_shake_message">摇一摇/点击屏幕抽取优惠券</string>
@@ -250,6 +250,19 @@
     <string name="biz_coupon_shake_result_sale_fee">销售金额：</string>
     <string name="biz_coupon_shake_result_sale_count">销售笔数：</string>
     <string name="biz_coupon_shake_result_remark">条件说明：</string>
+    <string name="biz_coupon_shake_result_delay">延期</string>
+    <string name="biz_coupon_shake_result_message">尊敬的用户你好，您是否在%1$s，进行了%2$d笔交易，共计%3$s元。</string>
+    <string name="biz_coupon_shake_result_failed_tip">查询失败~</string>
+    <string name="biz_coupon_shake_result_mismatch">对不起，您不符合优惠券抽取条件。\n%s。</string>
+    <string name="biz_coupon_shake_result_get_coupon_success">祝贺您，您获得价值%1$s的%2$s，有效期至%3$s。券号%4$s适用门店%5$s\n%5$s。</string>
+    <string name="biz_coupon_shake_result_get_coupon_failed_tip">获取优惠券失败~</string>
+    <string name="biz_coupon_shake_result_progress">正在获取优惠券，请稍后...</string>
+    <string name="biz_coupon_shake_result_delay_coupon_failed_tip">延期优惠券失败~</string>
+    <string name="biz_coupon_shake_result_delay_progress">延期获取优惠券，请稍后...</string>
+    <string name="biz_coupon_shake_result_delay_mismatch">抱歉，您不符合延期抽取条件。\n%s。</string>
+    <string name="biz_coupon_shake_result_delay_match">您有一次延迟抽取优惠券的机会，有效期至%s。</string>
+    
+    <string name="biz_coupon_details_title">优惠券详情</string>
     
     <!-- popular -->
     <string name="biz_popular_tophot">本周最热欢迎</string>

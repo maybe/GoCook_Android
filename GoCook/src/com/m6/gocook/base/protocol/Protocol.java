@@ -3,11 +3,17 @@ package com.m6.gocook.base.protocol;
 public class Protocol {
 
 	/* URL */
+	
+	/* Account */
 	public static final String URL_ROOT = "http://verypanda.com";
 	
 	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
 	
 	public static final String URL_REGISTER = URL_ROOT + "/user/register";
+	
+	public static final String URL_LOGIN_EX =  URL_ROOT + "/cook/login_ex";
+	
+	public static final String URL_LOGIN_WEB =  "http://o.m6fresh.com/ws/mobile_reg.aspx?sid=%d";
 	
 	/* Recipe URL  */
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
@@ -72,13 +78,13 @@ public class Protocol {
 	public static final String URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
 	
 	/* coupon */
-	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales?test_id=2";
+	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales?test_id=3";
 	
-	public static final String URL_COUPON_COUPONS = URL_ROOT + "/cook/my_coupons?page=%s&test_id=2";
+	public static final String URL_COUPON_COUPONS = URL_ROOT + "/cook/my_coupons?page=%s&test_id=3";
 	
-	public static final String URL_COUPON_COUPON = URL_ROOT + "/cook/get_coupon?coupon_id=%s&test_id=2";
+	public static final String URL_COUPON_COUPON = URL_ROOT + "/cook/get_coupon?coupon_id=%s&test_id=3";
 	
-	public static final String URL_COUPON_DELAY_COUPON = URL_ROOT + "/cook/delay_coupon?test_id=2";
+	public static final String URL_COUPON_DELAY_COUPON = URL_ROOT + "/cook/delay_coupon?test_id=3";
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";

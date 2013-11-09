@@ -42,10 +42,10 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 				ft.commit();
 			}
 		} else {
-			f = fm.findFragmentByTag(LoginOrRegisterFragment.class.getName());
+			f = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
 			if(f == null) {
-				f = LoginOrRegisterFragment.instantiate(getActivity(), LoginOrRegisterFragment.class.getName());
-				ft.add(R.id.account_tabcontent, f, LoginOrRegisterFragment.class.getName());
+				f = WebLoginOrRegisterFragment.instantiate(getActivity(), WebLoginOrRegisterFragment.class.getName());
+				ft.add(R.id.account_tabcontent, f, WebLoginOrRegisterFragment.class.getName());
 				ft.commit();
 			}
 		}
@@ -85,11 +85,11 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		
-		Fragment f = fm.findFragmentByTag(LoginOrRegisterFragment.class.getName());
+		Fragment f = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
 		if(f == null) {
-			f = LoginOrRegisterFragment.instantiate(getActivity(), LoginOrRegisterFragment.class.getName());
+			f = WebLoginOrRegisterFragment.instantiate(getActivity(), WebLoginOrRegisterFragment.class.getName());
 		}
-		ft.replace(R.id.account_tabcontent, f, LoginOrRegisterFragment.class.getName());
+		ft.replace(R.id.account_tabcontent, f, WebLoginOrRegisterFragment.class.getName());
 		ft.commit();
 		fm.executePendingTransactions();
 	}

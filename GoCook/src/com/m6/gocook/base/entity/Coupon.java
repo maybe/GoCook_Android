@@ -1,5 +1,9 @@
 package com.m6.gocook.base.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONObject;
 
 import com.m6.gocook.base.entity.Sale.Condition;
@@ -47,6 +51,11 @@ public class Coupon {
 	private int val;
 	/** 对应商品编号 */
 	private String wid;
+	/** 数据项在列表的展开状态 */
+	private boolean expand = false;
+	
+	public Coupon() {
+	}
 	
 	public Coupon(JSONObject value) {
 		parse(value);
@@ -166,6 +175,12 @@ public class Coupon {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
+	public boolean isExpand() {
+		return expand;
+	}
+	public void setExpand(boolean expand) {
+		this.expand = expand;
+	}
 	
 	/**
 	 * json {result, errorcode, time, eff_day, exp_day, coupon_id, coupon_remark, stores, condition, 
@@ -177,25 +192,34 @@ public class Coupon {
 			return;
 		}
 		
-		time = value.optString("time");
-		effDay = value.optString("eff_day");
-		expDay = value.optString("exp_day");
-		couponId = value.optString("coupon_id");
-		couponRemark = value.optString("coupon_remark");
-		stores = value.optString("stores");
-		condition = Condition.value(value.optInt("condition", 0));
-		remark = value.optString("remark");
-		isDelay = value.optInt("is_delay", 0) == 0 ? false : true;
-		supplier = value.optString("supplier");
-		ktype = value.optInt("ktype", 0);
-		status = value.optInt("status", 0);
-		name = value.optString("name");
-		url = value.optString("url");
-		img = value.optString("img");
-		ccTime = value.optString("cctime");
-		cTime = value.optString("ctime");
-		val = value.optInt("val", 0);
-		wid = value.optString("wid");
+		try {
+			SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat dfsSimple = new SimpleDateFormat("yyyy-MM-dd");
+			Date date;
+
+			time = value.optString("time");
+			effDay = value.optString("eff_day");
+			date = dfs.parse(value.optString("exp_day"));
+			expDay = dfsSimple.format(date);
+			couponId = value.optString("coupon_id");
+			couponRemark = value.optString("coupon_remark");
+			stores = value.optString("stores");
+			condition = Condition.value(value.optInt("condition", 0));
+			remark = value.optString("remark");
+			isDelay = value.optInt("is_delay", 0) == 0 ? false : true;
+			supplier = value.optString("supplier");
+			ktype = value.optInt("ktype", 0);
+			status = value.optInt("status", 0);
+			name = value.optString("name");
+			url = value.optString("url");
+			img = value.optString("img");
+			ccTime = value.optString("cctime");
+			date = dfs.parse(value.optString("ctime"));
+			cTime = dfsSimple.format(date);
+			val = value.optInt("val", 0);
+			wid = value.optString("wid");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
-	
 }

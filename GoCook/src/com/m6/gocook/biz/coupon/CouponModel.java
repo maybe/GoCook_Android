@@ -2,6 +2,8 @@ package com.m6.gocook.biz.coupon;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.m6.gocook.base.entity.Coupon;
+import com.m6.gocook.base.entity.CouponDelay;
 import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.entity.Sale.Condition;
 import com.m6.gocook.base.protocol.Protocol;
@@ -36,7 +39,10 @@ public class CouponModel {
 				if (json != null) {
 					int resultCode = json.optInt("result", 1);
 					if (resultCode == Protocol.VALUE_RESULT_OK) {
-						sale.setTime(json.optString("time"));
+						SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						SimpleDateFormat dfsSimple = new SimpleDateFormat("yyyy-MM-dd");
+						sale.setSuccess(true);
+						sale.setTime(dfsSimple.format(dfs.parse(json.optString("time"))));
 						sale.setRemark(json.optString("remark"));
 						sale.setSaleCount(json.optInt("sale_count", 0));
 						sale.setSaleFee(json.optString("sale_fee"));
@@ -44,6 +50,8 @@ public class CouponModel {
 					}
 				}
 			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
@@ -77,5 +85,48 @@ public class CouponModel {
 		}
 		return list;
 	}
-
+	
+	public static List<Coupon> getCoupon(Context context, String couponId) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_COUPON_COUPON, couponId), AccountModel.getCookie(context));
+		List<Coupon> list = new ArrayList<Coupon>();
+		if (!TextUtils.isEmpty(result)) {
+			try {
+				JSONObject json = new JSONObject(result);
+				if (json != null) {
+					int resultCode = json.optInt("result", 1);
+					if (resultCode == Protocol.VALUE_RESULT_OK) {
+						JSONArray array = json.optJSONArray("coupons");
+						if (array != null) {
+							int size = array.length();
+							for (int i = 0; i < size; i++) {
+								list.add(new Coupon(array.optJSONObject(i)));
+							}
+						}
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public static CouponDelay delayCoupon(Context context) {
+		String result = NetUtils.httpGet(String.format(Protocol.URL_COUPON_DELAY_COUPON), AccountModel.getCookie(context));
+		if (!TextUtils.isEmpty(result)) {
+			try {
+				JSONObject json = new JSONObject(result);
+				if (json != null) {
+					int resultCode = json.optInt("result", 1);
+					if (resultCode == Protocol.VALUE_RESULT_OK) {
+						return new CouponDelay(json);
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return new CouponDelay();
+	}
+	
 }

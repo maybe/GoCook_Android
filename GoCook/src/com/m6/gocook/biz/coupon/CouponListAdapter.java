@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.coupon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -81,11 +82,37 @@ public class CouponListAdapter extends BaseAdapter {
 			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 		}
 		
+		if (coupon.isExpand()) {
+			holder.content.setMaxLines(6);
+			holder.expand.setImageResource(R.drawable.coupon_list_fold);
+		} else {
+			holder.content.setMaxLines(2);
+			holder.expand.setImageResource(R.drawable.coupon_list_expand);
+		}
+		
+		holder.expand.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (coupon.isExpand()) {
+					coupon.setExpand(false);
+				} else {
+					coupon.setExpand(true);
+				}
+				notifyDataSetChanged();
+			}
+		});
+		
 		holder.go.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentHelper.startActivity(mContext, BaseWebFragment.newInstance(coupon.getUrl()));
+				if (TextUtils.isEmpty(coupon.getCouponId())) { // 延期优惠券
+					FragmentHelper.startActivity(mContext, new ShakeFragment());
+				} else {
+					FragmentHelper.startActivity(mContext, BaseWebFragment.newInstance(coupon.getUrl(), 
+							mContext.getString(R.string.biz_coupon_details_title)));
+				}
 			}
 		});
 		

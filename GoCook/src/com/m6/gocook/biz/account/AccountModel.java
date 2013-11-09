@@ -94,6 +94,13 @@ public class AccountModel {
 		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params, null);
 	}
 	
+	public static String login(Context context, String data, int rnd) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("data", data));
+		params.add(new BasicNameValuePair("rnd", String.valueOf(rnd)));
+		return NetUtils.httpPost(context, Protocol.URL_LOGIN_EX, params, null);
+	}
+	
 	public static void logout(Context context) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_PHONE, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_EMAIL, "");

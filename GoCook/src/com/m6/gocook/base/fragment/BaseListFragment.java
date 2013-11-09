@@ -155,7 +155,9 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	 * 刷新
 	 */
 	protected void refresh() {
-		
+		showProgress(true);
+		mPage = 1;
+		executeTask(mPage);
 	}
 	
 	/**

@@ -164,6 +164,6 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			mRecipeList.getRecipes().clear();
 			mRecipeList = null;
 		}
-		executeTask(1);
+		super.refresh();
 	}
 }

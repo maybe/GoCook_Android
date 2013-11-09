@@ -22,17 +22,17 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/account_login_selector" />
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/account_login_selector" />
+            android:background="@drawable/account_register_selector" />
     </LinearLayout>
 
 </RelativeLayout>

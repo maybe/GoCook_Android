@@ -28,6 +28,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     //震动
     private Vibrator vibrator;
     
+    private SaleTask mSaleTask;
     
     @Override
     public View onCreateFragmentView(LayoutInflater inflater,
@@ -86,7 +87,10 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 					.abs(values[2]) > 14)) {
 				
 				showProgress(true);
-				new SaleTask(getActivity()).execute((Void) null);
+				if (mSaleTask == null) {
+					mSaleTask = new SaleTask(getActivity());
+					mSaleTask.execute((Void) null);
+				}
 				
 				// 摇动手机后，再伴随震动提示
 				vibrator.vibrate(500);
@@ -114,13 +118,21 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 		
 		@Override
 		protected void onPostExecute(Sale result) {
-			showProgress(false);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
-			Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-					ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-			startActivity(intent);
-			getActivity().finish();
+			mSaleTask = null;
+			if (isAdded()) {
+				showProgress(false);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
+				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+						ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
+				startActivity(intent);
+				getActivity().finish();
+			}
+		}
+		
+		@Override
+		protected void onCancelled() {
+			mSaleTask = null;
 		}
 	}
 	

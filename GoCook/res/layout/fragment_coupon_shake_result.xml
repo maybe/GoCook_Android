@@ -6,64 +6,48 @@
     android:padding="20dp" >
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:textColor="@android:color/black"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/sale_fee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/time"
-        android:layout_below="@id/time"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/black"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/sale_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/time"
-        android:layout_below="@id/sale_fee"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/black"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/remark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/time"
-        android:layout_below="@id/sale_count"
-        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:lineSpacingExtra="5dp"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/positive"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/btn_selector"
         android:padding="10dp"
-        android:text="@string/cancel"
-        android:textColor="@android:color/white" />
+        android:text="@string/positive"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/positive"
+        android:id="@+id/delay"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/cancel"
+        android:layout_above="@id/positive"
         android:background="@drawable/btn_selector"
         android:padding="10dp"
-        android:text="@string/positive"
-        android:textColor="@android:color/white" />
+        android:text="@string/biz_coupon_shake_result_delay"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/positive"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dp"
+        android:listSelector="@android:color/transparent"
+        android:visibility="gone" />
 
 </RelativeLayout>
