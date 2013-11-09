@@ -12,3 +12,5 @@ GoCook Android Client
 /*******  BaseActivity *******/
 使用Fragment时不需要创建新的Activity，只要使用BaseActivity作为载体即可。
 启动Fragment的方法仍为startActivity(intent)，参数intent使用FragmentHelper的getIntent()方法创建。
+
+/***************************/
