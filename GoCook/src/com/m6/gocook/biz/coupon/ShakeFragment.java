@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,28 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     private Vibrator vibrator;
     
     private SaleTask mSaleTask;
+    
+    private static final String PARAM_COUPON_ID = "param_coupon_id";
+    
+    private String mCouponId;
+    
+    public static ShakeFragment newInstance(String couponId) {
+    	ShakeFragment fragment = new ShakeFragment();
+    	Bundle bundle = new Bundle();
+    	bundle.putString(PARAM_COUPON_ID, couponId);
+    	fragment.setArguments(bundle);
+    	return fragment;
+    }
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+    	
+    	Bundle bundle = getArguments();
+    	if (bundle != null) {
+    		mCouponId = bundle.getString(PARAM_COUPON_ID);
+    	}
+    }
     
     @Override
     public View onCreateFragmentView(LayoutInflater inflater,
@@ -86,10 +109,14 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 			if ((Math.abs(values[0]) > 14 || Math.abs(values[1]) > 14 || Math
 					.abs(values[2]) > 14)) {
 				
-				showProgress(true);
-				if (mSaleTask == null) {
-					mSaleTask = new SaleTask(getActivity());
-					mSaleTask.execute((Void) null);
+				if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
+					FragmentHelper.startActivity(getActivity(), new ShakeResultFragment());
+				} else { // 摇出销售额
+					showProgress(true);
+					if (mSaleTask == null) {
+						mSaleTask = new SaleTask(getActivity());
+						mSaleTask.execute((Void) null);
+					}
 				}
 				
 				// 摇动手机后，再伴随震动提示

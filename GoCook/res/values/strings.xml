@@ -43,6 +43,7 @@
     <string name="biz_account_avatar_camera">通过拍照上传</string>
     <string name="biz_account_avatar_photo">从本地图库选择</string>
     <string name="biz_account_login_failure">登录失败，请重试</string>
+    <string name="biz_account_login_progress">正在登录，请稍候...</string>
     
     <string name="biz_account_register_errorcode_phone_repeat">电话号码重复</string>
     <string name="biz_account_register_errorcode_nickname_repeat">昵称重复</string>
@@ -258,6 +259,7 @@
     <string name="biz_coupon_shake_result_get_coupon_failed_tip">获取优惠券失败~</string>
     <string name="biz_coupon_shake_result_progress">正在获取优惠券，请稍后...</string>
     <string name="biz_coupon_shake_result_delay_coupon_failed_tip">延期优惠券失败~</string>
+    <string name="biz_coupon_shake_result_delay_coupon_already_tip">已经延期过</string>
     <string name="biz_coupon_shake_result_delay_progress">延期获取优惠券，请稍后...</string>
     <string name="biz_coupon_shake_result_delay_mismatch">抱歉，您不符合延期抽取条件。\n%s。</string>
     <string name="biz_coupon_shake_result_delay_match">您有一次延迟抽取优惠券的机会，有效期至%s。</string>

@@ -13,6 +13,9 @@ public class Coupon {
 	public static final int STATUS_INVALID = 0;
 	public static final int STATUS_VALID = 1;
 	
+	public static final int KTYPE_COUPON = 0;
+	public static final int KTYPE_AD = 1;
+	
 	/** ”yyyy-MM-dd HH:mm:ss”格式的服务器时间 */
 	private String time;
 	/** ”yyyy-MM-dd HH:mm:ss”格式的优惠券生效时间,如果是 延期获取记录,则为延期有效时间 */

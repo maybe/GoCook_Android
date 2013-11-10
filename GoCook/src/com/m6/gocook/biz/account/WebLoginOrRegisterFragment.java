@@ -47,8 +47,8 @@ public class WebLoginOrRegisterFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				FragmentHelper.startActivity(getActivity(), 
-						BaseWebFragment.newInstance(String.format(Protocol.URL_LOGIN_WEB, mLoginRND), 
-								 getString(R.string.biz_account_tab_login)));
+						WebLoginFragment.newInstance(String.format(Protocol.URL_LOGIN_WEB, mLoginRND), 
+								getString(R.string.biz_account_tab_login)));
 			}
 		});
 		

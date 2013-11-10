@@ -10,6 +10,10 @@ import com.m6.gocook.base.entity.Sale.Condition;
 
 public class CouponDelay {
 	
+	public static final int DELAY_RESULT_SUCCESS = 0;
+	public static final int DELAY_RESULT_FAILED = 1;
+	public static final int DELAY_RESULT_ALREADY = 2;
+	
 	/** ”yyyy-MM-dd HH:mm:ss”格式的服务器时间 */
 	private String time;
 	/** ”yyyy-MM-dd HH:mm:ss”格式的优惠券生效时间,如果是 延期获取记录,则为延期有效时间 */
@@ -22,15 +26,9 @@ public class CouponDelay {
 	private Condition condition;
 	/** 是否符合条件说明 */
 	private String remark;
-	/** 返回的网络数据是否正确 */
-	private boolean success = false;
+	/** 延期的结果 0: 延期成功 1: 延期未成功 2: 已经延期过 (1后台暂时未做判断，0和2需要处理) */
+	private int delayRst;
 	
-	public boolean isSuccess() {
-		return success;
-	}
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
 	public String getTime() {
 		return time;
 	}
@@ -67,6 +65,12 @@ public class CouponDelay {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	public int getDelayRst() {
+		return delayRst;
+	}
+	public void setDelayRst(int delayRst) {
+		this.delayRst = delayRst;
+	}
 	
 	public CouponDelay() {
 	}
@@ -96,7 +100,7 @@ public class CouponDelay {
 			couponId = value.optString("id");
 			condition = Condition.value(value.optInt("condition", 0));
 			remark = value.optString("remark");
-			success = true;
+			delayRst = value.optInt("delay_rst", 1);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

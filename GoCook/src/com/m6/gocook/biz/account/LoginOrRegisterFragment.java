@@ -35,11 +35,11 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		
 		Fragment f, ff = null;
 		
-		f = fm.findFragmentByTag(LoginFragment.class.getName());
+		f = fm.findFragmentByTag(WebLoginFragment.class.getName());
 		if(f == null) {
 			FragmentTransaction ft = fm.beginTransaction();
-			f = LoginFragment.instantiate(getActivity(), LoginFragment.class.getName());
-			ft.add(R.id.loginorregister_tabcontent, f, LoginFragment.class.getName());
+			f = WebLoginFragment.instantiate(getActivity(), WebLoginFragment.class.getName());
+			ft.add(R.id.loginorregister_tabcontent, f, WebLoginFragment.class.getName());
 			ft.show(f);
 			ft.commit();
 		}
@@ -69,10 +69,10 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 		
 		switch (v.getId()) {
 		case R.id.login:
-			f = fm.findFragmentByTag(LoginFragment.class.getName());
+			f = fm.findFragmentByTag(WebLoginFragment.class.getName());
 			if(f == null) {
-				f = LoginFragment.instantiate(getActivity(), LoginFragment.class.getName());
-				ft.add(R.id.loginorregister_tabcontent, f, LoginFragment.class.getName());
+				f = WebLoginFragment.instantiate(getActivity(), WebLoginFragment.class.getName());
+				ft.add(R.id.loginorregister_tabcontent, f, WebLoginFragment.class.getName());
 			}
 			ft.commit();
 			
@@ -92,7 +92,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 			ft.commit();
 			
 			ft = fm.beginTransaction();
-			ff = fm.findFragmentByTag(LoginFragment.class.getName());
+			ff = fm.findFragmentByTag(WebLoginFragment.class.getName());
 			ft.show(f);
 			ft.hide(ff);
 			ft.commit();

@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +25,7 @@ import com.m6.gocook.base.view.ActionBar;
 public class ShakeResultFragment extends BaseFragment {
 
 	public static final String PARAM_SALE = "param_sale";
+	private static final String PARAM_COUPON_ID = "param_coupon_id";
 	
 	private Sale mSale;
 	
@@ -32,12 +34,23 @@ public class ShakeResultFragment extends BaseFragment {
 	
 	private ProgressDialog mProgressDialog;
 	
+	private String mCouponId;
+	
+	public static ShakeResultFragment newInstance(String couponId) {
+		ShakeResultFragment fragment = new ShakeResultFragment();
+    	Bundle bundle = new Bundle();
+    	bundle.putString(PARAM_COUPON_ID, couponId);
+    	fragment.setArguments(bundle);
+    	return fragment;
+    }
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
 			mSale = (Sale) bundle.getSerializable(PARAM_SALE);
+			mCouponId = bundle.getString(PARAM_COUPON_ID);
 		}
 	}
 	
@@ -55,7 +68,17 @@ public class ShakeResultFragment extends BaseFragment {
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(R.string.biz_coupon_shake_title);
 		
-		bindData(mSale);
+		if (mSale != null) { // 摇一摇得到销售金额，绑定数据
+			bindData(mSale);
+		} else if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
+			if (mCouponTask == null) {
+				mCouponTask = new GetCouponTask(getActivity(), mCouponId);
+				mCouponTask.execute((Void) null);
+				
+				mProgressDialog.setMessage(getString(R.string.biz_coupon_shake_result_progress));
+				mProgressDialog.show();
+			}
+		}
 	}
 	
 	private void bindData(final Sale sale) {
@@ -188,7 +211,7 @@ public class ShakeResultFragment extends BaseFragment {
 		protected void onPostExecute(CouponDelay result) {
 			mDelayCouponTask = null;
 			if (isAdded()) {
-				if (result.isSuccess()) {
+				if (result.getDelayRst() == CouponDelay.DELAY_RESULT_SUCCESS) {
 					TextView message = (TextView) getView().findViewById(R.id.message);
 					if (result.getCondition() == Condition.Match) {
 						message.setText(getString(R.string.biz_coupon_shake_result_delay_match, result.getExpDay()));
@@ -203,6 +226,8 @@ public class ShakeResultFragment extends BaseFragment {
 							getActivity().finish();
 						}
 					});
+				} else if (result.getDelayRst() == CouponDelay.DELAY_RESULT_ALREADY) {
+					showFailureMessage(R.string.biz_coupon_shake_result_delay_coupon_already_tip);
 				} else {
 					showFailureMessage(R.string.biz_coupon_shake_result_delay_coupon_failed_tip);
 				}

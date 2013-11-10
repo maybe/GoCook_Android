@@ -10,4 +10,8 @@
         <ignore path="src/com/m6/gocook/biz/recipe/recipe/RecipeEditFragment.java" />
         <ignore path="src/com/m6/gocook/biz/search/SearchFragment.java" />
     </issue>
+    <issue id="SetJavaScriptEnabled">
+        <ignore path="src\com\m6\gocook\base\fragment\BaseWebFragment.java" />
+        <ignore path="src\com\m6\gocook\biz\account\WebLoginFragment.java" />
+    </issue>
 </lint>

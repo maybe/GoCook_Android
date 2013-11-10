@@ -34,6 +34,7 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
+import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.profile.ProfileFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
@@ -331,7 +332,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 							}
 							
 						} else {
-							LoginFragment.JumpToLoginFragment(mContext);
+							WebLoginFragment.JumpToLoginFragment(mContext);
 						}
 						
 					}

@@ -64,22 +64,29 @@ public class CouponListAdapter extends BaseAdapter {
 		
 		final Coupon coupon = mData.get(position);
 		
-		if (coupon.getStatus() == Coupon.STATUS_VALID) { // 过期优惠券
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-					coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-					coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
-			
-			holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_invalid));
-		} else if (TextUtils.isEmpty(coupon.getCouponId())) { // 延期获取
+		final boolean isInvalid = coupon.getStatus() == Coupon.STATUS_INVALID;
+		final boolean isDelay = coupon.isDelay();
+		final boolean isCoupon = coupon.getKtype() == Coupon.KTYPE_COUPON;
+		final boolean isAd = coupon.getKtype() == Coupon.KTYPE_AD;
+		
+		if (!isDelay && isCoupon) { // 优惠券，包括过期和未过期的优惠券
+			if (isInvalid) { // 过期
+				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
+						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
+						coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
+				
+				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
+				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_invalid));
+			} else { // 未过期
+				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
+						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
+						coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
+				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
+				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
+			}
+		} else { // 延期记录
 			holder.go.setBackgroundResource(R.drawable.coupon_list_shake_selector);
 			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_delay));
-		} else { // 优惠券
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-					coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-					coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
-			holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 		}
 		
 		if (coupon.isExpand()) {
@@ -107,8 +114,8 @@ public class CouponListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				if (TextUtils.isEmpty(coupon.getCouponId())) { // 延期优惠券
-					FragmentHelper.startActivity(mContext, new ShakeFragment());
+				if (isDelay) { // 延期优惠券
+					FragmentHelper.startActivity(mContext, ShakeFragment.newInstance(coupon.getCouponId()));
 				} else {
 					FragmentHelper.startActivity(mContext, BaseWebFragment.newInstance(coupon.getUrl(), 
 							mContext.getString(R.string.biz_coupon_details_title)));

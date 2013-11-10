@@ -37,6 +37,7 @@ import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
+import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
@@ -188,7 +189,7 @@ public class ProfileFragment extends BaseFragment {
 							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
 						}
 					} else {
-						LoginFragment.JumpToLoginFragment(getActivity());
+						WebLoginFragment.JumpToLoginFragment(getActivity());
 					}
 				}
 			}
