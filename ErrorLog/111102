@@ -1,0 +1,36 @@
+11-11 21:34:51.501: E/BitmapFactory(777): Unable to decode stream: java.io.FileNotFoundException: /data/data/com.google.android.inputmethod.pinyin/files/snapshot_en_qwerty_port_.png: open failed: ENOENT (No such file or directory)
+11-11 21:34:51.501: E/BitmapFactory(777): Unable to decode stream: java.io.FileNotFoundException: /data/data/com.google.android.inputmethod.pinyin/files/snapshot_en_9key_port_.png: open failed: ENOENT (No such file or directory)
+11-11 21:35:01.792: E/BitmapFactory(777): Unable to decode stream: java.io.FileNotFoundException: /data/data/com.google.android.inputmethod.pinyin/files/snapshot_en_qwerty_port_.png: open failed: ENOENT (No such file or directory)
+11-11 21:35:01.802: E/BitmapFactory(777): Unable to decode stream: java.io.FileNotFoundException: /data/data/com.google.android.inputmethod.pinyin/files/snapshot_en_9key_port_.png: open failed: ENOENT (No such file or directory)
+11-11 21:35:22.885: E/ACDB-LOADER(174): Error: ACDB AudProc vol returned = -8
+11-11 21:35:28.010: E/ACDB-LOADER(174): Error: ACDB AudProc vol returned = -8
+11-11 21:35:30.172: E/ACDB-LOADER(174): Error: ACDB AudProc vol returned = -8
+11-11 21:35:30.413: E/ACDB-LOADER(174): Error: ACDB AudProc vol returned = -8
+11-11 21:35:31.684: E/AndroidRuntime(30847): FATAL EXCEPTION: main
+11-11 21:35:31.684: E/AndroidRuntime(30847): java.lang.NullPointerException
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.Spinner$DialogPopup.dismiss(Spinner.java:907)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.Spinner$DialogPopup.onClick(Spinner.java:945)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at com.android.internal.app.AlertController$AlertParams$3.onItemClick(AlertController.java:941)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.AdapterView.performItemClick(AdapterView.java:298)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.AbsListView.performItemClick(AbsListView.java:1100)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:2788)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.AbsListView$1.run(AbsListView.java:3463)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.widget.AbsListView.onDetachedFromWindow(AbsListView.java:2670)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.View.dispatchDetachedFromWindow(View.java:12160)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2567)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2565)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2565)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2565)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2565)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:2565)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewRootImpl.dispatchDetachedFromWindow(ViewRootImpl.java:2820)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewRootImpl.doDie(ViewRootImpl.java:5162)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.view.ViewRootImpl$ViewRootHandler.handleMessage(ViewRootImpl.java:3148)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.os.Looper.loop(Looper.java:137)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-11 21:35:31.684: E/AndroidRuntime(30847): 	at dalvik.system.NativeStart.main(Native Method)
