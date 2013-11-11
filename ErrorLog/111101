@@ -1,0 +1,27 @@
+11-11 21:27:48.430: E/AndroidRuntime(22833): FATAL EXCEPTION: main
+11-11 21:27:48.430: E/AndroidRuntime(22833): java.lang.RuntimeException: Unable to start activity ComponentInfo{com.m6.gocook/com.m6.gocook.base.activity.BaseActivity}: java.lang.NullPointerException
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2211)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2261)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread.access$600(ActivityThread.java:141)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1256)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.os.Looper.loop(Looper.java:137)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at dalvik.system.NativeStart.main(Native Method)
+11-11 21:27:48.430: E/AndroidRuntime(22833): Caused by: java.lang.NullPointerException
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at com.m6.gocook.biz.order.OrderDetailsFragment.onCreate(OrderDetailsFragment.java:35)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.Fragment.performCreate(Fragment.java:1437)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:877)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.FragmentManagerImpl.moveToState(FragmentManager.java:1088)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.BackStackRecord.run(BackStackRecord.java:682)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.FragmentManagerImpl.execPendingActions(FragmentManager.java:1444)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.support.v4.app.FragmentActivity.onStart(FragmentActivity.java:551)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1171)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.Activity.performStart(Activity.java:5143)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2184)
+11-11 21:27:48.430: E/AndroidRuntime(22833): 	... 11 more
+11-11 21:27:56.678: E/InputDispatcher(526): channel '42953200 com.m6.gocook/com.m6.gocook.base.activity.BaseActivity (server)' ~ Channel is unrecoverably broken and will be disposed!
