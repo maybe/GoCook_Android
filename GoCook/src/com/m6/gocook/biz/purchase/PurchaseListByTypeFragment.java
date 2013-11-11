@@ -23,8 +23,6 @@ public class PurchaseListByTypeFragment extends Fragment {
 	
 	private Context mContext;
 	private Cursor mMainMaterialCursor;
-//	private Cursor mNMainMaterialCursor;
-
 	private TextView mMainMaterialTitleTextView;
 	
 	@Override
@@ -39,10 +37,8 @@ public class PurchaseListByTypeFragment extends Fragment {
 		updateRecipeCount();
 		
 		mMainMaterialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursorByType(mContext, true);
-//		mNMainMaterialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursorByType(mContext, false);
 		
 		ListView mainMaterialListView = (ListView) view.findViewById(R.id.purchase_main_material_listview);
-//		ListView nmainMaterialListView = (ListView) view.findViewById(R.id.purchase_nmain_material_listview);
 		
 		String[] from = {RecipeMaterialPurchaseList.MATERIAL_NAME,
 				RecipeMaterialPurchaseList.MATERIAL_REMARK};
@@ -54,17 +50,6 @@ public class PurchaseListByTypeFragment extends Fragment {
 				mMainMaterialCursor, from, to,
 				CursorAdapter.FLAG_AUTO_REQUERY));
 		
-//		nmainMaterialListView.setAdapter(new PurchaseMaterialListAdapter(mContext,
-//				R.layout.adapter_purchase_recipe_material_list_item,
-//				mNMainMaterialCursor, from, to,
-//				CursorAdapter.FLAG_AUTO_REQUERY));
-		
-//		TextView nMainMaterialTitleTextView = ((TextView)view.findViewById(R.id.nmain_material_title));
-//		nMainMaterialTitleTextView.setText(
-//				String.format(mContext.getResources().getString(R.string.biz_recipe_purchase_nmain_material),
-//						String.valueOf(recipePurchasedCount)));
-//		nMainMaterialTitleTextView.setTypeface(Typeface.MONOSPACE,Typeface.ITALIC);
-		
 		view.findViewById(R.id.buy).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -75,7 +60,6 @@ public class PurchaseListByTypeFragment extends Fragment {
 			}
 		});
 		return view;
-
 	}
 	
 	private void updateRecipeCount() {
@@ -89,7 +73,6 @@ public class PurchaseListByTypeFragment extends Fragment {
 	@Override
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
-
 		updateRecipeCount();
 	}
 	
@@ -101,16 +84,11 @@ public class PurchaseListByTypeFragment extends Fragment {
 	
 	@Override
 	public void onDestroy() {
-		
 		super.onDestroy();
 		
 		if(mMainMaterialCursor != null) {
 			mMainMaterialCursor.close();
 		}
-		
-//		if(mNMainMaterialCursor != null) {
-//			mNMainMaterialCursor.close();
-//		}
 	}
 
 }

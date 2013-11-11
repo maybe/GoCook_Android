@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.account;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -72,8 +73,10 @@ public class WebLoginFragment extends BaseWebFragment {
 		}
 		
 		Random random = new Random();
-		mRnd = random.nextInt();
-		mUrl = String.format(Protocol.URL_LOGIN_WEB, mRnd);
+		mRnd = Math.abs(random.nextInt());
+		mUrl = String.format(Protocol.URL_LOGIN_WEB, String.valueOf(mRnd));
+		System.out.println("xxxxxxxxxxxx oncr : " + mRnd);
+		System.out.println("xxxxxxxxxxxx url : " + mUrl);
 	}
 	
 	@Override
@@ -116,7 +119,7 @@ public class WebLoginFragment extends BaseWebFragment {
 							mProgressDialog.setCanceledOnTouchOutside(false);
 							mProgressDialog.show();
 						}
-						mLoginTask = new LoginTask(getActivity(), url, mRnd);
+						mLoginTask = new LoginTask(getActivity(), url, String.valueOf(mRnd));
 						mLoginTask.execute((Void) null);
 					}
 					return true;
@@ -130,10 +133,10 @@ public class WebLoginFragment extends BaseWebFragment {
 	private class LoginTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
 		private Context mContext;
-		private int mRnd;
+		private String mRnd;
 		private String mUrl;
 		
-		public LoginTask(Context context, String url, int rnd) {
+		public LoginTask(Context context, String url, String rnd) {
 			mContext = context.getApplicationContext();
 			mRnd = rnd;
 			mUrl = url;
@@ -147,11 +150,9 @@ public class WebLoginFragment extends BaseWebFragment {
 				String data = null;
 				if (elements != null && elements.size() > 0) {
 					data = elements.get(0).val();
-					
-					System.out.println("xxxxxxxxxxxxx : " + elements.get(0).val());
-					System.out.println("xxxxxxxxxxxxx : " + elements.get(0).data());
 				}
 				String result = AccountModel.login(mContext, data, mRnd);
+				System.out.println("xxxxxxxxxxx doin : " + mRnd);
 				if (!TextUtils.isEmpty(result)) {
 					try {
 						JSONObject json = new JSONObject(result);

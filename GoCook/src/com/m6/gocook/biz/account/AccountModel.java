@@ -87,17 +87,17 @@ public class AccountModel {
 		}
 	}
 	
-	public static String login(Context context, String phone, String password) {
-		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("login", phone));
-		params.add(new BasicNameValuePair("password", SecurityUtils.encryptMode(password)));
-		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params, null);
-	}
+//	public static String login(Context context, String phone, String password) {
+//		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+//		params.add(new BasicNameValuePair("login", phone));
+//		params.add(new BasicNameValuePair("password", SecurityUtils.encryptMode(password)));
+//		return NetUtils.httpPost(context, Protocol.URL_LOGIN, params, null);
+//	}
 	
-	public static String login(Context context, String data, int rnd) {
+	public static String login(Context context, String data, String rnd) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("data", data));
-		params.add(new BasicNameValuePair("rnd", String.valueOf(rnd)));
+		params.add(new BasicNameValuePair("rnd", rnd));
 		return NetUtils.httpPost(context, Protocol.URL_LOGIN_EX, params, null);
 	}
 	

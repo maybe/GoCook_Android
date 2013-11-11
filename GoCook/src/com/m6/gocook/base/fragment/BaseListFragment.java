@@ -2,6 +2,7 @@ package com.m6.gocook.base.fragment;
 
 import com.m6.gocook.R;
 
+import android.R.integer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -148,7 +149,10 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	 * @return
 	 */
 	protected boolean haveNext() {
-		return true;
+		if (mAdapter != null && mAdapter.getCount() >= COUNT_PER_PAGE) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

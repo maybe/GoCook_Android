@@ -7,13 +7,13 @@ public class Protocol {
 	/* Account */
 	public static final String URL_ROOT = "http://verypanda.com";
 	
-	public static final String URL_LOGIN =  URL_ROOT + "/user/login";
+	public static final String URL_LOGIN = URL_ROOT + "/user/login";
 	
 	public static final String URL_REGISTER = URL_ROOT + "/user/register";
 	
-	public static final String URL_LOGIN_EX =  URL_ROOT + "/cook/login_ex";
+	public static final String URL_LOGIN_EX = URL_ROOT + "/user/login_ex";
 	
-	public static final String URL_LOGIN_WEB =  "http://o.m6fresh.com/ws/mobile_reg.aspx?sid=%d";
+	public static final String URL_LOGIN_WEB = "http://o.m6fresh.com/ws/mobile_reg.aspx?sid=%s";
 	
 	/* Recipe URL  */
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
