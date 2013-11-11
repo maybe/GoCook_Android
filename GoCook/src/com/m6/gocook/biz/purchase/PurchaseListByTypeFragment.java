@@ -1,25 +1,23 @@
 package com.m6.gocook.biz.purchase;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.biz.buy.BuyListFragment;
-
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.buy.BuyListFragment;
 
 public class PurchaseListByTypeFragment extends Fragment {
 	

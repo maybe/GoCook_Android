@@ -32,7 +32,9 @@ public class OrderDetailsFragment extends BaseFragment {
 		if (args != null) {
 			mData = (COrderItem) args.getSerializable(PARAM_DATA);
 		}
-		mAdapter = new OrderDetailsAdapter(getActivity(), mImageFetcher, mData.getOrderWares());
+		if (mData != null) {
+			mAdapter = new OrderDetailsAdapter(getActivity(), mImageFetcher, mData.getOrderWares());
+		}
 	}
 	
 	@Override
