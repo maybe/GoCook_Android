@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.account;
 
-import java.util.Random;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +8,10 @@ import android.view.ViewGroup;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.fragment.BaseWebFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.protocol.Protocol;
 
 public class WebLoginOrRegisterFragment extends BaseFragment {
 	
-	private int mLoginRND;
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		Random random = new Random();
-		mLoginRND = random.nextInt();
-	}
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -46,9 +33,7 @@ public class WebLoginOrRegisterFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentHelper.startActivity(getActivity(), 
-						WebLoginFragment.newInstance(String.format(Protocol.URL_LOGIN_WEB, mLoginRND), 
-								getString(R.string.biz_account_tab_login)));
+				FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 			}
 		});
 		

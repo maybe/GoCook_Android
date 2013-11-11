@@ -3,6 +3,7 @@ package com.m6.gocook.biz.account;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,10 +42,8 @@ public class WebLoginFragment extends BaseWebFragment {
 	public static final String PARAM_JUMP_LOGIN = "param_jump_login";
 	private boolean mJumpLogin = false;
 	
-	private static final String PARAM_URL = "param_url";
-	private static final String PARAM_TITLE = "param_title";
-	
 	private String mUrl;
+	private int mRnd;
 	
 	/**
 	 * 跳转到登录页面
@@ -61,15 +60,6 @@ public class WebLoginFragment extends BaseWebFragment {
 		context.startActivity(intent);
 	}
 	
-	public static WebLoginFragment newInstance(String url, String title) {
-		WebLoginFragment fragment = new WebLoginFragment();
-		Bundle bundle = new Bundle();
-		bundle.putString(PARAM_URL, url);
-		bundle.putString(PARAM_TITLE, title);
-		fragment.setArguments(bundle);
-		return fragment;
-	}
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,9 +68,12 @@ public class WebLoginFragment extends BaseWebFragment {
 		
 		Bundle bundle = getArguments();
 		if (bundle != null) {
-			mUrl = bundle.getString(PARAM_URL);
 			mJumpLogin = bundle.getBoolean(PARAM_JUMP_LOGIN, false);
 		}
+		
+		Random random = new Random();
+		mRnd = random.nextInt();
+		mUrl = String.format(Protocol.URL_LOGIN_WEB, mRnd);
 	}
 	
 	@Override
@@ -93,9 +86,8 @@ public class WebLoginFragment extends BaseWebFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		Bundle bundle = getArguments();
 		ActionBar actionBar = getActionBar();
-		actionBar.setTitle(bundle != null ? bundle.getString(PARAM_TITLE) : "");
+		actionBar.setTitle(getString(R.string.biz_account_tab_login));
 		
 		WebView webView = (WebView) getView().findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
@@ -121,9 +113,10 @@ public class WebLoginFragment extends BaseWebFragment {
 					if (mLoginTask == null) {
 						if (mProgressDialog != null) {
 							mProgressDialog.setMessage(getString(R.string.biz_account_login_progress));
+							mProgressDialog.setCanceledOnTouchOutside(false);
 							mProgressDialog.show();
 						}
-						mLoginTask = new LoginTask(getActivity(), url, 12);
+						mLoginTask = new LoginTask(getActivity(), url, mRnd);
 						mLoginTask.execute((Void) null);
 					}
 					return true;
@@ -153,8 +146,10 @@ public class WebLoginFragment extends BaseWebFragment {
 				Elements elements = doc.select("input[name=tb_data]");
 				String data = null;
 				if (elements != null && elements.size() > 0) {
-					data = elements.get(0).text();
+					data = elements.get(0).val();
 					
+					System.out.println("xxxxxxxxxxxxx : " + elements.get(0).val());
+					System.out.println("xxxxxxxxxxxxx : " + elements.get(0).data());
 				}
 				String result = AccountModel.login(mContext, data, mRnd);
 				if (!TextUtils.isEmpty(result)) {
@@ -186,21 +181,23 @@ public class WebLoginFragment extends BaseWebFragment {
 		@Override
 		protected void onPostExecute(Map<String, Object> result) {
 			mLoginTask = null;
-			if (isAdded() && result != null && !result.isEmpty()) {
+			if (isAdded()) {
 				if (mProgressDialog != null) {
 					mProgressDialog.dismiss();
 				}
 				
-				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
-				String userName = (String) result.get(AccountModel.RETURN_USERNAME);
-				Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
-				if(mJumpLogin) {
-					getActivity().getSupportFragmentManager().popBackStackImmediate();
+				if (result != null && !result.isEmpty()) {
+					String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
+					String userName = (String) result.get(AccountModel.RETURN_USERNAME);
+					Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+					if(mJumpLogin) {
+						getActivity().getSupportFragmentManager().popBackStackImmediate();
+					} else {
+						AccountModel.onLogin("", null, avatarUrl, userName);
+					}
 				} else {
-					AccountModel.onLogin("", null, avatarUrl, userName);
+					Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 				}
-			} else {
-				Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 			}
 		}
 		

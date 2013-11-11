@@ -354,8 +354,10 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 
 			@Override
 			public void onClick(View v) {
-				mRefreshComments = true;
-				RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
+				if (isAdded()) {
+					mRefreshComments = true;
+					RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
+				}
 			}
 		});
 	}
