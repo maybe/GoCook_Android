@@ -41,7 +41,7 @@ public class WebLoginOrRegisterFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				
+				FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 			}
 		});
 	}

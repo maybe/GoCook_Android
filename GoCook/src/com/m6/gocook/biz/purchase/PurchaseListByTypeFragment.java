@@ -6,6 +6,7 @@ import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.biz.buy.BuyListFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -26,6 +27,8 @@ public class PurchaseListByTypeFragment extends Fragment {
 	private Cursor mMainMaterialCursor;
 //	private Cursor mNMainMaterialCursor;
 
+	private TextView mMainMaterialTitleTextView;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class PurchaseListByTypeFragment extends Fragment {
 		mContext = this.getActivity();
 
 		View view = inflater.inflate(R.layout.fragment_purchase_list_by_type, container, false);
+		
+		mMainMaterialTitleTextView = ((TextView) view.findViewById(R.id.main_material_title));
+		updateRecipeCount();
 		
 		mMainMaterialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursorByType(mContext, true);
 //		mNMainMaterialCursor = PurchaseListModel.getRecipeMaterialPurchaseListCursorByType(mContext, false);
@@ -55,14 +61,6 @@ public class PurchaseListByTypeFragment extends Fragment {
 //				mNMainMaterialCursor, from, to,
 //				CursorAdapter.FLAG_AUTO_REQUERY));
 		
-		int recipePurchasedCount = PurchaseListModel.getRecipePurchaseCount(mContext);
-		
-		TextView mainMaterialTitleTextView = ((TextView)view.findViewById(R.id.main_material_title));
-		mainMaterialTitleTextView.setText(
-		String.format(mContext.getResources().getString(R.string.biz_recipe_purchase_material),
-				String.valueOf(recipePurchasedCount)));
-		mainMaterialTitleTextView.setTypeface(Typeface.MONOSPACE,Typeface.ITALIC);
-		
 //		TextView nMainMaterialTitleTextView = ((TextView)view.findViewById(R.id.nmain_material_title));
 //		nMainMaterialTitleTextView.setText(
 //				String.format(mContext.getResources().getString(R.string.biz_recipe_purchase_nmain_material),
@@ -82,12 +80,26 @@ public class PurchaseListByTypeFragment extends Fragment {
 
 	}
 	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		
-		super.onActivityCreated(savedInstanceState);
+	private void updateRecipeCount() {
+		int recipePurchasedCount = PurchaseListModel.getRecipePurchaseCount(mContext);
+		mMainMaterialTitleTextView.setText(
+		String.format(mContext.getResources().getString(R.string.biz_recipe_purchase_material),
+				String.valueOf(recipePurchasedCount)));
+		mMainMaterialTitleTextView.setTypeface(Typeface.MONOSPACE,Typeface.ITALIC);
 	}
 	
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+
+		updateRecipeCount();
+	}
+	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mMainMaterialTitleTextView = null;
+	}
 	
 	@Override
 	public void onDestroy() {

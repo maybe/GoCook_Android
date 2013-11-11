@@ -1,8 +1,6 @@
 package com.m6.gocook.biz.buy;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +21,10 @@ import com.m6.gocook.base.entity.request.CShopcartInfo;
 import com.m6.gocook.base.entity.request.CShopcartInfo.CShopcartWareInfo;
 import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
-import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
@@ -40,6 +36,8 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 	private BuyListAdapter mAdapter;
 	private String mRecipeId;
 	private List<Map<String, Object>> mData;
+	
+	private int mOrderedCount = 0;
 	
 	private OrderTask mTask;
 	
@@ -74,7 +72,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);
 	}
 	
-	private void saveData(String recordId, CWareItem wareItem) {
+	private void saveOrder(String recordId, CWareItem wareItem) {
 		if (mData == null || mData.isEmpty()) {
 			return;
 		}
@@ -92,6 +90,8 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 				map.put(BuyModel.METHOD, wareItem.getDealMethod().get(0));
 				map.put(BuyModel.REMARK, wareItem.getRemark());
 				map.put(BuyModel.WAREID, wareItem.getId());
+				
+				mOrderedCount++;
 			}
 		}
 		
@@ -110,12 +110,18 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 	
 	@Override
 	public void onActionBarRightButtonClick(View v) {
-		if (mTask == null) {
-			showProgress(true);
-			setProgressMessage(R.string.biz_buy_list_progress_message);
-			
-			mTask = new OrderTask(getActivity(), mData);
-			mTask.execute((Void) null); 
+		if (mOrderedCount > 0) {
+			if (mTask == null) {
+				showProgress(true);
+				setProgressMessage(R.string.biz_buy_list_progress_message);
+				
+				mTask = new OrderTask(getActivity(), mData);
+				mTask.execute((Void) null); 
+			}
+		} else {
+			if (isAdded()) {
+				Toast.makeText(getActivity(), R.string.biz_buy_list_no_order, Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 
@@ -128,7 +134,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 				if (bundle != null) {
 					String recordId = data.getStringExtra(BuySearchFragment.PARAM_RECORD_ID);
 					CWareItem wareItem = (CWareItem) bundle.getSerializable(BuyDetailsFragment.PARAM_RESULT_DATA);
-					saveData(recordId, wareItem);
+					saveOrder(recordId, wareItem);
 				}
 				
 			}

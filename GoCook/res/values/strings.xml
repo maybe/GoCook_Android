@@ -198,6 +198,7 @@
     <string name="biz_buy_list_adapter_status">尚未选购商品</string>
     <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
+    <string name="biz_buy_list_no_order">您还没有选购商品，请前往M6生鲜超市去选购~</string>
     
     <string name="biz_buy_search_fragment_title">搜索：%s</string>
     <string name="biz_buy_search_adapter_norm">规格：%s</string>
