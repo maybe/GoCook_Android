@@ -22,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -33,6 +35,8 @@ import com.m6.gocook.base.fragment.BaseWebFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.util.net.NetUtils;
+import com.m6.gocook.util.util.SecurityUtils;
 
 public class WebLoginFragment extends BaseWebFragment {
 
@@ -45,6 +49,8 @@ public class WebLoginFragment extends BaseWebFragment {
 	
 	private String mUrl;
 	private int mRnd;
+	
+	private CookieManager mCookieManager;
 	
 	/**
 	 * 跳转到登录页面
@@ -93,7 +99,18 @@ public class WebLoginFragment extends BaseWebFragment {
 		actionBar.setTitle(getString(R.string.biz_account_tab_login));
 		
 		WebView webView = (WebView) getView().findViewById(R.id.webview);
+		
+		mCookieManager = CookieManager.getInstance();
+		mCookieManager.setAcceptCookie(true);
+		mCookieManager.removeSessionCookie();
+		
+		CookieSyncManager.createInstance(getActivity());
+		CookieSyncManager.getInstance().startSync();
+		
 		webView.getSettings().setJavaScriptEnabled(true);
+		webView.clearCache(true);
+		webView.clearHistory();
+		
 		webView.loadUrl(mUrl);
 		webView.setWebChromeClient(new WebChromeClient() {
 			
@@ -109,6 +126,14 @@ public class WebLoginFragment extends BaseWebFragment {
 			
 		});
 		webView.setWebViewClient(new WebViewClient() {
+			
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				String cookie = mCookieManager.getCookie(url);
+				AccountModel.saveLoginCookie(getActivity(), cookie);
+				System.out.println("xxxxxxxxxxxx cookie : " + cookie);
+				super.onPageFinished(view, url);
+			}
 			
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -144,37 +169,35 @@ public class WebLoginFragment extends BaseWebFragment {
 		
 		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
-			try {
-				Document doc = Jsoup.connect(mUrl).get();
-				Elements elements = doc.select("input[name=tb_data]");
-				String data = null;
-				if (elements != null && elements.size() > 0) {
-					data = elements.get(0).val();
-				}
-				String result = AccountModel.login(mContext, data, mRnd);
-				System.out.println("xxxxxxxxxxx doin : " + mRnd);
-				if (!TextUtils.isEmpty(result)) {
-					try {
-						JSONObject json = new JSONObject(result);
-						int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-						if (responseCode == Protocol.VALUE_RESULT_OK) {
-							String icon = json.optString(AccountModel.RETURN_ICON);
-							String userName = json.optString(AccountModel.RETURN_USERNAME);
-							HashMap<String, Object> map = new HashMap<String, Object>();
-							map.put(AccountModel.RETURN_ICON, icon);
-							map.put(AccountModel.RETURN_USERNAME, userName);
-							
-							AccountModel.saveUsername(mContext, userName);
-							AccountModel.saveAvatarPath(mContext, icon);
-							return map;
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
+			String html = NetUtils.httpGet(mUrl, AccountModel.getLoginCookie(mContext));
+			Document doc = Jsoup.parse(html);
+			Elements elements = doc.select("input[name=tb_data]");
+			String data = null;
+			if (elements != null && elements.size() > 0) {
+				data = elements.get(0).val();
+			}
+			String result = AccountModel.login(mContext, data, mRnd);
+			System.out.println("xxxxxxxxxxx doin : " + mRnd);
+			System.out.println("xxxxxxxxxxx data : " + data);
+			System.out.println("xxxxxxxxxxx decode : " + SecurityUtils.decryptMode(data));
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					int responseCode = json.optInt(AccountModel.RETURN_RESULT);
+					if (responseCode == Protocol.VALUE_RESULT_OK) {
+						String icon = json.optString(AccountModel.RETURN_ICON);
+						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put(AccountModel.RETURN_ICON, icon);
+						map.put(AccountModel.RETURN_USERNAME, userName);
+						
+						AccountModel.saveUsername(mContext, userName);
+						AccountModel.saveAvatarPath(mContext, icon);
+						return map;
 					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 			return null;
 		}

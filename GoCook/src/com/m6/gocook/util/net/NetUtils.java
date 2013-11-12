@@ -22,11 +22,9 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.m6.gocook.biz.account.AccountModel;

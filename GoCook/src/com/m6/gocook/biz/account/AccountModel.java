@@ -1,23 +1,16 @@
 package com.m6.gocook.biz.account;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.SecretKey;
-
-import org.apache.http.impl.conn.DefaultClientConnection;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import android.R.bool;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
-import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.File.StringUtils;
@@ -96,8 +89,12 @@ public class AccountModel {
 	
 	public static String login(Context context, String data, String rnd) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("data", data));
-		params.add(new BasicNameValuePair("rnd", rnd));
+		try {
+			params.add(new BasicNameValuePair("data", URLEncoder.encode(data, "UTF-8")));
+			params.add(new BasicNameValuePair("rnd", rnd));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return NetUtils.httpPost(context, Protocol.URL_LOGIN_EX, params, null);
 	}
 	
@@ -128,6 +125,14 @@ public class AccountModel {
 	
 	public static void saveCookie(Context context, String cookie) {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, cookie);
+	}
+	
+	public static String getLoginCookie(Context context) {
+		return PrefHelper.getString(context, PrefKeys.ACCOUNT_LOGIN_COOKIE, "");
+	}
+	
+	public static void saveLoginCookie(Context context, String cookie) {
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_LOGIN_COOKIE, cookie);
 	}
 	
 	public static String getPhone(Context context) {

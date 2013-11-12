@@ -12,6 +12,8 @@ public class PrefKeys {
 	
 	public static final String ACCOUNT_COOKIE = "account_cookie";
 	
+	public static final String ACCOUNT_LOGIN_COOKIE = "account_login_cookie";
+	
 	public static final String ACCOUNT_EMAIL = "account_email";
 	
 	public static final String ACCOUNT_AVATAR = "account_avatar";
