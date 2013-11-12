@@ -34,6 +34,8 @@ public class BuyModel {
 	public static final String REMARK = "remark";
 	public static final String WAREID = "wareid";
 	
+	public static final String MATERIAL_UNIT = "袋,盒,瓶,罐,颗,只,个,条";
+	
 	
 	public static List<Map<String, Object>> getBuyList(Context context, String recipeId) {
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);

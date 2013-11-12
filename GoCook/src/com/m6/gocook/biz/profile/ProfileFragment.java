@@ -189,7 +189,7 @@ public class ProfileFragment extends BaseFragment {
 							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
 						}
 					} else {
-						WebLoginFragment.JumpToLoginFragment(getActivity());
+						FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 					}
 				}
 			}
@@ -203,12 +203,12 @@ public class ProfileFragment extends BaseFragment {
 		if(mProfileType == PROFILE_MYSELF) {
 			new BasicInfoTask(getActivity()).execute((Void) null);
 			new RecipeTask(getActivity()).execute((Void) null);
+			showProgress(true);
 		} else {
-			if (!TextUtils.isEmpty(mUserId)) {
-				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
-			}
+//			if (!TextUtils.isEmpty(mUserId)) {
+//				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
+//			}
 		}
-		showProgress(true);
 	}
 	
 	@Override
@@ -228,6 +228,11 @@ public class ProfileFragment extends BaseFragment {
 			String url = AccountModel.getAvatarPath(getActivity());
 			if(!TextUtils.isEmpty(url)) {
 				mImageFetcher.loadImage(ProtocolUtils.getURL(url), (ImageView) getView().findViewById(R.id.avatar));
+			}
+		} else {
+			if (!TextUtils.isEmpty(mUserId)) {
+				showProgress(true);
+				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
 			}
 		}
 	}
@@ -260,7 +265,7 @@ public class ProfileFragment extends BaseFragment {
 			if (mFollowStatus == FOLLOW || mFollowStatus == FOLLOW_DEFAULT) {
 				edit.setText(R.string.biz_profile_add_follow);
 			} else if(mFollowStatus == FOLLOWED) {
-				edit.setText(R.string.biz_profile_add_followd);
+				edit.setText(R.string.biz_profile_add_unfollow);
 			}
 		}
 		
@@ -319,7 +324,7 @@ public class ProfileFragment extends BaseFragment {
 		Button edit = (Button) getView().findViewById(R.id.edit);
 		if (followed) {
 			mFollowStatus = FOLLOWED;
-			edit.setText(R.string.biz_profile_add_followd);
+			edit.setText(R.string.biz_profile_add_unfollow);
 		} else {
 			mFollowStatus = FOLLOW;
 			edit.setText(R.string.biz_profile_add_follow);

@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +30,8 @@ public class BuyDetailsInputFragment extends BaseFragment {
 
 	private CWareItem mWareItem;
 	private String mRecordId;
+	
+	private boolean mIntegerNecessary = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
 		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + mWareItem.getUnit());
 		
+		mIntegerNecessary = BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit());
+		
 		List<String> methods = mWareItem.getDealMethod();
 		RadioGroup methodView = (RadioGroup) view.findViewById(R.id.method);
 		LinearLayout.LayoutParams layoutParams = new RadioGroup.LayoutParams(
@@ -78,11 +84,13 @@ public class BuyDetailsInputFragment extends BaseFragment {
 			methodView.check(0);
 		}
 		
+		final EditText countView = (EditText) getView().findViewById(R.id.count);
+		
 		view.findViewById(R.id.submit).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				EditText countView = (EditText) getView().findViewById(R.id.count);
+				
 				if (TextUtils.isEmpty(countView.getText())) {
 					Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_empty, Toast.LENGTH_SHORT).show();
 					return;
@@ -91,18 +99,28 @@ public class BuyDetailsInputFragment extends BaseFragment {
 				double count;
 				try {
 					count = Double.valueOf(countView.getText().toString());
+					if (mIntegerNecessary) {
+						int realCount = (int) Math.floor(count);
+						countView.setText(String.valueOf(realCount));
+						mWareItem.setQuantity(realCount);
+					} else {
+						mWareItem.setQuantity(count);
+					}
 				} catch (NumberFormatException e) {
 					Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_illegal, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
 				RadioGroup methodView = (RadioGroup) getView().findViewById(R.id.method);
-				String method = ((Button) getView().findViewById(methodView.getCheckedRadioButtonId())).getText().toString();
+				Button selectedButton = (Button) getView().findViewById(methodView.getCheckedRadioButtonId());
+				String method = null;
+				if (selectedButton != null) {
+					method = selectedButton.getText().toString();
+				}
 				
 				List<String> methods = new ArrayList<String>();
 				methods.add(method);
 				mWareItem.setDealMethod(methods);
-				mWareItem.setQuantity(count);
 				//  TODO  remark
 				mWareItem.setRemark(method);
 				

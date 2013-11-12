@@ -133,7 +133,7 @@ public class RecipeCommentFragment extends BaseFragment {
 							mPostTask.execute(content);
 						}
 					} else {
-						WebLoginFragment.JumpToLoginFragment(mContext);
+						FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 					}
 				}
 			}

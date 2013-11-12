@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1111</string>
+    <string name="build_version">build 1112</string>
     
     <string name="app_name">M6生鲜分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -78,7 +78,7 @@
     <string name="biz_profile_edit_sex_female">女</string>
     
     <string name="biz_profile_add_follow">关注</string>
-    <string name="biz_profile_add_followd">取消关注</string>
+    <string name="biz_profile_add_unfollow">取消关注</string>
     <string name="biz_profile_add_follow_fail">关注失败，请重试</string>
     <string name="biz_profile_unfollow_fail">取消关注失败，请重试</string>
     

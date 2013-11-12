@@ -116,11 +116,11 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 					if (mSaleTask == null) {
 						mSaleTask = new SaleTask(getActivity());
 						mSaleTask.execute((Void) null);
+						// 摇动手机后，再伴随震动提示
+						vibrator.vibrate(500);
 					}
 				}
 				
-				// 摇动手机后，再伴随震动提示
-				vibrator.vibrate(500);
 			}
 		}
 	}

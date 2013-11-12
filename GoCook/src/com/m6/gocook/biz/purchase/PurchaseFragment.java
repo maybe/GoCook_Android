@@ -1,6 +1,5 @@
 package com.m6.gocook.biz.purchase;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import com.m6.gocook.R;
 import com.m6.gocook.base.fragment.OnActionBarEventListener;
 import com.m6.gocook.biz.main.MainActivityHelper;
-import com.m6.gocook.util.log.Logger;
 
 public class PurchaseFragment extends Fragment implements
 		OnActionBarEventListener {
@@ -29,23 +27,10 @@ public class PurchaseFragment extends Fragment implements
 	private Cursor mPurchaseRecipeCursor = null;
 	private Class<? extends Fragment> mCurrentFragmentClass = null;
 	
-	@Override
-	public void onAttach(Activity activity) {
-		Logger.i("PurchaseFragment", "LRL onAttach");
-		super.onAttach(activity);
-	}
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		Logger.i("PurchaseFragment", "LRL onCreate");
-		super.onCreate(savedInstanceState);
-	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Logger.i("PurchaseFragment", "LRL onCreateView");
 		View view = inflater.inflate(R.layout.fragment_purchase_tabcontent, null);
 		mFragmentContainerView = view.findViewById(R.id.purchase_tabcontent);
 		return view;
@@ -55,7 +40,6 @@ public class PurchaseFragment extends Fragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Logger.i("PurchaseFragment", "LRL onActivityCreated");
 		
 		if(mPurchaseRecipeCursor == null) {
 			mPurchaseRecipeCursor = PurchaseListModel.getRecipePurchaseCursor(getActivity());
@@ -91,57 +75,25 @@ public class PurchaseFragment extends Fragment implements
 		
 	}
 	
-	
-	@Override
-	public void onStart() {
-		Logger.i("PurchaseFragment", "LRL onStart");
-		super.onStart();
-	}
-	
 	@Override
 	public void onResume() {
-		Logger.i("PurchaseFragment", "LRL onResume");
 		super.onResume();
 		MainActivityHelper.registerOnActionBarEventListener(this);
 	}
 	
-	
-	//--------
-	
 	@Override
 	public void onPause() {
-		Logger.i("PurchaseFragment", "LRL onPause");
 		super.onPause();
 		MainActivityHelper.unRegisterOnActionBarEventListener(this);
 	}
 	
 	@Override
-	public void onStop() {
-		Logger.i("PurchaseFragment", "LRL onStop");
-		super.onStop();
-	}
-
-	@Override
-	public void onDestroyView() {
-		Logger.i("PurchaseFragment", "LRL onDestroyView");
-		super.onDestroyView();
-	}
-	
-	@Override
 	public void onDestroy() {
-		Logger.i("PurchaseFragment", "LRL onDestroy");
 		super.onDestroy();
 		if(mPurchaseRecipeCursor != null) {
 			mPurchaseRecipeCursor.close();
 		}
 	}
-	
-	@Override
-	public void onDetach() {
-		Logger.i("PurchaseFragment", "LRL onDetach");
-		super.onDetach();
-	}
-	
 
 	@Override
 	public void OnFragmentSwitch(Class<? extends Fragment> fragment) {

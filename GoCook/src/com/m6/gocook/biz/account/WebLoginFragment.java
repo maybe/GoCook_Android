@@ -41,39 +41,17 @@ public class WebLoginFragment extends BaseWebFragment {
 	
 	private ProgressDialog mProgressDialog;
 	
-	public static final String PARAM_JUMP_LOGIN = "param_jump_login";
-	private boolean mJumpLogin = false;
-	
 	private String mUrl;
 	private int mRnd;
 	
 	private CookieManager mCookieManager;
 	
-	/**
-	 * 跳转到登录页面
-	 * 
-	 * @param context
-	 */
-	public static void JumpToLoginFragment(Context context) {
-		Bundle bundle = new Bundle();
-		bundle.putBoolean(WebLoginFragment.PARAM_JUMP_LOGIN, true);
-		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class,
-				WebLoginFragment.class.getName(), 
-				WebLoginFragment.class.getName()
-				,bundle);
-		context.startActivity(intent);
-	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		mProgressDialog = new ProgressDialog(getActivity());
-		
-		Bundle bundle = getArguments();
-		if (bundle != null) {
-			mJumpLogin = bundle.getBoolean(PARAM_JUMP_LOGIN, false);
-		}
 		
 		Random random = new Random();
 		mRnd = Math.abs(random.nextInt());
@@ -125,7 +103,9 @@ public class WebLoginFragment extends BaseWebFragment {
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				String cookie = mCookieManager.getCookie(url);
-				AccountModel.saveLoginCookie(getActivity(), cookie);
+				if (getActivity() != null) {
+					AccountModel.saveLoginCookie(getActivity(), cookie);
+				}
 				super.onPageFinished(view, url);
 			}
 			

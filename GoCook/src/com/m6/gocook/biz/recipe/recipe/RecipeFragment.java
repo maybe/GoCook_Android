@@ -330,24 +330,13 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 								mRecipeCollectTask = new RecipeCollectTask(v);
 								mRecipeCollectTask.execute();
 							}
-							
 						} else {
-							WebLoginFragment.JumpToLoginFragment(mContext);
+							FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 						}
 						
 					}
 				});
 
-//		((TextView) findViewById(R.id.tabbar_textview_upload))
-//				.setOnClickListener(new OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//
-//					}
-//				});
-		
-		
 		// Comments
 		View commentsLinkView = findViewById(R.id.comments_link);
 		commentsLinkView.setOnClickListener(new OnClickListener() {
