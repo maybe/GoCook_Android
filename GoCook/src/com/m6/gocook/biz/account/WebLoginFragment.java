@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.account;
 
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -36,7 +34,6 @@ import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.util.net.NetUtils;
-import com.m6.gocook.util.util.SecurityUtils;
 
 public class WebLoginFragment extends BaseWebFragment {
 
@@ -81,8 +78,6 @@ public class WebLoginFragment extends BaseWebFragment {
 		Random random = new Random();
 		mRnd = Math.abs(random.nextInt());
 		mUrl = String.format(Protocol.URL_LOGIN_WEB, String.valueOf(mRnd));
-		System.out.println("xxxxxxxxxxxx oncr : " + mRnd);
-		System.out.println("xxxxxxxxxxxx url : " + mUrl);
 	}
 	
 	@Override
@@ -131,7 +126,6 @@ public class WebLoginFragment extends BaseWebFragment {
 			public void onPageFinished(WebView view, String url) {
 				String cookie = mCookieManager.getCookie(url);
 				AccountModel.saveLoginCookie(getActivity(), cookie);
-				System.out.println("xxxxxxxxxxxx cookie : " + cookie);
 				super.onPageFinished(view, url);
 			}
 			
@@ -177,9 +171,6 @@ public class WebLoginFragment extends BaseWebFragment {
 				data = elements.get(0).val();
 			}
 			String result = AccountModel.login(mContext, data, mRnd);
-			System.out.println("xxxxxxxxxxx doin : " + mRnd);
-			System.out.println("xxxxxxxxxxx data : " + data);
-			System.out.println("xxxxxxxxxxx decode : " + SecurityUtils.decryptMode(data));
 			if (!TextUtils.isEmpty(result)) {
 				try {
 					JSONObject json = new JSONObject(result);
@@ -187,10 +178,12 @@ public class WebLoginFragment extends BaseWebFragment {
 					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
 						String userName = json.optString(AccountModel.RETURN_USERNAME);
+						String userId =  json.optString(AccountModel.RETURN_USERID);
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
 						
+						AccountModel.saveUserId(mContext, userId);
 						AccountModel.saveUsername(mContext, userName);
 						AccountModel.saveAvatarPath(mContext, icon);
 						return map;
@@ -211,14 +204,12 @@ public class WebLoginFragment extends BaseWebFragment {
 				}
 				
 				if (result != null && !result.isEmpty()) {
-					String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
-					String userName = (String) result.get(AccountModel.RETURN_USERNAME);
 					Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
-					if(mJumpLogin) {
-						getActivity().getSupportFragmentManager().popBackStackImmediate();
-					} else {
-						AccountModel.onLogin("", null, avatarUrl, userName);
-					}
+					getActivity().finish();
+//					if(mJumpLogin) {
+//						getActivity().getSupportFragmentManager().popBackStackImmediate();
+//					} else {
+//					}
 				} else {
 					Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 				}

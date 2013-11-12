@@ -260,13 +260,11 @@ public class LoginFragment extends BaseFragment {
 			showProgress(false);
 
 			if (result != null && !result.isEmpty()) {
-				String avatarUrl = (String) result.get(AccountModel.RETURN_ICON);
-				String userName = (String) result.get(AccountModel.RETURN_USERNAME);
 				Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
 				if(mJumpLogin) {
 					getActivity().getSupportFragmentManager().popBackStackImmediate();
 				} else {
-					AccountModel.onLogin(mPhone, null, avatarUrl, userName);
+					AccountModel.onLogin();
 				}
 			} else {
 				Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();

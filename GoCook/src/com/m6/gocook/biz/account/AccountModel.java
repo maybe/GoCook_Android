@@ -62,9 +62,9 @@ public class AccountModel {
 		mAccountChangedListeners.remove(listener);
 	}
 	
-	public static void onLogin(String phone, String email, String avatarUrl, String userName) {
+	public static void onLogin() {
 		for(OnAccountChangedListener listener : mAccountChangedListeners) {
-			listener.onLogin(phone, email, avatarUrl, userName);
+			listener.onLogin();
 		}
 	}
 	
@@ -105,6 +105,7 @@ public class AccountModel {
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_USERNAME, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_PASSWORD, "");
 		PrefHelper.putString(context, PrefKeys.ACCOUNT_COOKIE, "");
+		PrefHelper.putString(context, PrefKeys.ACCOUNT_LOGIN_COOKIE, "");
 		PrefHelper.putString(context, PrefKeys.PROFILE_INFO, "");
 		onLogout();
 	}

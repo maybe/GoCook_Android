@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.profile.MyAccountFragment;
@@ -30,6 +29,12 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment f = null;
@@ -39,6 +44,12 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 			if(f== null) {
 				f = MyAccountFragment.instantiate(getActivity(), MyAccountFragment.class.getName());
 				ft.add(R.id.account_tabcontent, f, MyAccountFragment.class.getName());
+				
+				Fragment ff = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
+				if (ff != null) {
+					ft.hide(ff);
+				}
+				
 				ft.commit();
 			}
 		} else {
@@ -47,6 +58,11 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 				f = WebLoginOrRegisterFragment.instantiate(getActivity(), WebLoginOrRegisterFragment.class.getName());
 				ft.add(R.id.account_tabcontent, f, WebLoginOrRegisterFragment.class.getName());
 				ft.commit();
+			} else {
+				if (!f.isVisible()) {
+					ft.show(f);
+					ft.commit();
+				}
 			}
 		}
 	}
@@ -63,7 +79,7 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 	}
 	
 	@Override
-	public void onLogin(String phone, String email, String avatarUrl, String userName) {
+	public void onLogin() {
 		FragmentManager fm = getChildFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		
@@ -71,10 +87,6 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		if(f == null) {
 			f = MyAccountFragment.instantiate(getActivity(), MyAccountFragment.class.getName());
 		}
-		Bundle bundle = new Bundle();
-		bundle.putString(AccountModel.RETURN_ICON, avatarUrl);
-		bundle.putString(AccountModel.RETURN_USERNAME, userName);
-		f.setArguments(bundle);
 		ft.replace(R.id.account_tabcontent, f, MyAccountFragment.class.getName());
 		ft.commit();
 		fm.executePendingTransactions();
