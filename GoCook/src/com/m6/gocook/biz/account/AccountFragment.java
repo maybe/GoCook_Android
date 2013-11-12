@@ -49,10 +49,7 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 				if (ff != null) {
 					ft.hide(ff);
 				}
-<<<<<<< HEAD
-				
-=======
->>>>>>> 修复登录问题
+
 				ft.commit();
 			}
 		} else {
