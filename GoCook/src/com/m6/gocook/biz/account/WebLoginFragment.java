@@ -178,7 +178,11 @@ public class WebLoginFragment extends BaseWebFragment {
 					if (responseCode == Protocol.VALUE_RESULT_OK) {
 						String icon = json.optString(AccountModel.RETURN_ICON);
 						String userName = json.optString(AccountModel.RETURN_USERNAME);
+<<<<<<< HEAD
 						String userId =  json.optString(AccountModel.RETURN_USERID);
+=======
+						String userId = json.optString(AccountModel.RETURN_USERID);
+>>>>>>> 修复登录问题
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put(AccountModel.RETURN_ICON, icon);
 						map.put(AccountModel.RETURN_USERNAME, userName);
@@ -205,11 +209,20 @@ public class WebLoginFragment extends BaseWebFragment {
 				
 				if (result != null && !result.isEmpty()) {
 					Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
 					getActivity().finish();
 //					if(mJumpLogin) {
 //						getActivity().getSupportFragmentManager().popBackStackImmediate();
 //					} else {
 //					}
+=======
+					if(mJumpLogin) {
+						getActivity().getSupportFragmentManager().popBackStackImmediate();
+					} else {
+//						AccountModel.onLogin("", null, avatarUrl, userName);
+						getActivity().finish();
+					}
+>>>>>>> 修复登录问题
 				} else {
 					Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 				}

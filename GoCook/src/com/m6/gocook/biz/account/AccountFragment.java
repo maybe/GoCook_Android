@@ -49,7 +49,10 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 				if (ff != null) {
 					ft.hide(ff);
 				}
+<<<<<<< HEAD
 				
+=======
+>>>>>>> 修复登录问题
 				ft.commit();
 			}
 		} else {
@@ -102,6 +105,9 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 			f = WebLoginOrRegisterFragment.instantiate(getActivity(), WebLoginOrRegisterFragment.class.getName());
 		}
 		ft.replace(R.id.account_tabcontent, f, WebLoginOrRegisterFragment.class.getName());
+		if (f.isHidden()) {
+			ft.show(f);
+		}
 		ft.commit();
 		fm.executePendingTransactions();
 	}

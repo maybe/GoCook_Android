@@ -261,11 +261,19 @@ public class LoginFragment extends BaseFragment {
 
 			if (result != null && !result.isEmpty()) {
 				Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
 				if(mJumpLogin) {
 					getActivity().getSupportFragmentManager().popBackStackImmediate();
 				} else {
 					AccountModel.onLogin();
 				}
+=======
+				getActivity().finish();
+//				if(mJumpLogin) {
+//					getActivity().getSupportFragmentManager().popBackStackImmediate();
+//				} else {
+//				}
+>>>>>>> 修复登录问题
 			} else {
 				Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 //				mPasswordView.setError(getString(R.string.error_incorrect_password));
