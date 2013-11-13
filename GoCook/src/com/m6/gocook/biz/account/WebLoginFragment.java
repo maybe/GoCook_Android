@@ -12,7 +12,6 @@ import org.jsoup.select.Elements;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,11 +27,10 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.fragment.BaseWebFragment;
-import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.util.net.NetUtils;
 
 public class WebLoginFragment extends BaseWebFragment {
@@ -186,12 +184,8 @@ public class WebLoginFragment extends BaseWebFragment {
 				
 				if (result != null && !result.isEmpty()) {
 					Toast.makeText(mContext, R.string.biz_account_login_success, Toast.LENGTH_LONG).show();
+					getActivity().setResult(MainActivityHelper.RESULT_CODE_JUMP_LOGIN);
 					getActivity().finish();
-//					if(mJumpLogin) {
-//						getActivity().getSupportFragmentManager().popBackStackImmediate();
-//					} else {
-//					}
-
 				} else {
 					Toast.makeText(mContext, R.string.biz_account_login_failure, Toast.LENGTH_SHORT).show();
 				}

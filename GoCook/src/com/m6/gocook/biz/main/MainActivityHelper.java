@@ -18,6 +18,7 @@ public class MainActivityHelper {
 	public static final int REQUEST_CODE_RECIPE_EDIT = 102;
 	public static final int REQUEST_CODE_RECIPE = 103;
 	public static final int REQUEST_CODE_INPUT = 104;
+	public static final int REQUEST_CODE_JUMP_LOGIN = 105;
 
 	/** result */
 	public static final int RESULT_CODE_FOLLOW = 201;
@@ -26,6 +27,7 @@ public class MainActivityHelper {
 	public static final int RESULT_CODE_RECIPE_DELETED = 204;
 	public static final int RESULT_CODE_RECIPE_UPDATED = 205;
 	public static final int RESULT_CODE_INPUT = 206;
+	public static final int RESULT_CODE_JUMP_LOGIN = 207;
 	
 	
 	public static ArrayList<OnActivityAction> mOnActivityActions = new ArrayList<OnActivityAction>();

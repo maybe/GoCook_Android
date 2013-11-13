@@ -32,19 +32,21 @@ import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.account.WebLoginFragment;
+import com.m6.gocook.biz.buy.BuySearchFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.model.ModelUtils;
 
-public class ProfileFragment extends BaseFragment {
+public class ProfileFragment extends BaseFragment implements OnActivityAction {
 	
 	public static final String PROFILE_FOLLOW_ID = "profile_follow_id";
 	public static final String PROFILE_TYPE = "profile_type";
@@ -96,6 +98,7 @@ public class ProfileFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnActivityActionListener(this);
 		
 		Bundle args = getArguments();
 		if(args != null) {
@@ -103,6 +106,12 @@ public class ProfileFragment extends BaseFragment {
 			mUserId = args.getString(PROFILE_FOLLOW_ID);
 			mFollowId = args.getString(PROFILE_FOLLOW_ID);
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+		super.onDestroy();
 	}
 	
 	@Override
@@ -189,7 +198,9 @@ public class ProfileFragment extends BaseFragment {
 							getActivity().setResult(MainActivityHelper.RESULT_CODE_FOLLOW);
 						}
 					} else {
-						FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
+						Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+								WebLoginFragment.class.getName(), WebLoginFragment.class.getName(), null);
+						((FragmentActivity) getActivity()).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_JUMP_LOGIN);
 					}
 				}
 			}
@@ -203,11 +214,10 @@ public class ProfileFragment extends BaseFragment {
 		if(mProfileType == PROFILE_MYSELF) {
 			new BasicInfoTask(getActivity()).execute((Void) null);
 			new RecipeTask(getActivity()).execute((Void) null);
-			showProgress(true);
 		} else {
-//			if (!TextUtils.isEmpty(mUserId)) {
-//				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
-//			}
+			if (!TextUtils.isEmpty(mUserId)) {
+				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
+			}
 		}
 	}
 	
@@ -228,11 +238,6 @@ public class ProfileFragment extends BaseFragment {
 			String url = AccountModel.getAvatarPath(getActivity());
 			if(!TextUtils.isEmpty(url)) {
 				mImageFetcher.loadImage(ProtocolUtils.getURL(url), (ImageView) getView().findViewById(R.id.avatar));
-			}
-		} else {
-			if (!TextUtils.isEmpty(mUserId)) {
-				showProgress(true);
-				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
 			}
 		}
 	}
@@ -350,6 +355,12 @@ public class ProfileFragment extends BaseFragment {
 		}
 		
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgress(true);
+		}
+		
+		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
 			return ProfileModel.getBasicInfo(mContext);
 		}
@@ -376,6 +387,14 @@ public class ProfileFragment extends BaseFragment {
 		}
 		
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			if (isAdded()) {
+				showProgress(true);
+			}
+		}
+		
+		@Override
 		protected Map<String, Object> doInBackground(Void... params) {
 			return ProfileModel.getOtherInfo(mContext, mUserId);
 		}
@@ -397,6 +416,12 @@ public class ProfileFragment extends BaseFragment {
 		
 		public RecipeTask(FragmentActivity activity) {
 			mContext = activity.getApplicationContext();
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgress(true);
 		}
 		
 		@Override
@@ -475,6 +500,18 @@ public class ProfileFragment extends BaseFragment {
 				updateFollow(false);
 			} else {
 				Toast.makeText(mContext, R.string.biz_profile_unfollow_fail, Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (resultCode == MainActivityHelper.RESULT_CODE_JUMP_LOGIN) {
+			if(mProfileType == PROFILE_OTHERS) {
+				if (!TextUtils.isEmpty(mUserId)) {
+					new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
+				}
 			}
 		}
 	}

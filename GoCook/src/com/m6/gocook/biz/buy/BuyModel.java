@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.message.BasicNameValuePair;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,10 +14,7 @@ import android.text.TextUtils;
 
 import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-import com.m6.gocook.base.entity.request.CShopcartInfo;
 import com.m6.gocook.base.entity.response.CKeywordQueryResult;
-import com.m6.gocook.base.entity.response.COrderQueryResult;
-import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.net.NetUtils;
 

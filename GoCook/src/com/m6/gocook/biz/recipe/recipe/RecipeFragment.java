@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -43,7 +44,7 @@ import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
 import com.m6.gocook.util.log.Logger;
 
-public class RecipeFragment extends BaseFragment implements OnActivityAction{
+public class RecipeFragment extends BaseFragment implements OnActivityAction {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
@@ -94,7 +95,6 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		MainActivityHelper.registerOnActivityActionListener(this);
 	}
 	
@@ -244,29 +244,6 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 			recipeTipsTextView.setText(mRecipeEntity.getTips());
 			tipsLinearLayout.setVisibility(View.VISIBLE);
 		}
-
-//		// Related Recipes
-//		GridView gridRelatedGridView = (GridView) findViewById(R.id.related_recipe_gridview);
-//		gridRelatedGridView.setAdapter(new RecipeRelatedRecipesAdapter(mContext));
-//
-//		TextView commentNum = (TextView) findViewById(R.id.comment_num);
-//		commentNum
-//				.setText(String.format(
-//						getResources().getString(
-//								R.string.biz_recipe_comment_num), 234));
-//
-//		TextView finishedView = (TextView) findViewById(R.id.finished_dish_textview);
-//		finishedView.setText(String.format(
-//				getResources().getString(R.string.biz_recipe_finished_dish),
-//				"葱油饼"));
-//		finishedView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
 		
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
 		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
@@ -331,7 +308,9 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 								mRecipeCollectTask.execute();
 							}
 						} else {
-							FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
+							Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+									WebLoginFragment.class.getName(), WebLoginFragment.class.getName(), null);
+							((FragmentActivity) getActivity()).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_JUMP_LOGIN);
 						}
 						
 					}
@@ -391,7 +370,9 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 
 		@Override
 		protected void onPreExecute() {
-			showProgress(true);
+			if (isAdded()) {
+				showProgress(true);
+			}
 		}
 
 		@Override
@@ -586,6 +567,11 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction{
 				mAchieveRecipeTask.execute();
 				
 				getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_UPDATED);
+			}
+		} else if (resultCode == MainActivityHelper.RESULT_CODE_JUMP_LOGIN) {
+			if (mAchieveCommentsTask == null) {
+				mAchieveRecipeTask = new AchieveRecipeTask();
+				mAchieveRecipeTask.execute();
 			}
 		}
 	}
