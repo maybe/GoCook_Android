@@ -85,19 +85,23 @@ public class CouponListAdapter extends BaseAdapter {
 		if (!isDelay && isCoupon) { // 优惠券，包括过期和未过期的优惠券
 			if (isInvalid) { // 过期
 				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-						coupon.getCoupon(), coupon.getStores(), coupon.getCouponRemark()));
+						coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
+						coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
+						coupon.getStores(), coupon.getCouponRemark()));
 				
 				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
 				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_invalid));
 			} else { // 未过期
 				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-						coupon.getCoupon(), coupon.getStores(), coupon.getCouponRemark()));
+						coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
+						coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
+						coupon.getStores(), coupon.getCouponRemark()));
 				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
 				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 			}
 		} else { // 延期记录
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_delay,
+					coupon.getEffDay(), coupon.getExpDay()));
 			holder.go.setBackgroundResource(R.drawable.coupon_list_shake_selector);
 			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_delay));
 		}

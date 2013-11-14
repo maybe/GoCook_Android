@@ -196,29 +196,26 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			materialLayout.addView(createMaterialView());
 		}
 
-		((Button) findViewById(R.id.material_addmore_button))
-				.setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.material_addmore_button)).setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						materialLayout.addView(createMaterialView());
-					}
-				});
+			@Override
+			public void onClick(View v) {
+				materialLayout.addView(createMaterialView());
+			}
+		});
 
 		final LinearLayout procedureLayout = (LinearLayout) findViewById(R.id.procedure_layout);
 		for (int i = 0; i < 5; i++) {
 			procedureLayout.addView(createProcedureView());
 		}
 
-		((Button) findViewById(R.id.procedure_addmore_button))
-				.setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.procedure_addmore_button)).setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						procedureLayout.addView(createProcedureView());
-					}
-				});
-		
+			@Override
+			public void onClick(View v) {
+				procedureLayout.addView(createProcedureView());
+			}
+		});
 	}
 	
 	private void applyData() {
@@ -260,6 +257,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			@Override
 			public void onClick(View v) {
 				new UploadAsyncTask(imageView).execute();
+				mCurrentImageView = imageView;
 			}
 		});
 		
@@ -269,7 +267,8 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			public void onClick(View v) {
 				view.findViewById(R.id.button_layout).setVisibility(View.GONE);
 				imageView.setImageResource(R.drawable.landscape_photo);
-				}
+				mCurrentImageView = imageView;
+			}
 		});
 		
 		return view;

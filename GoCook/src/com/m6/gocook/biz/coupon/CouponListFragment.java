@@ -159,7 +159,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onCustomActivityResult(int requestCode, int resultCode,
 			Intent data) {
-		
 		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
 			refresh();
 		}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1113</string>
+    <string name="build_version">build 1114</string>
     
     <string name="app_name">M6生鲜分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -248,7 +248,8 @@
     <!-- coupon -->
     <string name="biz_coupon_list_title">我的优惠券</string>
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
-    <string name="biz_coupon_list_content_normal">%1$s，您获得价值%2$d元的%3$s，有效期至%4$s。券号%5$s适用门店%6$s。\n%7$s。</string>
+    <string name="biz_coupon_list_content_delay">%1$s（优惠券延期生效日期），您有一次延迟抽取优惠券的机会，有效期至%2$s。</string>
+    <string name="biz_coupon_list_content_normal">%1$s您获得了由%2$s提供的价值%3$s元的%4$s，券号%5$s，有效期%6$s至%7$s。\n适用门店：%8$s\n%9$s</string>
     
     <string name="biz_coupon_shake_title">摇一摇</string>
     <string name="biz_coupon_shake_message">摇一摇/点击屏幕抽取优惠券</string>

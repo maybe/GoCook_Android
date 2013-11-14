@@ -53,7 +53,7 @@ public class Coupon {
 	/** ”yyyy-MM-dd HH:mm:ss”格式的创建时间 */
 	private String cTime;
 	/** 券价值 */
-	private int val;
+	private String val;
 	/** 对应商品编号 */
 	private String wid;
 	/** 数据项在列表的展开状态 */
@@ -174,10 +174,10 @@ public class Coupon {
 	public void setcTime(String cTime) {
 		this.cTime = cTime;
 	}
-	public int getVal() {
+	public String getVal() {
 		return val;
 	}
-	public void setVal(int val) {
+	public void setVal(String val) {
 		this.val = val;
 	}
 	public String getWid() {
@@ -209,7 +209,8 @@ public class Coupon {
 			Date date;
 
 			time = value.optString("time");
-			effDay = value.optString("eff_day");
+			date = dfs.parse(value.optString("eff_day"));
+			effDay = dfsSimple.format(date);
 			date = dfs.parse(value.optString("exp_day"));
 			expDay = dfsSimple.format(date);
 			coupon = value.optString("coupon");
@@ -228,7 +229,7 @@ public class Coupon {
 			ccTime = value.optString("cctime");
 			date = dfs.parse(value.optString("ctime"));
 			cTime = dfsSimple.format(date);
-			val = value.optInt("val", 0);
+			val = value.optString("val");
 			wid = value.optString("wid");
 		} catch (ParseException e) {
 			e.printStackTrace();

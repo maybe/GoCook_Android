@@ -26,7 +26,7 @@ import com.m6.gocook.biz.main.MainActivityHelper;
 public class ShakeResultFragment extends BaseFragment {
 
 	public static final String PARAM_SALE = "param_sale";
-	private static final String PARAM_COUPON_ID = "param_coupon_id";
+	public static final String PARAM_COUPON_ID = "param_coupon_id";
 	
 	private Sale mSale;
 	
@@ -59,6 +59,7 @@ public class ShakeResultFragment extends BaseFragment {
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		mProgressDialog = new ProgressDialog(getActivity());
+		mProgressDialog.setCanceledOnTouchOutside(false);
 		return inflater.inflate(R.layout.fragment_coupon_shake_result, container, false);
 	}
 	

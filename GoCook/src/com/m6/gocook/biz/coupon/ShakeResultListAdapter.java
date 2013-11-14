@@ -52,7 +52,7 @@ public class ShakeResultListAdapter extends BaseAdapter {
 		}
 		Coupon coupon = mData.get(position);
 		holder.content.setText(mContext.getString(R.string.biz_coupon_shake_result_get_coupon_success,
-				coupon.getVal(), coupon.getName(), coupon.getExpDay(), coupon.getCouponId(),
+				coupon.getVal(), coupon.getName(), coupon.getExpDay(), coupon.getCoupon(),
 				coupon.getStores(), coupon.getRemark()));
 		
 		return convertView;

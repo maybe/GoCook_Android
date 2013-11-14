@@ -150,8 +150,10 @@ public class RecipeModel {
 	 * @return
 	 */
 	public static RecipeList getMyRecipes(Context context, boolean myself) {
-		String result;
-		result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
+		String result = null;
+		if (context != null) {
+			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
+		}
 		if(TextUtils.isEmpty(result)) {
 			return null;
 		}

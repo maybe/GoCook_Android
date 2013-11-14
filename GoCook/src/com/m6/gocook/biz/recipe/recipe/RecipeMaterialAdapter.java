@@ -56,8 +56,8 @@ public class RecipeMaterialAdapter extends BaseAdapter {
 		}
 		
 		Material material = mMaterials.get(position);
-		holder.name.setText(material.getName(8));
-		holder.remark.setText(material.getRemark(8));
+		holder.name.setText(material.getName());
+		holder.remark.setText(material.getRemark());
 		return convertView;
 	}
 	

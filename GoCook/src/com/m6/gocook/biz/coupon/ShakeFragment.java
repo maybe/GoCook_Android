@@ -20,10 +20,11 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class ShakeFragment extends BaseFragment implements SensorEventListener {
+public class ShakeFragment extends BaseFragment implements SensorEventListener, OnActivityAction {
 
 	//定义sensor管理器
     private SensorManager mSensorManager;
@@ -36,6 +37,8 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     
     private String mCouponId;
     
+    private boolean mSensorTriggered = false;
+    
     public static ShakeFragment newInstance(String couponId) {
     	ShakeFragment fragment = new ShakeFragment();
     	Bundle bundle = new Bundle();
@@ -47,12 +50,19 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	MainActivityHelper.registerOnActivityActionListener(this);
     	
     	Bundle bundle = getArguments();
     	if (bundle != null) {
     		mCouponId = bundle.getString(PARAM_COUPON_ID);
     	}
     }
+    
+    @Override
+	public void onDestroy() {
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+		super.onDestroy();
+	}
     
     @Override
     public View onCreateFragmentView(LayoutInflater inflater,
@@ -110,18 +120,25 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 			if ((Math.abs(values[0]) > 14 || Math.abs(values[1]) > 14 || Math
 					.abs(values[2]) > 14)) {
 				
-				if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
-					FragmentHelper.startActivity(getActivity(), new ShakeResultFragment());
-				} else { // 摇出销售额
-					showProgress(true);
-					if (mSaleTask == null) {
-						mSaleTask = new SaleTask(getActivity());
-						mSaleTask.execute((Void) null);
-						// 摇动手机后，再伴随震动提示
-						vibrator.vibrate(500);
+				if (!mSensorTriggered) {
+					if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
+						Bundle bundle = new Bundle();
+						bundle.putString(ShakeResultFragment.PARAM_COUPON_ID, mCouponId);
+						Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+								ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
+						getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+//						FragmentHelper.startActivity(getActivity(), ShakeResultFragment.newInstance(mCouponId));
+					} else { // 摇出销售额
+						showProgress(true);
+						if (mSaleTask == null) {
+							mSaleTask = new SaleTask(getActivity());
+							mSaleTask.execute((Void) null);
+							// 摇动手机后，再伴随震动提示
+						}
 					}
+					vibrator.vibrate(500);
+					mSensorTriggered = true;
 				}
-				
 			}
 		}
 	}
@@ -162,6 +179,16 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 		protected void onCancelled() {
 			mSaleTask = null;
 		}
+	}
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
+			getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
+			getActivity().finish();
+		}
+		
 	}
 	
 }
