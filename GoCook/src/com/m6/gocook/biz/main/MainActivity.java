@@ -7,6 +7,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -33,6 +37,7 @@ import com.m6.gocook.biz.purchase.PurchaseFragment;
 import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
+import com.m6.gocook.util.net.NetUtils;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 	
@@ -88,6 +93,8 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		if(AccountModel.isLogon(this)) {
 			new AuthenLoginTask(this).execute((Void) null);
 		}
+		// 检测新版本
+		new VersionDetectTask().execute((Void) null);
 	}
 
 	private void addTab(FragmentTabHost tabHost, LayoutInflater inflater, String tag, int titleId, int iconId, Class<?> clss, Bundle args) {
@@ -221,6 +228,59 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 				}
 			}
 			return null;
+		}
+	}
+	
+	private void newVersion(final String url) {
+		new AlertDialog.Builder(this)
+		.setTitle(R.string.biz_main_newversion_title)
+		.setPositiveButton(R.string.biz_main_newversion_positive, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				Uri intentUri = Uri.parse(url);
+				Intent localIntent = new Intent(Intent.ACTION_VIEW, intentUri);
+				startActivity(localIntent);
+			}
+		})
+		.setNegativeButton(R.string.biz_main_newversion_negative, null)
+		.create()
+		.show();
+	}
+	
+	/**
+	 * 版本检测
+	 * 
+	 * @author YC
+	 *
+	 */
+	private class VersionDetectTask extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			String result = NetUtils.httpGet(Protocol.URL_VERSION);
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject jsonObject = new JSONObject(result);
+					if (jsonObject != null) {
+						int detectedVersion = jsonObject.optInt("version", 0);
+						int currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+						if (detectedVersion > currentVersion) {
+							return jsonObject.optString("url", "");
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			if (!TextUtils.isEmpty(result)) {
+				newVersion(result);
+			}
 		}
 	}
 }

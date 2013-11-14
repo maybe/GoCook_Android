@@ -1,10 +1,13 @@
 package com.m6.gocook.biz.coupon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +17,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
+import com.google.zxing.client.android.encode.EncodeUtil;
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Coupon;
 import com.m6.gocook.base.fragment.BaseWebFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
 public class CouponListAdapter extends BaseAdapter {
 
@@ -26,11 +33,16 @@ public class CouponListAdapter extends BaseAdapter {
 	private Resources mResources;
 	private List<Coupon> mData;
 	
+	private int mBarcodeWidth;
+	private int mBarcodeHeight;
+	
 	public CouponListAdapter(Context context, List<Coupon> data) {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mResources = context.getResources();
 		mData = data;
+		mBarcodeWidth = context.getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
+		mBarcodeHeight = context.getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
 	}
 	
 	@Override
@@ -57,6 +69,7 @@ public class CouponListAdapter extends BaseAdapter {
 			holder.content = (TextView) convertView.findViewById(R.id.content);
 			holder.expand = (ImageView) convertView.findViewById(R.id.expand);
 			holder.go = (ImageView) convertView.findViewById(R.id.go);
+			holder.barcode = (ImageView) convertView.findViewById(R.id.barcode);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -73,14 +86,14 @@ public class CouponListAdapter extends BaseAdapter {
 			if (isInvalid) { // 过期
 				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
 						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-						coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
+						coupon.getCoupon(), coupon.getStores(), coupon.getCouponRemark()));
 				
 				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
 				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_invalid));
 			} else { // 未过期
 				holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
 						coupon.getcTime(), coupon.getVal(), coupon.getName(), coupon.getExpDay(),
-						coupon.getCouponId(), coupon.getStores(), coupon.getCouponRemark()));
+						coupon.getCoupon(), coupon.getStores(), coupon.getCouponRemark()));
 				holder.go.setBackgroundResource(R.drawable.coupon_list_go_selector);
 				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 			}
@@ -92,9 +105,20 @@ public class CouponListAdapter extends BaseAdapter {
 		if (coupon.isExpand()) {
 			holder.content.setMaxLines(6);
 			holder.expand.setImageResource(R.drawable.coupon_list_fold);
+			if (!TextUtils.isEmpty(coupon.getCoupon())) {
+				holder.barcode.setVisibility(View.VISIBLE);
+				try {
+					Bitmap barcode = EncodeUtil.createBarCode(coupon.getCoupon(), mBarcodeWidth, mBarcodeHeight);
+					holder.barcode.setImageBitmap(barcode);
+				} catch (WriterException e) {
+					e.printStackTrace();
+				}
+			}
 		} else {
 			holder.content.setMaxLines(2);
 			holder.expand.setImageResource(R.drawable.coupon_list_expand);
+			holder.barcode.setVisibility(View.GONE);
+			holder.barcode.setImageBitmap(null);
 		}
 		
 		holder.expand.setOnClickListener(new OnClickListener() {
@@ -115,7 +139,11 @@ public class CouponListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if (isDelay) { // 延期优惠券
-					FragmentHelper.startActivity(mContext, ShakeFragment.newInstance(coupon.getCouponId()));
+					Bundle bundle = new Bundle();
+			    	bundle.putString(ShakeFragment.PARAM_COUPON_ID, coupon.getCouponId());
+					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
+							ShakeFragment.class.getName(), ShakeFragment.class.getName(), bundle);
+					((FragmentActivity) mContext).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 				} else {
 					FragmentHelper.startActivity(mContext, BaseWebFragment.newInstance(coupon.getUrl(), 
 							mContext.getString(R.string.biz_coupon_details_title)));
@@ -130,5 +158,6 @@ public class CouponListAdapter extends BaseAdapter {
 		private TextView content;
 		private ImageView expand;
 		private ImageView go;
+		private ImageView barcode;
 	}
 }

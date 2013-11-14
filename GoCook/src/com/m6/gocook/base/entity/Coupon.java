@@ -22,6 +22,8 @@ public class Coupon {
 	private String effDay;
 	/** "yyyy-MM-dd HH:mm:ss”格式的优惠券失效时间,如果 是延期获取记录,则为延期失效时间" */
 	private String expDay;
+	/** 优惠券号,如果是延期获取记录,则为空。优惠券号是一个二十几位的数字字符串，客户端转换成一维码，用户去商场直接刷这个码来获得优惠，这个只用来显示。 */
+	private String coupon;
 	/** 优惠券号,如果是延期获取记录,则为空 */
 	private String couponId;
 	/** 优惠券描述,如果是延期获取记录,则为延期获取 的信息 */
@@ -81,6 +83,12 @@ public class Coupon {
 	}
 	public void setExpDay(String expDay) {
 		this.expDay = expDay;
+	}
+	public String getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(String coupon) {
+		this.coupon = coupon;
 	}
 	public String getCouponId() {
 		return couponId;
@@ -204,6 +212,7 @@ public class Coupon {
 			effDay = value.optString("eff_day");
 			date = dfs.parse(value.optString("exp_day"));
 			expDay = dfsSimple.format(date);
+			coupon = value.optString("coupon");
 			couponId = value.optString("coupon_id");
 			couponRemark = value.optString("coupon_remark");
 			stores = value.optString("stores");

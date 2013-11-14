@@ -21,6 +21,7 @@ import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
 public class ShakeFragment extends BaseFragment implements SensorEventListener {
 
@@ -31,7 +32,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     
     private SaleTask mSaleTask;
     
-    private static final String PARAM_COUPON_ID = "param_coupon_id";
+    public static final String PARAM_COUPON_ID = "param_coupon_id";
     
     private String mCouponId;
     
@@ -152,7 +153,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 				bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
 				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 						ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-				startActivity(intent);
+				getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 				getActivity().finish();
 			}
 		}

@@ -34,5 +34,7 @@
     
     <!-- coupon -->
     <dimen name="biz_coupon_list_padding">20dp</dimen>
+    <dimen name="biz_coupon_list_barcode_width">300dp</dimen>
+    <dimen name="biz_coupon_list_barcode_height">60dp</dimen>
     
 </resources>

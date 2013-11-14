@@ -18,10 +18,12 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Coupon;
 import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class CouponListFragment extends BaseListFragment implements OnActionBarClick {
+public class CouponListFragment extends BaseListFragment implements OnActionBarClick, OnActivityAction {
 
 	private CouponListAdapter mAdapter;
 	
@@ -34,7 +36,14 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MainActivityHelper.registerOnActivityActionListener(this);
 		mAdapter = new CouponListAdapter(getActivity(), mData);
+	}
+	
+	@Override
+	public void onDestroy() {
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+		super.onDestroy();
 	}
 	
 	@Override
@@ -85,7 +94,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onResume() {
 		super.onResume();
-		refresh();
 	}
 	
 	@Override
@@ -145,6 +153,15 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 			if (isAdded()) {
 				showProgress(false);
 			}
+		}
+	}
+
+	@Override
+	public void onCustomActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		
+		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
+			refresh();
 		}
 	}
 }

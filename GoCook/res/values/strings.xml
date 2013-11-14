@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1112</string>
+    <string name="build_version">build 1113</string>
     
     <string name="app_name">M6生鲜分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -17,6 +17,10 @@
     
     <string name="biz_main_exit_title">退出提示</string>
     <string name="biz_main_exit_message">您确定要退出么？</string>
+    
+    <string name="biz_main_newversion_title">发现新版本</string>
+    <string name="biz_main_newversion_positive">立刻升级</string>
+    <string name="biz_main_newversion_negative">下次再说</string>
     
     <!-- Base -->
     <string name="base_loading_more">载入中&#8230;</string>

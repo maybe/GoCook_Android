@@ -21,6 +21,7 @@ import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.entity.Sale.Condition;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
 public class ShakeResultFragment extends BaseFragment {
 
@@ -176,6 +177,7 @@ public class ShakeResultFragment extends BaseFragment {
 						
 						@Override
 						public void onClick(View v) {
+							getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
 							getActivity().finish();
 						}
 					});
@@ -223,6 +225,7 @@ public class ShakeResultFragment extends BaseFragment {
 						
 						@Override
 						public void onClick(View v) {
+							getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
 							getActivity().finish();
 						}
 					});

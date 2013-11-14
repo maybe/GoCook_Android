@@ -25,6 +25,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.m6.gocook.biz.account.AccountModel;
@@ -262,7 +263,6 @@ public class NetUtils {
 			System.setProperty("http.keepAlive", "false"); 
 			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
-//				System.out.println("setCookie : " + cookie);
 			}
 			conn.setUseCaches(false);
 			conn.setChunkedStreamingMode(0);
@@ -475,9 +475,10 @@ public class NetUtils {
 			conn.setReadTimeout(HTTP_READ_TIMEOUT);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("x-client-identifier", "Mobile");
+			// HttpURLConnection reuse cause EOF Exception
+			System.setProperty("http.keepAlive", "false");
 			if(!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);			
-//				System.out.println("getCookie : " + cookie);
 			}
 			conn.setDoInput(true);
 			conn.connect();

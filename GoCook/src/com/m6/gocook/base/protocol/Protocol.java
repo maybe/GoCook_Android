@@ -87,6 +87,9 @@ public class Protocol {
 	
 	public static final String URL_COUPON_DELAY_COUPON = URL_ROOT + "/cook/delay_coupon?test_id=2";
 	
+	/* Version */
+	public static final String URL_VERSION = URL_ROOT + "/index/android_update";
+	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";
 	public static final int VALUE_RESULT_OK = 0;
