@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:background="@color/profile_intro_bg"
         android:lines="5"
+        android:ellipsize="end"
         android:padding="10dp"
         android:text="@string/biz_profile_introduction"
         android:textColor="#7e7d7b" />

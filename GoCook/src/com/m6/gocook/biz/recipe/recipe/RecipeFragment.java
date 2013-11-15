@@ -306,6 +306,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 							if(mRecipeCollectTask == null) {
 								mRecipeCollectTask = new RecipeCollectTask(v);
 								mRecipeCollectTask.execute();
+								getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_COLLECT);
 							}
 						} else {
 							Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 

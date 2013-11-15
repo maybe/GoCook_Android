@@ -127,7 +127,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 			
 			@Override
 			public void onClick(View v) {
-				if(TextUtils.isEmpty(intro.getText().toString()) || intro.getLineCount() <= 5) {
+				if(TextUtils.isEmpty(intro.getText().toString()) || intro.getLineCount() < 5) {
 					return;
 				}
 				
