@@ -7,8 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +21,7 @@ import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,17 +43,19 @@ import com.m6.gocook.base.entity.RecipeEntity.Procedure;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
+import com.m6.gocook.biz.main.MainActivity;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.util.File.ImgUtils;
 import com.m6.gocook.util.log.Logger;
 
-public class RecipeEditFragment extends BaseFragment implements OnClickListener, OnActivityAction, OnPhotoPickCallback {
+public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnClickListener, OnActivityAction, OnPhotoPickCallback {
 
 	private final String TAG = RecipeFragment.class.getCanonicalName();
 	
@@ -96,8 +101,15 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		((BaseActivity) getActivity()).registerOnkeyDownListener(this);
 		// set softinputmode for activity
 		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+	}
+	
+	@Override
+	public void onDestroy() {
+		((BaseActivity) getActivity()).unRegisterOnkeyDownListener(this);
+		super.onDestroy();
 	}
 	
 	@Override
@@ -536,6 +548,28 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 		new PostAsyncTast().execute();
 	}
 	
+	private void exit() {
+		new AlertDialog.Builder(getActivity())
+        .setMessage(R.string.biz_recipe_exit_message)
+        .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	getActivity().finish();
+            }
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .create()
+        .show();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			exit();
+			return true;
+		}
+		return false;
+	}
+	
 	public class PostAsyncTast extends AsyncTask<Void, Void, Boolean> {
 
 		@Override
@@ -648,9 +682,7 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 				} else {
 					Toast.makeText(mContext, R.string.biz_recipe_edit_upload_ok, Toast.LENGTH_SHORT).show();
 				}
-				
 			}
-			
 		}
 		
 		@Override
@@ -660,7 +692,6 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 				showUploadingProgressBar(false);
 			}
 		}
-		
 	}
 
 	@Override
@@ -668,5 +699,5 @@ public class RecipeEditFragment extends BaseFragment implements OnClickListener,
 			Intent data) {
 		
 	}
-	
+
 }

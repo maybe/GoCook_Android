@@ -55,7 +55,7 @@ public class BaseWebFragment extends BaseFragment {
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(bundle != null ? bundle.getString(PARAM_TITLE) : "");
 		
-		WebView webView = (WebView) getView().findViewById(R.id.webview);
+		final WebView webView = (WebView) getView().findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.loadUrl(mUrl);
 		webView.setWebChromeClient(new WebChromeClient() {
@@ -70,6 +70,15 @@ public class BaseWebFragment extends BaseFragment {
 				super.onProgressChanged(view, newProgress);
 			}
 			
+		});
+		
+		webView.setWebViewClient(new WebViewClient() {
+			
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				webView.requestFocus();
+				super.onPageFinished(view, url);
+			}
 		});
 		
 		showProgress(true);
