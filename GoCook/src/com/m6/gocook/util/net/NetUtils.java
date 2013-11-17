@@ -252,15 +252,17 @@ public class NetUtils {
 			return null;
 		}
 		
+		System.out.println("xxxxxxxxxx keepalive : " + System.getProperty("http.keepAlive"));
 		try {
+			// Workaround for bug pre-Froyo, see here for more info:
+			// http://android-developers.blogspot.com/2011/09/androids-http-clients.html
+			System.setProperty("http.keepAlive", "false");
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestProperty("Connection", "close");
 			conn.setDoOutput(true);
 			conn.setRequestMethod(method);
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			// Workaround for bug pre-Froyo, see here for more info:
-			// http://android-developers.blogspot.com/2011/09/androids-http-clients.html
-			System.setProperty("http.keepAlive", "false"); 
 			if (!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);
 			}
@@ -469,14 +471,15 @@ public class NetUtils {
 		String result = null;
 		HttpURLConnection conn = null;
 		try {
+			// HttpURLConnection reuse issue some HTTP requests
+			System.setProperty("http.keepAlive", "false");
 			URL url = new URL(urlString);
 			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestProperty("Connection", "close");
 			conn.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
 			conn.setReadTimeout(HTTP_READ_TIMEOUT);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("x-client-identifier", "Mobile");
-			// HttpURLConnection reuse cause EOF Exception
-			System.setProperty("http.keepAlive", "false");
 			if(!TextUtils.isEmpty(cookie)) {
 				conn.setRequestProperty("Cookie", cookie);			
 			}
