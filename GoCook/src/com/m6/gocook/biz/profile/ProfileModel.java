@@ -9,22 +9,21 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.m6.gocook.base.constant.PrefKeys;
-import com.m6.gocook.base.entity.People;
-import com.m6.gocook.base.entity.Popular;
-import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.util.File.ImgUtils;
-import com.m6.gocook.util.model.ModelUtils;
-import com.m6.gocook.util.net.NetUtils;
-import com.m6.gocook.util.preference.PrefHelper;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.TextUtils;
+
+import com.m6.gocook.base.constant.PrefKeys;
+import com.m6.gocook.base.entity.People;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.util.File.ImgUtils;
+import com.m6.gocook.util.model.ModelUtils;
+import com.m6.gocook.util.net.NetUtils;
+import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileModel {
 	

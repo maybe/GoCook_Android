@@ -374,8 +374,8 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 		if(mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(getActivity());  
-			mProgressDialog.setCanceledOnTouchOutside(false);
-			mProgressDialog.setCancelable(false);
+//			mProgressDialog.setCanceledOnTouchOutside(false);
+//			mProgressDialog.setCancelable(false);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		}
 		

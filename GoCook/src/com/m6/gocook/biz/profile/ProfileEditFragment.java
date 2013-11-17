@@ -1,16 +1,12 @@
 package com.m6.gocook.biz.profile;
 
 import java.io.File;
-import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,14 +20,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
@@ -39,8 +33,6 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
-import com.m6.gocook.util.model.ModelUtils;
-import com.m6.gocook.util.preference.PrefHelper;
 
 public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCallback {
 
@@ -86,7 +78,6 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		actionBar.setRightButton(R.string.biz_profile_edit_save, R.drawable.actionbar_btn_selector);
 		
 		View view = getView();
-		FragmentActivity activity =  getActivity();
 		mAvatarImageView = (ImageView) view.findViewById(R.id.avatar);
 		mNameEditText = (EditText) view.findViewById(R.id.name);
 		mAgeEditText = (EditText) view.findViewById(R.id.birth);
@@ -125,16 +116,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		mIntroEditText.setText(mIntro);
 		mProfessionEditText.setText(mCareer);
 		
-		String male = getString(R.string.biz_profile_edit_sex_male);
-		String female = getString(R.string.biz_profile_edit_sex_female);
-		if (!TextUtils.isEmpty(mSex)) {
-			if (male.equals(mSex)) {
-				mSexSpinner.setSelection(1);
-			} else if (female.equals(mSex)) {
-				mSexSpinner.setSelection(2);
-			} else {
-				mSexSpinner.setSelection(0);
-			}
+		if ("0".equals(mSex)) {
+			mSexSpinner.setSelection(1);
+		} else if ("1".equals(mSex)) {
+			mSexSpinner.setSelection(2);
+		} else {
+			mSexSpinner.setSelection(0);
 		}
 		
 	}
@@ -175,43 +162,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 				}
 			}
 		});
-
-//		mBirthEditText.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				if (mDatePickerDialog == null) {
-//					mDatePickerDialog = new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay);
-//				}
-//				
-//				if (!mDatePickerDialog.isShowing()) {
-//					mDatePickerDialog.show();
-//				}
-//			}
-//		});
-		
 	}
-	
-//	private void updateDisplay() {
-//        mBirthEditText.setText(
-//            new StringBuilder()
-//                // Month is 0 based so add 1
-//            	.append(mYear).append("-")
-//		        .append(mMonth + 1).append("-")
-//                .append(mDay));
-//    }
-	
-//	private DatePickerDialog.OnDateSetListener mDateSetListener =
-//            new DatePickerDialog.OnDateSetListener() {
-//
-//                public void onDateSet(DatePicker view, int year, int monthOfYear,
-//                        int dayOfMonth) {
-//                    mYear = year;
-//                    mMonth = monthOfYear;
-//                    mDay = dayOfMonth;
-//                    updateDisplay();
-//                }
-//     };
 	
 	@Override
 	public void onResume() {
@@ -253,9 +204,17 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			String career = mProfessionEditText.getText().toString();
 			String intro = mIntroEditText.getText().toString();
 			String sex = (String) mSexSpinner.getSelectedItem();
-			if (!TextUtils.isEmpty(sex) && sex.equals("保密")) {
-				sex = "2"; // 0：男，1：女，2：保密
+			// 0：男，1：女，2：保密
+			String male = getString(R.string.biz_profile_edit_sex_male);
+			String female = getString(R.string.biz_profile_edit_sex_female);
+			if (male.equals(sex)) {
+				sex = "0";
+			} else if (female.equals(sex)) {
+				sex = "1";
+			} else {
+				sex = "2";
 			}
+			
 			
 			UpdateProfileTask task = new UpdateProfileTask(getActivity(), 
 					changedValue(mUsername, name), 

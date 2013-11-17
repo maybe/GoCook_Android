@@ -25,7 +25,6 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.m6.gocook.biz.account.AccountModel;
@@ -252,7 +251,6 @@ public class NetUtils {
 			return null;
 		}
 		
-		System.out.println("xxxxxxxxxx keepalive : " + System.getProperty("http.keepAlive"));
 		try {
 			// Workaround for bug pre-Froyo, see here for more info:
 			// http://android-developers.blogspot.com/2011/09/androids-http-clients.html
