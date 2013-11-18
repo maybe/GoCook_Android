@@ -42,4 +42,7 @@
     <color name="biz_coupon_invalid">#b7b5b1</color>
     <color name="biz_coupon_delay">#fca581</color>
     <color name="biz_coupon_normal">#9eca73</color>
+    
+    <color name="biz_account_pressed">#a1bb1c</color>
+    
 </resources>

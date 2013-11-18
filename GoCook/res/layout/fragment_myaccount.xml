@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@android:color/white"
+            android:background="@drawable/account_coupon_selector"
             android:orientation="horizontal"
             android:padding="10dp" >
 
@@ -51,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/account_shake_icon"
+                android:drawablePadding="5dp"
                 android:text="@string/biz_profile_myaccount_coupon"
                 android:textColor="#7b8951"
                 android:textStyle="bold" />
