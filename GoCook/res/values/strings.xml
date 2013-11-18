@@ -238,7 +238,7 @@
     <string name="biz_buy_order_details_item_unit">单位：%s</string>
     <string name="biz_buy_order_details_item_price">价格：%s</string>
     <string name="biz_buy_order_details_item_count">数量：%s</string>
-    <string name="biz_buy_order_details_item_cost">金额：%s</string>
+    <string name="biz_buy_order_details_item_cost">金额：￥%s</string>
     <string name="biz_buy_order_details_item_method">加工方式：%s</string>
     
     <string name="biz_buy_incompleted">该功能正在努力开发中，敬请期待~</string>

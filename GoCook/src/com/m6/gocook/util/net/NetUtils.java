@@ -466,6 +466,10 @@ public class NetUtils {
 	 * @return
 	 */
 	public static String httpGet(String urlString, String cookie) {
+		if (TextUtils.isEmpty(urlString)) {
+			return null;
+		}
+		
 		String result = null;
 		HttpURLConnection conn = null;
 		try {

@@ -10,10 +10,28 @@ import com.m6.gocook.biz.recipe.list.RecipeListFragment;
 
 public class OtherRecipesFragment extends RecipeListFragment {
 
-	public static String PARAM_USERNAME = "param_username";
-	public static String PARAM_USERID = "param_userid";
+	private static String PARAM_USERNAME = "param_username";
+	private static String PARAM_USERID = "param_userid";
 	
 	private String mUserId;
+	
+	public static OtherRecipesFragment newInstance(String userid, String username) {
+		OtherRecipesFragment fragment = new OtherRecipesFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString(PARAM_USERID, userid);
+		bundle.putString(PARAM_USERNAME, username);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Bundle args = getArguments();
+		if(args != null) {
+			mUserId = args.getString(PARAM_USERID);
+		}
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -23,7 +41,6 @@ public class OtherRecipesFragment extends RecipeListFragment {
 		if(args != null) {
 			ActionBar action = getActionBar();
 			action.setTitle(getString(R.string.biz_profile_myrecipe_title, args.getString(PARAM_USERNAME)));
-			mUserId = args.getString(PARAM_USERID);
 		}
 	}
 	
@@ -32,6 +49,6 @@ public class OtherRecipesFragment extends RecipeListFragment {
 		if (!TextUtils.isEmpty(mUserId)) {
 			return String.format(Protocol.URL_PROFILE_OTHER_RECIPES, mUserId);
 		}
-		return null;
+		return super.getURL();
 	}
 }

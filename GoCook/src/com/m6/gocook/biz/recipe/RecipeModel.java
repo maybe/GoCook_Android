@@ -146,10 +146,9 @@ public class RecipeModel {
 	 * 获取我的菜谱
 	 * 
 	 * @param context
-	 * @param myself true获取我的菜谱，false获取别人的菜谱
 	 * @return
 	 */
-	public static RecipeList getMyRecipes(Context context, boolean myself) {
+	public static RecipeList getMyRecipes(Context context) {
 		String result = null;
 		if (context != null) {
 			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_RECIPE, AccountModel.getCookie(context));
@@ -162,9 +161,6 @@ public class RecipeModel {
 			JSONObject json = new JSONObject(result);
 			RecipeList recipeListItem = new RecipeList();
 			if(recipeListItem.parse(json)) {
-				if (myself) {
-					ProfileModel.saveMyRecipesText(context, result);
-				}
 				return recipeListItem;
 			}
 		} catch (JSONException e) {

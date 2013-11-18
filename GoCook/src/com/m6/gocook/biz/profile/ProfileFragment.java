@@ -37,12 +37,11 @@ import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.account.WebLoginFragment;
-import com.m6.gocook.biz.buy.BuySearchFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
+import com.m6.gocook.biz.recipe.my.OtherRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
 import com.m6.gocook.util.model.ModelUtils;
 
@@ -169,13 +168,17 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 			
 			@Override
 			public void onClick(View v) {
-				Bundle bundle = new Bundle();
-				bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, 
-						mProfileType == PROFILE_MYSELF ? true : false);
-				bundle.putString(MyRecipesFragment.PARAM_USERNAME, mUsername);
-				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-						MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
-				startActivity(intent);
+				if (mProfileType == PROFILE_MYSELF) {
+					Bundle bundle = new Bundle();
+					bundle.putBoolean(MyRecipesFragment.PARAM_FROM_PROFILE, 
+							mProfileType == PROFILE_MYSELF ? true : false);
+					bundle.putString(MyRecipesFragment.PARAM_USERNAME, mUsername);
+					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+							MyRecipesFragment.class.getName(), MyRecipesFragment.class.getName(), bundle);
+					startActivity(intent);
+				} else {
+					FragmentHelper.startActivity(getActivity(), OtherRecipesFragment.newInstance(mUserId, mUsername));
+				}
 			}
 		});
 		
@@ -426,7 +429,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		
 		@Override
 		protected RecipeList doInBackground(Void... params) {
-			return RecipeModel.getMyRecipes(mContext, mProfileType == PROFILE_MYSELF);
+			return RecipeModel.getMyRecipes(mContext);
 		}
 		
 		@Override

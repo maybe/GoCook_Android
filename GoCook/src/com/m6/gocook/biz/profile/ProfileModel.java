@@ -104,14 +104,6 @@ public class ProfileModel {
 		PrefHelper.putString(context, PrefKeys.PROFILE_INFO, info);
 	}
 	
-	public static String getMyRecipesText(Context context) {
-		return PrefHelper.getString(context, PrefKeys.PROFILE_MYRECIPES, "");
-	}
-	
-	public static void saveMyRecipesText(Context context, String myRecipesText) {
-		PrefHelper.putString(context, PrefKeys.PROFILE_MYRECIPES, myRecipesText);
-	}
-	
 	public static String getOtherInfo(Context context) {
 		return PrefHelper.getString(context, PrefKeys.PROFILE_OTHERINFO, "");
 	}

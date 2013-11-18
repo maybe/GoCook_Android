@@ -98,7 +98,7 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 	@Override
 	protected RecipeList getListData(String url) {
 		if (mFromPersonnalProfile) {
-			return RecipeModel.getMyRecipes(getActivity(), mFromPersonnalProfile);
+			return RecipeModel.getMyRecipes(getActivity());
 		} else {
 			List<Map<String, Object>> recipes = ModelUtils.getListMapValue(ProfileModel.getOtherInfo(getActivity(), "", true), ProfileModel.RECIPES);
 			if (recipes != null) {

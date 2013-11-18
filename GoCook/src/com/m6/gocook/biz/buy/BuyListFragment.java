@@ -26,10 +26,13 @@ import com.m6.gocook.base.entity.request.CShopcartInfo.CShopcartWareInfo;
 import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
@@ -117,17 +120,21 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 	
 	@Override
 	public void onActionBarRightButtonClick(View v) {
-		if (mOrderedCount > 0) {
-			if (mTask == null) {
-				showProgress(true);
-				setProgressMessage(R.string.biz_buy_list_progress_message);
-				
-				mTask = new OrderTask(getActivity(), mData);
-				mTask.execute((Void) null); 
-			}
+		if (!AccountModel.isLogon(getActivity())) {
+			FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
 		} else {
-			if (isAdded()) {
-				Toast.makeText(getActivity(), R.string.biz_buy_list_no_order, Toast.LENGTH_LONG).show();
+			if (mOrderedCount > 0) {
+				if (mTask == null) {
+					showProgress(true);
+					setProgressMessage(R.string.biz_buy_list_progress_message);
+					
+					mTask = new OrderTask(getActivity(), mData);
+					mTask.execute((Void) null); 
+				}
+			} else {
+				if (isAdded()) {
+					Toast.makeText(getActivity(), R.string.biz_buy_list_no_order, Toast.LENGTH_LONG).show();
+				}
 			}
 		}
 	}
