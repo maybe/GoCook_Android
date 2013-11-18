@@ -18,6 +18,7 @@
     <string name="biz_main_exit_title">退出提示</string>
     <string name="biz_main_exit_message">您确定要退出么？</string>
     <string name="biz_recipe_exit_message">退出后将丢失所有编辑的菜谱数据，确定退出？</string>
+    <string name="biz_buy_exit_message">您有未下单的商品，确定退出？</string>
     
     <string name="biz_main_newversion_title">发现新版本</string>
     <string name="biz_main_newversion_positive">立刻升级</string>

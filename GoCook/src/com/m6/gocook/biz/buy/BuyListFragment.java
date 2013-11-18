@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.entity.request.CShopcartInfo;
 import com.m6.gocook.base.entity.request.CShopcartInfo.CShopcartWareInfo;
@@ -23,13 +27,14 @@ import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
 
-public class BuyListFragment extends BaseFragment implements OnActivityAction {
+public class BuyListFragment extends BaseFragment implements OnActivityAction, OnKeyDown {
 
 	public static final String PARAM_RECIPE_ID = "param_recipe_id";
 	
@@ -45,6 +50,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		MainActivityHelper.registerOnActivityActionListener(this);
+		((BaseActivity) getActivity()).registerOnkeyDownListener(this);
 		
 		Bundle args = getArguments();
 		if (args != null) {
@@ -106,6 +112,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 	public void onDestroy() {
 		super.onDestroy();
 		MainActivityHelper.unRegisterOnActivityActionListener(this);
+		((BaseActivity) getActivity()).unRegisterOnkeyDownListener(this);
 	}
 	
 	@Override
@@ -196,6 +203,30 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction {
 				showProgress(false);
 			}
 		}
+	}
+	
+	private void exit() {
+		new AlertDialog.Builder(getActivity())
+        .setMessage(R.string.biz_buy_exit_message)
+        .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	getActivity().finish();
+            }
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .create()
+        .show();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mOrderedCount > 0) {
+				exit();
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
