@@ -495,7 +495,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			return RecipeModel.deleteRecipe(mContext, mRecipeId);
+			return RecipeModel.deleteRecipe(mContext.getApplicationContext(), mRecipeId);
 		}
 		
 		@Override
@@ -537,7 +537,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 					       .setCancelable(false)
 					       .setPositiveButton(R.string.biz_recipe_edit_title_deleteok, new DialogInterface.OnClickListener() {
 					           public void onClick(DialogInterface dialog, int id) {
-					                new DeleteRecipeTast().execute();
+					                new DeleteRecipeTast().execute((Void) null);
 					           }
 					       })
 					       .setNegativeButton(R.string.biz_recipe_edit_title_deleteno, new DialogInterface.OnClickListener() {

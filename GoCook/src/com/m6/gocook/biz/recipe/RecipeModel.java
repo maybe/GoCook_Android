@@ -107,6 +107,9 @@ public class RecipeModel {
 	
 	public static Boolean deleteRecipe(Context context, String recipeId) {
 		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_DELETE, recipeId), AccountModel.getCookie(context));
+		if (TextUtils.isEmpty(result)) {
+			return false;
+		}
 		
 		JSONObject jsonObject = null;
 		try {
