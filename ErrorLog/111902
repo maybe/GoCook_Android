@@ -1,0 +1,64 @@
+11-19 20:41:53.502: W/ResourceType(526): Skipping entry 0x7f05000e in package table 0 because it is not complex!
+11-19 20:41:53.502: W/ResourceType(526): Skipping entry 0x7f05000f in package table 0 because it is not complex!
+11-19 20:41:58.207: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_CENTER, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165607593, downTime=165607593, deviceId=-1, source=0x101 }
+11-19 20:41:59.408: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_MENU, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165608805, downTime=165608805, deviceId=-1, source=0x101 }
+11-19 20:41:59.428: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165608815, downTime=165608815, deviceId=-1, source=0x101 }
+11-19 20:42:01.711: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165611107, downTime=165611107, deviceId=-1, source=0x101 }
+11-19 20:42:01.731: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_LEFT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165611115, downTime=165611115, deviceId=-1, source=0x101 }
+11-19 20:42:02.391: E/ImageCache(22317): addBitmapToCache - java.lang.IllegalStateException: edit didn't create file 0
+11-19 20:42:04.804: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_PLUS, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165614195, downTime=165614195, deviceId=-1, source=0x101 }
+11-19 20:42:04.844: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165614225, downTime=165614225, deviceId=-1, source=0x101 }
+11-19 20:42:05.455: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-19 20:42:05.455: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-19 20:42:09.269: W/ViewRootImpl(644): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_DPAD_RIGHT, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165618642, downTime=165618642, deviceId=-1, source=0x101 }
+11-19 20:42:09.289: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_MULTIPLE, keyCode=KEYCODE_UNKNOWN, scanCode=0, characters="、", metaState=0, flags=0x0, repeatCount=0, eventTime=165618695, downTime=165618695, deviceId=-1, source=0x101 }
+11-19 20:42:09.319: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_SPACE, scanCode=0, metaState=0, flags=0x0, repeatCount=0, eventTime=165618725, downTime=165618725, deviceId=-1, source=0x101 }
+11-19 20:42:09.329: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_MULTIPLE, keyCode=KEYCODE_UNKNOWN, scanCode=0, characters="他", metaState=0, flags=0x0, repeatCount=0, eventTime=165618738, downTime=165618738, deviceId=-1, source=0x101 }
+11-19 20:42:09.339: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_2, scanCode=0, metaState=0, flags=0x6, repeatCount=0, eventTime=165618737, downTime=165618737, deviceId=-1, source=0x0 }
+11-19 20:42:09.459: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_NUMPAD_9, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165618844, downTime=165618844, deviceId=-1, source=0x101 }
+11-19 20:42:09.459: W/ViewRootImpl(22317): Dropping event due to no window focus: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_PAGE_UP, scanCode=0, metaState=0, flags=0x8, repeatCount=0, eventTime=165618844, downTime=165618844, deviceId=-1, source=0x101 }
+11-19 20:42:09.459: W/InputMethodManagerService(526): Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@429e0dc8 attribute=null, token = android.os.BinderProxy@422e6938
+11-19 20:42:09.589: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:939 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 dalvik.system.NativeStart.run:-2 
+11-19 20:42:09.589: W/ContextImpl(526): Calling a method in the system process without a qualified user: android.app.ContextImpl.startActivity:951 android.app.ContextImpl.startActivity:940 com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching:2149 com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching:352 com.android.server.input.InputManagerService.interceptKeyBeforeDispatching:1329 
+11-19 20:42:09.589: W/IntentResolver(526): resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT
+11-19 20:42:09.589: W/WindowManager(526): Dropping application launch key because the activity to which it is registered was not found: keyCode=64, category=android.intent.category.APP_BROWSER
+11-19 20:42:09.589: W/WindowManager(526): android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 sel={act=android.intent.action.MAIN cat=[android.intent.category.APP_BROWSER]} }
+11-19 20:42:09.589: W/WindowManager(526): 	at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1632)
+11-19 20:42:09.589: W/WindowManager(526): 	at android.app.Instrumentation.execStartActivity(Instrumentation.java:1424)
+11-19 20:42:09.589: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:958)
+11-19 20:42:09.589: W/WindowManager(526): 	at android.app.ContextImpl.startActivity(ContextImpl.java:940)
+11-19 20:42:09.589: W/WindowManager(526): 	at com.android.internal.policy.impl.PhoneWindowManager.interceptKeyBeforeDispatching(PhoneWindowManager.java:2149)
+11-19 20:42:09.589: W/WindowManager(526): 	at com.android.server.wm.InputMonitor.interceptKeyBeforeDispatching(InputMonitor.java:352)
+11-19 20:42:09.589: W/WindowManager(526): 	at com.android.server.input.InputManagerService.interceptKeyBeforeDispatching(InputManagerService.java:1329)
+11-19 20:42:09.589: W/WindowManager(526): 	at dalvik.system.NativeStart.run(Native Method)
+11-19 20:42:09.949: W/IInputConnectionWrapper(22317): sendKeyEvent on inactive InputConnection
+11-19 20:42:09.949: W/IInputConnectionWrapper(22317): sendKeyEvent on inactive InputConnection
+11-19 20:42:09.949: W/IInputConnectionWrapper(22317): sendKeyEvent on inactive InputConnection
+11-19 20:42:09.949: W/IInputConnectionWrapper(22317): sendKeyEvent on inactive InputConnection
+11-19 20:42:13.583: W/dalvikvm(22317): threadid=1: thread exiting with uncaught exception (group=0x4158d700)
+11-19 20:42:13.583: E/AndroidRuntime(22317): FATAL EXCEPTION: main
+11-19 20:42:13.583: E/AndroidRuntime(22317): java.lang.NullPointerException
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at com.m6.gocook.biz.recipe.comment.RecipeCommentAdapter.onClick(RecipeCommentAdapter.java:93)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.view.View.performClick(View.java:4240)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.view.View$PerformClick.run(View.java:17721)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.os.Handler.handleCallback(Handler.java:730)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.os.Looper.loop(Looper.java:137)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at android.app.ActivityThread.main(ActivityThread.java:5103)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at java.lang.reflect.Method.invokeNative(Native Method)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at java.lang.reflect.Method.invoke(Method.java:525)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:737)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+11-19 20:42:13.583: E/AndroidRuntime(22317): 	at dalvik.system.NativeStart.main(Native Method)
+11-19 20:42:13.593: W/ActivityManager(526):   Force finishing activity com.m6.gocook/.base.activity.BaseActivity
+11-19 20:42:14.104: W/ActivityManager(526): Activity pause timeout for ActivityRecord{427aca40 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-19 20:42:23.604: W/ActivityManager(526): Launch timeout has expired, giving up wake lock!
+11-19 20:42:24.104: W/ActivityManager(526): Activity idle timeout for ActivityRecord{425bbae0 u0 com.m6.gocook/.base.activity.BaseActivity}
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): Sync failure
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): java.io.IOException: Error: 0 [null]
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): 	at cdd.a(PG:721)
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): 	at com.google.android.apps.plus.service.EsSyncAdapterService.a(PG:855)
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): 	at com.google.android.apps.plus.service.EsSyncAdapterService.a(PG:74)
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): 	at eax.onPerformSync(PG:454)
+11-19 20:42:27.558: E/EsSyncAdapterService(15810): 	at android.content.AbstractThreadedSyncAdapter$SyncThread.run(AbstractThreadedSyncAdapter.java:254)
+11-19 20:42:35.757: W/InputMethodManagerService(526): Got RemoteException sending setActive(false) notification to pid 22317 uid 10101
