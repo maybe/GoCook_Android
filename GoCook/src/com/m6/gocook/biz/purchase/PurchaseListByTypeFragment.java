@@ -40,10 +40,10 @@ public class PurchaseListByTypeFragment extends Fragment {
 		
 		ListView mainMaterialListView = (ListView) view.findViewById(R.id.purchase_main_material_listview);
 		
-		String[] from = {RecipeMaterialPurchaseList.MATERIAL_NAME,
-				RecipeMaterialPurchaseList.MATERIAL_REMARK};
-		int[] to = {R.id.name,
-				R.id.remark};
+		String[] from = {RecipeMaterialPurchaseList.MATERIAL_NAME
+				/*RecipeMaterialPurchaseList.MATERIAL_REMARK*/};
+		int[] to = {R.id.name
+				/*R.id.remark*/};
 		
 		mainMaterialListView.setAdapter(new PurchaseMaterialListAdapter(mContext,
 				R.layout.adapter_purchase_recipe_material_list_item,

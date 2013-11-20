@@ -123,7 +123,7 @@ public class PurchaseListModel {
 		
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
 		Cursor cursor = context.getContentResolver().query(uri, null,
-				RecipeMaterialPurchaseList.IS_MAIN + "=?",
+				RecipeMaterialPurchaseList.IS_MAIN + "=?) GROUP BY (" + RecipeMaterialPurchaseList.MATERIAL_NAME,
 				new String[] { isMain ? "1" : "0" }, null);
 		return cursor; 
 	}

@@ -160,7 +160,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
 		// for very easy animations. If available, use these APIs to fade-in
 		// the progress spinner.
-		if(mProgressView == null) {
+		if(mProgressView == null || !isAdded()) {
 			return;
 		}
 		

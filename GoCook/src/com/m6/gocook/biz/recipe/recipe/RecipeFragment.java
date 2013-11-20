@@ -118,10 +118,8 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		if(mContext == null) {
-			mContext = getActivity();
-			doCreate();
-		}
+		mContext = getActivity();
+		doCreate();
 	}
 	
 	@Override
@@ -325,7 +323,8 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			public void onClick(View v) {
 				if (isAdded()) {
 					mRefreshComments = true;
-					RecipeCommentFragment.startInActivity(mContext, mRecipeId, mRecipeEntity.getName());
+					RecipeCommentFragment.startInActivity(mContext, mRecipeId, 
+							mRecipeEntity != null ? mRecipeEntity.getName() : null);
 				}
 			}
 		});

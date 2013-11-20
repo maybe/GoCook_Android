@@ -3,40 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <RelativeLayout
-        android:id="@+id/purchase_norecord_tip"
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/tip"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-			android:paddingBottom="10dp"
-            android:text="@string/biz_recipe_purchase_norecord_tip"
-            android:textColor="#3B272D"
-            android:textSize="16sp"
-			android:layout_centerInParent="true"
-			android:gravity="center"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-			android:layout_centerInParent="true"
-			android:layout_below="@id/tip"
-			android:gravity="center"
-            android:text="@string/biz_recipe_purchase_norecord_tip_more"
-            android:textColor="#aea8a4"
-            android:textSize="12sp" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/biz_recipe_purchase_norecord_tip_more"
+        android:textColor="#aea8a4"
+        android:textSize="12sp" />
 
     <FrameLayout
         android:id="@+id/purchase_tabcontent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="invisible"
-        android:background="@color/main_bg" />
+        android:background="@color/main_bg"
+        android:visibility="invisible" />
 
 </FrameLayout>
