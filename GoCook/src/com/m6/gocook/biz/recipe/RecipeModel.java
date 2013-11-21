@@ -3,35 +3,20 @@ package com.m6.gocook.biz.recipe;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.integer;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.MultiAutoCompleteTextView.CommaTokenizer;
 
-import com.m6.gocook.R.string;
-import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.constant.PrefKeys;
-import com.m6.gocook.base.db.GoCookProvider;
-import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-import com.m6.gocook.base.db.table.RecipePurchaseList;
-import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.net.NetUtils;
 import com.m6.gocook.util.preference.PrefHelper;

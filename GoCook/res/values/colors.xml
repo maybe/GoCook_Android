@@ -28,6 +28,8 @@
     <color name="recipe_comments_link_bg_pressed">#f9f6f4</color>
     <color name="recipe_comments_commit_button_bg">#6f0706</color>
     <color name="recipe_comments_commit_button_bg_pressed">#ef5321</color>
+    <color name="recipe_edit_more_button_bg">#ffd800</color>
+    <color name="recipe_edit_more_button_bg_pressed">#515151</color>
     
     <color name="purchase_recipe_list_item_title_bg">#ffffff</color>
     <color name="purchase_recipe_list_item_title_bg_pressed">#f9f6f4</color>
@@ -39,9 +41,9 @@
     <color name="biz_buy_text">#3B272D</color>
     
     <!-- coupon -->
-    <color name="biz_coupon_invalid">#b7b5b1</color>
-    <color name="biz_coupon_delay">#fca581</color>
-    <color name="biz_coupon_normal">#9eca73</color>
+    <color name="biz_coupon_invalid">#bcbab6</color>
+    <color name="biz_coupon_delay">#cbde5f</color>
+    <color name="biz_coupon_normal">#98d75c</color>
     
     <color name="biz_account_pressed">#a1bb1c</color>
     

@@ -65,10 +65,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 		actionBar.setTitle(R.string.biz_coupon_list_title);
 		actionBar.setRightButton(null, R.drawable.actionbar_refresh_selector);
 		
-		View root = view.findViewById(R.id.root);
-		int padding = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_padding);
-		root.setPadding(padding, padding, padding, 0);
-		
 		view.findViewById(R.id.shake).setOnClickListener(new OnClickListener() {
 			
 			@Override
