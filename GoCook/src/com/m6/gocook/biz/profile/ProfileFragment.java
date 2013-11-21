@@ -277,6 +277,13 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 			}
 		}
 		
+		// 粉丝、关注数
+		String fans = ModelUtils.getStringValue(info, ProfileModel.FOLLOWED_COUNT);
+		((TextView) view.findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, fans));
+		
+		String follows = ModelUtils.getStringValue(info, ProfileModel.FOLLOWING_COUNT);
+		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, follows));
+		
 		// 个人简介
 		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);
 		((TextView) view.findViewById(R.id.intro)).setText(getString(R.string.biz_profile_introduction, intro));
@@ -328,7 +335,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		}
 	}
 	
-	private void updateFollow(boolean followed) {
+	private void updateFollowStatus(boolean followed) {
 		Button edit = (Button) getView().findViewById(R.id.edit);
 		if (followed) {
 			mFollowStatus = FOLLOWED;
@@ -471,7 +478,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 			}
 			
 			if (result != null && ModelUtils.getIntValue(result, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
-				updateFollow(true);
+				updateFollowStatus(true);
 			} else {
 				Toast.makeText(mContext, R.string.biz_profile_add_follow_fail, Toast.LENGTH_SHORT).show();
 			}
@@ -500,7 +507,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 			}
 			
 			if (result != null && ModelUtils.getIntValue(result, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
-				updateFollow(false);
+				updateFollowStatus(false);
 			} else {
 				Toast.makeText(mContext, R.string.biz_profile_unfollow_fail, Toast.LENGTH_SHORT).show();
 			}

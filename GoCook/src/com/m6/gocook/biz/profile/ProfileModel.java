@@ -37,8 +37,12 @@ public class ProfileModel {
 	public static final String TELEPHONE = "tel";
 	public static final String INTRO = "intro";
 	public static final String FOLLOW = "watch";
-	public static final String RECIPES_COUNT = "totalrecipecount";
 	public static final String RECIPES = "recipes";
+	public static final String RECIPES_COUNT = "recipe_count";
+	public static final String COLLECT_COUNT = "collect_count";
+	public static final String FOLLOWING_COUNT = "following_count";
+	public static final String FOLLOWED_COUNT = "followed_count";
+
 	
 	public static void saveAge(Context context, String age) {
 		PrefHelper.putString(context, PrefKeys.PROFILE_AGE, age);
