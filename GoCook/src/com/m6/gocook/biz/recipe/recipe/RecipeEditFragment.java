@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -52,6 +53,7 @@ import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
 import com.m6.gocook.biz.main.MainActivity;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.util.File.FileUtils;
 import com.m6.gocook.util.File.ImgUtils;
 import com.m6.gocook.util.log.Logger;
 
@@ -433,7 +435,9 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 			if(bitmap != null) {
 				mCurrentImageView.setImageBitmap(bitmap);
 			} else if (uri != null) {
-				mCurrentImageView.setImageURI(uri);
+				int size = getResources().getDimensionPixelSize(R.dimen.biz_recipe_edit_step_image_height);
+				mCurrentImageView.setImageBitmap(
+						ImgUtils.decodeSampledBitmapFromFile(ImgUtils.getPath(getActivity(), uri), size, size));
 			} else {
 				mCurrentImageView.setImageResource(R.drawable.register_photo);
 			}

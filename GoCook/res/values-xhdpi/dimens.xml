@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- recipe edit -->
+    <dimen name="biz_recipe_edit_step_image_height">100dp</dimen>
+
+</resources>

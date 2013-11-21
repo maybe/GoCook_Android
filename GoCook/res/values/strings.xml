@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1117</string>
+    <string name="build_version">build 1120</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
