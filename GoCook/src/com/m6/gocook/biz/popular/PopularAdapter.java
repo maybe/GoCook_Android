@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.popular;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
@@ -26,6 +27,8 @@ public class PopularAdapter extends BaseAdapter {
 	private static final int VIEW_TYPE_HEADER = 0;
 	
 	private static final int VIEW_TYPE_NORMAL = 1;
+	
+	private static final int VIEW_TYPE_AD = 2;
 
 	private LayoutInflater mInflater;
 	
@@ -51,13 +54,15 @@ public class PopularAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		return mPopular == null ? 0 : mPopular.getRecommendItems().size() + 1;
+		return mPopular == null ? 0 : mPopular.getRecommendItems().size() + 2;
 	}
 	
 	@Override
 	public int getItemViewType(int position) {
 		if(position == 0) {
 			return VIEW_TYPE_HEADER;
+		} else if (position == 1){
+			return VIEW_TYPE_AD;
 		} else {
 			return VIEW_TYPE_NORMAL;
 		}
@@ -65,12 +70,12 @@ public class PopularAdapter extends BaseAdapter {
 	
 
 	public int getViewTypeCount() {
-		return 2;
+		return 3;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		if(position == 0) {
+		if(position == 0 || position == 1) {
 			return null;
 		} else {
 			return mPopular.getRecommendItems().get(position - 1);
@@ -86,6 +91,7 @@ public class PopularAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		HeaderViewHolder headerHolder = null;
 		NormalViewHolder normalHolder = null;
+		ADViewHolder adViewHolder = null;
 		int type = getItemViewType(position);
 		if(convertView == null) {
 			if(type == VIEW_TYPE_HEADER) {
@@ -105,16 +111,25 @@ public class PopularAdapter extends BaseAdapter {
 				normalHolder.image3 = (ImageView) convertView.findViewById(R.id.image3);
 				normalHolder.image4 = (ImageView) convertView.findViewById(R.id.image4);
 				convertView.setTag(normalHolder);
+			} else if (type == VIEW_TYPE_AD) {
+				convertView = mInflater.inflate(R.layout.adapter_popular_ad_item, null);
+				adViewHolder = new ADViewHolder();
+				adViewHolder.ad1 = (ImageView) convertView.findViewById(R.id.ad1);
+				adViewHolder.ad2 = (ImageView) convertView.findViewById(R.id.ad2);
+				adViewHolder.ad3 = (ImageView) convertView.findViewById(R.id.ad3);
+				convertView.setTag(adViewHolder);
 			}
 		} else {
-			if(type == VIEW_TYPE_HEADER) {
+			if (type == VIEW_TYPE_HEADER) {
 				headerHolder = (HeaderViewHolder) convertView.getTag();
-			} else if(type == VIEW_TYPE_NORMAL) {
+			} else if (type == VIEW_TYPE_NORMAL) {
 				normalHolder = (NormalViewHolder) convertView.getTag();
+			} else if (type == VIEW_TYPE_AD) {
+				adViewHolder = (ADViewHolder) convertView.getTag();
 			}
 		}
 
-		if(type == VIEW_TYPE_HEADER) {
+		if (type == VIEW_TYPE_HEADER) {
 			mHeaderImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopHotImg()), headerHolder.image1);
 			mHeaderImageFetcher.loadImage(ProtocolUtils.getURL(mPopular.getTopNewImg()), headerHolder.image2);
 			
@@ -140,7 +155,7 @@ public class PopularAdapter extends BaseAdapter {
 				}
 			});
 			
-		} else if(type == VIEW_TYPE_NORMAL) {
+		} else if (type == VIEW_TYPE_NORMAL) {
 			Pair<String, String[]> data = mPopular.getRecommendItems().get(position - 1);
 			normalHolder.title.setText(data.first);
 			String[] images = data.second;
@@ -162,8 +177,38 @@ public class PopularAdapter extends BaseAdapter {
 					mImageFetcher.loadImage(ProtocolUtils.getURL(images[0]), normalHolder.image1);
 				}
 			}
+		} else if (type == VIEW_TYPE_AD) {
+			adViewHolder.ad1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					openBrower("c2b.m6fresh.com");
+				}
+			});
+			adViewHolder.ad2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					openBrower("share.m6fresh.com");
+				}
+			});
+			adViewHolder.ad3.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					openBrower("o2o.m6fresh.com");
+				}
+			});
 		}
 		return convertView;
+	}
+	
+	private void openBrower(String url) {
+		Intent intent= new Intent();        
+	    intent.setAction(Intent.ACTION_VIEW);    
+	    intent.setData(Uri.parse(url));
+	    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+	    mActivity.startActivity(intent);
 	}
 	
 	class HeaderViewHolder {
@@ -181,4 +226,9 @@ public class PopularAdapter extends BaseAdapter {
 		private ImageView image4;
 	}
 
+	class ADViewHolder {
+		private ImageView ad1;
+		private ImageView ad2;
+		private ImageView ad3;
+	}
 }
