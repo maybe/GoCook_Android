@@ -292,8 +292,8 @@ public class ProfileModel {
 						int size = list.size();
 						for (int i = 0; i < size; i++) {
 							People people = new People();
-//							people.setFans(ModelUtils.getStringValue(list.get(i), ""));
-//							people.setFollows(30);
+							people.setFans(ModelUtils.getIntValue(list.get(i), "following_count", 0));
+							people.setFollows(ModelUtils.getIntValue(list.get(i), "following_count", 0));
 							people.setId(ModelUtils.getStringValue(list.get(i), "user_id"));
 							people.setName(ModelUtils.getStringValue(list.get(i), "name"));
 							people.setImage(ModelUtils.getStringValue(list.get(i), "portrait"));

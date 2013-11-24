@@ -65,15 +65,14 @@ public class PeopleAdapter extends BaseAdapter {
 		}
 		
 		holder.name.setText(mData.get(position).getName());
-		holder.fans.setText(mContext.getString(R.string.biz_profile_myaccount_fans_count, mData.get(position).getFans()));
-		holder.follows.setText(mContext.getString(R.string.biz_profile_myaccount_follows_count, mData.get(position).getFollows()));
+		holder.fans.setText(mContext.getString(R.string.biz_profile_myaccount_fans_count, 
+				String.valueOf(mData.get(position).getFans())));
+		holder.follows.setText(mContext.getString(R.string.biz_profile_myaccount_follows_count, 
+				String.valueOf(mData.get(position).getFollows())));
 		String url = mData.get(position).getImage();
 		if (!TextUtils.isEmpty(url)) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(url), holder.image);
 		}
-		
-		holder.fans.setVisibility(View.GONE);
-		holder.follows.setVisibility(View.GONE);
 		
 		return convertView;
 	}

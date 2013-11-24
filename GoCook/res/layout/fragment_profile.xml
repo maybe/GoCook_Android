@@ -24,20 +24,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/avatar"
-            android:singleLine="true"
             android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/avatar"
+            android:singleLine="true"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/avatar"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name"
             android:layout_below="@id/name"
+            android:layout_marginRight="8dp"
             android:layout_toRightOf="@id/avatar"
-            android:textColor="#eda593" />
+            android:textColor="#b6ca63" />
 
         <TextView
             android:id="@+id/fans"
@@ -45,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
             android:layout_toRightOf="@id/follow"
-            android:textColor="#eda593" />
+            android:textColor="#b6ca63" />
 
         <Button
             android:id="@+id/edit"
@@ -54,10 +56,10 @@
             android:layout_alignLeft="@id/name"
             android:layout_below="@id/follow"
             android:background="@drawable/follow_btn_selector"
-            android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:paddingTop="5dp"
             android:text="@string/biz_profile_edit_btn"
             android:textColor="#ffffff" />
     </RelativeLayout>
@@ -67,8 +69,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/profile_intro_bg"
-        android:lines="5"
         android:ellipsize="end"
+        android:lines="5"
         android:padding="10dp"
         android:text="@string/biz_profile_introduction"
         android:textColor="#7e7d7b" />
@@ -85,8 +87,8 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/biz_profile_myrecipe_title"
             android:singleLine="true"
+            android:text="@string/biz_profile_myrecipe_title"
             android:textColor="#aeaba4" />
 
         <GridView

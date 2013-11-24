@@ -279,10 +279,12 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		
 		// 粉丝、关注数
 		String fans = ModelUtils.getStringValue(info, ProfileModel.FOLLOWED_COUNT);
-		((TextView) view.findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, fans));
+		((TextView) view.findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, 
+				TextUtils.isEmpty(fans) ? "0" : fans));
 		
 		String follows = ModelUtils.getStringValue(info, ProfileModel.FOLLOWING_COUNT);
-		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, follows));
+		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, 
+				TextUtils.isEmpty(follows) ? "0" : follows));
 		
 		// 个人简介
 		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);
