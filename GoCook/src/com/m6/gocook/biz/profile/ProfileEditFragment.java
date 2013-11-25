@@ -1,6 +1,7 @@
 package com.m6.gocook.biz.profile;
 
 import java.io.File;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -33,6 +33,7 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.common.PhotoPickDialogFragment.OnPhotoPickCallback;
+import com.m6.gocook.util.model.ModelUtils;
 
 public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCallback {
 
@@ -87,14 +88,14 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		mIntroEditText = (EditText) view.findViewById(R.id.intro);
 
 		setOnListeners();
-		initIntro();
 		
 		ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
 		String url = AccountModel.getAvatarPath(getActivity());
 		if(!TextUtils.isEmpty(url)) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
 		}
-		
+
+		new BasicInfoTask(getActivity()).execute((Void) null);
 	}
 	
 	private void initIntro() {
@@ -272,6 +273,59 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			mAvatarImageView.setImageURI(mAvatartUri);
 		} else {
 			mAvatarImageView.setImageResource(R.drawable.register_photo);
+		}
+	}
+	
+	private class BasicInfoTask extends AsyncTask<Void, Void, Boolean> {
+
+		private Context mContext;
+		
+		public BasicInfoTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgress(true);
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			Map<String, Object> map = ProfileModel.getBasicInfo(mContext);
+			if (map != null) {
+				// 保存个人信息
+				AccountModel.saveUsername(getActivity(), ModelUtils.getStringValue(map, ProfileModel.NICKNAME));
+				ProfileModel.saveAge(getActivity(), ModelUtils.getStringValue(map, ProfileModel.AGE));
+				int sexType = ModelUtils.getIntValue(map, ProfileModel.SEX, 0);
+				String sex;
+				if (sexType == 0) {
+					sex = "男";
+				} else if (sexType == 1) {
+					sex = "女";
+				} else {
+					sex = "2";
+				}
+				ProfileModel.saveSex(getActivity(), sex);
+				ProfileModel.saveCity(getActivity(), ModelUtils.getStringValue(map, ProfileModel.CITY));
+				ProfileModel.saveCareer(getActivity(), ModelUtils.getStringValue(map, ProfileModel.CAREER));
+				ProfileModel.saveIntro(getActivity(), ModelUtils.getStringValue(map, ProfileModel.INTRO));
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (isAdded()) {
+				showProgress(false);
+				if (result) {
+					initIntro();
+				} else {
+					setEmptyMessage(R.string.biz_profile_info_failed);
+					showEmpty(true);
+				}
+			}
 		}
 	}
 	

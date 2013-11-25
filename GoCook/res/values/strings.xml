@@ -70,6 +70,7 @@
     <string name="biz_profile_myrecipes_title">%s的菜谱</string>
     <string name="biz_profile_myrecipes_header_title">创建新菜谱</string>
     <string name="biz_profile_mycollection_title">%s的收藏</string>
+    <string name="biz_profile_info_failed">未能获取个人信息~</string>
     
     <string name="biz_profile_edit_save">保存</string>
     <string name="biz_profile_edit_title">编辑个人资料</string>
