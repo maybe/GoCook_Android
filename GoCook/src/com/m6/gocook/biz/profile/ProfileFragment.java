@@ -39,7 +39,6 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
-import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.biz.recipe.my.OtherRecipesFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
@@ -113,15 +112,6 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-//		if (mProfileType == PROFILE_MYSELF) {
-//			new BasicInfoTask(getActivity()).execute((Void) null);
-//			new RecipeTask(getActivity()).execute((Void) null);
-//		} else {
-//			if (!TextUtils.isEmpty(mUserId)) {
-//				new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
-//			}
-//		}
 		
 		if (!TextUtils.isEmpty(mUserId)) {
 			new OtherInfoTask(getActivity(), mUserId).execute((Void) null);
@@ -323,25 +313,6 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		} else {
 			hideRecipesView(true);
 		}
-		
-		// 保存个人信息
-//		if(mProfileType == PROFILE_MYSELF) {
-//			AccountModel.saveUsername(getActivity(), ModelUtils.getStringValue(info, ProfileModel.NICKNAME));
-//			ProfileModel.saveAge(getActivity(), ModelUtils.getStringValue(info, ProfileModel.AGE));
-//			int sexType = ModelUtils.getIntValue(info, ProfileModel.SEX, 0);
-//			String sex;
-//			if (sexType == 0) {
-//				sex = "男";
-//			} else if (sexType == 1) {
-//				sex = "女";
-//			} else {
-//				sex = "2";
-//			}
-//			ProfileModel.saveSex(getActivity(), sex);
-//			ProfileModel.saveCity(getActivity(), ModelUtils.getStringValue(info, ProfileModel.CITY));
-//			ProfileModel.saveCareer(getActivity(), ModelUtils.getStringValue(info, ProfileModel.CAREER));
-//			ProfileModel.saveIntro(getActivity(), intro);
-//		}
 	}
 	
 	private void updateFollowStatus(boolean followed) {
@@ -362,36 +333,6 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		} else {
 			getView().findViewById(R.id.recipe_grid).setVisibility(View.VISIBLE);
 			getView().findViewById(R.id.more).setVisibility(View.VISIBLE);
-		}
-	}
-	
-	private class BasicInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
-
-		private Context mContext;
-		
-		public BasicInfoTask(Context context) {
-			mContext = context.getApplicationContext();
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			showProgress(true);
-		}
-		
-		@Override
-		protected Map<String, Object> doInBackground(Void... params) {
-			return ProfileModel.getBasicInfo(mContext);
-		}
-		
-		@Override
-		protected void onPostExecute(Map<String, Object> result) {
-			if (isAdded()) {
-				showProgress(false);
-				if (result != null) {
-					updateInfo(result);
-				}
-			}
 		}
 	}
 	
@@ -425,42 +366,6 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 				if (result != null) {
 					updateInfo(result);
 				}
-			}
-		}
-	}
-	
-	private class RecipeTask extends AsyncTask<Void, Void, RecipeList> {
-
-		private Context mContext;
-		
-		public RecipeTask(FragmentActivity activity) {
-			mContext = activity.getApplicationContext();
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			showProgress(true);
-		}
-		
-		@Override
-		protected RecipeList doInBackground(Void... params) {
-			return RecipeModel.getMyRecipes(mContext);
-		}
-		
-		@Override
-		protected void onPostExecute(RecipeList result) {
-			if (!isAdded()) {
-				return;
-			}
-			
-			GridView grid = (GridView) getView().findViewById(R.id.recipe_grid);
-			if (grid != null && result != null && !result.getRecipes().isEmpty()) {
-				grid.setAdapter(new ProfileRecipeAdapter(mContext, mImageFetcher, result));
-				((Button) getView().findViewById(R.id.more)).setText(getString(R.string.biz_profile_more_btn, result.getRecipes().size()));
-				hideRecipesView(false);
-			} else {
-				hideRecipesView(true);
 			}
 		}
 	}

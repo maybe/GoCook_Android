@@ -50,12 +50,6 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 	private EditText mProfessionEditText;
 	private EditText mCityEditText;
 	private EditText mIntroEditText;
-//	private DatePickerDialog mDatePickerDialog;
-	
-	// date
-    private int mYear;
-    private int mMonth;
-    private int mDay;
     
     private String mSex;
     private String mAge;
