@@ -78,7 +78,7 @@ public class PopularAdapter extends BaseAdapter {
 		if(position == 0 || position == 1) {
 			return null;
 		} else {
-			return mPopular.getRecommendItems().get(position - 1);
+			return mPopular.getRecommendItems().get(position - 2);
 		}
 	}
 
@@ -156,7 +156,7 @@ public class PopularAdapter extends BaseAdapter {
 			});
 			
 		} else if (type == VIEW_TYPE_NORMAL) {
-			Pair<String, String[]> data = mPopular.getRecommendItems().get(position - 1);
+			Pair<String, String[]> data = mPopular.getRecommendItems().get(position - 2);
 			normalHolder.title.setText(data.first);
 			String[] images = data.second;
 			if(images != null) {
