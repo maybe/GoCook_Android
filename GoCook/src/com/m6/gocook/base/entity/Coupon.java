@@ -1,5 +1,6 @@
 package com.m6.gocook.base.entity;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +9,13 @@ import org.json.JSONObject;
 
 import com.m6.gocook.base.entity.Sale.Condition;
 
-public class Coupon {
+public class Coupon implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	public static final int STATUS_INVALID = 0;
 	public static final int STATUS_VALID = 1;

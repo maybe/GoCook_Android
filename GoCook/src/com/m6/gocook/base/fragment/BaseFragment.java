@@ -211,7 +211,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	 * Shows or hides the empty UI.
 	 */
 	public void showEmpty(boolean show) {
-		if (mEmptyView != null) {
+		if (isAdded() && mEmptyView != null) {
 			if (show) {
 				mEmptyView.setVisibility(View.VISIBLE);
 			} else {

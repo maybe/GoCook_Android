@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.m6.gocook.R;
@@ -85,6 +86,12 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onActionBarRightButtonClick(View v) {
 		refresh();
+	}
+	
+	@Override
+	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		FragmentHelper.startActivity(getActivity(), CouponDetailsFragment.newInstance(mAdapter.getItem(arg2)));
 	}
 	
 	@Override

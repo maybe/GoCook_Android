@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +35,7 @@ import com.m6.gocook.biz.purchase.PurchaseFragment;
 import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
+import com.m6.gocook.util.cache.util.CacheUtils;
 import com.m6.gocook.util.net.NetUtils;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
@@ -184,6 +183,12 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		CacheUtils.clearCache(this);
 	}
 	
 	@Override

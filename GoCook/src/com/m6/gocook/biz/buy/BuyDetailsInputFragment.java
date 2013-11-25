@@ -61,7 +61,7 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
 		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + mWareItem.getUnit());
 		
-		mIntegerNecessary = BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit());
+		mIntegerNecessary = !BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit());
 		
 		List<String> methods = mWareItem.getDealMethod();
 		RadioGroup methodView = (RadioGroup) view.findViewById(R.id.method);
