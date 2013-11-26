@@ -98,6 +98,7 @@
         android:background="@android:color/white"
         android:gravity="left|center_vertical"
         android:lines="3"
+        android:drawableRight="@drawable/arrow_coupon"
         android:padding="10dp"
         android:text="@string/biz_buy_details_input_method_none"
         android:textColor="@android:color/black"

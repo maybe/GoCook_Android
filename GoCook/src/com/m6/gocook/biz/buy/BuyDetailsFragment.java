@@ -68,8 +68,8 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 			StringBuilder methodBuilder = new StringBuilder();
 			if (methods != null && !methods.isEmpty()) {
 				for (int i = 0; i < methods.size(); i++) {
-					methodBuilder.append(methods.get(i));
 					methodBuilder.append("\n");
+					methodBuilder.append(methods.get(i));
 				}
 			} else {
 				methodBuilder.append(getString(R.string.biz_buy_details_input_method_none));

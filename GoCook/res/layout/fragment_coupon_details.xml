@@ -4,20 +4,57 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg" >
 
-    <ImageView
-        android:id="@+id/barcode"
+    <FrameLayout
+        android:id="@+id/top"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:scaleType="centerInside" />
+        android:background="#a9d77d"
+        android:minHeight="50dp" >
+
+        <ImageView
+            android:id="@+id/barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#515151"
+            android:drawablePadding="6dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/top"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="3dp"
+        android:lines="15"
         android:padding="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:textColor="#515151" />
+
+    <TextView
+        android:id="@+id/web_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:drawableLeft="@drawable/coupon_src"
+        android:gravity="center"
+        android:padding="10dp"
+        android:drawablePadding="2dp"
+        android:text="@string/biz_coupon_details_webdetails"
+        android:textColor="#555852"
+        android:textSize="14sp" />
 
 </RelativeLayout>
