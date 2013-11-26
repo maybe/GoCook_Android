@@ -5,9 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,26 +61,22 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		
 		mIntegerNecessary = !BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit());
 		
-		List<String> methods = mWareItem.getDealMethod();
-		RadioGroup methodView = (RadioGroup) view.findViewById(R.id.method);
-		LinearLayout.LayoutParams layoutParams = new RadioGroup.LayoutParams(
-				RadioGroup.LayoutParams.WRAP_CONTENT,
-				RadioGroup.LayoutParams.WRAP_CONTENT);
+		final ArrayList<String> methods = mWareItem.getDealMethod();
+		TextView methodView = (TextView) view.findViewById(R.id.method);
 		if (methods != null && !methods.isEmpty()) {
-			for (int i = 0; i < methods.size(); i++) {
-				RadioButton newRadioButton = new RadioButton(getActivity());
-				newRadioButton.setText(methods.get(i));
-				newRadioButton.setId(newRadioButton.getId());
-				methodView.addView(newRadioButton, layoutParams);
-			}
+			methodView.setText(methods.get(0));
 		} else {
-			RadioButton newRadioButton = new RadioButton(getActivity());
-			newRadioButton.setText(getString(R.string.biz_buy_details_input_method_none));
-			newRadioButton.setTextColor(getResources().getColor(android.R.color.black));
-			newRadioButton.setId(0);
-			methodView.addView(newRadioButton, layoutParams);
-			methodView.check(0);
+			methodView.setText(getString(R.string.biz_buy_details_input_method_none));
 		}
+		
+		methodView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(BuyMethodFragment.getIntent(getActivity(), methods), 
+						MainActivityHelper.REQUEST_CODE_BUY_METHOD);
+			}
+		});
 		
 		final EditText countView = (EditText) getView().findViewById(R.id.count);
 		
@@ -90,7 +84,7 @@ public class BuyDetailsInputFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				
+				// 购买数量
 				if (TextUtils.isEmpty(countView.getText())) {
 					Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_empty, Toast.LENGTH_SHORT).show();
 					return;
@@ -111,18 +105,15 @@ public class BuyDetailsInputFragment extends BaseFragment {
 					return;
 				}
 				
-				RadioGroup methodView = (RadioGroup) getView().findViewById(R.id.method);
-				Button selectedButton = (Button) getView().findViewById(methodView.getCheckedRadioButtonId());
-				String method = null;
-				if (selectedButton != null) {
-					method = selectedButton.getText().toString();
-				}
-				
-				List<String> methods = new ArrayList<String>();
-				methods.add(method);
-				mWareItem.setDealMethod(methods);
+				// 加工方式
+				TextView methodView = (TextView) getView().findViewById(R.id.method);
+				String method = methodView.getText().toString();;
 				//  TODO  remark
 				mWareItem.setRemark(method);
+				
+				ArrayList<String> methods = new ArrayList<String>();
+				methods.add(method);
+				mWareItem.setDealMethod(methods);
 				
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
@@ -135,5 +126,17 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		});
 	}
 	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == MainActivityHelper.REQUEST_CODE_BUY_METHOD
+				&& resultCode == MainActivityHelper.RESULT_CODE_BUY_METHOD && data != null) {
+			
+			String method = data.getStringExtra(BuyMethodFragment.PARAM_RESULT);
+			if (!TextUtils.isEmpty(method)) {
+				TextView methodView = (TextView) getView().findViewById(R.id.method);
+				methodView.setText(method);
+			}
+		}
+	}
 	
 }

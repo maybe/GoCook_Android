@@ -85,7 +85,7 @@ public class CKeywordQueryResult extends BaseResponse implements IParseable<Stri
 								JSONArray dealMethods = rowObject.optJSONArray("deal_method");
 								if (dealMethods != null) {
 									int length = dealMethods.length();
-									List<String> methods = new ArrayList<String>();
+									ArrayList<String> methods = new ArrayList<String>();
 									for (int j = 0; j < length; j++) {
 										methods.add(dealMethods.optString(j));
 									}

@@ -1,6 +1,7 @@
 package com.m6.gocook.base.entity.response;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CWareItem implements Serializable {
@@ -29,7 +30,7 @@ public class CWareItem implements Serializable {
 		this.quantity = quantity;
 	}
 
-	private List<String> dealMethod;
+	private ArrayList<String> dealMethod;
 
 	public int getId() {
 		return id;
@@ -95,11 +96,11 @@ public class CWareItem implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public List<String> getDealMethod() {
+	public ArrayList<String> getDealMethod() {
 		return dealMethod;
 	}
 
-	public void setDealMethod(List<String> dealMethod) {
+	public void setDealMethod(ArrayList<String> dealMethod) {
 		this.dealMethod = dealMethod;
 	}
 

@@ -13,6 +13,7 @@ import com.google.zxing.client.android.encode.EncodeUtil;
 import com.m6.gocook.R;
 import com.m6.gocook.base.entity.Coupon;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.view.ActionBar;
 
 public class CouponDetailsFragment extends BaseFragment {
 
@@ -45,6 +46,9 @@ public class CouponDetailsFragment extends BaseFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(R.string.biz_coupon_list_title);
+		
 		if (mCoupon != null) {
 			initViews();
 		} else {
@@ -54,16 +58,6 @@ public class CouponDetailsFragment extends BaseFragment {
 	}
 	
 	private void initViews() {
-		int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
-		int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
-		try {
-			Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
-			ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
-			barcode.setImageBitmap(barcodeBitmap);
-		} catch (WriterException e) {
-			e.printStackTrace();
-		}
-		
 		final boolean isInvalid = mCoupon.getStatus() == Coupon.STATUS_INVALID;
 		final boolean isDelay = mCoupon.isDelay();
 		final boolean isCoupon = mCoupon.getKtype() == Coupon.KTYPE_COUPON;
@@ -83,6 +77,17 @@ public class CouponDetailsFragment extends BaseFragment {
 						mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
 						mCoupon.getStores(), mCoupon.getCouponRemark()));
 				content.setBackgroundColor(getResources().getColor(R.color.biz_coupon_normal));
+			}
+			
+			// 条形码
+			int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
+			int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
+			try {
+				Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
+				ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
+				barcode.setImageBitmap(barcodeBitmap);
+			} catch (WriterException e) {
+				e.printStackTrace();
 			}
 		} else { // 延期记录
 			content.setText(getString(R.string.biz_coupon_list_content_delay,

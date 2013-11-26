@@ -218,9 +218,12 @@
     <string name="biz_buy_details_input_method_prefix">加工方式：</string>
     <string name="biz_buy_details_input_submit">确定</string>
     <string name="biz_buy_details_input_title">输入购买信息</string>
-    <string name="biz_buy_details_input_count_empty">请输入购买数量</string>
+    <string name="biz_buy_details_input_count_empty">请填写购买数量</string>
     <string name="biz_buy_details_input_count_illegal">请输入正确的数量</string>
     <string name="biz_buy_details_input_method_none">无</string>
+    <string name="biz_buy_details_input_method_item_title">加工方式%d：</string>
+    <string name="biz_buy_details_input_method_item_custom_title">用户指定加工方式：</string>
+    <string name="biz_buy_details_input_method_title">选择加工方式</string>
     
     <string name="biz_buy_order_list_title">%s的购买</string>
     

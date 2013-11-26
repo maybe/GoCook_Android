@@ -20,6 +20,7 @@ public class MainActivityHelper {
 	public static final int REQUEST_CODE_INPUT = 104;
 	public static final int REQUEST_CODE_JUMP_LOGIN = 105;
 	public static final int REQUEST_CODE_COUPON = 106;
+	public static final int REQUEST_CODE_BUY_METHOD = 107;
 
 	/** result */
 	public static final int RESULT_CODE_FOLLOW = 201;
@@ -31,6 +32,7 @@ public class MainActivityHelper {
 	public static final int RESULT_CODE_JUMP_LOGIN = 207;
 	public static final int RESULT_CODE_COUPON = 208;
 	public static final int RESULT_CODE_RECIPE_COLLECT = 209;
+	public static final int RESULT_CODE_BUY_METHOD = 210;
 	
 	
 	public static ArrayList<OnActivityAction> mOnActivityActions = new ArrayList<OnActivityAction>();
