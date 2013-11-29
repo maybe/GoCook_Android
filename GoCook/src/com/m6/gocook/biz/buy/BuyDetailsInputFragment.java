@@ -1,7 +1,6 @@
 package com.m6.gocook.biz.buy;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +23,6 @@ public class BuyDetailsInputFragment extends BaseFragment {
 
 	private CWareItem mWareItem;
 	private String mRecordId;
-	
-	private boolean mIntegerNecessary = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,13 +46,20 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(R.string.biz_buy_details_input_title);
 		
+		if (mWareItem == null) {
+			return;
+		}
+		
+		String unit = mWareItem.getUnit();
+		if (BuyModel.MATERIAL_KG_UNIT.contains(unit)) {
+			unit = "500g";
+		}
+		
 		((TextView) view.findViewById(R.id.name)).setText(mWareItem.getName());
 		((TextView) view.findViewById(R.id.price)).setText(getString(R.string.biz_buy_search_adapter_price, String.valueOf(mWareItem.getPrice())));
-		((TextView) view.findViewById(R.id.unit)).setText(getString(R.string.biz_buy_search_adapter_unit, mWareItem.getUnit()));
+		((TextView) view.findViewById(R.id.unit)).setText(getString(R.string.biz_buy_search_adapter_unit, unit));
 		((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
-		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + mWareItem.getUnit());
-		
-		mIntegerNecessary = !BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit());
+		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + unit);
 		
 		final ArrayList<String> methods = mWareItem.getDealMethod();
 		TextView methodView = (TextView) view.findViewById(R.id.method);
@@ -93,11 +93,15 @@ public class BuyDetailsInputFragment extends BaseFragment {
 				double count;
 				try {
 					count = Double.valueOf(countView.getText().toString());
-					if (mIntegerNecessary) {
+					if (!BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit())) {
 						int realCount = (int) Math.floor(count);
 						countView.setText(String.valueOf(realCount));
 						mWareItem.setQuantity(realCount);
 					} else {
+						if (BuyModel.MATERIAL_KG_UNIT.contains(mWareItem.getUnit())) {
+							// 单位显示的是500g，上传给服务器仍然为kg，所以要把用户输入的数量换算成kg
+							count = count / 2;
+						}
 						mWareItem.setQuantity(count);
 					}
 				} catch (NumberFormatException e) {

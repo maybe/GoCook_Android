@@ -30,6 +30,7 @@ public class BuyModel {
 	public static final String WAREID = "wareid";
 	
 	public static final String MATERIAL_UNIT = "kg,KG,Kg,kG,g,G,500g,500G";
+	public static final String MATERIAL_KG_UNIT = "kg,KG,Kg,kG";
 	
 	
 	public static List<Map<String, Object>> getBuyList(Context context, String recipeId) {
