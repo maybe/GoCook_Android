@@ -182,21 +182,21 @@ public class PopularAdapter extends BaseAdapter {
 				
 				@Override
 				public void onClick(View v) {
-					openBrower("c2b.m6fresh.com");
+					openBrower("http://c2b.m6fresh.com");
 				}
 			});
 			adViewHolder.ad2.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					openBrower("share.m6fresh.com");
+					openBrower("http://share.m6fresh.com");
 				}
 			});
 			adViewHolder.ad3.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					openBrower("o2o.m6fresh.com");
+					openBrower("http://o2o.m6fresh.com");
 				}
 			});
 		}
