@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.m6.gocook.base.constant.Constants;
 
@@ -29,11 +30,8 @@ public class ImgUtils {
 	 * @return
 	 */
     public static String getPath(Context context, Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
         ContentResolver cr = context.getContentResolver();
-
-        Cursor cursor = cr.query(uri, projection, null, null, null);
-
+        Cursor cursor = cr.query(uri, null, null, null, null);
         if (cursor.moveToFirst()) {
         	int index = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
         	if (index != -1) {
@@ -55,6 +53,10 @@ public class ImgUtils {
      */
     public static Bitmap decodeSampledBitmapFromFile(String filename,
             int reqWidth, int reqHeight) {
+    	
+    	if (TextUtils.isEmpty(filename)) {
+    		return null;
+    	}
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();

@@ -103,6 +103,8 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
         	mPage++;
         	mFooterView.setVisibility(View.VISIBLE);
         	executeTask(mPage);
+        } else {
+        	mFooterView.setVisibility(View.GONE);
         }
 	}
 	
@@ -149,7 +151,8 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
 	 * @return
 	 */
 	protected boolean haveNext() {
-		if (mAdapter != null && mAdapter.getCount() >= COUNT_PER_PAGE) {
+		if (mAdapter != null && mAdapter.getCount() >= COUNT_PER_PAGE
+				&& (mAdapter.getCount() % COUNT_PER_PAGE) == 0) {
 			return true;
 		}
 		return false;

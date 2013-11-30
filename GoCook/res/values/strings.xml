@@ -219,6 +219,7 @@
     <string name="biz_buy_details_input_submit">确定</string>
     <string name="biz_buy_details_input_title">输入购买信息</string>
     <string name="biz_buy_details_input_count_empty">请填写购买数量</string>
+    <string name="biz_buy_details_input_count_zero">购买数量必须大于0</string>
     <string name="biz_buy_details_input_count_illegal">请输入正确的数量</string>
     <string name="biz_buy_details_input_method_none">无</string>
     <string name="biz_buy_details_input_method_item_title">加工方式%d：</string>

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,6 +81,11 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		});
 		
 		final EditText countView = (EditText) getView().findViewById(R.id.count);
+		if (BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit())) {
+			countView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+		} else {
+			countView.setInputType(InputType.TYPE_CLASS_NUMBER);
+		}
 		
 		view.findViewById(R.id.submit).setOnClickListener(new OnClickListener() {
 			
@@ -93,6 +100,11 @@ public class BuyDetailsInputFragment extends BaseFragment {
 				double count;
 				try {
 					count = Double.valueOf(countView.getText().toString());
+					if (count <= 0) {
+						Toast.makeText(getActivity(), R.string.biz_buy_details_input_count_zero, Toast.LENGTH_SHORT).show();
+						return;
+					}
+					
 					if (!BuyModel.MATERIAL_UNIT.contains(mWareItem.getUnit())) {
 						int realCount = (int) Math.floor(count);
 						countView.setText(String.valueOf(realCount));

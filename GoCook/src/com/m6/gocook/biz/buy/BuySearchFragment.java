@@ -24,14 +24,10 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	
 	private BuySearchTask mBuySearchTask;
 	private BuySearchAdapter mAdapter;
-	private CKeywordQueryResult mCKeywordQueryResult;
 	
 	private String mKeyword;
-	private int mPageIndex;
-	private int mPageRows;
 	private String mRecordId;
 	
-	private boolean mHaveNext = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +38,8 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 		if (args != null) {
 			mKeyword = args.getString(PARAM_KEYWORD);
 			mRecordId = args.getString(PARAM_RECORD_ID);
-			mPageIndex = 1;
-			mPageRows = COUNT_PER_PAGE;
 		}
-		mAdapter = new BuySearchAdapter(getActivity(), mCKeywordQueryResult);
+		mAdapter = new BuySearchAdapter(getActivity(), null);
 	}
 	
 	@Override
@@ -65,17 +59,11 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	@Override
 	protected void executeTask(int pageIndex) {
 		if (mBuySearchTask == null) {
-			mBuySearchTask = new BuySearchTask(getActivity(), mKeyword, mPageIndex, mPageRows);
+			mBuySearchTask = new BuySearchTask(getActivity(), mKeyword, pageIndex);
 			mBuySearchTask.execute((Void) null); 
 		}
-		
 	}
 	
-	@Override
-	protected boolean haveNext() {
-		return mHaveNext;
-	}
-
 	@Override
 	protected BaseAdapter getAdapter() {
 		return mAdapter;
@@ -105,20 +93,18 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 		
 		private String mKeyword;
 		private int mPageIndex;
-		private int mPageRows;
 		
 		private Context mContext;
 		
-		public BuySearchTask(Context context, String keyword, int pageIndex, int pageRows) {
+		public BuySearchTask(Context context, String keyword, int pageIndex) {
 			mContext = context.getApplicationContext();
 			mKeyword = keyword;
 			mPageIndex = pageIndex;
-			mPageRows = pageRows;
 		}
 
 		@Override
 		protected CKeywordQueryResult doInBackground(Void... params) {
-			return BuyModel.getBuySearchResult(mContext, mKeyword, mPageIndex, mPageRows);
+			return BuyModel.getBuySearchResult(mContext, mKeyword, mPageIndex, COUNT_PER_PAGE);
 		}
 		
 		@Override
@@ -130,12 +116,11 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 					mAdapter.setData(result);
 					mAdapter.notifyDataSetChanged();
 					
-					if (result.getRows().size() >= COUNT_PER_PAGE) {
-						mHaveNext = true;
-					}
 				} else {
-					setEmptyMessage(R.string.biz_buy_search_fragment_empty);
-					showEmpty(true);
+					if (mAdapter != null && mAdapter.getCount() == 0) {
+						setEmptyMessage(R.string.biz_buy_search_fragment_empty);
+						showEmpty(true);
+					}
 				}
 			}
 		}
