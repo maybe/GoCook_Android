@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.recipe.recipe;
 
-import com.m6.gocook.R;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import com.m6.gocook.R;
 
 public class UploadImageLayout extends FrameLayout {
 

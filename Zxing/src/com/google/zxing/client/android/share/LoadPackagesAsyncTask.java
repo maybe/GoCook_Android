@@ -16,6 +16,10 @@
 
 package com.google.zxing.client.android.share;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.app.ListActivity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -26,11 +30,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import com.google.zxing.client.android.R;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.google.zxing.client.android.R;
 
 /**
  * Loads a list of packages installed on the device asynchronously.

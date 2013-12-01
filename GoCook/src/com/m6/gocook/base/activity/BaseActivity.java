@@ -1,14 +1,14 @@
 package com.m6.gocook.base.activity;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnKeyDown;
-import com.m6.gocook.biz.main.MainActivityHelper;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.fragment.OnKeyDown;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
 public class BaseActivity extends FragmentActivity {
 	

@@ -1,19 +1,14 @@
 package com.m6.gocook.biz.purchase;
 
-import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.widget.CursorAdapter;
 
-import com.m6.gocook.R.string;
 import com.m6.gocook.base.db.GoCookProvider;
 import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 import com.m6.gocook.base.db.table.RecipePurchaseList;
-import com.m6.gocook.base.db.table.SearchHistory;
 import com.m6.gocook.base.entity.RecipeEntity;
-import com.m6.gocook.util.log.Logger;
 
 public class PurchaseListModel {
 

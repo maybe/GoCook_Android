@@ -16,6 +16,8 @@
 
 package com.google.zxing.client.android.history;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -32,11 +34,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.client.android.R;
-
-import java.util.List;
 
 public final class HistoryActivity extends ListActivity {
 

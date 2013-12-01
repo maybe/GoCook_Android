@@ -2,11 +2,6 @@ package com.m6.gocook.biz.profile;
 
 import java.util.ArrayList;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.entity.People;
-import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.util.cache.util.ImageFetcher;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.entity.People;
+import com.m6.gocook.base.protocol.ProtocolUtils;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class PeopleAdapter extends BaseAdapter {
 	

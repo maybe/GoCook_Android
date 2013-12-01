@@ -3,7 +3,6 @@ package com.m6.gocook.biz.recipe.recipe;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

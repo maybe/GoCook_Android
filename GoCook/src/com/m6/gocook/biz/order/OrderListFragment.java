@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,38 +13,35 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.COrderQueryResult;
 import com.m6.gocook.base.fragment.BaseListFragment;
-import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.buy.BuyModel;
 
 public class OrderListFragment extends BaseListFragment {
 
 	private OrdersTask mOrdersTask;
 	private OrderListAdapter mAdapter;
 	
-	private int mPageIndex;
 	private String mStartDate;
 	private String mEndDate;
+	
+	private static final int QUERY_MONTH_COUNT = 6;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
 		mAdapter = new OrderListAdapter(getActivity());
-		mPageIndex = 1;
 		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		mEndDate = df.format(new Date());
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MONTH, -5);
+		calendar.add(Calendar.MONTH, -QUERY_MONTH_COUNT);
 		calendar.set(Calendar.DATE, 1);
 		mStartDate = df.format(calendar.getTime());
 		
-		setEmptyMessage(R.string.biz_buy_order_empty_message);
+		setEmptyMessage(getString(R.string.biz_buy_order_empty_message, QUERY_MONTH_COUNT));
 	}
 	
 	@Override
@@ -58,7 +54,7 @@ public class OrderListFragment extends BaseListFragment {
 	@Override
 	protected void executeTask(int pageIndex) {
 		if (mOrdersTask == null) {
-			mOrdersTask = new OrdersTask(getActivity(), mStartDate, mEndDate, mPageIndex);
+			mOrdersTask = new OrdersTask(getActivity(), mStartDate, mEndDate, pageIndex);
 			mOrdersTask.execute((Void) null); 
 		}
 	}
@@ -71,11 +67,7 @@ public class OrderListFragment extends BaseListFragment {
 	@Override
 	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		Bundle args = new Bundle();
-		args.putSerializable(OrderDetailsFragment.PARAM_DATA, mAdapter.getItem(arg2));
-		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-				OrderDetailsFragment.class.getName(), OrderDetailsFragment.class.getName(), args);
-		startActivity(intent);
+		OrderDetailsFragment.goToOrderDetails(getActivity(), mAdapter.getItem(arg2));
 	}
 	
 	private class OrdersTask extends AsyncTask<Void, Void, COrderQueryResult> {

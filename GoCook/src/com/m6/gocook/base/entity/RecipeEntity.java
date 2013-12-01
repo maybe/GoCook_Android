@@ -6,13 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.biz.account.AccountModel;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
+
+import com.m6.gocook.base.protocol.Protocol;
 
 public class RecipeEntity implements IParseable<JSONObject> {
 

@@ -1,13 +1,13 @@
 package com.m6.gocook.biz.purchase;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
 
 public class PurchaseMaterialListAdapter extends SimpleCursorAdapter {
 

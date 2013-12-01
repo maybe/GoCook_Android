@@ -16,8 +16,6 @@
 
 package com.google.zxing.client.android;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -29,6 +27,8 @@ import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+
+import android.util.Log;
 
 /**
  * Utility methods for retrieving content over HTTP using the more-supported {@code java.net} classes

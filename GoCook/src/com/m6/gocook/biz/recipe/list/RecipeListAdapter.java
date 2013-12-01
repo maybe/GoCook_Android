@@ -1,10 +1,5 @@
 package com.m6.gocook.biz.recipe.list;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeList;
-import com.m6.gocook.base.protocol.ProtocolUtils;
-import com.m6.gocook.util.cache.util.ImageFetcher;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.entity.RecipeList;
+import com.m6.gocook.base.protocol.ProtocolUtils;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class RecipeListAdapter extends BaseAdapter {
 

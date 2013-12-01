@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentActivity;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
-import com.m6.gocook.util.cache.util.ImageFetcher;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
+import com.m6.gocook.util.cache.util.ImageFetcher;
 
 public class HeaderImageFetcher {
 

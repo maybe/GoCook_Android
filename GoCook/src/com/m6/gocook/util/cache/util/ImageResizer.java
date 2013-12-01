@@ -16,6 +16,8 @@
 
 package com.m6.gocook.util.cache.util;
 
+import java.io.FileDescriptor;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -23,8 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
-
-import java.io.FileDescriptor;
 
 /**
  * A simple subclass of {@link ImageWorker} that resizes images from resources given a target width

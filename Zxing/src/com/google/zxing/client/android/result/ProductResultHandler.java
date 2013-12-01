@@ -16,14 +16,14 @@
 
 package com.google.zxing.client.android.result;
 
+import android.app.Activity;
+import android.view.View;
+
 import com.google.zxing.Result;
 import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ExpandedProductParsedResult;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ProductParsedResult;
-
-import android.app.Activity;
-import android.view.View;
 
 /**
  * Handles generic products which are not books.

@@ -16,15 +16,15 @@
 
 package com.google.zxing.client.android;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * The main settings activity.

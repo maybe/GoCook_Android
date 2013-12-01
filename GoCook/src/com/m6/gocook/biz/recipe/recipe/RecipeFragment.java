@@ -39,7 +39,6 @@ import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.profile.ProfileFragment;

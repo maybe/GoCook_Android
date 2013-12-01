@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.m6.gocook.base.entity.RecipeList.RecipeItem;
 import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.biz.recipe.RecipeModel;
 
 
 public class RecipeCommentList implements IParseable<JSONObject> {

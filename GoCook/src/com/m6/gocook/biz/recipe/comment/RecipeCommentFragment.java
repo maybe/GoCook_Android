@@ -6,31 +6,11 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.constant.Constants;
-import com.m6.gocook.base.entity.RecipeCommentList;
-import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
-import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.protocol.Protocol;
-import com.m6.gocook.biz.account.AccountModel;
-import com.m6.gocook.biz.account.LoginFragment;
-import com.m6.gocook.biz.account.WebLoginFragment;
-import com.m6.gocook.biz.recipe.RecipeModel;
-import com.m6.gocook.biz.recipe.recipe.RecipeFragment;
-import com.m6.gocook.util.cache.util.AsyncTask;
-import com.m6.gocook.util.cache.util.ImageFetcher;
-import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
-
-import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -38,8 +18,19 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.entity.RecipeCommentList;
+import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
+import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.WebLoginFragment;
+import com.m6.gocook.biz.recipe.RecipeModel;
+import com.m6.gocook.util.cache.util.AsyncTask;
 
 public class RecipeCommentFragment extends BaseFragment {
 

@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 
 import com.m6.gocook.base.entity.Popular;
-import com.m6.gocook.base.entity.RecipeList;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.util.net.NetUtils;
 

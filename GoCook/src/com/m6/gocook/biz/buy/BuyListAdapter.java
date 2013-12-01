@@ -4,14 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.activity.BaseActivity;
-import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
-import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.biz.main.MainActivityHelper;
-import com.m6.gocook.util.File.StringUtils;
-import com.m6.gocook.util.model.ModelUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -25,7 +17,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.base.db.table.RecipeMaterialPurchaseList;
+import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.util.model.ModelUtils;
 
 public class BuyListAdapter extends BaseAdapter {
 

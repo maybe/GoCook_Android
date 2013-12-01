@@ -1,20 +1,19 @@
 package com.m6.gocook.base.fragment;
 
-import com.m6.gocook.R;
-
-import android.R.integer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
+
+import com.m6.gocook.R;
 
 public abstract class BaseListFragment extends BaseFragment implements OnScrollListener {
 

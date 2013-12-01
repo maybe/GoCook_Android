@@ -34,6 +34,7 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
 
@@ -195,6 +196,9 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 				if (result != null && result.getResult() == Protocol.VALUE_RESULT_OK
 						&& !TextUtils.isEmpty(result.getOrderId())) {
 					Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
+					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
+							OrderListFragment.class.getName(), OrderListFragment.class.getName(), null);
+					startActivity(intent);
 					getActivity().finish();
 				} else {
 					Toast.makeText(getActivity(), R.string.biz_buy_list_order_failure, Toast.LENGTH_SHORT).show();

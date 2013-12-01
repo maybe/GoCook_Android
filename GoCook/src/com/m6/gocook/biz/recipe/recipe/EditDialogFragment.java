@@ -1,10 +1,6 @@
 package com.m6.gocook.biz.recipe.recipe;
 
-import com.m6.gocook.R;
-
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -13,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.m6.gocook.R;
 
 public class EditDialogFragment extends DialogFragment {
 	

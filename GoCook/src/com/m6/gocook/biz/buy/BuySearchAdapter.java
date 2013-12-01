@@ -1,9 +1,5 @@
 package com.m6.gocook.biz.buy;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.entity.response.CKeywordQueryResult;
-import com.m6.gocook.base.entity.response.CWareItem;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.entity.response.CKeywordQueryResult;
+import com.m6.gocook.base.entity.response.CWareItem;
 
 public class BuySearchAdapter extends BaseAdapter {
 

@@ -24,7 +24,6 @@ import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.list.RecipeListFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment;
-import com.m6.gocook.util.log.Logger;
 import com.m6.gocook.util.model.ModelUtils;
 
 public class MyRecipesFragment extends RecipeListFragment implements OnActivityAction {

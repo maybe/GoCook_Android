@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
-import android.content.Context;
-
 public class FileUtils {
 
 	/**

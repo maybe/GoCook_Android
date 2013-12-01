@@ -29,8 +29,8 @@ public class OrderModel {
 		try {
 			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 			// 注意开始时间和结束时间位置
-			params.add(new BasicNameValuePair("start_day", URLEncoder.encode(endDay, "UTF-8")));
-			params.add(new BasicNameValuePair("end_day", URLEncoder.encode(startDay, "UTF-8")));
+			params.add(new BasicNameValuePair("start_day", URLEncoder.encode(startDay, "UTF-8")));
+			params.add(new BasicNameValuePair("end_day", URLEncoder.encode(endDay, "UTF-8")));
 			params.add(new BasicNameValuePair("page", URLEncoder.encode(String.valueOf(page), "UTF-8")));
 			String result = NetUtils.httpPost(context, Protocol.URL_BUY_ORDER_QUERY, params);
 			COrderQueryResult cOrderQueryResult = new COrderQueryResult(result);

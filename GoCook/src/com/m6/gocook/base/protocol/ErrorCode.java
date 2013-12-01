@@ -2,12 +2,12 @@ package com.m6.gocook.base.protocol;
 
 import org.json.JSONObject;
 
-import com.m6.gocook.R;
-import com.m6.gocook.biz.account.AccountModel;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.m6.gocook.R;
+import com.m6.gocook.biz.account.AccountModel;
 
 public class ErrorCode {
 

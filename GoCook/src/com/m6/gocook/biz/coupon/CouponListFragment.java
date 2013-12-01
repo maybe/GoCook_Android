@@ -32,8 +32,7 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	
 	private List<Coupon> mData = new ArrayList<Coupon>();
 	
-	private boolean mHaveNext = false;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,11 +99,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	}
 	
 	@Override
-	protected boolean haveNext() {
-		return mHaveNext;
-	}
-	
-	@Override
 	protected void executeTask(int pageIndex) {
 		if (mCouponsTask == null) {
 			mCouponsTask = new CouponsTask(getActivity(), pageIndex);
@@ -138,9 +132,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 			mCouponsTask = null;
 			if (result != null) {
 				mData.addAll(result);
-				if (result.size() >= COUNT_PER_PAGE) {
-					mHaveNext = true;
-				}
 			}
 			if (isAdded()) {
 				showProgress(false);

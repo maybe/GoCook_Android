@@ -16,7 +16,7 @@
 
 package com.google.zxing.client.android.book;
 
-import com.google.zxing.client.android.R;
+import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
+import com.google.zxing.client.android.R;
 
 /**
  * A list item which displays the page number and snippet of this search result.

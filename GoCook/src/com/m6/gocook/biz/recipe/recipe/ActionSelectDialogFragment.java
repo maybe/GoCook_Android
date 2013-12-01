@@ -17,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.m6.gocook.R;
-import com.m6.gocook.biz.common.PhotoPickDialogFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
 
 

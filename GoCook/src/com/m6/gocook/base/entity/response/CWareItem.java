@@ -2,7 +2,6 @@ package com.m6.gocook.base.entity.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CWareItem implements Serializable {
 

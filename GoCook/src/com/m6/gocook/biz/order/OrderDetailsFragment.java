@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.order;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.view.ActionBar;
 
 public class OrderDetailsFragment extends BaseFragment {
@@ -17,7 +21,16 @@ public class OrderDetailsFragment extends BaseFragment {
 	private OrderDetailsAdapter mAdapter;
 	private COrderItem mData;
 	
-	public static final String PARAM_DATA = "param_data";
+	private static final String PARAM_DATA = "param_data";
+	
+	
+	public static void goToOrderDetails(Context context, COrderItem orderItem) {
+		Bundle args = new Bundle();
+		args.putSerializable(OrderDetailsFragment.PARAM_DATA, orderItem);
+		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+				OrderDetailsFragment.class.getName(), OrderDetailsFragment.class.getName(), args);
+		context.startActivity(intent);
+	}
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

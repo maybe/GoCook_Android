@@ -1,18 +1,16 @@
 package com.m6.gocook.biz.profile;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.fragment.BaseFragment;
-import com.m6.gocook.base.view.ActionBar;
-import com.m6.gocook.biz.account.AccountModel;
-
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.view.ActionBar;
+import com.m6.gocook.biz.account.AccountModel;
 
 public class ProfileIntroFragment extends BaseFragment {
 	

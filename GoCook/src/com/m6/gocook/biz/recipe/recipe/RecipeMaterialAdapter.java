@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
-import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeEntity.Material;
 
 public class RecipeMaterialAdapter extends BaseAdapter {

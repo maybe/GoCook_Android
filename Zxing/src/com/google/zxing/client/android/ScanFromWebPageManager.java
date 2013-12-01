@@ -16,12 +16,13 @@
 
 package com.google.zxing.client.android;
 
-import android.net.Uri;
-import com.google.zxing.Result;
-import com.google.zxing.client.android.result.ResultHandler;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import android.net.Uri;
+
+import com.google.zxing.Result;
+import com.google.zxing.client.android.result.ResultHandler;
 
 /**
  * Manages functionality related to responding to requests to scan from an HTTP link in a web page.

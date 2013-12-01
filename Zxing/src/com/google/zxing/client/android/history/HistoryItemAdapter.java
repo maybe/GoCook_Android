@@ -16,6 +16,8 @@
 
 package com.google.zxing.client.android.history;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -24,10 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.google.zxing.Result;
 import com.google.zxing.client.android.R;
-
-import java.util.ArrayList;
 
 final class HistoryItemAdapter extends ArrayAdapter<HistoryItem> {
 

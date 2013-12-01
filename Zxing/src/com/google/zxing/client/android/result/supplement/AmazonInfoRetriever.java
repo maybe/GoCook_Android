@@ -22,14 +22,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
-import android.content.Context;
-import android.widget.TextView;
-import com.google.zxing.client.android.HttpHelper;
-import com.google.zxing.client.android.LocaleManager;
-import com.google.zxing.client.android.history.HistoryManager;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.content.Context;
+import android.widget.TextView;
+
+import com.google.zxing.client.android.HttpHelper;
+import com.google.zxing.client.android.LocaleManager;
+import com.google.zxing.client.android.history.HistoryManager;
 
 /**
  * @author Sean Owen

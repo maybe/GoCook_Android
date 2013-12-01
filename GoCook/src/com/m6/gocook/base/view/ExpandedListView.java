@@ -1,12 +1,12 @@
 package com.m6.gocook.base.view;
 
-import com.m6.gocook.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.m6.gocook.R;
 
 public class ExpandedListView extends ListView
 {

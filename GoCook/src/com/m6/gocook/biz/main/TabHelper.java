@@ -1,9 +1,9 @@
 package com.m6.gocook.biz.main;
 
-import com.m6.gocook.R;
-
 import android.content.Context;
 import android.text.TextUtils;
+
+import com.m6.gocook.R;
 
 
 public class TabHelper {

@@ -16,13 +16,13 @@
 
 package com.m6.gocook.util.cache.ui;
 
-import com.m6.gocook.util.cache.util.RecyclingBitmapDrawable;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import com.m6.gocook.util.cache.util.RecyclingBitmapDrawable;
 
 /**
  * Sub-class of ImageView which automatically notifies the drawable when it is

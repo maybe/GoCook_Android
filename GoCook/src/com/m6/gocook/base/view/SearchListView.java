@@ -1,7 +1,5 @@
 package com.m6.gocook.base.view;
 
-import com.m6.gocook.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -12,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
 
 public class SearchListView extends FrameLayout {
 

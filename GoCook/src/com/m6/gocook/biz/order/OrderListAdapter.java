@@ -1,15 +1,15 @@
 package com.m6.gocook.biz.order;
 
-import com.m6.gocook.R;
-import com.m6.gocook.base.entity.response.COrderQueryResult;
-import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.m6.gocook.R;
+import com.m6.gocook.base.entity.response.COrderQueryResult;
+import com.m6.gocook.base.entity.response.COrderQueryResult.COrderItem;
 
 public class OrderListAdapter extends BaseAdapter {
 
@@ -21,7 +21,15 @@ public class OrderListAdapter extends BaseAdapter {
 	}
 	
 	public void setData(COrderQueryResult cOrderQueryResult) {
-		mCOrderQueryResult = cOrderQueryResult;
+		if (cOrderQueryResult == null) {
+			return;
+		}
+		
+		if (mCOrderQueryResult == null) {
+			mCOrderQueryResult = cOrderQueryResult;
+		} else {
+			mCOrderQueryResult.getRows().addAll(cOrderQueryResult.getRows());
+		}
 		notifyDataSetChanged();
 	}
 	
