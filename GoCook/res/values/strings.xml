@@ -126,11 +126,13 @@
     <string name="biz_recipe_image_banner_content_description">样图</string>
     <string name="biz_recipe_tabbar_menu_addcollecting">加入收藏</string>
     <string name="biz_recipe_tabbar_menu_removecollecting">移出收藏</string>
+    <string name="biz_recipe_tabbar_menu_praise">%d人赞</string>
     <string name="biz_recipe_tabbar_menu_upload">上传你做的这道菜</string>
     <string name="biz_recipe_tabbar_menu_addshoppinglist">加入购买清单</string>
     <string name="biz_recipe_tabbar_menu_removeshoppinglist">移出购买清单</string>
     <string name="biz_recipe_tabbar_menu_addcollectfailed">添加收藏失败</string>
     <string name="biz_recipe_tabbar_menu_removecollectfailed">移出收藏失败</string>
+    <string name="biz_recipe_tabbar_menu_progress">请耐心一点呦~</string>
     
     <!-- recipe edit -->    
     <string name="biz_recipe_edit_title_new">添加菜谱</string>
@@ -287,5 +289,10 @@
     
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>
+    
+    <!-- errorcode -->
+    <string name="error_code_unauthorized">未授权用户，请重新登录</string>
+    <string name="error_code_recipe_praised">已经赞过该菜谱</string>
+    <string name="error_code_recipe_unpraised">该菜谱本人未赞过</string>
     
 </resources>

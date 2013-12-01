@@ -1,5 +1,8 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,6 +36,8 @@ import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnActivityAction;
+import com.m6.gocook.base.protocol.ErrorCode;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.LoginFragment;
 import com.m6.gocook.biz.account.WebLoginFragment;
@@ -43,6 +48,7 @@ import com.m6.gocook.biz.recipe.RecipeModel;
 import com.m6.gocook.biz.recipe.comment.RecipeCommentFragment;
 import com.m6.gocook.biz.recipe.recipe.RecipeEditFragment.Mode;
 import com.m6.gocook.util.log.Logger;
+import com.m6.gocook.util.net.NetUtils;
 
 public class RecipeFragment extends BaseFragment implements OnActivityAction {
 
@@ -70,6 +76,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 	
 	private AchieveRecipeTask mAchieveRecipeTask;
 	private RecipeCollectTask mRecipeCollectTask;
+	private RecipePraiseTask mRecipePraiseTask;
 	private AchieveCommentsTask mAchieveCommentsTask;
 	
 	public static void startInActivity(Context context, String recipeId, String recipeName) {
@@ -255,6 +262,8 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		
 		TextView tabBarCollectTextView = ((TextView) findViewById(R.id.tabbar_textview_like));
 		setCollected(mRecipeEntity.isCollected(), tabBarCollectTextView);
+		
+		setPraise(mRecipeEntity.isPraised());
 	}
 
 	private void achieveComments() {
@@ -311,9 +320,24 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 									WebLoginFragment.class.getName(), WebLoginFragment.class.getName(), null);
 							((FragmentActivity) getActivity()).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_JUMP_LOGIN);
 						}
-						
 					}
 				});
+		
+		((TextView) findViewById(R.id.tabbar_textview_praise))
+				.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				if(mRecipePraiseTask == null) {
+					mRecipePraiseTask = new RecipePraiseTask(getActivity(), 
+							!mRecipeEntity.isPraised(), mRecipeEntity.getId());
+					mRecipePraiseTask.execute();
+				} else {
+					Toast.makeText(mContext, R.string.biz_recipe_tabbar_menu_progress, Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 
 		// Comments
 		View commentsLinkView = findViewById(R.id.comments_link);
@@ -341,6 +365,18 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		view.setText(mCollected ? 
 				R.string.biz_recipe_tabbar_menu_removecollecting :
 				R.string.biz_recipe_tabbar_menu_addcollecting);
+	}
+	
+	private void setPraise(boolean praise) {
+		TextView view = ((TextView) findViewById(R.id.tabbar_textview_praise));
+		view.setCompoundDrawablesWithIntrinsicBounds(
+				null,
+				getResources().getDrawable(
+						praise ? R.drawable.tab_praise
+								: R.drawable.tab_praise_alpha), null,
+								null);
+		view.setText(getString(R.string.biz_recipe_tabbar_menu_praise,  mRecipeEntity.getPraiseCount()));
+		mRecipeEntity.setPraised(praise);
 	}
 	
 	private void showProgressBar(boolean show) {
@@ -395,7 +431,74 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			}
 			super.onPostExecute(result);
 		}
+	}
+	
+	private class RecipePraiseTask extends AsyncTask<Void, Void, Boolean> {
+		
+		private Context mContext;
+		private boolean mPraise;
+		private String mPraiseId;
+		
+		public RecipePraiseTask(Context context, boolean praise, String praiseId) {
+			mContext = context.getApplicationContext();
+			mPraise = praise;
+			mPraiseId = praiseId;
+		}
 
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			String url;
+			if (mPraise) {
+				url = Protocol.URL_RECIPE_PRAISE;
+			} else {
+				url = Protocol.URL_RECIPE_UNPRAISE;
+			}
+			url = String.format(url, mPraiseId);
+			String result = NetUtils.httpGet(url, AccountModel.getCookie(mContext));
+			if (!TextUtils.isEmpty(result)) {
+				try {
+					JSONObject json = new JSONObject(result);
+					if (json.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+						return true;
+					} else if (json.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_ERROR) {
+						setError(ErrorCode.getErrorCode(json));
+						return false;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			mRecipePraiseTask = null;
+			if (!isAdded()) {
+				return;
+			}
+			
+			if (result) { // 请求成功
+				int count = mRecipeEntity.getPraiseCount();
+				if (mPraise) {
+					mRecipeEntity.setPraiseCount(count + 1);
+					setPraise(true);
+				} else {
+					if (count > 0) {
+						mRecipeEntity.setPraiseCount(count - 1);
+						setPraise(false);
+					}
+				}
+			} else { // 请求失败
+				ErrorCode.handleError(mContext, getError());
+			}
+		}
+		
+		@Override
+		protected void onCancelled() {
+			mRecipePraiseTask = null;
+		}
+		
 	}
 	
 	private class RecipeCollectTask extends AsyncTask<Void, Void, Boolean> {

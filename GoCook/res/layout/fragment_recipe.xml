@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/black"
+        android:orientation="horizontal"
         android:padding="5dp" >
 
         <TextView
@@ -26,7 +27,19 @@
             android:gravity="center"
             android:text="@string/biz_recipe_tabbar_menu_addcollecting"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
+        
+        <TextView
+            android:id="@+id/tabbar_textview_praise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/recipe_tabbar_like"
+            android:gravity="center"
+            android:text="@string/biz_recipe_tabbar_menu_addcollecting"
+            android:textColor="#999999"
+            android:textSize="12sp" />
 		<!-- 
         <TextView
             android:id="@+id/tabbar_textview_upload"
@@ -48,7 +61,7 @@
             android:gravity="center"
             android:text="@string/biz_recipe_tabbar_menu_addshoppinglist"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <!-- Middle Content -->

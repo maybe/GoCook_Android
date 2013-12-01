@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountFragment;
-import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.popular.PopularFragment;
 import com.m6.gocook.biz.purchase.PurchaseFragment;
@@ -89,9 +87,6 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 			}
 		});
 		
-		if(AccountModel.isLogon(this)) {
-			new AuthenLoginTask(this).execute((Void) null);
-		}
 		// 检测新版本
 		new VersionDetectTask().execute((Void) null);
 	}
@@ -205,37 +200,6 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		MainActivityHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private static class AuthenLoginTask extends AsyncTask<Void, Void, Void> {
-
-		private Context mContext;
-		public AuthenLoginTask(Context context) {
-			mContext = context.getApplicationContext();
-		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			String usr = AccountModel.getPhone(mContext);
-			String pwd = AccountModel.getPassword(mContext);
-			if(!TextUtils.isEmpty(pwd)) {
-				String result = AccountModel.login(mContext, usr, pwd);
-				if (!TextUtils.isEmpty(result)) {
-					try {
-						JSONObject json = new JSONObject(result);
-						int responseCode = json.optInt(AccountModel.RETURN_RESULT);
-						if (responseCode == Protocol.VALUE_RESULT_OK) {
-							AccountModel.saveUsername(mContext, json.optString(AccountModel.RETURN_USERNAME));
-							AccountModel.saveAvatarPath(mContext, json.optString(AccountModel.RETURN_ICON));
-							AccountModel.saveUserId(mContext, json.optString(AccountModel.RETURN_USERID));
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			return null;
-		}
-	}
-	
 	private void newVersion(final String url) {
 		new AlertDialog.Builder(this)
 		.setTitle(R.string.biz_main_newversion_title)

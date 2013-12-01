@@ -37,6 +37,10 @@ public class Protocol {
 
 	public static final String URL_RECIPE_UPLOAD_STEPIMAGE_STRING = URL_ROOT + "/recipe/uploadStepPhoto";
 	
+	public static final String URL_RECIPE_PRAISE = URL_ROOT + "/cook/like?likeid=%s";
+	
+	public static final String URL_RECIPE_UNPRAISE = URL_ROOT + "/cook/unlike?likeid=%s";
+	
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
 	
@@ -92,6 +96,7 @@ public class Protocol {
 	
 	/* Base JSON Protocol */
 	public static final String KEY_RESULT = "result";
+	public static final String KEY_ERROR_CODE = "errorcode";
 	public static final int VALUE_RESULT_OK = 0;
 	public static final int VALUE_RESULT_ERROR = 1;
 	
@@ -106,6 +111,8 @@ public class Protocol {
 	public static final String KEY_RECIPE_INTRO = "intro";
 	public static final String KEY_RECIPE_COLLECTED_COUNT = "collected_count";
 	public static final String KEY_RECIPE_ISCOLLECTED = "collect";
+	public static final String KEY_RECIPE_ISPRAISED = "like";
+	public static final String KEY_RECIPE_PRAISE_COUNT = "like_count";
 	public static final String KEY_RECIPE_DISH_COUNT = "dish_count";
 	public static final String KEY_RECIPE_COMMENT_COUNT = "comment_count";
 	public static final String KEY_RECIPE_COVER_IMAGE = "cover_image";

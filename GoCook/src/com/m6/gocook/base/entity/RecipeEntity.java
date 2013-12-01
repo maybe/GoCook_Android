@@ -123,6 +123,10 @@ public class RecipeEntity implements IParseable<JSONObject> {
 	private String commentStrs;
 	
 	private boolean isCollected;
+	
+	private boolean isPraised;
+	
+	private int praiseCount;
 
 	public String getId() {
 		return id;
@@ -186,6 +190,22 @@ public class RecipeEntity implements IParseable<JSONObject> {
 
 	public void setCollectCount(int collectCount) {
 		this.collectCount = collectCount;
+	}
+	
+	public boolean isPraised() {
+		return isPraised;
+	}
+
+	public void setPraised(boolean isPraised) {
+		this.isPraised = isPraised;
+	}
+
+	public int getPraiseCount() {
+		return praiseCount;
+	}
+
+	public void setPraiseCount(int praiseCount) {
+		this.praiseCount = praiseCount;
 	}
 
 	public ArrayList<Material> getMaterials() {
@@ -309,6 +329,8 @@ public class RecipeEntity implements IParseable<JSONObject> {
 			this.dishCount = recipe.optInt(Protocol.KEY_RECIPE_DISH_COUNT);
 			this.collectCount = recipe.optInt(Protocol.KEY_RECIPE_COLLECTED_COUNT);
 			this.isCollected = recipe.optInt(Protocol.KEY_RECIPE_ISCOLLECTED) == 0;
+			this.isPraised = recipe.optInt(Protocol.KEY_RECIPE_ISPRAISED, 0) == 0;
+			this.praiseCount = recipe.optInt(Protocol.KEY_RECIPE_PRAISE_COUNT, 0);
 			
 			String materialStr = recipe.optString(Protocol.KEY_RECIPE_MATERIALS);
 			String[] materials = materialStr.split(Protocol.VALUE_RECIPE_MATERIALS_FLAG);

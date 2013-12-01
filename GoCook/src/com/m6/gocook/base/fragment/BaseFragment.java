@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.constant.Constants;
+import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 import com.m6.gocook.util.cache.util.ImageCache.ImageCacheParams;
@@ -28,6 +29,9 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	private TextView mProgressMessageView;
 	private View mEmptyView;
 	private ProgressDialog mProgressDialog;
+	
+	// net result
+	private int mErrorCode = ErrorCode.ILLEGAL;
 	
 	protected ImageFetcher mImageFetcher;
 	
@@ -344,4 +348,21 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 		
 	}
 	
+	/**
+	 * 标示错误码
+	 * 
+	 * @param errorCode
+	 */
+	public void setError(int errorCode) {
+		mErrorCode = errorCode;
+	}
+	
+	/**
+	 * 返回错误码
+	 * 
+	 * @return
+	 */
+	public int getError() {
+		return mErrorCode;
+	}
 }
