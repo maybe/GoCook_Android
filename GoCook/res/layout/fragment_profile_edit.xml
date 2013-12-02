@@ -12,6 +12,7 @@
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
         android:src="@drawable/register_photo" />
 
     <TextView

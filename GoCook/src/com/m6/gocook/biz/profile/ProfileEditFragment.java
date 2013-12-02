@@ -222,6 +222,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			if (isAnythingChanged()) {
 				showProgressDialog(R.string.biz_profile_updating);
 				task.execute((Void) null);
+			} else {
+				Toast.makeText(getActivity(), R.string.biz_profile_edit_empty, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -417,7 +419,8 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		
 		@Override
 		protected String doInBackground(Void... params) {
-			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
+//			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarBitmap, mAvatartUri);
+			File avatarFile = ProfileModel.getAvatarFile(mContext, mAvatarImageView);
 			return ProfileModel.updateAvatar(mContext, avatarFile);
 		}
 		

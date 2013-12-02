@@ -13,8 +13,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.People;
@@ -340,6 +342,11 @@ public class ProfileModel {
 	public static File getAvatarFile(Context context, Bitmap bitmap, Uri uri) {
 		Bitmap avatarBitmap = getAvatarBitmap(context, bitmap, uri);
 		return ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), avatarBitmap);
+	}
+	
+	public static File getAvatarFile(Context context, ImageView avatarView) {
+		return ImgUtils.createBitmapFile("avatar" + System.currentTimeMillis(), 
+				((BitmapDrawable) avatarView.getDrawable()).getBitmap());
 	}
 
 }

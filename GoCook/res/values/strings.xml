@@ -83,6 +83,7 @@
     <string name="biz_profile_edit_fail_tip">更新信息失败，请重试</string>
     <string name="biz_profile_edit_sex_male">男</string>
     <string name="biz_profile_edit_sex_female">女</string>
+    <string name="biz_profile_edit_empty">没有更改任何信息</string>
     
     <string name="biz_profile_add_follow">关注</string>
     <string name="biz_profile_add_unfollow">取消关注</string>
