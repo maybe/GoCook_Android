@@ -216,6 +216,7 @@
     <string name="biz_buy_search_adapter_method">加工方式：%s</string>
     <string name="biz_buy_search_adapter_intro">商品介绍：\n%s</string>
     <string name="biz_buy_search_fragment_empty">没有找到食材</string>
+    <string name="biz_buy_search_fragment_500g">市斤(500g)</string>
     
     <string name="biz_buy_details_input_count_prefix">购买数量：</string>
     <string name="biz_buy_details_input_method_prefix">加工方式：</string>

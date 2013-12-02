@@ -1,5 +1,6 @@
 package com.m6.gocook.biz.buy;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -52,15 +53,18 @@ public class BuyDetailsInputFragment extends BaseFragment {
 		}
 		
 		String unit = mWareItem.getUnit();
+		double price = mWareItem.getPrice();
 		if (BuyModel.MATERIAL_KG_UNIT.contains(unit)) {
-			unit = "500g";
+			unit = getString(R.string.biz_buy_search_fragment_500g);
+			BigDecimal bd = new BigDecimal(price / 2);
+			price = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		}
 		
 		((TextView) view.findViewById(R.id.name)).setText(mWareItem.getName());
-		((TextView) view.findViewById(R.id.price)).setText(getString(R.string.biz_buy_search_adapter_price, String.valueOf(mWareItem.getPrice())));
+		((TextView) view.findViewById(R.id.price)).setText(getString(R.string.biz_buy_search_adapter_price, String.valueOf(price)));
 		((TextView) view.findViewById(R.id.unit)).setText(getString(R.string.biz_buy_search_adapter_unit, unit));
 		((TextView) view.findViewById(R.id.norm)).setText(getString(R.string.biz_buy_search_adapter_norm, mWareItem.getNorm()));
-		((TextView) view.findViewById(R.id.count_suffix)).setText("/" + unit);
+		((TextView) view.findViewById(R.id.count_suffix)).setText(unit);
 		
 		final ArrayList<String> methods = mWareItem.getDealMethod();
 		TextView methodView = (TextView) view.findViewById(R.id.method);
