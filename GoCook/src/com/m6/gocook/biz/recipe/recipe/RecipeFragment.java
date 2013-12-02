@@ -13,10 +13,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -315,9 +315,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 								getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_COLLECT);
 							}
 						} else {
-							Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-									WebLoginFragment.class.getName(), WebLoginFragment.class.getName(), null);
-							((FragmentActivity) getActivity()).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_JUMP_LOGIN);
+							WebLoginFragment.jumpToLogin(getActivity());
 						}
 					}
 				});
@@ -328,12 +326,16 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			@Override
 			public void onClick(View v) {
 				
-				if(mRecipePraiseTask == null) {
-					mRecipePraiseTask = new RecipePraiseTask(getActivity(), 
-							!mRecipeEntity.isPraised(), mRecipeEntity.getId());
-					mRecipePraiseTask.execute();
+				if(AccountModel.isLogon(mContext)) {
+					if(mRecipePraiseTask == null) {
+						mRecipePraiseTask = new RecipePraiseTask(getActivity(), 
+								!mRecipeEntity.isPraised(), mRecipeEntity.getId());
+						mRecipePraiseTask.execute();
+					} else {
+						Toast.makeText(mContext, R.string.biz_recipe_tabbar_menu_progress, Toast.LENGTH_SHORT).show();
+					}
 				} else {
-					Toast.makeText(mContext, R.string.biz_recipe_tabbar_menu_progress, Toast.LENGTH_SHORT).show();
+					WebLoginFragment.jumpToLogin(getActivity());
 				}
 			}
 		});
@@ -439,7 +441,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		private String mPraiseId;
 		
 		public RecipePraiseTask(Context context, boolean praise, String praiseId) {
-			mContext = context.getApplicationContext();
+			mContext = context;
 			mPraise = praise;
 			mPraiseId = praiseId;
 		}
@@ -500,7 +502,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		
 	}
 	
-	private class RecipeCollectTask extends AsyncTask<Void, Void, Boolean> {
+	private class RecipeCollectTask extends AsyncTask<Void, Void, Pair<Boolean, Integer>> {
 
 		private TextView view;
 		
@@ -513,20 +515,20 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		}
 		
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Pair<Boolean, Integer> doInBackground(Void... params) {
 			if(mCollected) {
-				return RecipeModel.removeFromCollectList(mContext,mRecipeId);
+				return RecipeModel.removeFromCollectList(mContext, mRecipeId);
 			} else {
 				return RecipeModel.addToCollectList(mContext, mRecipeId);
 			}
 		}
 		
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected void onPostExecute(Pair<Boolean, Integer> result) {
 			
 			mRecipeCollectTask = null;
 			
-			if(result && view != null) {
+			if(result != null && result.first && view != null) {
 				setCollected(!mCollected, view);
 			} else {
 				if(isAdded()) {
@@ -536,16 +538,17 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 							R.string.biz_recipe_tabbar_menu_addcollectfailed,
 							Toast.LENGTH_SHORT)
 							.show();
+					
+					if (result != null) {
+						ErrorCode.handleError(mContext, result.second);
+					}
 				}
 			}
-			
 		}
-		
 	}
 	
 	public class AchieveCommentsTask extends AsyncTask<Void, Void, RecipeCommentList> {
 
-		
 		@Override
 		protected RecipeCommentList doInBackground(Void... params) {
 			return RecipeModel.getRecipeComments(mContext, mRecipeId);
@@ -586,8 +589,6 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			TextView commentItem = (TextView) findViewById(R.id.comment_item);
 			commentItem.setVisibility(View.VISIBLE);
 			commentItem.setText(Html.fromHtml(topTwo.toString()));
-
-			
 		}
 		
 	}
@@ -656,7 +657,6 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
-
 	}
 	
 	@Override

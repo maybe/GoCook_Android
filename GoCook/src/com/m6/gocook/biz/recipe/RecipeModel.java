@@ -10,11 +10,13 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeEntity;
 import com.m6.gocook.base.entity.RecipeList;
+import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.log.Logger;
@@ -217,7 +219,7 @@ public class RecipeModel {
 		return NetUtils.httpPost(context, Protocol.URL_RECIPE_COMMENT_POST, params);
 	}
 	
-	public static Boolean addToCollectList(Context context, String recipeId) {
+	public static Pair<Boolean, Integer> addToCollectList(Context context, String recipeId) {
 		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_ADD, recipeId), AccountModel.getCookie(context));
 		
 		JSONObject jsonObject = null;
@@ -229,14 +231,18 @@ public class RecipeModel {
 			e.printStackTrace();
 		}
 		
-		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-			return true;
+		if(jsonObject != null) {
+			if (jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+				return Pair.create(true, -1);
+			} else {
+				return Pair.create(false, jsonObject.optInt(Protocol.KEY_ERROR_CODE, -1));
+			}
 		} else {
-			return false;
+			return Pair.create(false, -1);
 		}
 	}
 	
-	public static Boolean removeFromCollectList(Context context, String recipeId) {
+	public static Pair<Boolean, Integer> removeFromCollectList(Context context, String recipeId) {
 		String result = NetUtils.httpGet(String.format(Protocol.URL_RECIPE_COLLECT_DELETE, recipeId), AccountModel.getCookie(context));
 		
 		JSONObject jsonObject = null;
@@ -248,10 +254,14 @@ public class RecipeModel {
 			e.printStackTrace();
 		}
 		
-		if(jsonObject != null && jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
-			return true;
+		if(jsonObject != null) {
+			if (jsonObject.optInt(Protocol.KEY_RESULT) == Protocol.VALUE_RESULT_OK) {
+				return Pair.create(true, -1);
+			} else {
+				return Pair.create(false, jsonObject.optInt(Protocol.KEY_ERROR_CODE, -1));
+			}
 		} else {
-			return false;
+			return Pair.create(false, -1);
 		}
 	}
 	

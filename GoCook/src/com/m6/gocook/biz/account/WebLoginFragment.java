@@ -12,8 +12,10 @@ import org.jsoup.select.Elements;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,9 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.fragment.BaseWebFragment;
+import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
@@ -44,6 +48,12 @@ public class WebLoginFragment extends BaseWebFragment {
 	
 	private CookieManager mCookieManager;
 	
+	
+	public static void jumpToLogin(Context context) {
+		Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
+				WebLoginFragment.class.getName(), WebLoginFragment.class.getName(), null);
+		((FragmentActivity) context).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_JUMP_LOGIN);
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.biz.account.AccountModel;
+import com.m6.gocook.biz.account.WebLoginFragment;
 
 public class ErrorCode {
 
@@ -106,6 +107,7 @@ host/user 注册登陆相关的错误码
 		case ILLEGAL:
 			return;
 		case UNAUTHORIZED:
+			WebLoginFragment.jumpToLogin(context);
 			AccountModel.logout(context);
 			break;
 		}

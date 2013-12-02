@@ -105,7 +105,7 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		if (f.isHidden()) {
 			ft.show(f);
 		}
-		ft.commit();
+		ft.commitAllowingStateLoss();
 		fm.executePendingTransactions();
 	}
 
