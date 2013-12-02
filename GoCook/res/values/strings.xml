@@ -286,7 +286,7 @@
     <string name="biz_coupon_details_webdetails">详情</string>
     
     <!-- popular -->
-    <string name="biz_popular_tophot">本周最热欢迎</string>
+    <string name="biz_popular_tophot">本周最受欢迎</string>
     <string name="biz_popular_topnew">本周最新菜谱</string>
     
     <!-- cache -->
