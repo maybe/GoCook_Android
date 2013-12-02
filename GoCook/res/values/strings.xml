@@ -294,6 +294,9 @@
     
     <!-- errorcode -->
     <string name="error_code_unauthorized">未授权用户，请重新登录</string>
+    <string name="error_code_no_goods">订购失败，商品不存在</string>
+    <string name="error_code_no_customer">订购失败，客户不存在或无效</string>
+    <string name="error_code_exist_or_error">订购失败，订单已经存在且订单状态错误</string>
     <string name="error_code_recipe_praised">已经赞过该菜谱</string>
     <string name="error_code_recipe_unpraised">该菜谱本人未赞过</string>
     

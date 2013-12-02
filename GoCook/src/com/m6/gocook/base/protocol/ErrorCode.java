@@ -12,65 +12,16 @@ import com.m6.gocook.biz.account.WebLoginFragment;
 
 public class ErrorCode {
 
-	/* 
-	 * error code
-
-error == 1 : authecation error
-
-通用错误码
-
-101: 非移动设备
-
-102: 未授权用户
-
-103: 不是post上传
-
-104: 上传post不合法
-
-host/recipe 相关的错误码
-
-401: 此菜谱不存在
-
-402: 此菜谱不属于当前用户
-
-403: 协议上报菜谱id为空
-
-404: 新建菜谱名字不能为空
-
-405: 食材必须为双数
-
-406: 新建菜谱食材不能为空
-
-407: steps不能为空
-
-408: 找不到所示的封面图片（既不是刚上传的，也不是已经有的）
-
-409: 新建菜谱的封面不能为空
-
-host/user 注册登陆相关的错误码
-
-201: 电话号码重复
-
-202: 昵称重复
-
-203: 甲方服务器错误
-
-204: 甲方服务器错误(逻辑错误，go_cook校验服务器返回结果错误)
-
-205: 注册失败(甲方服务器未响应或错误)
-
-206: 账号已存在
-	 * 
-	 * 
-	 * 
-	 * */
-	
-	
-	
 	public static final int ILLEGAL = -1;
 	
 	/** 未授权用户 */
 	public static final int UNAUTHORIZED = 102;
+	/** 商品不存在或无效错误 */
+	public static final int ORDER_NO_GOODS = 301;
+	/** 订购失败,客户不存在或无效 */
+	public static final int ORDER_NO_CUSTOMER = 302;
+	/** 订购失败,订单已经存在且订单状态错误 */
+	public static final int ORDER_EXIST_OR_ERROR = 303;
 	/** 已经赞过该菜谱 */
 	public static final int RECIPE_PRAISED = 407;
 	/** 该菜谱本人未赞过 */
@@ -88,6 +39,15 @@ host/user 注册登陆相关的错误码
 			return;
 		case UNAUTHORIZED:
 			msg = context.getString(R.string.error_code_unauthorized);
+			break;
+		case ORDER_NO_GOODS:
+			msg = context.getString(R.string.error_code_no_goods);
+			break;
+		case ORDER_NO_CUSTOMER:
+			msg = context.getString(R.string.error_code_no_customer);
+			break;
+		case ORDER_EXIST_OR_ERROR:
+			msg = context.getString(R.string.error_code_exist_or_error);
 			break;
 		case RECIPE_PRAISED:
 			msg = context.getString(R.string.error_code_recipe_praised);

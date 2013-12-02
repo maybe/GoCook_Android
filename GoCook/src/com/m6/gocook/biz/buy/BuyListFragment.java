@@ -29,6 +29,7 @@ import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.fragment.OnKeyDown;
+import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
@@ -201,7 +202,11 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 					startActivity(intent);
 					getActivity().finish();
 				} else {
-					Toast.makeText(getActivity(), R.string.biz_buy_list_order_failure, Toast.LENGTH_SHORT).show();
+					if (result != null && result.getResult() == Protocol.VALUE_RESULT_ERROR) {
+						ErrorCode.toast(mContext, result.getErrorCode());
+					} else {
+						Toast.makeText(getActivity(), R.string.biz_buy_list_order_failure, Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
