@@ -116,7 +116,7 @@
     <string name="biz_profile_myrecipe_empty_message">您没有创建过菜谱，动手去做！</string>
     
     <!-- recipe -->
-    <string name="biz_recipe_about" formatted="false">%s人做过 %s人收藏</string>
+    <string name="biz_recipe_about" formatted="false">%d人做过 %d人收藏</string>
     <string name="biz_recipe_material">用料</string>
     <string name="biz_recipe_procedure">做法</string>
     <string name="biz_recipe_tips">小贴士</string>

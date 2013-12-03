@@ -355,17 +355,31 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		});
 	}
 
-	private void setCollected(boolean mCollected, TextView view) {
-		this.mCollected = mCollected;
+	private void setCollected(boolean collected, TextView view) {
+		mCollected = collected;
+		// 更新tabbar
 		view.setCompoundDrawablesWithIntrinsicBounds(
 				null,
 				getResources().getDrawable(
-						this.mCollected ? R.drawable.recipe_tabbar_likehl
+						mCollected ? R.drawable.recipe_tabbar_likehl
 									: R.drawable.recipe_tabbar_like), null,
 				null);
 		view.setText(mCollected ? 
 				R.string.biz_recipe_tabbar_menu_removecollecting :
 				R.string.biz_recipe_tabbar_menu_addcollecting);
+		
+		// 更新描述
+		TextView recipeAboutTextView = (TextView) findViewById(R.id.recipe_about_textview);
+		int collectCount = mRecipeEntity.getCollectCount();
+		if (collected) {
+			recipeAboutTextView.setText(String.format(
+					getResources().getString(R.string.biz_recipe_about),
+					mRecipeEntity.getDishCount(), ++collectCount));
+		} else {
+			recipeAboutTextView.setText(String.format(
+					getResources().getString(R.string.biz_recipe_about),
+					mRecipeEntity.getDishCount(), collectCount > 0 ? --collectCount : collectCount));
+		}
 	}
 	
 	private void setPraise(boolean praise) {
