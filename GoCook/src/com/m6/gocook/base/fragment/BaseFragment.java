@@ -278,6 +278,7 @@ public class BaseFragment extends Fragment implements OnActionBarClick {
 	public void showProgressDialog(int resId) {
 		if (mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(getActivity());
+			mProgressDialog.setCanceledOnTouchOutside(false);
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setCancelable(true);
 		}

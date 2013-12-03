@@ -37,6 +37,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="5dp"
+        android:visibility="gone"
         android:text="@string/biz_profile_upload_avatar"
         android:textColor="#ffffff" />
 

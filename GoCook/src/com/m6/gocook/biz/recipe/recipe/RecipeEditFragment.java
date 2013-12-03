@@ -373,8 +373,8 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 		if(mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(getActivity());  
-//			mProgressDialog.setCanceledOnTouchOutside(false);
-//			mProgressDialog.setCancelable(false);
+			mProgressDialog.setCanceledOnTouchOutside(false);
+			mProgressDialog.setCancelable(false);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		}
 		
@@ -385,7 +385,7 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		if(show) {
 			mProgressDialog.show();
 		} else {
-			mProgressDialog.hide();
+			mProgressDialog.dismiss();
 		}
 	}
 	
@@ -453,7 +453,6 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 				parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
 				parent.findViewById(R.id.button_upload).setVisibility(View.VISIBLE);
 			}
-			
 		}
 	}
 	
@@ -580,7 +579,6 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		@Override
 		protected void onPreExecute() {
 			showUploadingProgressBar(true, getResources().getString(R.string.biz_recipe_edit_posting));
-			super.onPreExecute();
 		}
 		
 		@Override
@@ -633,7 +631,6 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 		@Override
 		protected void onPreExecute() {
-			super.onPreExecute();
 			showUploadingProgressBar(true, getResources().getString(R.string.biz_recipe_edit_progressbar));
 		}
 		
@@ -660,13 +657,13 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 		@Override
 		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
 			if(isAdded()){
+				showUploadingProgressBar(false);
+				
 				mCurrentImageView.setTag(null);
 				if(mCurrentImageView != null && result != null) {
 					mCurrentImageView.setTag(result);
 				}
-				showUploadingProgressBar(false);
 				
 				if(mImageView.getId() != R.id.cover_imageview) {
 					LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
@@ -692,7 +689,6 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 		@Override
 		protected void onCancelled() {
-			super.onCancelled();
 			if(isAdded()){
 				showUploadingProgressBar(false);
 			}
@@ -702,7 +698,6 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 	@Override
 	public void onCustomActivityResult(int requestCode, int resultCode,
 			Intent data) {
-		
 	}
 
 }

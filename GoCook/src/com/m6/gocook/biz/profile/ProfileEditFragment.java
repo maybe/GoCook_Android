@@ -189,15 +189,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 	
 	@Override
 	public void onActionBarRightButtonClick(View v) {
-		super.onActionBarRightButtonClick(v);
-		
 		if (!isOnProgressing()) {
-			
-			String name = mNameEditText.getText().toString();
-			String birth = mAgeEditText.getText().toString();
-			String city = mCityEditText.getText().toString();
-			String career = mProfessionEditText.getText().toString();
-			String intro = mIntroEditText.getText().toString();
+			String name = mNameEditText.getText().toString().trim();
+			String birth = mAgeEditText.getText().toString().trim();
+			String city = mCityEditText.getText().toString().trim();
+			String career = mProfessionEditText.getText().toString().trim();
+			String intro = mIntroEditText.getText().toString().trim();
 			String sex = (String) mSexSpinner.getSelectedItem();
 			// 0：男，1：女，2：保密
 			String male = getString(R.string.biz_profile_edit_sex_male);
@@ -210,6 +207,13 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 				sex = "2";
 			}
 			
+			if (TextUtils.isEmpty(name)) {
+				Toast.makeText(getActivity(), R.string.biz_profile_edit_name_empty, Toast.LENGTH_SHORT).show();
+				return;
+			} else if (name.length() < 2) {
+				Toast.makeText(getActivity(), R.string.biz_profile_edit_name_least_2, Toast.LENGTH_SHORT).show();
+				return;
+			}
 			
 			UpdateProfileTask task = new UpdateProfileTask(getActivity(), 
 					changedValue(mUsername, name), 
@@ -269,6 +273,16 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			mAvatarImageView.setImageURI(mAvatartUri);
 		} else {
 			mAvatarImageView.setImageResource(R.drawable.register_photo);
+		}
+		
+		// 修改完头像直接上传
+		if (mAvatarBitmap != null || mAvatartUri != null) {
+			if (mAvatarTask == null) {
+				mAvatarTask = new UpdateAvatarTask(getActivity());
+				mAvatarTask.execute((Void) null);
+				
+				showProgressDialog(R.string.biz_profile_uploading);
+			}
 		}
 	}
 	
