@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
@@ -40,7 +42,6 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 	
 	/** 搜索框是否处于输入状态 */
 	private boolean mInputMode = false;
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,9 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 				}
 				
 				Pair<String, String[]> data = (Pair<String, String[]>) listView.getAdapter().getItem(position);
-                performSearch(data.first);
+				if (data != null) {
+					performSearch(data.first);
+				}
 			}
 		});
 		
@@ -165,7 +168,9 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 		if(keyCode == KeyEvent.KEYCODE_BACK) {
 			if(mInputMode) {
 				mInputMode = false;
-				getView().findViewById(R.id.mask).setVisibility(View.GONE);
+				if (isAdded()) {
+					getView().findViewById(R.id.mask).setVisibility(View.GONE);
+				}
 				return true;
 			}
 		}
@@ -187,6 +192,10 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 	 * @param keyWords
 	 */
 	private void performSearch(String keyWords) {
+		if (TextUtils.isEmpty(keyWords)) {
+			Toast.makeText(getActivity(), R.string.biz_search_empty_tip, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		Bundle args = new Bundle();
 		args.putString(SearchFragment.PARAM_KEYWORDS, keyWords);
         Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, SearchFragment.class.getName(), SearchFragment.class.getName(), args);

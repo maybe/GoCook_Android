@@ -38,6 +38,7 @@
     <string name="biz_search_error_tip">点击获取菜谱</string>
     <string name="biz_search_clean">清除历史记录</string>
     <string name="biz_search_empty_message">没有找到与\"%s\"相关的菜谱</string>
+    <string name="biz_search_empty_tip">搜索关键词不能为空</string>
     
     <!-- account -->
     <string name="biz_account_tab_login">登录</string>
@@ -207,7 +208,7 @@
     <string name="biz_buy_list_order_failure">订购失败</string>
     <string name="biz_buy_list_order_success">订购成功！</string>
     <string name="biz_buy_list_adapter_status">尚未选购商品</string>
-    <string name="biz_buy_list_adapter_gotoshop">前往M6生鲜网络超市选购食材</string>
+    <string name="biz_buy_list_adapter_gotoshop">从m6鲜品在线选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
     <string name="biz_buy_list_no_order">您还没有选购商品，请前往M6生鲜超市去选购~</string>
     
@@ -288,8 +289,8 @@
     <string name="biz_coupon_details_webdetails">详情</string>
     
     <!-- popular -->
-    <string name="biz_popular_tophot">本周最受欢迎</string>
-    <string name="biz_popular_topnew">本周最新菜谱</string>
+    <string name="biz_popular_tophot">最热菜谱</string>
+    <string name="biz_popular_topnew">最新菜谱</string>
     
     <!-- cache -->
     <string name="no_network_connection_toast">没有网络连接</string>
