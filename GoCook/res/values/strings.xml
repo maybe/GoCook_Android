@@ -210,7 +210,7 @@
     <string name="biz_buy_list_adapter_status">尚未选购商品</string>
     <string name="biz_buy_list_adapter_gotoshop">从m6鲜品在线选购食材</string>
     <string name="biz_buy_list_adapter_target">目标食材:%s</string>
-    <string name="biz_buy_list_no_order">您还没有选购商品，请前往M6生鲜超市去选购~</string>
+    <string name="biz_buy_list_no_order">您还没有选购商品，请前往m6鲜品在线去选购~</string>
     
     <string name="biz_buy_search_fragment_title">搜索：%s</string>
     <string name="biz_buy_search_adapter_norm">规格：%s</string>
@@ -297,6 +297,7 @@
     
     <!-- errorcode -->
     <string name="error_code_unauthorized">未授权用户，请重新登录</string>
+    <string name="error_code_username_invalid">用户名至少两个字并且只能包含数字、字母、汉字和下划线</string>
     <string name="error_code_no_goods">订购失败，商品不存在</string>
     <string name="error_code_no_customer">订购失败，客户不存在或无效</string>
     <string name="error_code_exist_or_error">订购失败，订单已经存在且订单状态错误</string>

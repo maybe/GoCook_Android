@@ -2,6 +2,7 @@ package com.m6.gocook.biz.profile;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 
 import com.m6.gocook.base.constant.PrefKeys;
 import com.m6.gocook.base.entity.People;
+import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.util.File.ImgUtils;
@@ -44,6 +46,8 @@ public class ProfileModel {
 	public static final String COLLECT_COUNT = "collect_count";
 	public static final String FOLLOWING_COUNT = "following_count";
 	public static final String FOLLOWED_COUNT = "followed_count";
+	
+	private static final String KEY_USER_UNAUTHORIZED = "key_user_unauthorized";
 
 	
 	public static void saveAge(Context context, String age) {
@@ -194,14 +198,35 @@ public class ProfileModel {
 			JSONObject jsonObject = new JSONObject(result);
 			if(jsonObject != null) {
 				Map<String, Object> resultMap = ModelUtils.json2Map(jsonObject);
-				if (resultMap != null && ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
-					return ModelUtils.getMapValue(resultMap, "result_user_info");
+				if (resultMap != null) {
+					if (ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_OK) {
+						return ModelUtils.getMapValue(resultMap, "result_user_info");
+					} else if (ModelUtils.getIntValue(resultMap, Protocol.KEY_RESULT, 1) == Protocol.VALUE_RESULT_ERROR) {
+						int errorCode = ModelUtils.getIntValue(resultMap, Protocol.KEY_ERROR_CODE, -1);
+						if (errorCode == ErrorCode.UNAUTHORIZED) {
+							Map<String, Object> map = new HashMap<String, Object>();
+							map.put(KEY_USER_UNAUTHORIZED, true);
+						}
+					}
 				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * 通过获取个人信息返回的结果判断登陆的用户session是否失效
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public static boolean isUnauthorized(Map<String, Object> map) {
+		if (map != null && ModelUtils.getBooleanValue(map, KEY_USER_UNAUTHORIZED, false)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

@@ -116,7 +116,6 @@ public class PopularAdapter extends BaseAdapter {
 				adViewHolder = new ADViewHolder();
 				adViewHolder.ad1 = (ImageView) convertView.findViewById(R.id.ad1);
 				adViewHolder.ad2 = (ImageView) convertView.findViewById(R.id.ad2);
-				adViewHolder.ad3 = (ImageView) convertView.findViewById(R.id.ad3);
 				convertView.setTag(adViewHolder);
 			}
 		} else {
@@ -192,13 +191,6 @@ public class PopularAdapter extends BaseAdapter {
 					openBrower("http://share.m6fresh.com");
 				}
 			});
-			adViewHolder.ad3.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					openBrower("http://o2o.m6fresh.com");
-				}
-			});
 		}
 		return convertView;
 	}
@@ -229,6 +221,5 @@ public class PopularAdapter extends BaseAdapter {
 	class ADViewHolder {
 		private ImageView ad1;
 		private ImageView ad2;
-		private ImageView ad3;
 	}
 }

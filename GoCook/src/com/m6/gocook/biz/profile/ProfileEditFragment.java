@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.base.view.ActionBar;
@@ -339,7 +340,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		}
 	}
 	
-	private class UpdateProfileTask extends AsyncTask<Void, Void, String> {
+	private class UpdateProfileTask extends AsyncTask<Void, Void, Integer> {
 
 		private Context mContext;
 		
@@ -361,7 +362,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		}
 		
 		@Override
-		protected String doInBackground(Void... params) {
+		protected Integer doInBackground(Void... params) {
 			String result = ProfileModel.updateInfo(mContext, mParamUsername, mParamSex, mParamBirth, 
 					mParamCareer, null, mParamCity, null, mParamIntro);
 			if(!TextUtils.isEmpty(result)) {
@@ -393,23 +394,27 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 							ProfileModel.saveCareer(mContext, mParamCareer);
 						}
 //							ProfileModel.saveTelephone(mContext, params[6]);
-						return result;
+						return ErrorCode.SUCCESS;
+					} else if (responseCode == Protocol.VALUE_RESULT_ERROR) {
+						return json.optInt(Protocol.KEY_ERROR_CODE, -1);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
-			return null;
+			return ErrorCode.ILLEGAL;
 		}
 		
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Integer result) {
 			if (isAdded()) {
 				dismissProgressDialog();
-				if(TextUtils.isEmpty(result)) {
+				if (result == ErrorCode.SUCCESS) {
+					getActivity().finish();
+				} else if (result == ErrorCode.ILLEGAL) {
 					Toast.makeText(mContext, R.string.biz_profile_edit_fail_tip, Toast.LENGTH_SHORT).show();
 				} else {
-					getActivity().finish();
+					ErrorCode.handleError(mContext, result);
 				}
 			}
 		}

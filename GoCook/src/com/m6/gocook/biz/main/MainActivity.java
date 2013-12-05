@@ -1,9 +1,12 @@
 package com.m6.gocook.biz.main;
 
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -25,10 +28,13 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.m6.gocook.R;
+import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountFragment;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.popular.PopularFragment;
+import com.m6.gocook.biz.profile.ProfileModel;
 import com.m6.gocook.biz.purchase.PurchaseFragment;
 import com.m6.gocook.biz.purchase.PurchaseListByTypeFragment;
 import com.m6.gocook.biz.purchase.PurchaseListFragment;
@@ -86,6 +92,11 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 				MainActivityHelper.OnActionBarClick(v, v.getId());
 			}
 		});
+		
+		if (AccountModel.isLogon(this)) {
+			// 检测用户session是否失效
+			new UserSessionTask(this).execute((Void) null);
+		}
 		
 		// 检测新版本
 		new VersionDetectTask().execute((Void) null);
@@ -213,6 +224,34 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		.setNegativeButton(R.string.biz_main_newversion_negative, null)
 		.create()
 		.show();
+	}
+	
+	/**
+	 * 判断用户session是否失效
+	 * 
+	 * @author YC
+	 *
+	 */
+	private class UserSessionTask extends AsyncTask<Void, Void, Map<String, Object>> {
+
+		private Context mContext;
+		
+		public UserSessionTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected Map<String, Object> doInBackground(Void... params) {
+			return ProfileModel.getBasicInfo(mContext);
+		}
+		
+		@Override
+		protected void onPostExecute(Map<String, Object> result) {
+			if (ProfileModel.isUnauthorized(result)) {
+				AccountModel.logout(mContext);
+				ErrorCode.toast(mContext, ErrorCode.UNAUTHORIZED);
+			}
+		}
 	}
 	
 	/**

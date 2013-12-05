@@ -12,10 +12,13 @@ import com.m6.gocook.biz.account.WebLoginFragment;
 
 public class ErrorCode {
 
+	public static final int SUCCESS = 0;
 	public static final int ILLEGAL = -1;
 	
 	/** 未授权用户 */
 	public static final int UNAUTHORIZED = 102;
+	/** 用户名必须大于等于两个字并且只能包含数字、字母、汉字和下划线 */
+	public static final int USERNAME_INVALID = 214;
 	/** 商品不存在或无效错误 */
 	public static final int ORDER_NO_GOODS = 301;
 	/** 订购失败,客户不存在或无效 */
@@ -39,6 +42,9 @@ public class ErrorCode {
 			return;
 		case UNAUTHORIZED:
 			msg = context.getString(R.string.error_code_unauthorized);
+			break;
+		case USERNAME_INVALID:
+			msg = context.getString(R.string.error_code_username_invalid);
 			break;
 		case ORDER_NO_GOODS:
 			msg = context.getString(R.string.error_code_no_goods);
