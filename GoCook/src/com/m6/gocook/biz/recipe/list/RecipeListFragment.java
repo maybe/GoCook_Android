@@ -122,7 +122,7 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			
 			mRecipeListTask = null;
 			showProgress(false);
-			mFooterView.setVisibility(View.GONE);
+			hideFooter();
 			
 			if (result != null && mActivity != null && mAdapter != null) {
 				if (mAdapter.getCount() == 0 && result.getRecipes().isEmpty()) {

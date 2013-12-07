@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1203</string>
+    <string name="build_version">build 1207</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -296,7 +296,7 @@
     <string name="no_network_connection_toast">没有网络连接</string>
     
     <!-- errorcode -->
-    <string name="error_code_unauthorized">未授权用户，请重新登录</string>
+    <string name="error_code_unauthorized">为了保证您的账户安全，M6已经帮你自动登出</string>
     <string name="error_code_username_invalid">用户名至少两个字并且只能包含数字、字母、汉字和下划线</string>
     <string name="error_code_no_goods">订购失败，商品不存在</string>
     <string name="error_code_no_customer">订购失败，客户不存在或无效</string>

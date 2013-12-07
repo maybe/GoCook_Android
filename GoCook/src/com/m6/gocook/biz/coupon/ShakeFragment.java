@@ -1,16 +1,24 @@
 package com.m6.gocook.biz.coupon;
 
+import java.io.IOException;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +47,12 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
     
     private boolean mSensorTriggered = false;
     
+    private MediaPlayer mMediaPlayer;
+    
+    private Handler mHandler = new Handler();
+    
+    private Sale mSaleResult;
+    
     public static ShakeFragment newInstance(String couponId) {
     	ShakeFragment fragment = new ShakeFragment();
     	Bundle bundle = new Bundle();
@@ -56,12 +70,58 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
     	if (bundle != null) {
     		mCouponId = bundle.getString(PARAM_COUPON_ID);
     	}
+    	initMediaPlayer();
+    }
+    
+    /**
+     * 初始化播放器
+     */
+    private void initMediaPlayer() {
+    	mMediaPlayer = new MediaPlayer();
+    	mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    	AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.shake);
+    	try {
+			mMediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
+			file.close();
+			mMediaPlayer.prepare();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+			
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
+					Bundle bundle = new Bundle();
+					bundle.putString(ShakeResultFragment.PARAM_COUPON_ID, mCouponId);
+					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+							ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
+					getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+				} else {
+					if (mSaleTask == null && mSaleResult != null) {
+						// 任务完成跳转到结果页
+						goToResultAfterShake(mSaleResult);
+					}
+				}
+			}
+		});
     }
     
     @Override
 	public void onDestroy() {
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 		super.onDestroy();
+		MainActivityHelper.unRegisterOnActivityActionListener(this);
+		if (mMediaPlayer != null) {
+			if (mMediaPlayer.isPlaying()) {
+				mMediaPlayer.stop();
+			}
+			mMediaPlayer.release();
+		}
 	}
     
     @Override
@@ -121,23 +181,20 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 					.abs(values[2]) > 14)) {
 				
 				if (!mSensorTriggered) {
-					if (!TextUtils.isEmpty(mCouponId)) { // 延期记录获取优惠券
-						Bundle bundle = new Bundle();
-						bundle.putString(ShakeResultFragment.PARAM_COUPON_ID, mCouponId);
-						Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-								ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-						getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
-//						FragmentHelper.startActivity(getActivity(), ShakeResultFragment.newInstance(mCouponId));
-					} else { // 摇出销售额
+					mSensorTriggered = true;
+					// 播放声音+振动
+					if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
+						mMediaPlayer.start();
+					}
+					vibrator.vibrate(500);
+					
+					if (TextUtils.isEmpty(mCouponId)) { // 摇出销售额
 						showProgress(true);
 						if (mSaleTask == null) {
 							mSaleTask = new SaleTask(getActivity());
 							mSaleTask.execute((Void) null);
-							// 摇动手机后，再伴随震动提示
 						}
 					}
-					vibrator.vibrate(500);
-					mSensorTriggered = true;
 				}
 			}
 		}
@@ -146,6 +203,15 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub
+	}
+	
+	private void goToResultAfterShake(Sale result) {
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
+		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
+				ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
+		getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+		getActivity().finish();
 	}
 
 	public class SaleTask extends AsyncTask<Void, Void, Sale> {
@@ -165,13 +231,14 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 		protected void onPostExecute(Sale result) {
 			mSaleTask = null;
 			if (isAdded()) {
-				showProgress(false);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
-				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
-						ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-				getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
-				getActivity().finish();
+				if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
+					// 如果音乐播放完成就跳转到结果页面，否则就等到音乐播放完毕后自动触发跳转
+					showProgress(false);
+					goToResultAfterShake(result);
+				} else {
+					// 音乐尚未播放完，先记录结果，等音乐播放完再自动处理
+					mSaleResult = result;
+				}
 			}
 		}
 		

@@ -137,7 +137,7 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 			}
 			
 			showProgress(false);
-			mFooterView.setVisibility(View.GONE);
+			hideFooter();
 			
 			if (result != null && mAdapter != null) {
 				if (result.isEmpty() && mAdapter.getCount() == 0) {
@@ -159,6 +159,9 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 				}
 				mAdapter.setPeoples(mPeoples);
 				mAdapter.notifyDataSetChanged();
+			} else {
+				setEmptyMessage(getString(R.string.base_empty_text));
+				showEmpty(true);
 			}
 		}
 		

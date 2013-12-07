@@ -206,6 +206,7 @@ public class ProfileModel {
 						if (errorCode == ErrorCode.UNAUTHORIZED) {
 							Map<String, Object> map = new HashMap<String, Object>();
 							map.put(KEY_USER_UNAUTHORIZED, true);
+							return map;
 						}
 					}
 				}

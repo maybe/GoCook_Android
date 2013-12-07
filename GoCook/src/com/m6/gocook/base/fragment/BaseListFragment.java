@@ -27,7 +27,7 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
     private int mLastVisibleIndex;
     
     private ListView mListView;
-    protected View mFooterView;
+    private View mFooterView;
     
     private BaseAdapter mAdapter;
     
@@ -105,6 +105,12 @@ public abstract class BaseListFragment extends BaseFragment implements OnScrollL
         } else {
         	mFooterView.setVisibility(View.GONE);
         }
+	}
+	
+	public void hideFooter() {
+		if (mFooterView != null) {
+			mFooterView.setVisibility(View.GONE);
+		}
 	}
 	
 	/**
