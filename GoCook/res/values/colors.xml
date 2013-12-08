@@ -37,6 +37,8 @@
     <color name="account_loginorregister_tab_bg">@android:color/white</color>
     <color name="account_loginorregister_tab_bg_pressed">#f9f7f5</color>
     
+    <!-- base -->
+    
     <!-- buy -->
     <color name="biz_buy_text">#3B272D</color>
     
