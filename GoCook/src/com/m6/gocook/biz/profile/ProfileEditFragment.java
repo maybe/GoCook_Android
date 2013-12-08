@@ -207,6 +207,17 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			} else if (name.length() < 2) {
 				Toast.makeText(getActivity(), R.string.biz_profile_edit_name_least_2, Toast.LENGTH_SHORT).show();
 				return;
+			} else if (!TextUtils.isEmpty(birth)) {
+				try {
+					int age = Integer.valueOf(birth);
+					if (age >= 120) {
+						Toast.makeText(getActivity(), R.string.biz_profile_edit_birth_too_large, Toast.LENGTH_SHORT).show();
+						return;
+					}
+				} catch (Exception e) {
+					Toast.makeText(getActivity(), R.string.biz_profile_edit_birth_error, Toast.LENGTH_SHORT).show();
+					return;
+				}
 			}
 			
 			UpdateProfileTask task = new UpdateProfileTask(getActivity(), 

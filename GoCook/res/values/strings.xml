@@ -88,6 +88,8 @@
     <string name="biz_profile_edit_empty">没有更改任何信息</string>
     <string name="biz_profile_edit_name_empty">昵称不能为空</string>
     <string name="biz_profile_edit_name_least_2">昵称最少两个字符</string>
+    <string name="biz_profile_edit_birth_too_large">您的岁数太大啦~</string>
+    <string name="biz_profile_edit_birth_error">年龄填写错误</string>
     
     <string name="biz_profile_add_follow">关注</string>
     <string name="biz_profile_add_unfollow">取消关注</string>
