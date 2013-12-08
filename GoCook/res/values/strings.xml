@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1207</string>
+    <string name="build_version">build 1208</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -84,6 +84,7 @@
     <string name="biz_profile_edit_fail_tip">更新信息失败，请重试</string>
     <string name="biz_profile_edit_sex_male">男</string>
     <string name="biz_profile_edit_sex_female">女</string>
+    <string name="biz_profile_edit_sex_unknown">保密</string>
     <string name="biz_profile_edit_empty">没有更改任何信息</string>
     <string name="biz_profile_edit_name_empty">昵称不能为空</string>
     <string name="biz_profile_edit_name_least_2">昵称最少两个字符</string>
@@ -297,6 +298,7 @@
     
     <!-- errorcode -->
     <string name="error_code_unauthorized">为了保证您的账户安全，M6已经帮你自动登出</string>
+    <string name="error_code_change_avatar_failed">修改头像失败</string>
     <string name="error_code_username_invalid">用户名至少两个字并且只能包含数字、字母、汉字和下划线</string>
     <string name="error_code_no_goods">订购失败，商品不存在</string>
     <string name="error_code_no_customer">订购失败，客户不存在或无效</string>

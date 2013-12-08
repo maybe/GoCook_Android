@@ -112,9 +112,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		mIntroEditText.setText(mIntro);
 		mProfessionEditText.setText(mCareer);
 		
-		if ("0".equals(mSex)) {
+		// 0：男，1：女，2：保密
+		String male = getString(R.string.biz_profile_edit_sex_male);
+		String female = getString(R.string.biz_profile_edit_sex_female);
+		if (male.equals(mSex)) {
 			mSexSpinner.setSelection(1);
-		} else if ("1".equals(mSex)) {
+		} else if (female.equals(mSex)) {
 			mSexSpinner.setSelection(2);
 		} else {
 			mSexSpinner.setSelection(0);
@@ -197,16 +200,6 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			String career = mProfessionEditText.getText().toString().trim();
 			String intro = mIntroEditText.getText().toString().trim();
 			String sex = (String) mSexSpinner.getSelectedItem();
-			// 0：男，1：女，2：保密
-			String male = getString(R.string.biz_profile_edit_sex_male);
-			String female = getString(R.string.biz_profile_edit_sex_female);
-			if (male.equals(sex)) {
-				sex = "0";
-			} else if (female.equals(sex)) {
-				sex = "1";
-			} else {
-				sex = "2";
-			}
 			
 			if (TextUtils.isEmpty(name)) {
 				Toast.makeText(getActivity(), R.string.biz_profile_edit_name_empty, Toast.LENGTH_SHORT).show();
@@ -310,12 +303,17 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 				ProfileModel.saveAge(getActivity(), ModelUtils.getStringValue(map, ProfileModel.AGE));
 				int sexType = ModelUtils.getIntValue(map, ProfileModel.SEX, 0);
 				String sex;
+				// 0：男，1：女，2：保密
+				// 0：男，1：女，2：保密
+				String male = getString(R.string.biz_profile_edit_sex_male);
+				String female = getString(R.string.biz_profile_edit_sex_female);
+				String unknown = getString(R.string.biz_profile_edit_sex_unknown);
 				if (sexType == 0) {
-					sex = "男";
+					sex = male;
 				} else if (sexType == 1) {
-					sex = "女";
+					sex = female;
 				} else {
-					sex = "2";
+					sex = unknown;
 				}
 				ProfileModel.saveSex(getActivity(), sex);
 				ProfileModel.saveCity(getActivity(), ModelUtils.getStringValue(map, ProfileModel.CITY));
@@ -363,7 +361,18 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 		
 		@Override
 		protected Integer doInBackground(Void... params) {
-			String result = ProfileModel.updateInfo(mContext, mParamUsername, mParamSex, mParamBirth, 
+			// 0：男，1：女，2：保密
+			String sex;
+			String male = getString(R.string.biz_profile_edit_sex_male);
+			String female = getString(R.string.biz_profile_edit_sex_female);
+			if (male.equals(mParamSex)) {
+				sex = "0";
+			} else if (female.equals(mParamSex)) {
+				sex = "1";
+			} else {
+				sex = "2";
+			}
+			String result = ProfileModel.updateInfo(mContext, mParamUsername, sex, mParamBirth, 
 					mParamCareer, null, mParamCity, null, mParamIntro);
 			if(!TextUtils.isEmpty(result)) {
 				try {
@@ -461,6 +470,10 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 						
 						mAvatarBitmap = null;
 						mAvatartUri = null;
+					} else if (responseCode == Protocol.VALUE_RESULT_ERROR) {
+						if (isAdded()) {
+							ErrorCode.toast(mContext, json.optInt(Protocol.KEY_ERROR_CODE));
+						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

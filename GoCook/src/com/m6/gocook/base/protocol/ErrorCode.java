@@ -17,6 +17,8 @@ public class ErrorCode {
 	
 	/** 未授权用户 */
 	public static final int UNAUTHORIZED = 102;
+	/** 修改头像失败 */
+	public static final int CHANGE_AVATAR_FAILED = 209;
 	/** 用户名必须大于等于两个字并且只能包含数字、字母、汉字和下划线 */
 	public static final int USERNAME_INVALID = 214;
 	/** 商品不存在或无效错误 */
@@ -42,6 +44,9 @@ public class ErrorCode {
 			return;
 		case UNAUTHORIZED:
 			msg = context.getString(R.string.error_code_unauthorized);
+			break;
+		case CHANGE_AVATAR_FAILED:
+			msg = context.getString(R.string.error_code_change_avatar_failed);
 			break;
 		case USERNAME_INVALID:
 			msg = context.getString(R.string.error_code_username_invalid);
