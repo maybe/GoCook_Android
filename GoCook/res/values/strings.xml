@@ -166,6 +166,7 @@
     <string name="biz_recipe_edit_nocover">请添加封面</string>
     <string name="biz_recipe_edit_notitle">请添加菜谱名字</string>
     <string name="biz_recipe_edit_titleshort">菜谱名至少3个字</string>
+    <string name="biz_recipe_edit_titleerror">菜谱至少两个字并且只能包含数字、字母、汉字和下划线</string>
     <string name="biz_recipe_edit_titlelong">菜谱名字太长</string>
     <string name="biz_recipe_edit_nomaterial">请添加用料</string>
     <string name="biz_recipe_edit_noprocedure">请添加步骤</string>

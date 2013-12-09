@@ -2,6 +2,8 @@ package com.m6.gocook.biz.profile;
 
 import java.io.File;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,7 +203,12 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 			String intro = mIntroEditText.getText().toString().trim();
 			String sex = (String) mSexSpinner.getSelectedItem();
 			
-			if (TextUtils.isEmpty(name)) {
+			Pattern pattern = Pattern.compile("^[0-9a-zA-Z_{\u4e00-\u9fa5}]{2,30}$");
+			Matcher matcher = pattern.matcher(name);
+			if (!matcher.find()) {
+				Toast.makeText(getActivity(), R.string.error_code_username_invalid, Toast.LENGTH_SHORT).show();
+				return;
+			} else if (TextUtils.isEmpty(name)) {
 				Toast.makeText(getActivity(), R.string.biz_profile_edit_name_empty, Toast.LENGTH_SHORT).show();
 				return;
 			} else if (name.length() < 2) {

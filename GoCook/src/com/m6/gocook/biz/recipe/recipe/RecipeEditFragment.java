@@ -2,6 +2,8 @@ package com.m6.gocook.biz.recipe.recipe;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -267,7 +269,7 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 			
 			@Override
 			public void onClick(View v) {
-				new UploadAsyncTask(imageView).execute();
+				new UploadImageTask(imageView).execute();
 				mCurrentImageView = imageView;
 			}
 		});
@@ -447,7 +449,7 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 			mCurrentImageView.setTag(null);
 			
 			if(mCurrentImageView.getId() == R.id.cover_imageview) {
-				new UploadAsyncTask(mCurrentImageView).execute();
+				new UploadImageTask(mCurrentImageView).execute();
 			} else {
 				LinearLayout parent = (LinearLayout) mCurrentImageView.getParent();
 				parent.findViewById(R.id.button_layout).setVisibility(View.VISIBLE);
@@ -477,11 +479,17 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		}
 		
 		EditText title = (EditText) findViewById(R.id.recipe_title_edittext);
-		if(!TextUtils.isEmpty(title.getText().toString().trim())) {
-			if(title.getText().toString().trim().length() < 3) {
+		String recipeName = title.getText().toString().trim();
+		Pattern pattern = Pattern.compile("^[0-9a-zA-Z_-{\u4e00-\u9fa5}{\uff01-\uff5e}{\u2014}{\u2013}]{2,30}$");
+		Matcher matcher = pattern.matcher(recipeName);
+		if (!matcher.find()) {
+			Toast.makeText(mContext, R.string.biz_recipe_edit_titleerror, Toast.LENGTH_SHORT).show();
+			return;
+		} else if(!TextUtils.isEmpty(recipeName)) {
+			if(title.getText().toString().trim().length() < 2) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_titleshort, Toast.LENGTH_SHORT).show();
 				return;
-			} else if (title.getText().toString().trim().length() > 12) {
+			} else if (title.getText().toString().trim().length() > 30) {
 				Toast.makeText(mContext, R.string.biz_recipe_edit_titlelong, Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -549,7 +557,7 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		mRecipeEntity.setTips(tips.getText().toString().trim());
 		
 	
-		new PostAsyncTast().execute();
+		new PostRecipeTask().execute();
 	}
 	
 	private void exit() {
@@ -574,7 +582,7 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		return false;
 	}
 	
-	public class PostAsyncTast extends AsyncTask<Void, Void, Boolean> {
+	public class PostRecipeTask extends AsyncTask<Void, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -622,10 +630,10 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 		
 	}
 	
-	public class UploadAsyncTask extends AsyncTask<Void, Void, String> {
+	public class UploadImageTask extends AsyncTask<Void, Void, String> {
 
 		private ImageView mImageView;
-		public UploadAsyncTask(ImageView imageView) {
+		public UploadImageTask(ImageView imageView) {
 			mImageView = imageView;
 		}
 		
