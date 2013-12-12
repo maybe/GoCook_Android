@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1209</string>
+    <string name="build_version">build 1212</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -122,7 +122,7 @@
     <string name="biz_profile_myrecipe_empty_message">您没有创建过菜谱，动手去做！</string>
     
     <!-- recipe -->
-    <string name="biz_recipe_about" formatted="false">%d人做过 %d人收藏</string>
+    <string name="biz_recipe_about">%d人收藏</string>
     <string name="biz_recipe_material">用料</string>
     <string name="biz_recipe_procedure">做法</string>
     <string name="biz_recipe_tips">小贴士</string>
@@ -170,7 +170,7 @@
     <string name="biz_recipe_edit_titlelong">菜谱名字太长</string>
     <string name="biz_recipe_edit_nomaterial">请添加用料</string>
     <string name="biz_recipe_edit_noprocedure">请添加步骤</string>
-    <string name="biz_recipe_edit_descshort">菜谱介绍内容太少</string>
+    <string name="biz_recipe_edit_descshort">菜谱介绍至少5个字</string>
     <string name="biz_recipe_edit_tipsshort">小贴士内容太少</string>
     <string name="biz_recipe_edit_posting">正在发布...</string>
     <string name="biz_recipe_edit_post_ok">发布成功</string>
@@ -269,7 +269,7 @@
     <string name="biz_coupon_list_content_normal">%1$s您获得了由%2$s提供的价值%3$s元的%4$s，券号%5$s，有效期%6$s至%7$s。\n适用门店：%8$s\n%9$s</string>
     
     <string name="biz_coupon_shake_title">摇一摇</string>
-    <string name="biz_coupon_shake_message">摇一摇/点击屏幕抽取优惠券</string>
+    <string name="biz_coupon_shake_message">摇一摇抽取优惠券</string>
     <string name="biz_coupon_shake_result_time">销售日期：</string>
     <string name="biz_coupon_shake_result_sale_fee">销售金额：</string>
     <string name="biz_coupon_shake_result_sale_count">销售笔数：</string>

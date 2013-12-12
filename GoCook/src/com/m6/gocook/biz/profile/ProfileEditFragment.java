@@ -60,6 +60,10 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
     private String mIntro;
     private String mUsername;
     private String mCareer;
+    
+    /** 执行更新个人信息的任务前判断是否有信息发生变化 */
+	private boolean mIsAnythingChanged = false;
+	private boolean mIsAvatarChanged = false;
 	
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
@@ -235,24 +239,15 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 					changedValue(mCareer, career),
 					changedValue(mIntro, intro));
 			
-			if (isAnythingChanged()) {
+			if (mIsAnythingChanged) {
 				showProgressDialog(R.string.biz_profile_updating);
 				task.execute((Void) null);
+			} else if (mIsAvatarChanged) {
+				getActivity().finish();
 			} else {
 				Toast.makeText(getActivity(), R.string.biz_profile_edit_empty, Toast.LENGTH_SHORT).show();
 			}
 		}
-	}
-	
-	private boolean mIsAnythingChanged = false;
-	
-	/**
-	 * 执行更新个人信息的任务前判断是否有信息发生变化
-	 * 
-	 * @return
-	 */
-	private boolean isAnythingChanged() {
-		return mIsAnythingChanged;
 	}
 	
 	private String changedValue(String oldString, String newString) {
@@ -420,7 +415,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 						if (mParamCareer != null) {
 							ProfileModel.saveCareer(mContext, mParamCareer);
 						}
-//							ProfileModel.saveTelephone(mContext, params[6]);
+//						ProfileModel.saveTelephone(mContext, params[6]);
 						return ErrorCode.SUCCESS;
 					} else if (responseCode == Protocol.VALUE_RESULT_ERROR) {
 						return json.optInt(Protocol.KEY_ERROR_CODE, -1);
@@ -486,6 +481,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 							Toast.makeText(mContext, R.string.biz_profile_update_avatar_success, Toast.LENGTH_SHORT).show();
 						}
 						
+						mIsAvatarChanged = true;
 						mAvatarBitmap = null;
 						mAvatartUri = null;
 					} else if (responseCode == Protocol.VALUE_RESULT_ERROR) {

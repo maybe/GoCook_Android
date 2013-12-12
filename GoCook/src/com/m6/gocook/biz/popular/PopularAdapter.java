@@ -199,7 +199,6 @@ public class PopularAdapter extends BaseAdapter {
 		Intent intent= new Intent();        
 	    intent.setAction(Intent.ACTION_VIEW);    
 	    intent.setData(Uri.parse(url));
-//	    intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
 	    mActivity.startActivity(intent);
 	}
 	

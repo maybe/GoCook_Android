@@ -221,8 +221,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 
 		TextView recipeAboutTextView = (TextView) findViewById(R.id.recipe_about_textview);
 		recipeAboutTextView.setText(String.format(
-				getResources().getString(R.string.biz_recipe_about),
-				mRecipeEntity.getDishCount(), mRecipeEntity.getCollectCount()));
+				getResources().getString(R.string.biz_recipe_about), mRecipeEntity.getCollectCount()));
 		
 		ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
 		mImageFetcher.setImageSize(
@@ -373,12 +372,10 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		int collectCount = mRecipeEntity.getCollectCount();
 		if (collected) {
 			recipeAboutTextView.setText(String.format(
-					getResources().getString(R.string.biz_recipe_about),
-					mRecipeEntity.getDishCount(), ++collectCount));
+					getResources().getString(R.string.biz_recipe_about), ++collectCount));
 		} else {
 			recipeAboutTextView.setText(String.format(
-					getResources().getString(R.string.biz_recipe_about),
-					mRecipeEntity.getDishCount(), collectCount > 0 ? --collectCount : collectCount));
+					getResources().getString(R.string.biz_recipe_about), collectCount > 0 ? --collectCount : collectCount));
 		}
 	}
 	

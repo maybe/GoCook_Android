@@ -2,6 +2,7 @@ package com.m6.gocook.biz.coupon;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -110,8 +111,9 @@ public class CouponDetailsFragment extends BaseFragment {
 				
 				@Override
 				public void onClick(View v) {
-					FragmentHelper.startActivity(getActivity(), BaseWebFragment.newInstance(mCoupon.getUrl(), 
-							getActivity().getString(R.string.biz_coupon_details_title)));
+					openBrower(mCoupon.getUrl());
+//					FragmentHelper.startActivity(getActivity(), BaseWebFragment.newInstance(mCoupon.getUrl(), 
+//							getActivity().getString(R.string.biz_coupon_details_title)));
 				}
 			});
 			
@@ -129,7 +131,7 @@ public class CouponDetailsFragment extends BaseFragment {
 			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
 			getView().findViewById(R.id.web_detail).setVisibility(View.GONE);
 			
-			shakeView.setOnClickListener(new OnClickListener() {
+			getView().findViewById(R.id.top).setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
@@ -141,5 +143,12 @@ public class CouponDetailsFragment extends BaseFragment {
 				}
 			});
 		}
+	}
+	
+	private void openBrower(String url) {
+		Intent intent= new Intent();        
+	    intent.setAction(Intent.ACTION_VIEW);    
+	    intent.setData(Uri.parse(url));
+	    getActivity().startActivity(intent);
 	}
 }

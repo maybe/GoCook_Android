@@ -110,6 +110,7 @@ public class WebLoginFragment extends BaseWebFragment {
 			
 			@Override
 			public void onPageFinished(WebView view, String url) {
+				view.requestFocus();
 				String cookie = mCookieManager.getCookie(url);
 				if (getActivity() != null) {
 					AccountModel.saveLoginCookie(getActivity(), cookie);

@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/coupon_list_shake"
-        android:drawablePadding="5dp"
         android:layout_gravity="center"
         android:textColor="#515151"
+        android:drawablePadding="6dp"
+        android:drawableRight="@drawable/arrow_coupon"
         android:text="@string/biz_coupon_list_shake" />
 
 </LinearLayout>
