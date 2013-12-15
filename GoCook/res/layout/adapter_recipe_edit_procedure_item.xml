@@ -34,7 +34,8 @@
             android:layout_width="@dimen/biz_recipe_edit_step_image_height"
             android:layout_height="@dimen/biz_recipe_edit_step_image_height"
             android:background="@android:color/white"
-            android:src="@drawable/landscape_photo" />
+            android:scaleType="fitXY"
+            android:src="@drawable/image_recipe_step_default" />
 
         <LinearLayout
             android:id="@+id/button_layout"

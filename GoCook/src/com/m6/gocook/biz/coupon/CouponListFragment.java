@@ -24,7 +24,7 @@ import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class CouponListFragment extends BaseListFragment implements OnActionBarClick, OnActivityAction {
+public class CouponListFragment extends BaseListFragment implements OnActionBarClick {
 
 	private CouponListAdapter mAdapter;
 	
@@ -36,14 +36,7 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MainActivityHelper.registerOnActivityActionListener(this);
 		mAdapter = new CouponListAdapter(getActivity(), mData);
-	}
-	
-	@Override
-	public void onDestroy() {
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
-		super.onDestroy();
 	}
 	
 	@Override
@@ -71,7 +64,7 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 			public void onClick(View v) {
 				Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 						ShakeFragment.class.getName(), ShakeFragment.class.getName(), null);
-				startActivity(intent);
+				startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 			}
 		});
 	}
@@ -90,7 +83,7 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 	@Override
 	public void onListItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		FragmentHelper.startActivity(getActivity(), CouponDetailsFragment.newInstance(mAdapter.getItem(arg2)));
+		FragmentHelper.startActivityForResult(this, CouponDetailsFragment.newInstance(mAdapter.getItem(arg2)));
 	}
 	
 	@Override
@@ -149,10 +142,9 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 			}
 		}
 	}
-
+	
 	@Override
-	public void onCustomActivityResult(int requestCode, int resultCode,
-			Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
 			refresh();
 		}

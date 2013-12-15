@@ -48,6 +48,7 @@ public class MyAccountFragment extends Fragment {
         mImageFetcher = new ImageFetcher(getActivity(), imageThumbSize);
         mImageFetcher.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
         mImageFetcher.setImageFadeIn(false);
+        mImageFetcher.setLoadingImage(R.drawable.image_avatar_default);
 	}
 	
 	@Override

@@ -139,7 +139,7 @@ public class CouponDetailsFragment extends BaseFragment {
 			    	bundle.putString(ShakeFragment.PARAM_COUPON_ID, mCoupon.getCouponId());
 					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 							ShakeFragment.class.getName(), ShakeFragment.class.getName(), bundle);
-					((FragmentActivity) getActivity()).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+					startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 				}
 			});
 		}

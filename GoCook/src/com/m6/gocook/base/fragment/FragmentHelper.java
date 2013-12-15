@@ -32,6 +32,16 @@ public class FragmentHelper {
 		context.startActivity(intent);
 	}
 	
+	public static void startActivityForResult(Fragment host, Fragment target) {
+		Intent intent = new Intent(host.getActivity(), BaseActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString(FRAGMENT_NAME, target.getClass().getName());
+		bundle.putString(FRAGMENT_TAG, target.getClass().getName());
+		bundle.putBundle(FRAGMENT_ARGS, target.getArguments());
+		intent.putExtras(bundle);
+		host.startActivity(intent);
+	}
+	
 	/**
 	 * Get the intent to start fragment.
 	 * 

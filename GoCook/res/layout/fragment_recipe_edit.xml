@@ -45,7 +45,8 @@
                     android:layout_height="@dimen/biz_recipe_edit_cover_image_height"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/white"
-                    android:src="@drawable/landscape_photo" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/image_recipe_cover_default" />
 
                 <TextView
                     android:layout_width="wrap_content"

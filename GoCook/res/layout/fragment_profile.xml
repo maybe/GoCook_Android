@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/register_photo" />
+            android:src="@drawable/image_avatar_default" />
 
         <TextView
             android:id="@+id/name"

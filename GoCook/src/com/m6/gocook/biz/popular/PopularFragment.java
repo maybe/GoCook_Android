@@ -145,7 +145,6 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 		
 		if(mPopular == null) {
 			if(mTask == null) {
-				showProgress(true);
 				mTask = new PopularTask(getActivity());
 				mTask.execute((Void) null);
 			}
@@ -161,6 +160,10 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
 		mInputMode = false;
 		getView().findViewById(R.id.mask).setVisibility(View.GONE);
 		hideSoftKeyBoard();
+		
+		if (mPopular == null && mTask != null) {
+			showProgress(true);
+		}
 	}
 	
 	@Override
@@ -221,6 +224,13 @@ public class PopularFragment extends BaseFragment implements OnKeyDown {
     	public PopularTask(FragmentActivity context) {
     		mContext = context.getApplicationContext();
 		}
+    	
+    	@Override
+    	protected void onPreExecute() {
+    		if (isAdded()) {
+    			showProgress(true);
+    		}
+    	}
     	
 		@Override
 		protected Popular doInBackground(Void... params) {

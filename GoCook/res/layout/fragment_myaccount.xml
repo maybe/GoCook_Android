@@ -28,7 +28,7 @@
                 android:layout_height="80dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/register_photo" />
+                android:src="@drawable/image_avatar_default" />
 
             <TextView
                 android:id="@+id/name"

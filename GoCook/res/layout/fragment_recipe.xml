@@ -75,6 +75,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/biz_recipe_cover_image_height"
                 android:background="@color/recipe_cover_image_background"
+                android:src="@drawable/image_recipe_cover_default"
                 android:contentDescription="@string/biz_recipe_image_banner_content_description"
                 android:scaleType="centerCrop" />
 

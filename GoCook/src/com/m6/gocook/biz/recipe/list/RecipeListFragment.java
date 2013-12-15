@@ -41,7 +41,7 @@ public abstract class RecipeListFragment extends BaseListFragment {
 					if(item != null) {
 						String recipeId = item.getId();
 						String recipeName = item.getName();
-						RecipeFragment.startInActivityForResult(getActivity(), recipeId, recipeName);
+						RecipeFragment.startInActivityForResult(getActivity(), recipeId, recipeName, position);
 					}
 				}
 			});
@@ -54,6 +54,10 @@ public abstract class RecipeListFragment extends BaseListFragment {
 			mRecipeListTask = new RecipeListTask(getActivity(), getURLWithPageNum());
 			mRecipeListTask.execute((Void) null);
 		}
+	}
+	
+	protected RecipeList getRecipes() {
+		return mRecipeList;
 	}
 	
 	@Override

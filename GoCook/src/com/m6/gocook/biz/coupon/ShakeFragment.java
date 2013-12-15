@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +27,10 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Sale;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class ShakeFragment extends BaseFragment implements SensorEventListener, OnActivityAction {
+public class ShakeFragment extends BaseFragment implements SensorEventListener {
 
 	//定义sensor管理器
     private SensorManager mSensorManager;
@@ -64,7 +62,6 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	MainActivityHelper.registerOnActivityActionListener(this);
     	
     	Bundle bundle = getArguments();
     	if (bundle != null) {
@@ -101,7 +98,8 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 					bundle.putString(ShakeResultFragment.PARAM_COUPON_ID, mCouponId);
 					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 							ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-					getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+					startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+					getActivity().finish();
 				} else {
 					if (mSaleTask == null && mSaleResult != null) {
 						// 任务完成跳转到结果页
@@ -115,7 +113,6 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
     @Override
 	public void onDestroy() {
 		super.onDestroy();
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 		if (mMediaPlayer != null) {
 			if (mMediaPlayer.isPlaying()) {
 				mMediaPlayer.stop();
@@ -210,7 +207,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 		bundle.putSerializable(ShakeResultFragment.PARAM_SALE, result);
 		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 				ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
-		getActivity().startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
+		startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 		getActivity().finish();
 	}
 
@@ -247,15 +244,12 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener, 
 			mSaleTask = null;
 		}
 	}
-
+	
 	@Override
-	public void onCustomActivityResult(int requestCode, int resultCode,
-			Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
 			getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
 			getActivity().finish();
 		}
-		
 	}
-	
 }

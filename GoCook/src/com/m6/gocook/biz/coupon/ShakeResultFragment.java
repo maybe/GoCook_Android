@@ -76,9 +76,6 @@ public class ShakeResultFragment extends BaseFragment {
 			if (mCouponTask == null) {
 				mCouponTask = new GetCouponTask(getActivity(), mCouponId);
 				mCouponTask.execute((Void) null);
-				
-				mProgressDialog.setMessage(getString(R.string.biz_coupon_shake_result_progress));
-				mProgressDialog.show();
 			}
 		}
 	}
@@ -156,6 +153,13 @@ public class ShakeResultFragment extends BaseFragment {
 			mCouponId = couponId;
 			mContext = context.getApplicationContext();
 		}
+		
+		@Override
+		protected void onPreExecute() {
+			if (isAdded()) {
+				showProgress(true);
+			}
+		}
 
 		@Override
 		protected List<Coupon> doInBackground(Void... params) {
@@ -166,6 +170,7 @@ public class ShakeResultFragment extends BaseFragment {
 		protected void onPostExecute(List<Coupon> result) {
 			mCouponTask = null;
 			if (isAdded()) {
+				showProgress(false);
 				if (!result.isEmpty()) {
 					getView().findViewById(R.id.message).setVisibility(View.GONE);
 					getView().findViewById(R.id.delay).setVisibility(View.GONE);
@@ -184,9 +189,6 @@ public class ShakeResultFragment extends BaseFragment {
 					});
 				} else {
 					showFailureMessage(R.string.biz_coupon_shake_result_get_coupon_failed_tip);
-				}
-				if (mProgressDialog != null) {
-					mProgressDialog.dismiss();
 				}
 			}
 		}

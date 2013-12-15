@@ -164,7 +164,7 @@ public class Protocol {
 	public static final String KEY_RECIPE_LIST_RECIPE_ID = "recipe_id";
 	public static final String KEY_RECIPE_LIST_NAME = "name";
 	public static final String KEY_RECIPE_LIST_IMAGE = "image";
-	public static final String KEY_RECIPE_LIST_COLLECTION = "dish_count";
+	public static final String KEY_RECIPE_LIST_COLLECTION = "collected_count";
 	public static final String KEY_RECIPE_LIST_MATERIALS = "materials";
 	
 }

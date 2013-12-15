@@ -252,15 +252,12 @@ public class RecipeEditFragment extends BaseFragment implements OnKeyDown, OnCli
 	}
 	
 	private View createMaterialView() {
-		return mInflater.inflate(R.layout.adapter_recipe_edit_material_item,
-				null);
+		return mInflater.inflate(R.layout.adapter_recipe_edit_material_item, null);
 	}
 	
 	private View createProcedureView() {
 
-		final View view = mInflater.inflate(
-				R.layout.adapter_recipe_edit_procedure_item,
-				null);
+		final View view = mInflater.inflate(R.layout.adapter_recipe_edit_procedure_item, null);
 		
 		final ImageView imageView = (ImageView) view.findViewById(R.id.image);
 		imageView.setOnClickListener(this);

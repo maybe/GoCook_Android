@@ -39,31 +39,34 @@ public class AccountFragment extends Fragment implements OnAccountChangedListene
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment f = null;
 		
-		if(AccountModel.isLogon(getActivity())) {
+		if (AccountModel.isLogon(getActivity())) {
 			f = fm.findFragmentByTag(MyAccountFragment.class.getName());
-			if(f== null) {
+			if (f == null) {
 				f = MyAccountFragment.instantiate(getActivity(), MyAccountFragment.class.getName());
 				ft.add(R.id.account_tabcontent, f, MyAccountFragment.class.getName());
-				
-				Fragment ff = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
-				if (ff != null) {
-					ft.hide(ff);
-				}
-
-				ft.commit();
+			} else {
+				ft.show(f);
 			}
+			Fragment ff = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
+			if (ff != null && ff.isVisible()) {
+				ft.hide(ff);
+			}
+			ft.commit();
 		} else {
 			f = fm.findFragmentByTag(WebLoginOrRegisterFragment.class.getName());
 			if(f == null) {
 				f = WebLoginOrRegisterFragment.instantiate(getActivity(), WebLoginOrRegisterFragment.class.getName());
 				ft.add(R.id.account_tabcontent, f, WebLoginOrRegisterFragment.class.getName());
-				ft.commit();
 			} else {
 				if (!f.isVisible()) {
 					ft.show(f);
-					ft.commit();
 				}
 			}
+			Fragment ff = fm.findFragmentByTag(MyAccountFragment.class.getName());
+			if (ff != null && ff.isVisible()) {
+				ft.hide(ff);
+			}
+			ft.commit();
 		}
 	}
 	

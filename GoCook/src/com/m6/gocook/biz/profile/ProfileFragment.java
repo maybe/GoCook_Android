@@ -107,6 +107,8 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		if (mProfileType == PROFILE_MYSELF) {
 			mUserId = AccountModel.getUserId(getActivity());
 		}
+		
+		mImageFetcher.setLoadingImage(R.drawable.image_avatar_default);
 	}
 	
 	@Override

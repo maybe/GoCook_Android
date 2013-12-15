@@ -55,6 +55,8 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 	
 	public static final String ARGUMENT_KEY_RECIPE_ID = "intent_key_recipe_id";
 	public static final String ARGUMENT_KEY_RECIPE_NAME = "intent_key_recipe_name";
+	public static final String ARGUMENT_KEY_RECIPE_POSITION = "intent_key_recipe_position";
+	public static final String ARGUMENT_KEY_RECIPE_COLLECT_COUNT = "intent_key_recipe_collect_count";
 
 	private final String FINISHEN_DISH_TAG_STRING = "<i>%s</i><font color='#3b272d'> %s</font>";
 	private static final String IMAGE_CACHE_DIR = "images";
@@ -88,10 +90,11 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
         context.startActivity(intent);
 	}
 	
-	public static void startInActivityForResult(Activity context, String recipeId, String recipeName) {
+	public static void startInActivityForResult(Activity context, String recipeId, String recipeName, int position) {
 		Bundle argument = new Bundle();
 		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_ID, recipeId);
 		argument.putString(RecipeFragment.ARGUMENT_KEY_RECIPE_NAME, recipeName);
+		argument.putInt(RecipeFragment.ARGUMENT_KEY_RECIPE_POSITION, position);
         Intent intent = FragmentHelper.getIntent(context, BaseActivity.class, 
         		RecipeFragment.class.getName(), 
         		RecipeFragment.class.getName(), argument);
@@ -259,7 +262,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		}
 		
 		TextView tabBarCollectTextView = ((TextView) findViewById(R.id.tabbar_textview_like));
-		setCollected(mRecipeEntity.isCollected(), tabBarCollectTextView);
+		setCollected(tabBarCollectTextView, mRecipeEntity.isCollected(), false);
 		
 		setPraise(mRecipeEntity.isPraised());
 	}
@@ -306,12 +309,10 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 
 					@Override
 					public void onClick(View v) {
-						
 						if(AccountModel.isLogon(mContext)) {
 							if(mRecipeCollectTask == null) {
 								mRecipeCollectTask = new RecipeCollectTask(v);
 								mRecipeCollectTask.execute();
-								getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_COLLECT);
 							}
 						} else {
 							WebLoginFragment.jumpToLogin(getActivity());
@@ -354,7 +355,14 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		});
 	}
 
-	private void setCollected(boolean collected, TextView view) {
+	/**
+	 * 更新收藏数
+	 * 
+	 * @param view
+	 * @param collected
+	 * @param doCollect true收藏/取消任务后更新，false初始化数据时更新
+	 */
+	private void setCollected(TextView view, boolean collected, boolean doCollect) {
 		mCollected = collected;
 		// 更新tabbar
 		view.setCompoundDrawablesWithIntrinsicBounds(
@@ -369,14 +377,23 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		
 		// 更新描述
 		TextView recipeAboutTextView = (TextView) findViewById(R.id.recipe_about_textview);
-		int collectCount = mRecipeEntity.getCollectCount();
-		if (collected) {
-			recipeAboutTextView.setText(String.format(
-					getResources().getString(R.string.biz_recipe_about), ++collectCount));
+		if (doCollect) {
+			int collectCount = mRecipeEntity.getCollectCount();
+			if (collected) {
+				recipeAboutTextView.setText(getString(R.string.biz_recipe_about, ++collectCount));
+			} else {
+				recipeAboutTextView.setText(getString(R.string.biz_recipe_about, collectCount > 0 ? --collectCount : collectCount));
+			}
+			mRecipeEntity.setCollectCount(collectCount);
+			// 菜谱内更新完收藏数，需要传递给列表回调，以便更新数量
+			Intent intent = new Intent();
+			intent.putExtra(ARGUMENT_KEY_RECIPE_POSITION, getArguments() != null ? getArguments().getInt(ARGUMENT_KEY_RECIPE_POSITION, -1) : -1);
+			intent.putExtra(ARGUMENT_KEY_RECIPE_COLLECT_COUNT, mRecipeEntity.getCollectCount());
+			getActivity().setResult(MainActivityHelper.RESULT_CODE_RECIPE_COLLECT, intent);
 		} else {
-			recipeAboutTextView.setText(String.format(
-					getResources().getString(R.string.biz_recipe_about), collectCount > 0 ? --collectCount : collectCount));
+			recipeAboutTextView.setText(getString(R.string.biz_recipe_about, mRecipeEntity.getCollectCount()));
 		}
+		
 	}
 	
 	private void setPraise(boolean praise) {
@@ -528,9 +545,9 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		@Override
 		protected Pair<Boolean, Integer> doInBackground(Void... params) {
 			if(mCollected) {
-				return RecipeModel.removeFromCollectList(mContext, mRecipeId);
+				return RecipeModel.removeFromCollectList(mContext.getApplicationContext(), mRecipeId);
 			} else {
-				return RecipeModel.addToCollectList(mContext, mRecipeId);
+				return RecipeModel.addToCollectList(mContext.getApplicationContext(), mRecipeId);
 			}
 		}
 		
@@ -540,7 +557,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			mRecipeCollectTask = null;
 			
 			if(result != null && result.first && view != null) {
-				setCollected(!mCollected, view);
+				setCollected(view, !mCollected, true);
 			} else {
 				if(isAdded()) {
 					Toast.makeText(mContext,
@@ -672,8 +689,6 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 	
 	@Override
 	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.i("RecipeFragment", String.format("onActivityResult: requesCode:%d, resultCode:%d", requestCode, resultCode));
-		
 		if(requestCode == MainActivityHelper.REQUEST_CODE_RECIPE_EDIT) {
 			if(resultCode == MainActivityHelper.RESULT_CODE_RECIPE_EDIT_UPDATED) {
 				mAchieveRecipeTask = new AchieveRecipeTask();

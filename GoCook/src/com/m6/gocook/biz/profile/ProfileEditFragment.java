@@ -90,6 +90,7 @@ public class ProfileEditFragment extends BaseFragment implements OnPhotoPickCall
 
 		setOnListeners();
 		
+		mImageFetcher.setLoadingImage(R.drawable.image_avatar_default);
 		ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
 		String url = AccountModel.getAvatarPath(getActivity());
 		if(!TextUtils.isEmpty(url)) {

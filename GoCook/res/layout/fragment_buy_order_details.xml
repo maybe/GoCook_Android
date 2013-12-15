@@ -64,6 +64,8 @@
             android:id="@+id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
             app:layout_disbleScroll="true" />
     </LinearLayout>
 
