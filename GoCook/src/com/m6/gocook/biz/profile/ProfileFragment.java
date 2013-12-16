@@ -63,6 +63,9 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 	private String mUsername;
 	private String mFollowId;
 	
+	private int mFansCount;
+	private int mFollowCount;
+	
 	/**
 	 * 启动个人信息页面
 	 * 
@@ -277,13 +280,11 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		}
 		
 		// 粉丝、关注数
-		String fans = ModelUtils.getStringValue(info, ProfileModel.FOLLOWED_COUNT);
-		((TextView) view.findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, 
-				TextUtils.isEmpty(fans) ? "0" : fans));
+		mFansCount = ModelUtils.getIntValue(info, ProfileModel.FOLLOWED_COUNT, 0);
+		((TextView) view.findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, mFansCount));
 		
-		String follows = ModelUtils.getStringValue(info, ProfileModel.FOLLOWING_COUNT);
-		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, 
-				TextUtils.isEmpty(follows) ? "0" : follows));
+		mFollowCount = ModelUtils.getIntValue(info, ProfileModel.FOLLOWING_COUNT, 0);
+		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, mFollowCount));
 		
 		// 个人简介
 		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);
@@ -317,15 +318,29 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		}
 	}
 	
+	/**
+	 * 更新关注状态
+	 * 
+	 * @param followed true关注，false取消关注
+	 */
 	private void updateFollowStatus(boolean followed) {
+		if (getView() == null) {
+			return;
+		}
+		
 		Button edit = (Button) getView().findViewById(R.id.edit);
 		if (followed) {
 			mFollowStatus = FOLLOWED;
 			edit.setText(R.string.biz_profile_add_unfollow);
+			mFansCount++;
 		} else {
 			mFollowStatus = FOLLOW;
 			edit.setText(R.string.biz_profile_add_follow);
+			if (mFansCount > 0) {
+				mFansCount--;
+			}
 		}
+		((TextView) getView().findViewById(R.id.fans)).setText(getString(R.string.biz_profile_myaccount_fans_count, mFansCount));
 	}
 	
 	private void hideRecipesView(boolean hide) {

@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:background="@android:color/white"
-        android:src="@drawable/register_photo"
+        android:src="@drawable/image_avatar_default"
         android:padding="5dp"
         android:scaleType="fitXY" />
 

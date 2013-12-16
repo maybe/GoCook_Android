@@ -1,8 +1,16 @@
 package com.m6.gocook.biz.profile;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,15 +25,18 @@ import android.widget.TextView;
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
+import com.m6.gocook.base.entity.response.COrderQueryResult;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.coupon.CouponListFragment;
 import com.m6.gocook.biz.order.OrderListFragment;
+import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.util.cache.util.ImageCache;
 import com.m6.gocook.util.cache.util.ImageFetcher;
+import com.m6.gocook.util.model.ModelUtils;
 
 public class MyAccountFragment extends Fragment {
 	
@@ -62,6 +73,18 @@ public class MyAccountFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		View view = getView();
 		final FragmentActivity activity = getActivity();
+		
+		// 我的xxx数量
+		String userid = AccountModel.getUserId(activity);
+		new BasicInfoTask(activity, userid).execute((Void) null);
+		// 我的购买数量
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		String endDate = df.format(new Date());
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, -6);
+		calendar.set(Calendar.DATE, 1);
+		String startDate = df.format(calendar.getTime());
+		new OrdersTask(activity, startDate, endDate, 1).execute((Void) null);
 		
 		view.findViewById(R.id.logout).setOnClickListener(new OnClickListener() {
 			
@@ -164,6 +187,30 @@ public class MyAccountFragment extends Fragment {
 		
 	}
 	
+	private void bindView(Map<String, Object> data) {
+		if (data != null) {
+			View view = getView();
+			if (view == null) {
+				return;
+			}
+			
+			((TextView) view.findViewById(R.id.follow_count)).setText(
+					ModelUtils.getStringValue(data, ProfileModel.FOLLOWING_COUNT));
+			((TextView) view.findViewById(R.id.fans_count)).setText(
+					ModelUtils.getStringValue(data, ProfileModel.FOLLOWED_COUNT));
+			((TextView) view.findViewById(R.id.collect_count)).setText(
+					ModelUtils.getStringValue(data, ProfileModel.COLLECT_COUNT));
+			((TextView) view.findViewById(R.id.recipe_count)).setText(
+					ModelUtils.getStringValue(data, ProfileModel.RECIPES_COUNT));
+		}
+	}
+	
+	private void bindOrder(COrderQueryResult data) {
+		if (getView() != null && data != null) {
+			((TextView) getView().findViewById(R.id.order_count)).setText(String.valueOf(data.getTotalCount()));
+		}
+	}
+	
 	@Override
     public void onResume() {
         super.onResume();
@@ -192,5 +239,55 @@ public class MyAccountFragment extends Fragment {
         super.onDestroy();
         mImageFetcher.closeCache();
     }
+    
+    private class BasicInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
+
+		private Context mContext;
+		private String mUserId;
+		
+		public BasicInfoTask(Context context, String userId) {
+			mContext = context.getApplicationContext();
+			mUserId = userId;
+		}
+		
+		@Override
+		protected Map<String, Object> doInBackground(Void... params) {
+			return ProfileModel.getOtherInfo(mContext, mUserId);
+		}
+		
+		@Override
+		protected void onPostExecute(Map<String, Object> result) {
+			if (isAdded()) {
+				bindView(result);
+			}
+		}
+	}
+    
+    private class OrdersTask extends AsyncTask<Void, Void, COrderQueryResult> {
+
+		private Context mContext;
+		private int mPage;
+		private String mStartDate;
+		private String mEndDate;
+		
+		public OrdersTask(Context context, String startDate, String endDate, int pageIndex) {
+			mContext = context.getApplicationContext();
+			mStartDate = startDate;
+			mEndDate = endDate;
+			mPage = pageIndex;
+		}
+		
+		@Override
+		protected COrderQueryResult doInBackground(Void... params) {
+			return OrderModel.getOrderQueryResult(mContext, mStartDate, mEndDate, mPage);
+		}
+		
+		@Override
+		protected void onPostExecute(COrderQueryResult result) {
+			if (isAdded()) {
+				bindOrder(result);
+			}
+		}
+	}
 	
 }

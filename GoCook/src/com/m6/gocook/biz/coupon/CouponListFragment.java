@@ -97,7 +97,6 @@ public class CouponListFragment extends BaseListFragment implements OnActionBarC
 			mCouponsTask = new CouponsTask(getActivity(), pageIndex);
 			mCouponsTask.execute((Void) null);
 		}
-		
 	}
 
 	@Override

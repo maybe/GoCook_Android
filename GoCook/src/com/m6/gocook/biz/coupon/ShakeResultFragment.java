@@ -117,6 +117,7 @@ public class ShakeResultFragment extends BaseFragment {
 						mProgressDialog.show();
 					}
 				} else {
+					getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
 					getActivity().finish();
 				}
 			}

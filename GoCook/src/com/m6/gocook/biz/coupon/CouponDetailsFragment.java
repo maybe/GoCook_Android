@@ -69,6 +69,7 @@ public class CouponDetailsFragment extends BaseFragment {
 		final boolean isInvalid = mCoupon.getStatus() == Coupon.STATUS_INVALID;
 		final boolean isDelay = mCoupon.isDelay();
 		final boolean isCoupon = mCoupon.getKtype() == Coupon.KTYPE_COUPON;
+		final boolean isAd = mCoupon.getKtype() == Coupon.KTYPE_AD;
 		TextView content = (TextView) getView().findViewById(R.id.content);
 		
 		if (!isDelay && isCoupon) { // 优惠券，包括过期和未过期的优惠券
@@ -117,6 +118,14 @@ public class CouponDetailsFragment extends BaseFragment {
 				}
 			});
 			
+		} else if (!isDelay && isAd) { // 广告
+			content.setText(getString(R.string.biz_coupon_list_content_ad, 
+					mCoupon.getName(), mCoupon.getSupplier(), mCoupon.getcTime(), mCoupon.getCouponRemark()));
+			content.setBackgroundColor(getResources().getColor(R.color.biz_coupon_ad));
+			TextView shakeView = (TextView) getView().findViewById(R.id.top_title);
+			shakeView.setVisibility(View.VISIBLE);
+			shakeView.setText(R.string.biz_coupon_details_ad);
+			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
 		} else { // 延期记录
 			content.setText(getString(R.string.biz_coupon_list_content_delay,
 					mCoupon.getEffDay(), mCoupon.getExpDay()));

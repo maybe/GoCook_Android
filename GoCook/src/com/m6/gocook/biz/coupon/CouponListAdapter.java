@@ -76,6 +76,10 @@ public class CouponListAdapter extends BaseAdapter {
 						coupon.getStores(), coupon.getCouponRemark()));
 				convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
 			}
+		} else if (!isDelay && isAd) { // 广告
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_ad, 
+					coupon.getName(), coupon.getSupplier(), coupon.getcTime(), coupon.getCouponRemark()));
+			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_ad));
 		} else { // 延期记录
 			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_delay,
 					coupon.getEffDay(), coupon.getExpDay()));

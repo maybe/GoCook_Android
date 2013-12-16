@@ -26,8 +26,8 @@
                 android:id="@+id/avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="fitXY"
                 android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"
                 android:src="@drawable/image_avatar_default" />
 
             <TextView
@@ -35,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,13 +80,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="@string/biz_profile_myaccount_follow" />
+                android:text="@string/biz_profile_myaccount_follow"
+                android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/follow_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,20 +99,24 @@
             android:layout_marginTop="2dp"
             android:background="@android:color/white"
             android:orientation="horizontal"
-            android:padding="10dp" >
+            android:padding="10dp"
+            android:textColor="@android:color/black" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="@string/biz_profile_myaccount_fans" />
+                android:text="@string/biz_profile_myaccount_fans"
+                android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/fans_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,14 +133,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="@string/biz_profile_myaccount_collection" />
+                android:text="@string/biz_profile_myaccount_collection"
+                android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/collection"
+                android:id="@+id/collect_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -149,14 +159,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="@string/biz_profile_myaccount_recipe" />
+                android:text="@string/biz_profile_myaccount_recipe"
+                android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/recipe"
+                android:id="@+id/recipe_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -173,14 +185,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="@string/biz_profile_myaccount_order" />
+                android:text="@string/biz_profile_myaccount_order"
+                android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/order"
+                android:id="@+id/order_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -193,10 +207,10 @@
             android:padding="10dp" >
 
             <TextView
-                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:text="@string/biz_profile_myaccount_logout" />
         </LinearLayout>

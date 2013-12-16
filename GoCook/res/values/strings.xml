@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1215</string>
+    <string name="build_version">build 1216</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -111,8 +111,8 @@
     <string name="biz_profile_myaccount_order">我的购买</string>
     <string name="biz_profile_myaccount_logout">登出</string>
     
-    <string name="biz_profile_myaccount_fans_count">%s粉丝</string>
-    <string name="biz_profile_myaccount_follows_count">%s关注</string>
+    <string name="biz_profile_myaccount_fans_count">%d粉丝</string>
+    <string name="biz_profile_myaccount_follows_count">%d关注</string>
     <string name="biz_profile_myaccount_fans_title">%s的粉丝</string>
     <string name="biz_profile_myaccount_follows_title">%s关注的人</string>
     
@@ -267,6 +267,7 @@
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
     <string name="biz_coupon_list_content_delay">%1$s（优惠券延期生效日期），您有一次延迟抽取优惠券的机会，有效期至%2$s。</string>
     <string name="biz_coupon_list_content_normal">%1$s您获得了由%2$s提供的价值%3$s元的%4$s，券号%5$s，有效期%6$s至%7$s。\n适用门店：%8$s\n%9$s</string>
+    <string name="biz_coupon_list_content_ad">%1$s\n%2$s\n%3$s\n%4$s</string>
     
     <string name="biz_coupon_shake_title">摇一摇</string>
     <string name="biz_coupon_shake_message">摇一摇抽取优惠券</string>

@@ -66,9 +66,9 @@ public class PeopleAdapter extends BaseAdapter {
 		
 		holder.name.setText(mData.get(position).getName());
 		holder.fans.setText(mContext.getString(R.string.biz_profile_myaccount_fans_count, 
-				String.valueOf(mData.get(position).getFans())));
+				mData.get(position).getFans()));
 		holder.follows.setText(mContext.getString(R.string.biz_profile_myaccount_follows_count, 
-				String.valueOf(mData.get(position).getFollows())));
+				mData.get(position).getFollows()));
 		String url = mData.get(position).getImage();
 		if (!TextUtils.isEmpty(url)) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(url), holder.image);

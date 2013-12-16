@@ -248,6 +248,7 @@ public class COrderQueryResult extends BaseResponse implements IParseable<String
 				result = jsonObject.optInt(BaseResponse.RESULT);
 				errorCode = jsonObject.optInt(BaseResponse.ERROR);
 				if (result == Protocol.VALUE_RESULT_OK) {
+					totalCount = jsonObject.optInt("total_count");
 					JSONArray orders = jsonObject.optJSONArray("orders");
 					rows = new ArrayList<COrderItem>();
 					if (orders != null) {
