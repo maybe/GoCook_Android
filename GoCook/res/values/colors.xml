@@ -43,7 +43,7 @@
     <color name="biz_buy_text">#3B272D</color>
     
     <!-- coupon -->
-    <color name="biz_coupon_invalid">#bcbab6</color>
+    <color name="biz_coupon_used">#bcbab6</color>
     <color name="biz_coupon_delay">#f7bdaa</color>
     <color name="biz_coupon_normal">#98d75c</color>
     <color name="biz_coupon_ad">#91d3b3</color>

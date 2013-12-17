@@ -22,6 +22,8 @@ public class Coupon implements Serializable {
 	
 	public static final int KTYPE_COUPON = 0;
 	public static final int KTYPE_AD = 1;
+	public static final int KTYPE_DELAY = 2;
+	public static final int KTYPE_SELLER = 3;
 	
 	/** ”yyyy-MM-dd HH:mm:ss”格式的服务器时间 */
 	private String time;
@@ -45,7 +47,7 @@ public class Coupon implements Serializable {
 	private boolean isDelay;
 	/** 提供商 */
 	private String supplier;
-	/** 0 券 1 广告 */
+	/** 0 优惠券 1 广告 2 延期获取 3 网络商家券*/
 	private int ktype;
 	/** 0 无效 1 有效 */
 	private int status;
@@ -63,6 +65,8 @@ public class Coupon implements Serializable {
 	private String val;
 	/** 对应商品编号 */
 	private String wid;
+	/** 是否已使用 */
+	private boolean used;
 	/** 数据项在列表的展开状态 */
 	private boolean expand = false;
 	
@@ -193,6 +197,12 @@ public class Coupon implements Serializable {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
+	public boolean isused() {
+		return used;
+	}
+	public void setused(boolean isused) {
+		this.used = isused;
+	}
 	public boolean isExpand() {
 		return expand;
 	}
@@ -238,6 +248,7 @@ public class Coupon implements Serializable {
 			cTime = dfsSimple.format(date);
 			val = value.optString("val");
 			wid = value.optString("wid");
+			used = value.optInt("isused") == 0 ? false : true;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
