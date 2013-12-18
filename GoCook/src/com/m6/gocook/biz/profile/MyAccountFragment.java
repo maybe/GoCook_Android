@@ -74,18 +74,6 @@ public class MyAccountFragment extends Fragment {
 		View view = getView();
 		final FragmentActivity activity = getActivity();
 		
-		// 我的xxx数量
-		String userid = AccountModel.getUserId(activity);
-		new BasicInfoTask(activity, userid).execute((Void) null);
-		// 我的购买数量
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		String endDate = df.format(new Date());
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MONTH, -6);
-		calendar.set(Calendar.DATE, 1);
-		String startDate = df.format(calendar.getTime());
-		new OrdersTask(activity, startDate, endDate, 1).execute((Void) null);
-		
 		view.findViewById(R.id.logout).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -224,6 +212,18 @@ public class MyAccountFragment extends Fragment {
 		if(!TextUtils.isEmpty(url)) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(url), avatar);
 		}
+		
+		// 我的xxx数量
+		String userid = AccountModel.getUserId(getActivity());
+		new BasicInfoTask(getActivity(), userid).execute((Void) null);
+		// 我的购买数量
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		String endDate = df.format(new Date());
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, -6);
+		calendar.set(Calendar.DATE, 1);
+		String startDate = df.format(calendar.getTime());
+		new OrdersTask(getActivity(), startDate, endDate, 1).execute((Void) null);
     }
 
     @Override
