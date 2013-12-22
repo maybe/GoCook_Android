@@ -6,7 +6,7 @@ public class Protocol {
 	
 	/* Account */
 //	public static final String URL_ROOT = "http://verypanda.com";
-	public static final String URL_ROOT = "http://o.m6fresh.com:8083";
+	public static final String URL_ROOT = "http://o2o.m6fresh.com:8083";
 	
 	public static final String URL_LOGIN = URL_ROOT + "/user/login";
 	
@@ -14,7 +14,7 @@ public class Protocol {
 	
 	public static final String URL_LOGIN_EX = URL_ROOT + "/user/login_ex";
 	
-	public static final String URL_LOGIN_WEB = "http://o.m6fresh.com/ws/mobile_reg.aspx?sid=%s";
+	public static final String URL_LOGIN_WEB = "http://o2o.m6fresh.com/ws/mobile_reg.aspx?sid=%s";
 	
 	/* Recipe URL  */
 	public static final String URL_RECIPE = URL_ROOT + "/recipe?id=%s";
@@ -74,7 +74,7 @@ public class Protocol {
 	public static final String URL_RECIPE_SEARCH = URL_ROOT + "/index/search?keyword=%s&page=";
 	
 	/* Buy */
-	public static final String URL_BUY = "http://o.m6fresh.com/ws/app.ashx";
+	public static final String URL_BUY = "http://o2o.m6fresh.com/ws/app.ashx";
 	
 	public static final String URL_BUY_SEARCH = URL_ROOT + "/cook/search_wares?keyword=%s&page=%s";
 	
