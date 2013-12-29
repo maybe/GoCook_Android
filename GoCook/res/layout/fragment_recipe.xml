@@ -7,7 +7,6 @@
     android:orientation="vertical" >
 
     <!-- Tabbar -->
-
     <LinearLayout
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
@@ -75,9 +74,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/biz_recipe_cover_image_height"
                 android:background="@color/recipe_cover_image_background"
-                android:src="@drawable/image_recipe_cover_default"
                 android:contentDescription="@string/biz_recipe_image_banner_content_description"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_recipe_cover_default" />
 
             <!-- Recipe Introduction -->
 
@@ -251,4 +250,14 @@
         </LinearLayout>
     </ScrollView>
 
+     <!-- share -->
+    <ImageView
+        android:id="@+id/share"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_share" />
 </RelativeLayout>

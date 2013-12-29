@@ -1,5 +1,7 @@
 package com.m6.gocook.biz.recipe.recipe;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,13 +11,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -351,6 +353,24 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 					RecipeCommentFragment.startInActivity(mContext, mRecipeId, 
 							mRecipeEntity != null ? mRecipeEntity.getName() : null);
 				}
+			}
+		});
+		
+		// share
+		View shareView = findViewById(R.id.share);
+		shareView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ArrayList<Uri> imageUris = new ArrayList<Uri>();
+				ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
+//				imageUris.add(); // Add your image URIs here
+				
+				Intent sendIntent = new Intent();
+				sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+				sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+				sendIntent.setType("image/*");
+				startActivity(Intent.createChooser(sendIntent, getString(R.string.biz_recipe_share_title)));
 			}
 		});
 	}

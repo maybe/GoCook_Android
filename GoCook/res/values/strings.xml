@@ -122,6 +122,7 @@
     <string name="biz_profile_myrecipe_empty_message">您没有创建过菜谱，动手去做！</string>
     
     <!-- recipe -->
+    <string name="biz_recipe_share_title">分享到</string>
     <string name="biz_recipe_about">%d人收藏</string>
     <string name="biz_recipe_material">用料</string>
     <string name="biz_recipe_procedure">做法</string>
