@@ -31,6 +31,8 @@ public class ErrorCode {
 	public static final int RECIPE_PRAISED = 407;
 	/** 该菜谱本人未赞过 */
 	public static final int RECIPE_UNPRAISED = 408;
+	/** 无该延期券 */
+	public static final int COUPON_NO_DELAY = 601;
 	
 	
 	public static int getErrorCode(JSONObject json) {
@@ -64,6 +66,9 @@ public class ErrorCode {
 			msg = context.getString(R.string.error_code_recipe_praised);
 		case RECIPE_UNPRAISED:
 			msg = context.getString(R.string.error_code_recipe_unpraised);
+			break;
+		case COUPON_NO_DELAY:
+			msg = context.getString(R.string.error_code_no_delay);
 			break;
 		}
 		

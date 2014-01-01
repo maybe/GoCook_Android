@@ -49,6 +49,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/image"
             android:layout_marginTop="5dp"
+            android:visibility="gone"
             android:textColor="#db8572" />
     </RelativeLayout>
 

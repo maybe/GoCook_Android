@@ -76,7 +76,8 @@ public class RecipeListAdapter extends BaseAdapter {
 		if(item != null) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getImage()), holder.image);
 			holder.name.setText(item.getName());
-			holder.collectCount.setText(String.format(mContext.getString(R.string.biz_recipe_collect_count), item.getCollectCount()));
+			holder.collectCount.setText(String.format(mContext.getString(R.string.biz_recipe_collect_count), 
+					item.getCollectCount()));
 			holder.material.setText(item.getMaterials());
 		}
 		return convertView;

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.m6.gocook.base.activity.BaseActivity;
+import com.m6.gocook.biz.main.MainActivityHelper;
 
 public class FragmentHelper {
 
@@ -39,7 +40,7 @@ public class FragmentHelper {
 		bundle.putString(FRAGMENT_TAG, target.getClass().getName());
 		bundle.putBundle(FRAGMENT_ARGS, target.getArguments());
 		intent.putExtras(bundle);
-		host.startActivity(intent);
+		host.startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 	}
 	
 	/**

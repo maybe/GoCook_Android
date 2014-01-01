@@ -47,8 +47,6 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     
     private MediaPlayer mMediaPlayer;
     
-    private Handler mHandler = new Handler();
-    
     private Sale mSaleResult;
     
     public static ShakeFragment newInstance(String couponId) {
@@ -99,7 +97,6 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 					Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 							ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
 					startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
-					getActivity().finish();
 				} else {
 					if (mSaleTask == null && mSaleResult != null) {
 						// 任务完成跳转到结果页
@@ -111,6 +108,12 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
     }
     
     @Override
+    public void onDestroyView() {
+    	super.onDestroyView();
+    	mSensorTriggered = false;
+    }
+    
+    @Override
 	public void onDestroy() {
 		super.onDestroy();
 		if (mMediaPlayer != null) {
@@ -118,6 +121,7 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 				mMediaPlayer.stop();
 			}
 			mMediaPlayer.release();
+			mMediaPlayer = null;
 		}
 	}
     
@@ -208,7 +212,6 @@ public class ShakeFragment extends BaseFragment implements SensorEventListener {
 		Intent intent = FragmentHelper.getIntent(getActivity(), BaseActivity.class, 
 				ShakeResultFragment.class.getName(), ShakeResultFragment.class.getName(), bundle);
 		startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
-		getActivity().finish();
 	}
 
 	public class SaleTask extends AsyncTask<Void, Void, Sale> {

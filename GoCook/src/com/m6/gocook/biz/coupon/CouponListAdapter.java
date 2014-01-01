@@ -56,39 +56,38 @@ public class CouponListAdapter extends BaseAdapter {
 		
 		final Coupon coupon = mData.get(position);
 		
-		final boolean isInvalid = coupon.getStatus() == Coupon.STATUS_INVALID;
-		final boolean isDelay = coupon.isDelay();
+		final boolean isDelay = coupon.getKtype() == Coupon.KTYPE_DELAY;
 		final boolean isCoupon = coupon.getKtype() == Coupon.KTYPE_COUPON;
 		final boolean isAd = coupon.getKtype() == Coupon.KTYPE_AD;
-		final boolean isSellerCoupon = coupon.getKtype() == coupon.KTYPE_SELLER;
+		final boolean isSellerCoupon = coupon.getKtype() == Coupon.KTYPE_SELLER;
 		final boolean isUsed = coupon.isused();
 		
-		if (!isDelay && isCoupon) { // M6优惠券
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-					coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
-					coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
-					coupon.getStores(), coupon.getCouponRemark()));
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
-		} else if (!isDelay && isAd) { // 广告
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_ad, 
-					coupon.getName(), coupon.getSupplier(), coupon.getcTime(), coupon.getCouponRemark()));
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_ad));
-		} else if (!isDelay && isSellerCoupon) { // 网络商家券
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
-					coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
-					coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
-					coupon.getStores(), coupon.getCouponRemark()));
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_seller));
+		if (isDelay) { // 延期记录
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_delay,
+					coupon.getEffDay(), coupon.getExpDay()));
+			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_delay));
 		} else if (isUsed) { // 已使用
 			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
 					coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
 					coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
 					coupon.getStores(), coupon.getCouponRemark()));
 			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_used));
-		} else { // 延期记录
-			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_delay,
-					coupon.getEffDay(), coupon.getExpDay()));
-			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_delay));
+		} else if (isCoupon) { // M6优惠券
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
+					coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
+					coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
+					coupon.getStores(), coupon.getCouponRemark()));
+			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_normal));
+		} else if (isAd) { // 广告
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_ad, 
+					coupon.getName(), coupon.getSupplier(), coupon.getcTime(), coupon.getCouponRemark()));
+			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_ad));
+		} else if (isSellerCoupon) { // 网络商家券
+			holder.content.setText(mContext.getString(R.string.biz_coupon_list_content_normal, 
+					coupon.getcTime(), coupon.getSupplier(), coupon.getVal(), coupon.getName(), 
+					coupon.getCoupon(), coupon.getEffDay(), coupon.getExpDay(), 
+					coupon.getStores(), coupon.getCouponRemark()));
+			convertView.setBackgroundColor(mResources.getColor(R.color.biz_coupon_seller));
 		}
 		
 		return convertView;

@@ -77,86 +77,17 @@ public class CouponDetailsFragment extends BaseFragment {
 	}
 	
 	private void initViews() {
-		final boolean isInvalid = mCoupon.getStatus() == Coupon.STATUS_INVALID;
-		final boolean isDelay = mCoupon.isDelay();
+		final boolean isDelay = mCoupon.getKtype() == Coupon.KTYPE_DELAY;
 		final boolean isCoupon = mCoupon.getKtype() == Coupon.KTYPE_COUPON;
 		final boolean isAd = mCoupon.getKtype() == Coupon.KTYPE_AD;
-		final boolean isSellerCoupon = mCoupon.getKtype() == mCoupon.KTYPE_SELLER;
+		final boolean isSellerCoupon = mCoupon.getKtype() == Coupon.KTYPE_SELLER;
 		final boolean isUsed = mCoupon.isused();
 		
 		TextView content = (TextView) getView().findViewById(R.id.content);
 		ImageView couponImage = (ImageView) getView().findViewById(R.id.image);
 		View contentZone = getView().findViewById(R.id.content_zone);
 		
-		if (!isDelay && isCoupon) { // 优惠券
-			content.setText(getString(R.string.biz_coupon_list_content_normal, 
-					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
-					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
-					mCoupon.getStores(), mCoupon.getCouponRemark()));
-			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_normal));
-			
-			// 条形码
-			int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
-			int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
-			try {
-				Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
-				ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
-				barcode.setImageBitmap(barcodeBitmap);
-				
-				barcode.setVisibility(View.VISIBLE);
-			} catch (WriterException e) {
-				e.printStackTrace();
-			}
-			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
-			getView().findViewById(R.id.top_title).setVisibility(View.GONE);
-			goToWebDetails();
-		} else if (!isDelay && isAd) { // 广告
-			content.setText(getString(R.string.biz_coupon_list_content_ad, 
-					mCoupon.getName(), mCoupon.getSupplier(), mCoupon.getcTime(), mCoupon.getCouponRemark()));
-			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_ad));
-			TextView shakeView = (TextView) getView().findViewById(R.id.top_title);
-			shakeView.setVisibility(View.VISIBLE);
-			shakeView.setText(R.string.biz_coupon_details_ad);
-			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
-			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
-			goToWebDetails();
-		} else if (!isDelay && isSellerCoupon) { // 网络商家券
-			content.setText(getString(R.string.biz_coupon_list_content_normal, 
-					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
-					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
-					mCoupon.getStores(), mCoupon.getCouponRemark()));
-			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_seller));
-			
-			// 条形码
-			int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
-			int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
-			try {
-				Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
-				ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
-				barcode.setImageBitmap(barcodeBitmap);
-				
-				barcode.setVisibility(View.VISIBLE);
-			} catch (WriterException e) {
-				e.printStackTrace();
-			}
-			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
-			getView().findViewById(R.id.top_title).setVisibility(View.GONE);
-			goToWebDetails();
-		} else if (isUsed) { // 已使用
-			content.setText(getString(R.string.biz_coupon_list_content_normal, 
-					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
-					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
-					mCoupon.getStores(), mCoupon.getCouponRemark()));
-			
-			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_used));
-			TextView shakeView = (TextView) getView().findViewById(R.id.top_title);
-			shakeView.setVisibility(View.VISIBLE);
-			shakeView.setText(R.string.biz_coupon_details_invalid);
-			shakeView.setCompoundDrawablesWithIntrinsicBounds(
-					R.drawable.coupon_invalid, 0, 0, 0);
-			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
-			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
-		} else { // 延期记录
+		if (isDelay) { // 延期记录
 			content.setText(getString(R.string.biz_coupon_list_content_delay,
 					mCoupon.getEffDay(), mCoupon.getExpDay()));
 			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_delay));
@@ -181,6 +112,74 @@ public class CouponDetailsFragment extends BaseFragment {
 					startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_COUPON);
 				}
 			});
+		} else if (isUsed) { // 已使用
+			content.setText(getString(R.string.biz_coupon_list_content_normal, 
+					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
+					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
+					mCoupon.getStores(), mCoupon.getCouponRemark()));
+			
+			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_used));
+			TextView shakeView = (TextView) getView().findViewById(R.id.top_title);
+			shakeView.setVisibility(View.VISIBLE);
+			shakeView.setText(R.string.biz_coupon_details_invalid);
+			shakeView.setCompoundDrawablesWithIntrinsicBounds(
+					R.drawable.coupon_invalid, 0, 0, 0);
+			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
+			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
+		} else if (isCoupon) { // 优惠券
+			content.setText(getString(R.string.biz_coupon_list_content_normal, 
+					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
+					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
+					mCoupon.getStores(), mCoupon.getCouponRemark()));
+			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_normal));
+			
+			// 条形码
+			int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
+			int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
+			try {
+				Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
+				ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
+				barcode.setImageBitmap(barcodeBitmap);
+				
+				barcode.setVisibility(View.VISIBLE);
+			} catch (WriterException e) {
+				e.printStackTrace();
+			}
+			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
+			getView().findViewById(R.id.top_title).setVisibility(View.GONE);
+			goToWebDetails();
+		} else if (isAd) { // 广告
+			content.setText(getString(R.string.biz_coupon_list_content_ad, 
+					mCoupon.getName(), mCoupon.getSupplier(), mCoupon.getcTime(), mCoupon.getCouponRemark()));
+			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_ad));
+			TextView shakeView = (TextView) getView().findViewById(R.id.top_title);
+			shakeView.setVisibility(View.VISIBLE);
+			shakeView.setText(R.string.biz_coupon_details_ad);
+			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
+			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
+			goToWebDetails();
+		} else if (isSellerCoupon) { // 网络商家券
+			content.setText(getString(R.string.biz_coupon_list_content_normal, 
+					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
+					mCoupon.getCoupon(), mCoupon.getEffDay(), mCoupon.getExpDay(), 
+					mCoupon.getStores(), mCoupon.getCouponRemark()));
+			contentZone.setBackgroundColor(getResources().getColor(R.color.biz_coupon_seller));
+			
+			// 条形码
+			int barcodeWidth = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_width);
+			int barcodeHeight = getResources().getDimensionPixelSize(R.dimen.biz_coupon_list_barcode_height);
+			try {
+				Bitmap barcodeBitmap = EncodeUtil.createBarCode(mCoupon.getCoupon(), barcodeWidth, barcodeHeight);
+				ImageView barcode = (ImageView) getView().findViewById(R.id.barcode);
+				barcode.setImageBitmap(barcodeBitmap);
+				
+				barcode.setVisibility(View.VISIBLE);
+			} catch (WriterException e) {
+				e.printStackTrace();
+			}
+			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
+			getView().findViewById(R.id.top_title).setVisibility(View.GONE);
+			goToWebDetails();
 		}
 	}
 	
@@ -189,5 +188,13 @@ public class CouponDetailsFragment extends BaseFragment {
 	    intent.setAction(Intent.ACTION_VIEW);    
 	    intent.setData(Uri.parse(url));
 	    getActivity().startActivity(intent);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == MainActivityHelper.RESULT_CODE_COUPON) {
+			getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
+			getActivity().finish();
+		}
 	}
 }

@@ -187,7 +187,7 @@
     <string name="biz_recipe_edit_title_deleteno">取消</string>
     
     <!-- recipe hot -->
-    <string name="biz_recipe_collect_count">%d收藏</string>
+    <string name="biz_recipe_collect_count">%d赞</string>
     
     <!-- recipe comment -->
     <string name="biz_recipe_comment_input_hint">添加评论</string>
@@ -267,7 +267,7 @@
     <string name="biz_coupon_list_title">我的优惠券</string>
     <string name="biz_coupon_list_shake">摇一摇抽取优惠券</string>
     <string name="biz_coupon_list_content_delay">%1$s（优惠券延期生效日期），您有一次延迟抽取优惠券的机会，有效期至%2$s。</string>
-    <string name="biz_coupon_list_content_normal">%1$s您获得了由%2$s提供的价值%3$s元的%4$s，券号%5$s，有效期%6$s至%7$s。\n适用门店：%8$s\n%9$s</string>
+    <string name="biz_coupon_list_content_normal">%1$s您获得了由%2$s提供的价值%3$s元的%4$s，券号%5$s\n有效期%6$s至%7$s。\n适用门店：%8$s\n%9$s</string>
     <string name="biz_coupon_list_content_ad">%1$s\n%2$s\n%3$s\n%4$s</string>
     
     <string name="biz_coupon_shake_title">摇一摇</string>
@@ -291,7 +291,7 @@
     
     <string name="biz_coupon_details_title">优惠券详情</string>
     <string name="biz_coupon_details_empty">没有找到优惠券记录~</string>
-    <string name="biz_coupon_details_invalid">此券已过期</string>
+    <string name="biz_coupon_details_invalid">此券已使用</string>
     <string name="biz_coupon_details_webdetails">详情</string>
     <string name="biz_coupon_details_ad">M6精选广告</string>
     
@@ -311,5 +311,6 @@
     <string name="error_code_exist_or_error">订购失败，订单已经存在且订单状态错误</string>
     <string name="error_code_recipe_praised">已经赞过该菜谱</string>
     <string name="error_code_recipe_unpraised">该菜谱本人未赞过</string>
+    <string name="error_code_no_delay">没有该延期券</string>
     
 </resources>

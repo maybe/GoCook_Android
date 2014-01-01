@@ -2,7 +2,6 @@ package com.m6.gocook.biz.coupon;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ public class ShakeResultFragment extends BaseFragment {
 	private GetCouponTask mCouponTask;
 	private DelayCouponTask mDelayCouponTask;
 	
-	private ProgressDialog mProgressDialog;
-	
 	private String mCouponId;
 	
 	public static ShakeResultFragment newInstance(String couponId) {
@@ -58,8 +55,6 @@ public class ShakeResultFragment extends BaseFragment {
 	@Override
 	public View onCreateFragmentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
-		mProgressDialog = new ProgressDialog(getActivity());
-		mProgressDialog.setCanceledOnTouchOutside(false);
 		return inflater.inflate(R.layout.fragment_coupon_shake_result, container, false);
 	}
 	
@@ -113,8 +108,7 @@ public class ShakeResultFragment extends BaseFragment {
 						mCouponTask = new GetCouponTask(getActivity(), "0");
 						mCouponTask.execute((Void) null);
 						
-						mProgressDialog.setMessage(getString(R.string.biz_coupon_shake_result_progress));
-						mProgressDialog.show();
+						setProgressMessage(R.string.biz_coupon_shake_result_progress);
 					}
 				} else {
 					getActivity().setResult(MainActivityHelper.RESULT_CODE_COUPON);
@@ -131,8 +125,7 @@ public class ShakeResultFragment extends BaseFragment {
 					mDelayCouponTask = new DelayCouponTask(getActivity());
 					mDelayCouponTask.execute((Void) null);
 					
-					mProgressDialog.setMessage(getString(R.string.biz_coupon_shake_result_delay_progress));
-					mProgressDialog.show();
+					setProgressMessage(R.string.biz_coupon_shake_result_delay_progress);
 				}
 			}
 		});
@@ -145,6 +138,11 @@ public class ShakeResultFragment extends BaseFragment {
 		getView().findViewById(R.id.positive).setVisibility(View.GONE);
 	}
 	
+	/**
+	 * 由延期机会获取优惠券
+	 * @author YC
+	 *
+	 */
 	public class GetCouponTask extends AsyncTask<Void, Void, List<Coupon>> {
 		
 		private String mCouponId;
@@ -200,12 +198,25 @@ public class ShakeResultFragment extends BaseFragment {
 		}
 	}
 	
+	/**
+	 * 消费额转换成延期抽取机会
+	 * 
+	 * @author YC
+	 *
+	 */
 	private class DelayCouponTask extends AsyncTask<Void, Void, CouponDelay> {
 
 		private Context mContext;
 		
 		public DelayCouponTask(Context context) {
 			mContext = context.getApplicationContext();
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			if (isAdded()) {
+				showProgress(true);
+			}
 		}
 		
 		@Override
@@ -217,13 +228,15 @@ public class ShakeResultFragment extends BaseFragment {
 		protected void onPostExecute(CouponDelay result) {
 			mDelayCouponTask = null;
 			if (isAdded()) {
+				showProgress(false);
 				if (result.getDelayRst() == CouponDelay.DELAY_RESULT_SUCCESS) {
 					TextView message = (TextView) getView().findViewById(R.id.message);
-					if (result.getCondition() == Condition.Match) {
-						message.setText(getString(R.string.biz_coupon_shake_result_delay_match, result.getExpDay()));
-					} else if (result.getCondition() == Condition.MisMatch) {
-						message.setText(getString(R.string.biz_coupon_shake_result_delay_mismatch, result.getRemark()));
-					}
+					// TODO  condition 的用途
+//					if (result.getCondition() == Condition.MisMatch) {
+//						message.setText(getString(R.string.biz_coupon_shake_result_delay_mismatch, result.getRemark()));
+//					} else {
+//					}
+					message.setText(getString(R.string.biz_coupon_shake_result_delay_match, result.getExpDay()));
 					getView().findViewById(R.id.delay).setVisibility(View.GONE);
 					getView().findViewById(R.id.positive).setOnClickListener(new OnClickListener() {
 						
@@ -237,10 +250,6 @@ public class ShakeResultFragment extends BaseFragment {
 					showFailureMessage(R.string.biz_coupon_shake_result_delay_coupon_already_tip);
 				} else {
 					showFailureMessage(R.string.biz_coupon_shake_result_delay_coupon_failed_tip);
-				}
-				
-				if (mProgressDialog != null) {
-					mProgressDialog.dismiss();
 				}
 			}
 		}
