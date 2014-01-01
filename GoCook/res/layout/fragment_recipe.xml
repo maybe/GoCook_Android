@@ -7,6 +7,7 @@
     android:orientation="vertical" >
 
     <!-- Tabbar -->
+
     <LinearLayout
         android:id="@+id/tabbar"
         android:layout_width="match_parent"
@@ -49,6 +50,7 @@
             android:gravity="center"
             android:text="@string/biz_recipe_tabbar_menu_addshoppinglist"
             android:textColor="#999999"
+            android:visibility="gone"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -121,14 +123,51 @@
 
             <!-- Recipe Material -->
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/biz_recipe_material"
-                android:textColor="#6c6c6c"
-                android:textSize="14sp" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/biz_recipe_material"
+                    android:textColor="#6c6c6c"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/goto_shoppinglist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/recipe_edit_btn_selector"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/biz_recipe_goto_shoppinglist"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/addto_shoppinglist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/goto_shoppinglist"
+                    android:background="@drawable/follow_btn_selector"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/biz_recipe_addto_shoppinglist"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
 
             <com.m6.gocook.base.view.ExpandedGridView
                 android:id="@+id/material_gridview"
@@ -250,14 +289,16 @@
         </LinearLayout>
     </ScrollView>
 
-     <!-- share -->
+    <!-- share -->
+
     <ImageView
         android:id="@+id/share"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
         android:src="@android:drawable/ic_menu_share" />
+
 </RelativeLayout>

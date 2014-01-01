@@ -19,7 +19,6 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.Coupon;
 import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.base.view.ActionBar.OnActionBarClick;
 import com.m6.gocook.biz.main.MainActivityHelper;

@@ -13,29 +13,24 @@ import com.m6.gocook.base.entity.RecipeEntity;
 public class PurchaseListModel {
 
 	public static Cursor getRecipePurchaseListCursor(Context context) {
-		
 		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
-		Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-		return cursor;
+		String sortOrder = RecipePurchaseList._ID + " DESC";
+		return context.getContentResolver().query(uri, null, null, null, sortOrder);
 	}
 	
 	public static int getRecipePurchaseCount(Context context) {
 		
 		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
 		Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-		int count = cursor.getCount();
-		cursor.close();
+		int count = 0;
+		if (cursor != null) {
+			count = cursor.getCount();
+			cursor.close();
+		}
 		return count;
 	}
 	
-	public static Cursor getRecipePurchaseCursor(Context context) {
-		
-		Uri uri = GoCookProvider.getTableUri(RecipePurchaseList.TABLE);
-		return context.getContentResolver().query(uri, null, null, null, null);
-	}
-	
 	public static Cursor getRecipeMaterialPurchaseListCursorById(Context context, String recipeId) {
-		
 		Uri uri = GoCookProvider.getTableUri(RecipeMaterialPurchaseList.TABLE);
 		Cursor cursor = context.getContentResolver().query(uri, null,
 				RecipeMaterialPurchaseList.RECIPE_ID + "=?",

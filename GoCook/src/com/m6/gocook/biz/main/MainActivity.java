@@ -45,10 +45,18 @@ import com.m6.gocook.util.net.NetUtils;
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 	
 	private static final String TAG = "MainActivity";
+	
+	private static final String PARAM_TAB_TAG = "param_tab_tag";
 
 	private TextView mTitle;
 	
 	private FragmentTabHost mTabHost;
+	
+	public static void startMainActivity(Context context, String tab) {
+		Intent intent = new Intent(context, MainActivity.class);
+		intent.putExtra(PARAM_TAB_TAG, tab);
+		context.startActivity(intent);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +72,11 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		addTab(mTabHost, inflater, Tab.SHOPPING.tag, R.string.biz_main_tab_shopping, R.drawable.tab_buy_alpha, PurchaseFragment.class, null);
 		addTab(mTabHost, inflater, Tab.ACCOUNT.tag, R.string.biz_main_tab_account, R.drawable.tab_me_alpha, AccountFragment.class, null);
 
-		onIndicatorChanged(Tab.SEARCH.tag);
 		mTabHost.setOnTabChangedListener(this);
-		mTitle.setText(TabHelper.getActionBarTitle(this, Tab.SEARCH.tag));
+		
+		String tag = Tab.SEARCH.tag;
+		onIndicatorChanged(tag);
+		mTitle.setText(TabHelper.getActionBarTitle(this, tag));
 		
 		((RadioGroup) findViewById(R.id.purchaselist_switch_radiogroup)).setOnClickListener(new OnClickListener() {
 			
@@ -100,6 +110,17 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		// 检测新版本
 		new VersionDetectTask().execute((Void) null);
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		String tag = intent != null ? intent.getStringExtra(PARAM_TAB_TAG) : null;
+		if (!TextUtils.isEmpty(tag)) {
+			mTabHost.setCurrentTabByTag(tag);
+			onIndicatorChanged(tag);
+			mTitle.setText(TabHelper.getActionBarTitle(this, tag));
+		}
 	}
 
 	private void addTab(FragmentTabHost tabHost, LayoutInflater inflater, String tag, int titleId, int iconId, Class<?> clss, Bundle args) {

@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,7 +43,9 @@ import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.account.WebLoginFragment;
+import com.m6.gocook.biz.main.MainActivity;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.biz.main.TabHelper.Tab;
 import com.m6.gocook.biz.profile.ProfileFragment;
 import com.m6.gocook.biz.purchase.PurchaseListModel;
 import com.m6.gocook.biz.recipe.RecipeModel;
@@ -267,6 +270,13 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 		setCollected(tabBarCollectTextView, mRecipeEntity.isCollected(), false);
 		
 		setPraise(mRecipeEntity.isPraised());
+		
+		// shoppinglist
+		Button shoppinglist = ((Button) findViewById(R.id.addto_shoppinglist));
+		if(mRecipeEntity != null && PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
+			shoppinglist.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
+			shoppinglist.setBackgroundResource(R.drawable.recipe_shoppinglist_remove_btn_selector);
+		}
 	}
 
 	private void achieveComments() {
@@ -278,52 +288,50 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 	}
 
 	private void initView() {
-
 		// Tabbar Event Listener
 		TextView tabBarBuyTextView = ((TextView) findViewById(R.id.tabbar_textview_buy));
 		tabBarBuyTextView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						if(mRecipeEntity == null) return;
-						TextView tabBarBuyTextView = (TextView)v;
-						if(PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
-							PurchaseListModel.removeRecipeFromPurchaseList(getActivity(), String.valueOf(mRecipeEntity.getId()));
-							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
-									null,
-									getResources().getDrawable(
-											R.drawable.tab_buy_alpha), null,
-									null);
-							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_addshoppinglist));
-						} else {
-							PurchaseListModel.saveRecipeToProcedureList(getActivity(), mRecipeEntity);
-							tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
-									null,
-									getResources().getDrawable(
-											R.drawable.tab_buy), null,
-									null);
-							tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
-						}
-					}
-				});
+			
+			@Override
+			public void onClick(View v) {
+				if(mRecipeEntity == null) return;
+				TextView tabBarBuyTextView = (TextView)v;
+				if(PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
+					PurchaseListModel.removeRecipeFromPurchaseList(getActivity(), String.valueOf(mRecipeEntity.getId()));
+					tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
+							null,
+							getResources().getDrawable(
+									R.drawable.tab_buy_alpha), null,
+							null);
+					tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_addshoppinglist));
+				} else {
+					PurchaseListModel.saveRecipeToProcedureList(getActivity(), mRecipeEntity);
+					tabBarBuyTextView.setCompoundDrawablesWithIntrinsicBounds(
+							null,
+							getResources().getDrawable(
+									R.drawable.tab_buy), null,
+							null);
+					tabBarBuyTextView.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
+				}
+			}
+		});
 
-		((TextView) findViewById(R.id.tabbar_textview_like))
-				.setOnClickListener(new OnClickListener() {
+		((TextView) findViewById(R.id.tabbar_textview_like)).setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						if(AccountModel.isLogon(mContext)) {
-							if(mRecipeCollectTask == null) {
-								mRecipeCollectTask = new RecipeCollectTask(v);
-								mRecipeCollectTask.execute();
-							}
-						} else {
-							WebLoginFragment.jumpToLogin(getActivity());
-						}
+			@Override
+			public void onClick(View v) {
+				if(AccountModel.isLogon(mContext)) {
+					if(mRecipeCollectTask == null) {
+						mRecipeCollectTask = new RecipeCollectTask(v);
+						mRecipeCollectTask.execute();
 					}
-				});
+				} else {
+					WebLoginFragment.jumpToLogin(getActivity());
+				}
+			}
+		});
 		
-		((TextView) findViewById(R.id.tabbar_textview_praise))
-				.setOnClickListener(new OnClickListener() {
+		((TextView) findViewById(R.id.tabbar_textview_praise)).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -371,6 +379,35 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 				sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
 				sendIntent.setType("image/*");
 				startActivity(Intent.createChooser(sendIntent, getString(R.string.biz_recipe_share_title)));
+			}
+		});
+		
+		// shopping list
+		findViewById(R.id.goto_shoppinglist).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivity.startMainActivity(getActivity(), Tab.SHOPPING.tag);
+			}
+		});
+		
+		findViewById(R.id.addto_shoppinglist).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(mRecipeEntity == null) {
+					return;
+				}
+				Button addto_shoppinglist = (Button)v;
+				if(PurchaseListModel.isRecipeSavedToProcedureList(getActivity(), String.valueOf(mRecipeEntity.getId()))) {
+					PurchaseListModel.removeRecipeFromPurchaseList(getActivity(), String.valueOf(mRecipeEntity.getId()));
+					addto_shoppinglist.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_addshoppinglist));
+					addto_shoppinglist.setBackgroundResource(R.drawable.follow_btn_selector);
+				} else {
+					PurchaseListModel.saveRecipeToProcedureList(getActivity(), mRecipeEntity);
+					addto_shoppinglist.setText(getResources().getText(R.string.biz_recipe_tabbar_menu_removeshoppinglist));
+					addto_shoppinglist.setBackgroundResource(R.drawable.recipe_shoppinglist_remove_btn_selector);
+				}
 			}
 		});
 	}

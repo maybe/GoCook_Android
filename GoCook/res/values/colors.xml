@@ -17,6 +17,9 @@
     <color name="follow_btn_normal">#7cc23b</color>
     <color name="follow_btn_pressed">#4f4f4f</color>
     
+    <color name="recipe_shoppinglist_btn">#4f4f4f</color>
+    <color name="recipe_shoppinglist_btn_pressed">#313131</color>
+    
     <color name="main_bg">#eaeaea</color>
     <color name="profile_intro_bg">#f8f7f5</color>
     <color name="profile_myrecipe_bg">#edf5f7</color>

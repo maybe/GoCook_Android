@@ -42,7 +42,7 @@ public class PurchaseFragment extends Fragment implements
 		super.onActivityCreated(savedInstanceState);
 		
 		if(mPurchaseRecipeCursor == null) {
-			mPurchaseRecipeCursor = PurchaseListModel.getRecipePurchaseCursor(getActivity());
+			mPurchaseRecipeCursor = PurchaseListModel.getRecipePurchaseListCursor(getActivity());
 			mPurchaseRecipeObserver = new ContentObserver(new Handler()) {
 				@Override
 		        public boolean deliverSelfNotifications() {

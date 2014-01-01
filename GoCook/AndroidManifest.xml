@@ -43,6 +43,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity

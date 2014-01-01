@@ -82,7 +82,10 @@ public abstract class RecipeListFragment extends BaseListFragment {
 	 * @return
 	 */
 	protected RecipeList getListData(String url) {
-		return RecipeModel.getRecipeData(url, needCookie() ? AccountModel.getCookie(getActivity()) : null);
+		if (getActivity() == null) {
+			return null;
+		}
+		return RecipeModel.getRecipeData(url, needCookie() ? AccountModel.getCookie(getActivity().getApplicationContext()) : null);
 	}
 	
 	/**

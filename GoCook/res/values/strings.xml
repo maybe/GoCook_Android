@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 1216</string>
+    <string name="build_version">build 0101</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -125,6 +125,8 @@
     <string name="biz_recipe_share_title">分享到</string>
     <string name="biz_recipe_about">%d人收藏</string>
     <string name="biz_recipe_material">用料</string>
+    <string name="biz_recipe_addto_shoppinglist">加入购买清单</string>
+    <string name="biz_recipe_goto_shoppinglist">购物清单</string>
     <string name="biz_recipe_procedure">做法</string>
     <string name="biz_recipe_tips">小贴士</string>
     <string name="biz_recipe_comment_num">%s条评论</string>
