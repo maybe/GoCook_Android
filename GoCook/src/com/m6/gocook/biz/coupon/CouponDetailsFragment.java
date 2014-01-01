@@ -126,6 +126,7 @@ public class CouponDetailsFragment extends BaseFragment {
 					R.drawable.coupon_invalid, 0, 0, 0);
 			mImageFetcher.loadImage(mCoupon.getImg(), couponImage);
 			getView().findViewById(R.id.barcode).setVisibility(View.GONE);
+			goToWebDetails();
 		} else if (isCoupon) { // 优惠券
 			content.setText(getString(R.string.biz_coupon_list_content_normal, 
 					mCoupon.getcTime(), mCoupon.getSupplier(), mCoupon.getVal(), mCoupon.getName(), 
