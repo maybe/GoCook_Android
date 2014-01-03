@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,6 +69,13 @@ public class CouponDetailsFragment extends BaseFragment {
 	 */
 	private void goToWebDetails() {
 		getView().findViewById(R.id.web_detail).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				openBrower(mCoupon.getUrl());
+			}
+		});
+		getView().findViewById(R.id.image).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -185,6 +193,9 @@ public class CouponDetailsFragment extends BaseFragment {
 	}
 	
 	private void openBrower(String url) {
+		if (TextUtils.isEmpty(url)) {
+			return;
+		}
 		Intent intent= new Intent();        
 	    intent.setAction(Intent.ACTION_VIEW);    
 	    intent.setData(Uri.parse(url));
