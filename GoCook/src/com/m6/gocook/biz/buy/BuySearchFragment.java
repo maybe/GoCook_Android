@@ -13,11 +13,10 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.CKeywordQueryResult;
 import com.m6.gocook.base.fragment.BaseListFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class BuySearchFragment extends BaseListFragment implements OnActivityAction {
+public class BuySearchFragment extends BaseListFragment {
 
 	public static final String PARAM_KEYWORD = "param_keyword";
 	public static final String PARAM_RECORD_ID = "param_record_id";
@@ -32,7 +31,6 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MainActivityHelper.registerOnActivityActionListener(this);
 		
 		Bundle args = getArguments();
 		if (args != null) {
@@ -40,12 +38,6 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 			mRecordId = args.getString(PARAM_RECORD_ID);
 		}
 		mAdapter = new BuySearchAdapter(getActivity(), null);
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -82,7 +74,7 @@ public class BuySearchFragment extends BaseListFragment implements OnActivityAct
 	}
 	
 	@Override
-	public void onCustomActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
 			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
 			getActivity().finish();

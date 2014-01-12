@@ -29,7 +29,6 @@ import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
@@ -41,7 +40,7 @@ import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.order.OrderModel;
 import com.m6.gocook.util.model.ModelUtils;
 
-public class BuyListFragment extends BaseFragment implements OnActivityAction, OnKeyDown {
+public class BuyListFragment extends BaseFragment implements OnKeyDown {
 
 	public static final String PARAM_RECIPE_ID = "param_recipe_id";
 	
@@ -56,7 +55,6 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MainActivityHelper.registerOnActivityActionListener(this);
 		((BaseActivity) getActivity()).registerOnkeyDownListener(this);
 		
 		Bundle args = getArguments();
@@ -127,7 +125,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 				map.put(BuyModel.METHOD, wareItem.getDealMethod().get(0));
 				map.put(BuyModel.REMARK, wareItem.getRemark());
 				map.put(BuyModel.WAREID, wareItem.getId());
-				
+				System.out.println("xxx recid : " + recId );
 				mOrderedCount++;
 			}
 		}
@@ -142,7 +140,6 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
     @Override
 	public void onDestroy() {
 		super.onDestroy();
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 		((BaseActivity) getActivity()).unRegisterOnkeyDownListener(this);
 	}
 	
@@ -166,10 +163,9 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 			}
 		}
 	}
-
+	
 	@Override
-	public void onCustomActivityResult(int requestCode, int resultCode,
-			Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
 			if (data != null) {
 				Bundle bundle = data.getExtras();
@@ -181,11 +177,14 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 			}
 		}
 	}
-	
+
 	public void removeBuyInfo(Map<String, Object> pureMap, int position) {
 		if (mData != null && !mData.isEmpty() && pureMap != null && position >= 0 && position < mData.size()) {
 			mData.remove(position);
 			mData.add(position, pureMap);
+			if (mOrderedCount > 0) {
+				mOrderedCount--;
+			}
 			
 			if (mAdapter != null) {
 				mAdapter.notifyDataSetChanged();

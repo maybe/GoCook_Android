@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,7 +141,8 @@ public class BuyListAdapter extends BaseAdapter {
 				args.putString(BuySearchFragment.PARAM_KEYWORD, target);
 				Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
 						BuySearchFragment.class.getName(), BuySearchFragment.class.getName(), args);
-				((FragmentActivity) mContext).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
+				mFragment.startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
+				
 			}
 		});
 		

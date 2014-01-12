@@ -17,11 +17,10 @@ import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
-import com.m6.gocook.base.fragment.OnActivityAction;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.main.MainActivityHelper;
 
-public class BuyDetailsFragment extends BaseFragment implements OnActivityAction {
+public class BuyDetailsFragment extends BaseFragment {
 	
 	public static final String PARAM_RESULT = "param_result";
 	public static final String PARAM_RESULT_DATA = "param_result_data";
@@ -32,19 +31,12 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MainActivityHelper.registerOnActivityActionListener(this);
 		
 		Bundle args = getArguments();
 		if (args != null) {
 			mWareItem = (CWareItem) args.getSerializable(PARAM_RESULT);
 			mRecordId = args.getString(BuySearchFragment.PARAM_RECORD_ID);
 		}
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		MainActivityHelper.unRegisterOnActivityActionListener(this);
 	}
 	
 	@Override
@@ -102,16 +94,12 @@ public class BuyDetailsFragment extends BaseFragment implements OnActivityAction
 			startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
 		}
 	};
-
+	
 	@Override
-	public void onCustomActivityResult(int requestCode, int resultCode,
-			Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == MainActivityHelper.RESULT_CODE_INPUT) {
 			getActivity().setResult(MainActivityHelper.RESULT_CODE_INPUT, data);
 			getActivity().finish();
 		}
 	}
-	
-	
-
 }
