@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -28,16 +30,18 @@ import com.m6.gocook.util.model.ModelUtils;
 public class BuyListAdapter extends BaseAdapter {
 
 	private Context mContext;
+	private BuyListFragment mFragment;
 	private LayoutInflater mInflater;
 	private Resources mResources;
 	
 	private List<Map<String, Object>> mData;
 	
-	public BuyListAdapter(Context context, List<Map<String, Object>> data) {
-		mContext = context;
-		mInflater = LayoutInflater.from(context);
+	public BuyListAdapter(BuyListFragment fragment, List<Map<String, Object>> data) {
+		mFragment = fragment;
+		mContext = fragment.getActivity();
+		mInflater = LayoutInflater.from(mContext);
 		mData = data;
-		mResources = context.getResources();
+		mResources = mContext.getResources();
 	}
 	
 	@Override
@@ -56,7 +60,7 @@ public class BuyListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -69,13 +73,14 @@ public class BuyListAdapter extends BaseAdapter {
 			holder.cost = (TextView) convertView.findViewById(R.id.cost);
 			holder.method = (TextView) convertView.findViewById(R.id.process);
 			holder.gotoShop = (Button) convertView.findViewById(R.id.gotoshop);
+			holder.delete = convertView.findViewById(R.id.delete);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
 		// bind data
-		Map<String, Object> map = mData.get(position);
+		final Map<String, Object> map = mData.get(position);
 		final String target = ModelUtils.getStringValue(map, RecipeMaterialPurchaseList.MATERIAL_NAME);
 		holder.target.setText(mResources.getString(R.string.biz_buy_list_adapter_target, target));
 		
@@ -84,8 +89,10 @@ public class BuyListAdapter extends BaseAdapter {
 		if (!TextUtils.isEmpty(name)) {
 			holder.name.setText(name);
 			holder.name.setVisibility(View.VISIBLE);
+			holder.delete.setVisibility(View.VISIBLE);
 		} else {
 			holder.name.setVisibility(View.GONE);
+			holder.delete.setVisibility(View.GONE);
 		}
 		
 		double quantity = ModelUtils.getDoubleValue(map, BuyModel.QUANTITY, 0.00d);
@@ -138,6 +145,34 @@ public class BuyListAdapter extends BaseAdapter {
 				((FragmentActivity) mContext).startActivityForResult(intent, MainActivityHelper.REQUEST_CODE_INPUT);
 			}
 		});
+		
+		holder.delete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new AlertDialog.Builder(mContext)
+                .setTitle(R.string.biz_buy_dialog_delete_title)
+                .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    	if (mFragment != null) {
+                    		map.remove(BuyModel.METHOD);
+                    		map.remove(BuyModel.UNIT);
+                    		map.remove(BuyModel.NORM);
+                    		map.remove(BuyModel.NAME);
+                    		map.remove(BuyModel.PRICE);
+                    		map.remove(BuyModel.QUANTITY);
+                    		map.remove(BuyModel.REMARK);
+                    		map.remove(BuyModel.WAREID);
+                    		
+                    		mFragment.removeBuyInfo(map, position);
+                    	}
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .create()
+                .show();
+			}
+		});
 		return convertView;
 	}
 	
@@ -150,6 +185,7 @@ public class BuyListAdapter extends BaseAdapter {
 		TextView cost;
 		TextView method;
 		Button gotoShop;
+		View delete;
 	}
 
 }

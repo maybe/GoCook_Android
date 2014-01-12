@@ -81,7 +81,7 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 		actionBar.setTitle(R.string.biz_buy_title);
 		actionBar.setRightButton(R.string.biz_buy_list_actionbar_right, R.drawable.actionbar_btn_selector);
 		
-		mAdapter = new BuyListAdapter(getActivity(), mData);
+		mAdapter = new BuyListAdapter(this, mData);
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);
 		
 		view.findViewById(R.id.header).setOnClickListener(new OnClickListener() {
@@ -178,6 +178,17 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 					CWareItem wareItem = (CWareItem) bundle.getSerializable(BuyDetailsFragment.PARAM_RESULT_DATA);
 					saveOrder(recordId, wareItem);
 				}
+			}
+		}
+	}
+	
+	public void removeBuyInfo(Map<String, Object> pureMap, int position) {
+		if (mData != null && !mData.isEmpty() && pureMap != null && position >= 0 && position < mData.size()) {
+			mData.remove(position);
+			mData.add(position, pureMap);
+			
+			if (mAdapter != null) {
+				mAdapter.notifyDataSetChanged();
 			}
 		}
 	}

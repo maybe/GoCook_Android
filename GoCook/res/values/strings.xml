@@ -263,6 +263,7 @@
     
     <string name="biz_buy_dialog_material_title">请输入食材名</string>
     <string name="biz_buy_dialog_material_positive">添加</string>
+    <string name="biz_buy_dialog_delete_title">是否清除本食材购买信息？</string>
     
     <!-- order -->
     <string name="biz_buy_order_empty_message">您最近%d个月没有购买过商品</string>
