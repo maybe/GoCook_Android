@@ -31,6 +31,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.entity.RecipeCommentList;
@@ -364,21 +366,66 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			}
 		});
 		
-		// share
+		// 分享
 		View shareView = findViewById(R.id.share);
 		shareView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				ArrayList<Uri> imageUris = new ArrayList<Uri>();
-				ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
+//				ArrayList<Uri> imageUris = new ArrayList<Uri>();
+//				ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
 //				imageUris.add(); // Add your image URIs here
 				
-				Intent sendIntent = new Intent();
-				sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-				sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-				sendIntent.setType("image/*");
-				startActivity(Intent.createChooser(sendIntent, getString(R.string.biz_recipe_share_title)));
+//				Intent sendIntent = new Intent();
+//				sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+//				sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+//				sendIntent.setType("image/*");
+//				startActivity(Intent.createChooser(sendIntent, getString(R.string.biz_recipe_share_title)));
+				
+				OnekeyShare oks = new OnekeyShare();
+
+				// 分享时Notification的图标和文字
+				oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+				// address是接收人地址，仅在信息和邮件使用
+//				oks.setAddress("12345678901");
+				// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+				oks.setTitle(getString(R.string.share));
+				// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+//				oks.setTitleUrl("http://o2o.m6fresh.com");
+				// text是分享文本，所有平台都需要这个字段
+				oks.setText(String.format(Protocol.URL_RECIPE_SHARE, mRecipeId));
+				// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//				oks.setImagePath(MainActivity.TEST_IMAGE);
+				// imageUrl是图片的网络路径，新浪微博、人人网、QQ空间、
+				// 微信的两个平台、Linked-In支持此字段
+				oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
+				// url仅在微信（包括好友和朋友圈）中使用
+				oks.setUrl(String.format(Protocol.URL_RECIPE_SHARE, mRecipeId));
+				// appPath是待分享应用程序的本地路劲，仅在微信中使用
+//				oks.setAppPath(MainActivity.);
+				// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//				oks.setComment(getContext().getString(R.string.share));
+				// site是分享此内容的网站名称，仅在QQ空间使用
+//				oks.setSite(getString(R.string.app_name));
+				// siteUrl是分享此内容的网站地址，仅在QQ空间使用
+				oks.setSiteUrl("http://o2o.m6fresh.com");
+				// latitude是维度数据，仅在新浪微博、腾讯微博和Foursquare使用
+//				oks.setLatitude(39.922619f);
+				// longitude是经度数据，仅在新浪微博、腾讯微博和Foursquare使用
+//				oks.setLongitude(116.372338f);
+				// 是否直接分享（true则直接分享）
+				oks.setSilent(true);
+				// 指定分享平台，和slient一起使用可以直接分享到指定的平台
+//				if (platform != null) {
+//				        oks.setPlatform(platform);
+//				}
+				// 去除注释可通过OneKeyShareCallback来捕获快捷分享的处理结果
+				// oks.setCallback(new OneKeyShareCallback());
+				//通过OneKeyShareCallback来修改不同平台分享的内容
+//				oks.setShareContentCustomizeCallback(
+//				new ShareContentCustomizeDemo());
+
+				oks.show(getActivity());
 			}
 		});
 		

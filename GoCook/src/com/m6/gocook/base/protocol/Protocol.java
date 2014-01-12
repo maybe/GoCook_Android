@@ -41,6 +41,8 @@ public class Protocol {
 	
 	public static final String URL_RECIPE_UNPRAISE = URL_ROOT + "/cook/unlike?likeid=%s";
 	
+	public static final String URL_RECIPE_SHARE = URL_ROOT + "/index/share?id=%s";
+	
 	/* Profile URL */
 	public static final String URL_PROFILE_UPDATE = URL_ROOT + "/user/changebasicinfo";
 	

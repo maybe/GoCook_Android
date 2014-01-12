@@ -27,6 +27,8 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import com.m6.gocook.R;
 import com.m6.gocook.base.protocol.ErrorCode;
 import com.m6.gocook.base.protocol.Protocol;
@@ -110,6 +112,9 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		
 		// 检测新版本
 		new VersionDetectTask().execute((Void) null);
+		
+		// 分享
+		ShareSDK.initSDK(this);
 	}
 	
 	@Override
@@ -224,6 +229,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
 		mTabHost = null;
 		MainActivityHelper.clearOnActivityActionListeners();
 		MainActivityHelper.clearOnKeyDownListeners();
+		ShareSDK.stopSDK(this);
 	}
 	
 	@Override
