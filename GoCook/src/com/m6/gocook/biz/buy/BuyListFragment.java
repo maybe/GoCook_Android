@@ -14,7 +14,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -81,6 +83,30 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 		
 		mAdapter = new BuyListAdapter(getActivity(), mData);
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);
+		
+		view.findViewById(R.id.header).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LayoutInflater factory = LayoutInflater.from(getActivity());
+	            final View textEntryView = factory.inflate(R.layout.fragment_buy_dialog_material, null);
+	            new AlertDialog.Builder(getActivity())
+	                .setTitle(R.string.biz_buy_dialog_material_title)
+	                .setView(textEntryView)
+	                .setPositiveButton(R.string.biz_buy_dialog_material_positive, new DialogInterface.OnClickListener() {
+	                    public void onClick(DialogInterface dialog, int whichButton) {
+	                    	if (mData != null && !mData.isEmpty() && mAdapter != null) {
+	                    		String materialName = ((EditText) textEntryView.findViewById(R.id.material)).getText().toString();
+	                    		mData.add(0, BuyModel.getManualMaterial(materialName));
+	                    		mAdapter.notifyDataSetChanged();
+	                    	}
+	                    }
+	                })
+	                .setNegativeButton(R.string.cancel, null)
+	                .create()
+	                .show();
+			}
+		});
 	}
 	
 	private void saveOrder(String recordId, CWareItem wareItem) {
@@ -152,7 +178,6 @@ public class BuyListFragment extends BaseFragment implements OnActivityAction, O
 					CWareItem wareItem = (CWareItem) bundle.getSerializable(BuyDetailsFragment.PARAM_RESULT_DATA);
 					saveOrder(recordId, wareItem);
 				}
-				
 			}
 		}
 	}

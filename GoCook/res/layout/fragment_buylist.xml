@@ -5,6 +5,13 @@
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_buy_list_header_selector"
+        android:layout_margin="10dp" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

@@ -67,6 +67,14 @@ public class BuyModel {
 		return null;
 	}
 	
+	public static Map<String, Object> getManualMaterial(String materialName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(RecipeMaterialPurchaseList._ID, System.currentTimeMillis());
+		map.put(RecipeMaterialPurchaseList.IS_BOUGHT, 0);
+		map.put(RecipeMaterialPurchaseList.MATERIAL_NAME, materialName);
+		return map;
+	}
+	
 	public static CKeywordQueryResult getBuySearchResult(Context context, String keyword, int pageIndex, int pageRows) {
 		try {
 			String result = NetUtils.httpGet(String.format(Protocol.URL_BUY_SEARCH, URLEncoder.encode(keyword, "UTF-8"), URLEncoder.encode(String.valueOf(pageIndex), "UTF-8")));
