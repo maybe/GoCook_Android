@@ -1,7 +1,5 @@
 package com.m6.gocook.biz.recipe.recipe;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -30,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.m6.gocook.R;
@@ -372,33 +368,24 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			
 			@Override
 			public void onClick(View v) {
-//				ArrayList<Uri> imageUris = new ArrayList<Uri>();
-//				ImageView coverImage = (ImageView) findViewById(R.id.cover_image);
-//				imageUris.add(); // Add your image URIs here
-				
-//				Intent sendIntent = new Intent();
-//				sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-//				sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-//				sendIntent.setType("image/*");
-//				startActivity(Intent.createChooser(sendIntent, getString(R.string.biz_recipe_share_title)));
-				
 				OnekeyShare oks = new OnekeyShare();
-
 				// 分享时Notification的图标和文字
 				oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
 				// address是接收人地址，仅在信息和邮件使用
 //				oks.setAddress("12345678901");
 				// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-				oks.setTitle(getString(R.string.share));
+				oks.setTitle(mRecipeEntity.getName());
 				// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
 //				oks.setTitleUrl("http://o2o.m6fresh.com");
 				// text是分享文本，所有平台都需要这个字段
-				oks.setText(String.format(Protocol.URL_RECIPE_SHARE, mRecipeId));
+				System.out.println("xxx materials : " + mRecipeEntity.getMaterialsString());
+				oks.setText(mRecipeEntity.getMaterialsString());
 				// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //				oks.setImagePath(MainActivity.TEST_IMAGE);
 				// imageUrl是图片的网络路径，新浪微博、人人网、QQ空间、
 				// 微信的两个平台、Linked-In支持此字段
-				oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
+				System.out.println("xxx image url : " + mRecipeEntity.getCoverImgURL());
+				oks.setImageUrl(mRecipeEntity.getCoverImgURL());
 				// url仅在微信（包括好友和朋友圈）中使用
 				oks.setUrl(String.format(Protocol.URL_RECIPE_SHARE, mRecipeId));
 				// appPath是待分享应用程序的本地路劲，仅在微信中使用
@@ -408,7 +395,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 				// site是分享此内容的网站名称，仅在QQ空间使用
 //				oks.setSite(getString(R.string.app_name));
 				// siteUrl是分享此内容的网站地址，仅在QQ空间使用
-				oks.setSiteUrl("http://o2o.m6fresh.com");
+//				oks.setSiteUrl("http://o2o.m6fresh.com");
 				// latitude是维度数据，仅在新浪微博、腾讯微博和Foursquare使用
 //				oks.setLatitude(39.922619f);
 				// longitude是经度数据，仅在新浪微博、腾讯微博和Foursquare使用
