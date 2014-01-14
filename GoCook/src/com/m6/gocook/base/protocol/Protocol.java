@@ -84,6 +84,12 @@ public class Protocol {
 	
 	public static final String URL_BUY_ORDER_QUERY = URL_ROOT + "/cook/his_orders";
 	
+	public static final String URL_BUY_ORDER_AUTH = URL_ROOT + "/cook/my_auth";
+	
+	public static final String URL_BUY_ORDERS = "http://o2o.m6fresh.com/ws/mobile_myorders.aspx";
+	
+	public static final String URL_BUY_SINGLE_ORDER = "http://o2o.m6fresh.com/ws/mobile_myorder0.aspx?code=%s";
+	
 	/* coupon */
 	public static final String URL_COUPON_SALE = URL_ROOT + "/cook/day_sales";
 	

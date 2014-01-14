@@ -28,6 +28,7 @@ import com.m6.gocook.base.entity.request.CShopcartInfo.CShopcartWareInfo;
 import com.m6.gocook.base.entity.response.CShopCartResult;
 import com.m6.gocook.base.entity.response.CWareItem;
 import com.m6.gocook.base.fragment.BaseFragment;
+import com.m6.gocook.base.fragment.BaseWebFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
 import com.m6.gocook.base.fragment.OnKeyDown;
 import com.m6.gocook.base.protocol.ErrorCode;
@@ -38,6 +39,7 @@ import com.m6.gocook.biz.account.WebLoginFragment;
 import com.m6.gocook.biz.main.MainActivityHelper;
 import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.order.OrderModel;
+import com.m6.gocook.biz.order.OrderWebFragment;
 import com.m6.gocook.util.model.ModelUtils;
 
 public class BuyListFragment extends BaseFragment implements OnKeyDown {
@@ -231,10 +233,12 @@ public class BuyListFragment extends BaseFragment implements OnKeyDown {
 				showProgress(false);
 				if (result != null && result.getResult() == Protocol.VALUE_RESULT_OK
 						&& !TextUtils.isEmpty(result.getOrderId())) {
-					Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
-					Intent intent = FragmentHelper.getIntent(mContext, BaseActivity.class, 
-							OrderListFragment.class.getName(), OrderListFragment.class.getName(), null);
-					startActivity(intent);
+					// 下单成功，跳转到订单web页面
+//					Toast.makeText(getActivity(), R.string.biz_buy_list_order_success, Toast.LENGTH_SHORT).show();
+					FragmentHelper.startActivity(getActivity(), 
+							BaseWebFragment.newInstance(getActivity(), OrderWebFragment.class.getName(), 
+									String.format(Protocol.URL_BUY_SINGLE_ORDER, result.getOrderId()), 
+									getString(R.string.biz_buy_single_order_title, AccountModel.getUsername(getActivity()))));
 					getActivity().finish();
 				} else {
 					if (result != null && result.getResult() == Protocol.VALUE_RESULT_ERROR) {

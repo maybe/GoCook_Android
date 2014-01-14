@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 0101</string>
+    <string name="build_version">build 0114</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -241,6 +241,7 @@
     <string name="biz_buy_details_input_method_title">选择加工方式</string>
     
     <string name="biz_buy_order_list_title">%s的购买</string>
+    <string name="biz_buy_single_order_title">%s的订单</string>
     
     <string name="biz_buy_order_details_createtime">创建时间：%s</string>
     <string name="biz_buy_order_details_orderid">订单号：%s</string>

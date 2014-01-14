@@ -1,6 +1,8 @@
 package com.m6.gocook.base.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,13 @@ public class BaseWebFragment extends BaseFragment {
 	private static final String PARAM_URL = "param_url";
 	private static final String PARAM_TITLE = "param_title";
 	
-	private String mUrl;
+	protected String mUrl;
+	protected String mTitle;
 	
-	public static BaseWebFragment newInstance(String url, String title) {
-		BaseWebFragment fragment = new BaseWebFragment();
+	private WebView mWebView;
+	
+	public static BaseWebFragment newInstance(Context context, String fragmentName, String url, String title) {
+		BaseWebFragment fragment = (BaseWebFragment) Fragment.instantiate(context, fragmentName);
 		Bundle bundle = new Bundle();
 		bundle.putString(PARAM_URL, url);
 		bundle.putString(PARAM_TITLE, title);
@@ -37,6 +42,7 @@ public class BaseWebFragment extends BaseFragment {
 		Bundle bundle = getArguments();
 		if (bundle != null) {
 			mUrl = bundle.getString(PARAM_URL);
+			mTitle = bundle.getString(PARAM_TITLE);
 		}
 	}
 	
@@ -50,14 +56,13 @@ public class BaseWebFragment extends BaseFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		Bundle bundle = getArguments();
 		ActionBar actionBar = getActionBar();
-		actionBar.setTitle(bundle != null ? bundle.getString(PARAM_TITLE) : "");
+		actionBar.setTitle(mTitle);
 		
-		final WebView webView = (WebView) getView().findViewById(R.id.webview);
-		webView.getSettings().setJavaScriptEnabled(true);
-		webView.loadUrl(mUrl);
-		webView.setWebChromeClient(new WebChromeClient() {
+		mWebView = (WebView) getView().findViewById(R.id.webview);
+		mWebView.getSettings().setJavaScriptEnabled(true);
+		mWebView.loadUrl(mUrl);
+		mWebView.setWebChromeClient(new WebChromeClient() {
 			
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
@@ -71,11 +76,11 @@ public class BaseWebFragment extends BaseFragment {
 			
 		});
 		
-		webView.setWebViewClient(new WebViewClient() {
+		mWebView.setWebViewClient(new WebViewClient() {
 			
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				webView.requestFocus();
+				mWebView.requestFocus();
 				super.onPageFinished(view, url);
 			}
 		});
@@ -83,4 +88,7 @@ public class BaseWebFragment extends BaseFragment {
 		showProgress(true);
 	}
 
+	public WebView getWebView() {
+		return mWebView;
+	}
 }

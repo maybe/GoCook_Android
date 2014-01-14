@@ -26,12 +26,15 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
 import com.m6.gocook.base.constant.Constants;
 import com.m6.gocook.base.entity.response.COrderQueryResult;
+import com.m6.gocook.base.fragment.BaseWebFragment;
 import com.m6.gocook.base.fragment.FragmentHelper;
+import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.protocol.ProtocolUtils;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.coupon.CouponListFragment;
 import com.m6.gocook.biz.order.OrderListFragment;
 import com.m6.gocook.biz.order.OrderModel;
+import com.m6.gocook.biz.order.OrderWebFragment;
 import com.m6.gocook.biz.recipe.my.MyCollectionsFragment;
 import com.m6.gocook.biz.recipe.my.MyRecipesFragment;
 import com.m6.gocook.util.cache.util.ImageCache;
@@ -167,9 +170,9 @@ public class MyAccountFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = FragmentHelper.getIntent(activity, BaseActivity.class, 
-						OrderListFragment.class.getName(), OrderListFragment.class.getName(), null);
-				startActivity(intent);
+				FragmentHelper.startActivity(getActivity(), 
+						BaseWebFragment.newInstance(getActivity(), OrderWebFragment.class.getName(), 
+								Protocol.URL_BUY_ORDERS, getString(R.string.biz_buy_order_list_title, AccountModel.getUsername(getActivity()))));
 			}
 		});
 		

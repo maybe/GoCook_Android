@@ -371,7 +371,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 			
 			@Override
 			public void onClick(View v) {
-				OnekeyShare oks = new OnekeyShare();
+				final OnekeyShare oks = new OnekeyShare();
 				// 分享时Notification的图标和文字
 				oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
 				// address是接收人地址，仅在信息和邮件使用
@@ -402,7 +402,7 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 				// longitude是经度数据，仅在新浪微博、腾讯微博和Foursquare使用
 //				oks.setLongitude(116.372338f);
 				// 是否直接分享（true则直接分享）
-				oks.setSilent(true);
+				oks.setSilent(false);
 				// 指定分享平台，和slient一起使用可以直接分享到指定的平台
 //				if (platform != null) {
 //				        oks.setPlatform(platform);
@@ -415,7 +415,8 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 					@Override
 					public void onShare(Platform platform, ShareParams paramsToShare) {
 						if ("SinaWeibo".equals(platform.getName())) {
-							paramsToShare.text = mRecipeEntity.getName() + " " + mRecipeEntity.getCoverImgURL() + " ";
+							paramsToShare.text += "【" + mRecipeEntity.getName() +
+									"】 " + String.format(Protocol.URL_RECIPE_SHARE, mRecipeId) + " ";
 						}
 					}
 				});
