@@ -55,7 +55,7 @@
         SortId="1"
         AppKey="4111016334"
         AppSecret="73ae61d5acd09acf37a6c6e36d30792d"
-        RedirectUrl="http://o2o.m6fresh.com"
+        RedirectUrl="https://api.weibo.com/oauth2/default.html"
         Enable="true" />
 
     <!-- Wechat微信和WechatMoments微信朋友圈的appid是一样的；

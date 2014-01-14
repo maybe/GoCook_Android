@@ -27,7 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 import com.m6.gocook.R;
 import com.m6.gocook.base.activity.BaseActivity;
@@ -407,7 +410,15 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 				// 去除注释可通过OneKeyShareCallback来捕获快捷分享的处理结果
 				// oks.setCallback(new OneKeyShareCallback());
 				//通过OneKeyShareCallback来修改不同平台分享的内容
-//				oks.setShareContentCustomizeCallback(
+				oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+					
+					@Override
+					public void onShare(Platform platform, ShareParams paramsToShare) {
+						if ("SinaWeibo".equals(platform.getName())) {
+							paramsToShare.text = mRecipeEntity.getName() + " " + mRecipeEntity.getCoverImgURL() + " ";
+						}
+					}
+				});
 //				new ShareContentCustomizeDemo());
 
 				oks.show(getActivity());
