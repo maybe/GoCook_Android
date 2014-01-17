@@ -14,6 +14,7 @@ public class People implements IParseable<JSONObject> {
 	private String image;
 	private int fans;
 	private int follows;
+	private int credit;
 	
 	public String getId() {
 		return id;
@@ -60,6 +61,14 @@ public class People implements IParseable<JSONObject> {
 	
 	public void setResult(int result) {
 		this.result = result;
+	}
+	
+	public int getCredit() {
+		return credit;
+	}
+
+	public void setCredit(int credit) {
+		this.credit = credit;
 	}
 
 	@Override

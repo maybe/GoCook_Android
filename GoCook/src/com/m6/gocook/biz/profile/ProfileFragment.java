@@ -65,6 +65,7 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 	
 	private int mFansCount;
 	private int mFollowCount;
+	private int mCreditCount;
 	
 	/**
 	 * 启动个人信息页面
@@ -285,6 +286,9 @@ public class ProfileFragment extends BaseFragment implements OnActivityAction {
 		
 		mFollowCount = ModelUtils.getIntValue(info, ProfileModel.FOLLOWING_COUNT, 0);
 		((TextView) view.findViewById(R.id.follow)).setText(getString(R.string.biz_profile_myaccount_follows_count, mFollowCount));
+		
+		mCreditCount = ModelUtils.getIntValue(info, ProfileModel.CREDIT, 0);
+		((TextView) view.findViewById(R.id.credit)).setText(getString(R.string.biz_profile_myaccount_credit_count, mCreditCount));
 		
 		// 个人简介
 		String intro = ModelUtils.getStringValue(info, ProfileModel.INTRO);

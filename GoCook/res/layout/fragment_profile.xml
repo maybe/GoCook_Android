@@ -48,6 +48,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
             android:layout_toRightOf="@id/follow"
+            android:layout_marginRight="8dp"
+            android:textColor="#b6ca63" />
+
+        <TextView
+            android:id="@+id/credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_toRightOf="@id/fans"
             android:textColor="#b6ca63" />
 
         <Button

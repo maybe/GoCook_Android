@@ -113,6 +113,7 @@
     
     <string name="biz_profile_myaccount_fans_count">%d粉丝</string>
     <string name="biz_profile_myaccount_follows_count">%d关注</string>
+    <string name="biz_profile_myaccount_credit_count">%d积分</string>
     <string name="biz_profile_myaccount_fans_title">%s的粉丝</string>
     <string name="biz_profile_myaccount_follows_title">%s关注的人</string>
     

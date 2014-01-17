@@ -45,6 +45,7 @@ public class ProfileModel {
 	public static final String RECIPES_COUNT = "recipe_count";
 	public static final String COLLECT_COUNT = "collect_count";
 	public static final String FOLLOWING_COUNT = "following_count";
+	public static final String CREDIT = "credit";
 	public static final String FOLLOWED_COUNT = "followed_count";
 	
 	private static final String KEY_USER_UNAUTHORIZED = "key_user_unauthorized";
@@ -322,6 +323,7 @@ public class ProfileModel {
 							People people = new People();
 							people.setFans(ModelUtils.getIntValue(list.get(i), FOLLOWED_COUNT, 0));
 							people.setFollows(ModelUtils.getIntValue(list.get(i), FOLLOWING_COUNT, 0));
+							people.setCredit(ModelUtils.getIntValue(list.get(i), CREDIT, 0));
 							people.setId(ModelUtils.getStringValue(list.get(i), "user_id"));
 							people.setName(ModelUtils.getStringValue(list.get(i), "name"));
 							people.setImage(ModelUtils.getStringValue(list.get(i), "portrait"));
