@@ -299,13 +299,8 @@ public class ProfileModel {
 		return null;
 	}
  	
-	public static ArrayList<People> getPeoples(Context context, int type) {
-		String result;
-		if (type == PeopleFragment.FOLLOWS) {
-			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_FOLLOWS, AccountModel.getCookie(context));
-		} else {
-			result = NetUtils.httpGet(Protocol.URL_PROFILE_MY_FANS, AccountModel.getCookie(context));
-		}
+	public static ArrayList<People> getPeoples(Context context, String url) {
+		String result = NetUtils.httpGet(url, AccountModel.getCookie(context));
 		if (TextUtils.isEmpty(result)) {
 			return null;
 		}

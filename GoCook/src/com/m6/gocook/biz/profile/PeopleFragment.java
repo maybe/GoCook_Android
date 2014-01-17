@@ -20,6 +20,7 @@ import com.m6.gocook.base.protocol.Protocol;
 import com.m6.gocook.base.view.ActionBar;
 import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.main.MainActivityHelper;
+import com.m6.gocook.util.net.NetUtils;
 
 public class PeopleFragment extends BaseListFragment implements OnActivityAction {
 
@@ -82,13 +83,17 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 	
 	@Override
 	protected String getURL() {
-		return Protocol.URL_PROFILE_MY_FOLLOWS;
+		if (mPeopleListType == PeopleFragment.FOLLOWS) {
+			return Protocol.URL_PROFILE_MY_FOLLOWS;
+		} else {
+			return Protocol.URL_PROFILE_MY_FANS;
+		}
 	}
 
 	@Override
 	protected void executeTask(int pageIndex) {
 		if(mPeopleListTask == null) {
-			mPeopleListTask = new PeopleListTask(getActivity(), mPeopleListType);
+			mPeopleListTask = new PeopleListTask(getActivity(), getURLWithPageNum());
 			mPeopleListTask.execute((Void) null); 
 		}
 	}
@@ -118,15 +123,16 @@ public class PeopleFragment extends BaseListFragment implements OnActivityAction
 
 		private Context mContext;
 		private int mPeopleType;
+		private String mUrl;
 		
-		public PeopleListTask(Context context, int type) {
+		public PeopleListTask(Context context, String url) {
 			mContext = context.getApplicationContext();
-			mPeopleType = type;
+			mUrl = url;
 		}
 		
 		@Override
 		protected ArrayList<People> doInBackground(Void... params) {
-			return ProfileModel.getPeoples(mContext, mPeopleType);
+			return ProfileModel.getPeoples(mContext, mUrl);
 		}
 		
 		@Override
