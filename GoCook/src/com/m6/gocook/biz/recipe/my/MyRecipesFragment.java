@@ -86,39 +86,39 @@ public class MyRecipesFragment extends RecipeListFragment implements OnActivityA
 
 	@Override
 	protected String getURL() {
-		return null; // 数据从getListData中得到，不需要url
+		return Protocol.URL_PROFILE_MY_RECIPE; // 数据从getListData中得到，不需要url
 	}
 	
 	@Override
-	protected boolean doPaginate() {
-		return false;
+	protected boolean needCookie() {
+		return true;
 	}
 	
-	@Override
-	protected RecipeList getListData(String url) {
-		if (mFromPersonnalProfile) {
-			return RecipeModel.getMyRecipes(getActivity());
-		} else {
-			List<Map<String, Object>> recipes = ModelUtils.getListMapValue(ProfileModel.getOtherInfo(getActivity(), "", true), ProfileModel.RECIPES);
-			if (recipes != null) {
-				int size = recipes.size();
-				ArrayList<RecipeItem> recipeItems = new ArrayList<RecipeList.RecipeItem>(); 
-				for (int i = 0; i < size; i++) {
-					RecipeItem item = new RecipeItem();
-					item.setId(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_ID));
-					item.setName(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_NAME));
-					item.setImage(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_IMAGE));
-					item.setMaterial(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_MATERIALS));
-					item.setCollectCount(ModelUtils.getIntValue(recipes.get(i), Protocol.KEY_RECIPE_DISH_COUNT, 0));
-					recipeItems.add(item);
-				}
-				RecipeList recipeList = new RecipeList();
-				recipeList.setRecipes(recipeItems);
-				return recipeList;
-			}
-			return null;
-		}
-	}
+//	@Override
+//	protected RecipeList getListData(String url) {
+//		if (mFromPersonnalProfile) {
+//			return RecipeModel.getMyRecipes(getActivity());
+//		} else {
+//			List<Map<String, Object>> recipes = ModelUtils.getListMapValue(ProfileModel.getOtherInfo(getActivity(), "", true), ProfileModel.RECIPES);
+//			if (recipes != null) {
+//				int size = recipes.size();
+//				ArrayList<RecipeItem> recipeItems = new ArrayList<RecipeList.RecipeItem>(); 
+//				for (int i = 0; i < size; i++) {
+//					RecipeItem item = new RecipeItem();
+//					item.setId(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_ID));
+//					item.setName(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_NAME));
+//					item.setImage(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_LIST_IMAGE));
+//					item.setMaterial(ModelUtils.getStringValue(recipes.get(i), Protocol.KEY_RECIPE_MATERIALS));
+//					item.setCollectCount(ModelUtils.getIntValue(recipes.get(i), Protocol.KEY_RECIPE_DISH_COUNT, 0));
+//					recipeItems.add(item);
+//				}
+//				RecipeList recipeList = new RecipeList();
+//				recipeList.setRecipes(recipeItems);
+//				return recipeList;
+//			}
+//			return null;
+//		}
+//	}
 	
 	@Override
 	protected String getEmptyMessage() {

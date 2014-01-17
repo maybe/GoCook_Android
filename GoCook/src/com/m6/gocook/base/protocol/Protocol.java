@@ -50,7 +50,7 @@ public class Protocol {
 	
 	public static final String URL_PROFILE_BASIC_INFO = URL_ROOT + "/user/basicinfo";
 	
-	public static final String URL_PROFILE_MY_RECIPE = URL_ROOT + "/cook/myrecipes";
+	public static final String URL_PROFILE_MY_RECIPE = URL_ROOT + "/cook/myrecipes?page=";
 	
 	public static final String URL_PROFILE_MY_COLLECTION = URL_ROOT + "/cook/mycoll?page=";
 	
