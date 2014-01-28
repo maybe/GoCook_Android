@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="build_version">build 0114</string>
+    <string name="build_version">build 0125</string>
     
     <string name="app_name">M6分享厨房</string>
     <string name="menu_settings">Settings</string>
@@ -124,6 +124,8 @@
     
     <!-- recipe -->
     <string name="biz_recipe_share_title">分享到</string>
+    <string name="biz_recipe_share_like">我喜欢这个菜</string>
+    <string name="biz_recipe_share_come">（分享自 @M6分享厨房）</string>
     <string name="biz_recipe_about">%d人收藏</string>
     <string name="biz_recipe_material">用料</string>
     <string name="biz_recipe_addto_shoppinglist">加入购买清单</string>
@@ -266,6 +268,9 @@
     <string name="biz_buy_dialog_material_title">请输入食材名</string>
     <string name="biz_buy_dialog_material_positive">添加</string>
     <string name="biz_buy_dialog_delete_title">是否清除本食材购买信息？</string>
+    <string name="biz_buy_dialog_material_empty">请输入食材名</string>
+    <string name="biz_buy_dialog_material_add_material">添加食材</string>
+    <string name="biz_buy_dialog_material_orders">订单管理</string>
     
     <!-- order -->
     <string name="biz_buy_order_empty_message">您最近%d个月没有购买过商品</string>

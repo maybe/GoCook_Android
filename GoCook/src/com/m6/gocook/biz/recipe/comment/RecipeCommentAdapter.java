@@ -14,10 +14,11 @@ import com.m6.gocook.R;
 import com.m6.gocook.base.entity.RecipeCommentList;
 import com.m6.gocook.base.entity.RecipeCommentList.RecipeCommentItem;
 import com.m6.gocook.base.protocol.ProtocolUtils;
+import com.m6.gocook.biz.account.AccountModel;
 import com.m6.gocook.biz.profile.ProfileFragment;
 import com.m6.gocook.util.cache.util.ImageFetcher;
 
-public class RecipeCommentAdapter extends BaseAdapter implements OnClickListener {
+public class RecipeCommentAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private RecipeCommentList mList;
@@ -33,9 +34,15 @@ public class RecipeCommentAdapter extends BaseAdapter implements OnClickListener
 		mContext = context;
 	}
 	
+	public void setData(RecipeCommentList data) {
+		if (data != null) {
+			mList = data;
+		}
+	}
+	
 	@Override
 	public int getCount() {
-		return mList.getCount();
+		return mList == null ? 0 : mList.getCount();
 	}
 
 	@Override
@@ -61,11 +68,23 @@ public class RecipeCommentAdapter extends BaseAdapter implements OnClickListener
 		} else {
 			holder = (ViewHold) convertView.getTag();
 		}
-		RecipeCommentItem item = (RecipeCommentItem) getItem(position);
+		final RecipeCommentItem item = (RecipeCommentItem) getItem(position);
 		holder.content.setText(item.getContent());
 		holder.date.setText(item.getCreateTime());
-		holder.avatar.setTag(item.getUserId());
-		holder.avatar.setOnClickListener(this);
+		holder.avatar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (TextUtils.isEmpty(item.getUserId())) {
+					return;
+				}
+				
+				ProfileFragment.startProfileFragment(mContext,
+						item.getUserId().equals(AccountModel.getUserId(mContext)) ? 
+								ProfileFragment.PROFILE_MYSELF : ProfileFragment.PROFILE_OTHERS, 
+								item.getUserId());
+			}
+		});
 		if(!TextUtils.isEmpty(item.getPortrait())) {
 			mImageFetcher.loadImage(ProtocolUtils.getURL(item.getPortrait()), holder.avatar);
 		} else {
@@ -83,16 +102,6 @@ public class RecipeCommentAdapter extends BaseAdapter implements OnClickListener
 	
 	public void addItem(RecipeCommentItem item) {
 		mList.addItem(item);
-	}
-
-	@Override
-	public void onClick(View v) {
-		if (v.getId() == R.id.avatar) {
-
-			ProfileFragment.startProfileFragment(mContext,
-					ProfileFragment.PROFILE_OTHERS, v.getTag().toString());
-		}
-
 	}
 
 }

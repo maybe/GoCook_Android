@@ -415,8 +415,10 @@ public class RecipeFragment extends BaseFragment implements OnActivityAction {
 					@Override
 					public void onShare(Platform platform, ShareParams paramsToShare) {
 						if ("SinaWeibo".equals(platform.getName())) {
-							paramsToShare.text += "【" + mRecipeEntity.getName() +
-									"】 " + String.format(Protocol.URL_RECIPE_SHARE, mRecipeId) + " ";
+							paramsToShare.text = "【" + mRecipeEntity.getName() +
+									"】 " + getString(R.string.biz_recipe_share_like) 
+									+ String.format(Protocol.URL_RECIPE_SHARE, mRecipeId) + " "
+									+ getString(R.string.biz_recipe_share_come);
 						}
 					}
 				});

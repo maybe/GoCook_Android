@@ -5,12 +5,31 @@
     android:background="@color/main_bg"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/header"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fragment_buy_list_header_selector"
-        android:layout_margin="10dp" />
+        android:padding="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/orders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/fragment_buy_list_header_selector"
+            android:text="@string/biz_buy_dialog_material_orders"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/add_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/fragment_buy_list_header_selector"
+            android:text="@string/biz_buy_dialog_material_add_material"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list"

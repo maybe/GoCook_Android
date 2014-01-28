@@ -118,7 +118,6 @@ public class RecipeCommentList implements IParseable<JSONObject> {
 			this.createTime = createTime;
 		}
 		
-		
 	}
 
 }

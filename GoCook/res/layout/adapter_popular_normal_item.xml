@@ -27,8 +27,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginRight="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/register_photo" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/image2"
@@ -36,8 +35,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
             android:layout_marginRight="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/register_photo" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/image3"
@@ -45,16 +43,14 @@
             android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
             android:layout_marginRight="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/register_photo" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/image4"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/biz_popular_item_image_size"
-            android:scaleType="fitXY"
-            android:src="@drawable/register_photo" />
+            android:scaleType="fitXY" />
     </LinearLayout>
 
 </FrameLayout>

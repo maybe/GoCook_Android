@@ -84,7 +84,7 @@ public class BuyListFragment extends BaseFragment implements OnKeyDown {
 		mAdapter = new BuyListAdapter(this, mData);
 		((ListView) getView().findViewById(R.id.list)).setAdapter(mAdapter);
 		
-		view.findViewById(R.id.header).setOnClickListener(new OnClickListener() {
+		view.findViewById(R.id.add_material).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -97,8 +97,12 @@ public class BuyListFragment extends BaseFragment implements OnKeyDown {
 	                    public void onClick(DialogInterface dialog, int whichButton) {
 	                    	if (mData != null && !mData.isEmpty() && mAdapter != null) {
 	                    		String materialName = ((EditText) textEntryView.findViewById(R.id.material)).getText().toString();
-	                    		mData.add(0, BuyModel.getManualMaterial(materialName));
-	                    		mAdapter.notifyDataSetChanged();
+	                    		if (!TextUtils.isEmpty(materialName) && !TextUtils.isEmpty(materialName.trim())) {
+	                    			mData.add(0, BuyModel.getManualMaterial(materialName));
+	                    			mAdapter.notifyDataSetChanged();
+	                    		} else {
+	                    			Toast.makeText(getActivity(), R.string.biz_buy_dialog_material_empty, Toast.LENGTH_SHORT).show();
+	                    		}
 	                    	}
 	                    }
 	                })
@@ -106,6 +110,22 @@ public class BuyListFragment extends BaseFragment implements OnKeyDown {
 	                .create()
 	                .show();
 			}
+		});
+		
+		view.findViewById(R.id.orders).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (!AccountModel.isLogon(getActivity())) {
+					FragmentHelper.startActivity(getActivity(), new WebLoginFragment());
+				} else {
+					
+					FragmentHelper.startActivity(getActivity(), 
+							BaseWebFragment.newInstance(getActivity(), OrderWebFragment.class.getName(), 
+									Protocol.URL_BUY_ORDERS, getString(R.string.biz_buy_order_list_title, AccountModel.getUsername(getActivity()))));
+				}
+			}
+			
 		});
 	}
 	
@@ -127,7 +147,6 @@ public class BuyListFragment extends BaseFragment implements OnKeyDown {
 				map.put(BuyModel.METHOD, wareItem.getDealMethod().get(0));
 				map.put(BuyModel.REMARK, wareItem.getRemark());
 				map.put(BuyModel.WAREID, wareItem.getId());
-				System.out.println("xxx recid : " + recId );
 				mOrderedCount++;
 			}
 		}

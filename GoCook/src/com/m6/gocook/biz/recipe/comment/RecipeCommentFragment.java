@@ -44,6 +44,7 @@ public class RecipeCommentFragment extends BaseFragment {
 	private EditText mInputText = null;
 	
 	private RecipeCommentAdapter mAdapter = null;
+	private RecipeCommentList mRecipeCommentList = new RecipeCommentList();
 	
 	private AchieveCommentsTask mReadCommentsTask = null;
 	private PostCommentTask mPostTask = null;
@@ -83,6 +84,11 @@ public class RecipeCommentFragment extends BaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		ListView list = (ListView) findViewById(R.id.comments_listview);
+		mAdapter = new RecipeCommentAdapter(mContext, mRecipeCommentList, mImageFetcher);
+		list.setAdapter(mAdapter);
+		
 		doCreate();
 	}
 	
@@ -103,7 +109,7 @@ public class RecipeCommentFragment extends BaseFragment {
 		
 		mInputText = (EditText) findViewById(R.id.input_edittext);
 		
-		mReadCommentsTask = new AchieveCommentsTask();
+		mReadCommentsTask = new AchieveCommentsTask(getActivity());
 		mReadCommentsTask.execute();
 		
 		
@@ -133,6 +139,12 @@ public class RecipeCommentFragment extends BaseFragment {
 	
 	public class AchieveCommentsTask extends AsyncTask<Void, Void, RecipeCommentList> {
 
+		private Context mContext;
+		
+		public AchieveCommentsTask(Context context) {
+			mContext = context.getApplicationContext();
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -148,9 +160,11 @@ public class RecipeCommentFragment extends BaseFragment {
 		protected void onPostExecute(RecipeCommentList result) {
 			showProgress(false);
 			if(result != null && isAdded()) {
-				ListView list = (ListView) findViewById(R.id.comments_listview);
-				mAdapter = new RecipeCommentAdapter(mContext, result, mImageFetcher);
-				list.setAdapter(mAdapter);
+				mRecipeCommentList = result;
+				if (mAdapter != null) {
+					mAdapter.setData(result);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 		}
 		
@@ -193,6 +207,7 @@ public class RecipeCommentFragment extends BaseFragment {
 			if(result) {
 				if(mAdapter != null) {
 					RecipeCommentItem item = new RecipeCommentItem();
+					item.setUserId(AccountModel.getUserId(mContext));
 					item.setName(AccountModel.getUsername(mContext));
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 					String currentDateandTime = sdf.format(new Date());
