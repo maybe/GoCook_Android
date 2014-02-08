@@ -15,13 +15,71 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
 
--keep class cn.sharesdk.**{*;}
--keep class com.sina.**{*;}
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-dontwarn
+-dontskipnonpubliclibraryclassmembers
+-keepattributes Signature
+
+# 不进行混淆保持原样 
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# 保护指定的类和类的成员，但条件是所有指定的类和类成员是要存在
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+ 
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# 保护指定类的成员，如果此类受到保护他们会保护的更好
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# 保护指定的类文件和类成员
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+
+-libraryjars libs/CWAC-SackOfViewsAdapter.jar
+-libraryjars libs/jsoup-1.7.2.jar
+-libraryjars libs/zxing.jar
+
+-keep class cn.sharesdk.** {*;}
+-keep class com.sina.** {*;}
 -keep class **.R$* {*;}
 -keep class **.R{*;}
+-keep class com.google.zxing.** {*;}
+
 -dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn com.google.zxing.**
 -dontwarn **.R$*
+
